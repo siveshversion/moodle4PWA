@@ -1,0 +1,7 @@
+{
+  "name": "moodlePWA",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
