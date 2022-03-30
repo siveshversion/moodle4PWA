@@ -1,27 +1,275 @@
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.lc-logo {
+  vertical-align: middle !important;
+  height: 60px !important;
+  width: 100px;
+  margin: 0.4em;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.lc-toolbar {
+  --background: var(--selectedColorCode);
+  --background-color: var(--selectedColorCode);
+  box-shadow: 0 0 35px 0 rgba(66, 72, 80, 0.15);
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+.lc-menu {
+  --background: var(--selectedColorCode);
+  --background-color: var(--selectedColorCode);
+  --side-max-width: 240px !important;
+  --side-min-width: 100px !important;
 
-  color: #8c8c8c;
-
-  margin: 0;
 }
 
-#container a {
-  text-decoration: none;
+lc-toolbar ios in-toolbar hydrated {
+  --background: var(--selectedColorCode);
+  --background-color: var(--selectedColorCode);
+}
+
+
+.lc-menu ion-content {
+  --background: transparent !important;
+}
+
+.lc-menu ion-content ion-list,
+.lc-menu ion-content ion-list ion-item {
+  --ion-background-color: transparent !important;
+  color: var(--selectedFontColor);
+  ;
+  font-size: 1.05em !important;
+  font-weight: 500 !important;
+  cursor: pointer;
+}
+
+.lc-menu ion-content ion-list ion-item ion-label {
+  padding-left: 1em !important;
+  font-size: 0.95em;
+}
+
+
+@media screen and (min-width: 769px) {
+
+  .content_frame {
+    height: 88vh;
+  }
+
+  .lc-logo {
+    margin: 0.4em 0em;
+  }
+
+  .lc-main-content {
+    min-width: -webkit-fill-available;
+    vertical-align: top;
+  }
+
+  .mat-expansion-panel-header {
+    width: 16em !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .content_frame {
+    height: 90vh;
+  }
+
+  .lc-logo {
+    margin: 0.4em 0em;
+  }
+
+  .lc-main-content {
+    min-width: -webkit-fill-available;
+    vertical-align: top;
+  }
+
+  .mat-expansion-panel-header {
+    width: 16em !important;
+  }
+}
+
+
+
+.lc-toolbar {
+  --background: var(--selectedColorCode);
+  --background-color: var(--selectedColorCode);
+  box-shadow: 0 0 35px 0 rgba(66, 72, 80, 0.15);
+}
+
+.header-translucent-ios ion-toolbar {
+  --opacity: none !important;
+}
+
+
+@media screen and (min-width: 769px) {
+  .mat-expansion-panel-header {
+    width: 12em !important;
+  }
+
+  .lc-expansion-header {
+    width: 18em !important;
+    font-size: 0.8rem;
+  }
+
+  .lc-profile-name {
+    padding-top: 20px;
+  }
+
+  .lc-profile {
+    text-align: right;
+    background-color: inherit;
+  }
+
+  .nav-expand {
+    margin-right: 60px !important;
+  }
+
+  .lc-logout {
+    color: var(--selectedFontColor);
+    font-size: 1.05em !important;
+    font-weight: 500 !important;
+    vertical-align: super !important;
+  }
+}
+
+.mat-expansion-panel {
+  background-color: inherit !important;
+  box-shadow: unset !important;
+}
+
+.mat-expansion-panel-header {
+  padding-right: 5px !important;
+  padding-left: 0 !important;
+}
+
+.mat-expansion-panel-header-title {
+  color: var(--selectedFontColor);
+  font-weight: 500 !important;
+}
+
+.lc-sub-menu {
+  font-size: 0.875rem;
+  color: var(--selectedFontColor);
+  cursor: pointer;
+  padding-left: 2.1rem;
+}
+
+.lc-menu-align {
+  padding-top: 2px;
+  color: var(--selectedFontColor);
+}
+
+.lc-mat-icon {
+  font-size: 45px !important;
+}
+
+.lc-profile-img {
+  height: 70%;
+  width: 70%;
+}
+
+.lc-avatar {
+  display: inline-flex;
+  margin-top: 16px;
+}
+
+::ng-deep .mat-menu-panel {
+  border-radius: 0px !important;
+}
+
+::ng-deep .mat-menu-content {
+  background: #141414;
+  padding: 1rem;
+  color: #ffffff;
+}
+
+::ng-deep .mat-menu-content .lc-profile-name {
+  font-weight: 500;
+}
+
+::ng-deep .mat-menu-content .mat-menu-item {
+  color: #ffffff;
+}
+
+#noNotifyLabel.lc-profile-name {
+  font-style: italic;
+  font-weight: 300;
+}
+
+#logoutLabel.lc-profile-name {
+  font-weight: 500;
+}
+
+.material-icons {
+  color: var(--selectedFontColor);
+}
+
+.mat-expansion-panel-header-description,
+.mat-expansion-indicator::after {
+  color: #000000 !important;
+}
+
+.RoleTitle {
+  color: var(--selectedFontColor);
+}
+
+
+@media only screen and (max-width: 1024px) {
+
+  /* For mobile phones: */
+  .custom_menu_btn {
+    display: none;
+  }
+
+  .ionic_menu_btn {
+    display: block;
+  }
+
+  .main_nav {
+    display: block;
+  }
+
+}
+
+@media only screen and (min-width: 1025px) {
+
+  /* For desktop: */
+  .custom_menu_btn {
+    display: block;
+  }
+
+  .ionic_menu_btn {
+    display: none;
+  }
+
+  .main_nav {
+    display: none;
+  }
+
+}
+
+
+ion-item {
+  --border-color: #000000;
+  --border-style: none;
+  --background: var(--selectedColorCode);
+  --background-color: var(--selectedColorCode);
+
+}
+
+.mat-drawer {
+  background-color: var(--selectedColorCode);
+}
+
+.list-md {
+  background-color: var(--selectedColorCode);
+}
+
+
+
+.item.sc-ion-label-md-h,
+.item .sc-ion-label-md-h {
+
+  padding-left: 5px;
+}
+
+.item.sc-ion-label-ios-h,
+.item .sc-ion-label-ios-h {
+  padding-left: 5px;
 }

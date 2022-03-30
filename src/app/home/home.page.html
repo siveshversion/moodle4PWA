@@ -1,7 +1,88 @@
-<ion-header [translucent]="true">
+<ion-content [fullscreen]="true" class="ion-padding" scroll-y="true" class="lc-content">
+    <ion-header [translucent]="true">
 
-</ion-header>
+        <ion-toolbar class="lc-toolbar">
 
-<ion-content [fullscreen]="true">
+
+
+            <button mat-icon-button slot="start">
+                <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+            </button>
+
+
+            <ng-container *ngIf="innerWidth <= 768">
+                <ion-buttons slot="primary">
+
+                    <ion-button (click)="logout()" style="height: 4em;">
+                        <mat-icon class="pointer">exit_to_app</mat-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ng-container>
+            <ion-item class="lc-profile" *ngIf="innerWidth > 768" style="float: right; --background: transparent;">
+                <div class="RoleTitle">Learner</div>
+                <!--button mat-button [matMenuTriggerFor]="notifyMenu" style="background-color: transparent; outline: none;"-->
+
+                <button mat-button [matMenuTriggerFor]="profileMenu"
+                    style="background-color: transparent; outline: none;">
+
+
+                </button>
+                <mat-menu #profileMenu="matMenu" yPosition="below">
+                    <!--button mat-menu-item (click)="navMenu('profile-view')">
+                        <mat-icon class="pointer">account_circle</mat-icon>
+                        <ion-label id="logoutLabel" class="lc-profile-name">{{'view_profile' | translate }}</ion-label>
+                    </button-->
+                    <button mat-menu-item (click)="logout()">
+                        <mat-icon class="pointer">exit_to_app</mat-icon>
+                        <ion-label id="logoutLabel" class="lc-profile-name">{{'logout' | translate }}</ion-label>
+                    </button>
+                </mat-menu>
+            </ion-item>
+        </ion-toolbar>
+    </ion-header>
+
+
+    <mat-sidenav-container>
+        <mat-sidenav #sidenav>
+            <mat-nav-list class="lc-menu">
+                <ion-list lines="none">
+                    <ion-item class="pointer">
+                        <mat-accordion>
+                            <mat-expansion-panel class="nav-expand">
+                                <mat-expansion-panel-header style="height:40px;">
+                                    <mat-panel-title><span class="material-icons">credit_card</span>
+                                        <ion-label class="lc-menu-align">{{'Manage_Users' | translate }}</ion-label>
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('buy-credit')">
+                                    <mat-list-item>
+                                        <a class="lc-sub-menu">{{'user_list' | translate }}</a>
+                                    </mat-list-item>
+                                </mat-list>
+                                <mat-list class="nav-list-container"
+                                    (click)="sidenav.toggle();navMenu('credit-history')">
+                                    <mat-list-item>
+                                        <a class="lc-sub-menu">{{'create_user' | translate }}</a>
+                                    </mat-list-item>
+                                </mat-list>
+                                <!--mat-list class="nav-list-container" (click)="navMenu('payment-history')">
+                                    <mat-list-item>
+                                        <a class="lc-sub-menu">Payment History</a></mat-list-item>
+                                </mat-list-->
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </ion-item>
+                </ion-list>
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <div class="content_frame">
+                <ion-router-outlet class="lc-main-content" id="main"></ion-router-outlet>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+
+
+
 
 </ion-content>
