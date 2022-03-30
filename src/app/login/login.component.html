@@ -4,7 +4,7 @@
 
     <div class="LoginMain">
       <ion-card class="lc-login" id="main">
-        <!-- <ion-img src="assets/logo/logo-light.png" class="lc-logo"></ion-img> -->
+        <ion-img src="assets/moodle.png" class="lc-logo"></ion-img>
         <ion-card-header>
           <ion-card-title>{{'welcome' | translate }}</ion-card-title>
           <ion-card-subtitle></ion-card-subtitle>
@@ -28,7 +28,8 @@
                 <ion-checkbox slot="start"></ion-checkbox>
                 <ion-label>{{'remember' | translate }}</ion-label>
               </ion-item>
-              <button expand="block" class="lc-btn" [disabled]="!loginForm.valid" (click)="onSubmit();">{{'signin' | translate
+              <button expand="block" class="lc-btn" [disabled]="!loginForm.valid" (click)="onSubmit();">{{'signin' |
+                translate
                 }}</button>
             </ion-list>
           </form>

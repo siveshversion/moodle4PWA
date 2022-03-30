@@ -1,0 +1,373 @@
+ion-card-title {
+  font-weight: 700;
+  color: #94a0ad;
+}
+
+ion-card-subtitle {
+  font-weight: 500;
+  color: #94a0ad;
+}
+
+ion-content {
+  --ion-background-color: #000000;
+}
+
+
+ion-item {
+  --color: #FFFFFF80;
+  --ion-background-color: transparent;
+}
+
+ion-list {
+  --ion-background-color: transparent;
+}
+
+.lc-logo {
+  vertical-align: middle !important;
+  height: 62px !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .lc-login {
+
+    justify-content: center;
+    text-align: center;
+    margin: 0px auto;
+    padding: 15% 0 0;
+    width: 100%;
+    background-color: #FFFFFF09;
+    overflow: auto;
+
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .lc-login {
+
+    justify-content: center;
+    text-align: center;
+    margin: 0% 10%;
+    padding: 2% 0;
+    background-color: #FFFFFF09;
+    overflow-x: auto;
+  }
+}
+
+.lc-label {
+  color: #94a0ad;
+  margin: 0.5em 0;
+  font-size: 1.0em;
+
+}
+
+.lc-note {
+  text-align: center;
+  color: #FFFFFF80;
+}
+
+.lc-input {
+  border-radius: 5px;
+  background-color: #2b2b2b;
+  --padding-start: 1em;
+  font-size: 0.9em;
+}
+
+input[type="text"]:focus {
+  background: transparent;
+  border: none;
+  outline-width: 0;
+}
+
+.lc-checkbox {
+
+  color: #94a0ad;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+ion-checkbox {
+  --border-color: #94a0ad;
+}
+
+.lc-btn {
+  padding: 5px;
+  background-color: #3880ff;
+  color: #fff;
+  min-width: 90%;
+  border-radius: 3px;
+  min-height: 35px;
+  text-transform: uppercase;
+}
+
+p {
+  padding: 1em;
+  text-align: justify;
+  font-size: 0.8em;
+}
+
+select {
+  background-color: black;
+  padding: 10px;
+}
+
+select option {
+  background-color: black;
+  color: white;
+}
+
+.langSelector {
+
+  width: 50px;
+  margin-right: 100px;
+  margin-top: 10px;
+  overflow: visible;
+  float: right;
+}
+
+.forgot {
+  margin: 0 auto;
+}
+
+.forgot_div {
+
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  font-size: .90em;
+}
+
+.passwordIcon {
+  font-size: 25px;
+  color: black;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  display: block;
+  position: relative;
+  margin-left: auto;
+  bottom: 30px;
+  right: 5px;
+  z-index: 10;
+  margin-right: 0;
+}
+
+.signup p {
+  position: absolute;
+  margin: auto;
+  text-align: center;
+  width: 100%;
+  font-size: 1em;
+}
+
+.signup_txt {
+  background-color: transparent;
+  color: #3880ff;
+  cursor: pointer;
+}
+
+.my-custom-class {
+  overflow: hidden;
+}
+
+.preloading {
+  background-color: #cccccc;
+}
+
+ion-item {
+
+  --border-style: none;
+}
+
+.ContentMain {
+  width: 100%;
+  margin-top: 65px;
+}
+
+@media only screen and (min-width: 1367px) {
+
+  .SliderMainMobile {
+    display: none;
+  }
+
+  .SliderMainWeb {
+    width: 60%;
+    float: left;
+    padding-left: 20px;
+  }
+
+  .LoginMain {
+    width: 40%;
+    float: right;
+  }
+
+
+  .cusBox {
+    border: 2px solid rgba(255, 255, 255, .25);
+    border-radius: .75em;
+    padding: 5px;
+    width: 14.3%;
+  }
+
+
+}
+
+
+@media only screen and (max-width: 1366px) {
+  .SliderMainWeb {
+    width: 60%;
+    float: left;
+    display: none;
+  }
+
+  .next-slide {
+    display: none;
+  }
+
+  .prev-slide {
+    display: none;
+  }
+
+  .SliderMainMobile {
+    width: 100%;
+    text-align: center;
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .LoginMain {
+    width: 100%;
+    float: right;
+  }
+
+  .cusBox {
+    width: 70%;
+    margin: 0px auto;
+    margin-bottom: 10px;
+    border: 2px solid rgba(255, 255, 255, .25);
+    border-radius: .75em;
+    padding: 5px;
+
+  }
+
+
+
+}
+
+.loginTitle {
+  color: #ffffff;
+  padding: 2px;
+  padding-top: 10px;
+  font-size: 1.0em;
+
+}
+
+.loginDesc {
+  color: #ffffff;
+  padding: 2px;
+  font-size: 0.8em;
+}
+
+.textWhite {
+  color: #ffffff;
+  padding: 2px;
+  font-size: 0.8em;
+}
+
+
+
+.textWhiteBig {
+  color: #ffffff;
+  padding: 2px;
+  font-size: 1.2em;
+
+}
+
+.textWhiteMedium {
+  color: #ffffff;
+  padding: 2px;
+  font-size: 1.0em;
+}
+
+.textWhiteSmall {
+  color: #ffffff;
+  padding: 2px;
+  font-size: 0.8em;
+}
+
+.textBlueBig {
+  color: #005aab;
+  padding: 2px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.textBlueMedium {
+  color: #005aab;
+  padding: 2px;
+  font-size: 1.0em;
+}
+
+.textBlueSmall {
+  color: #005aab;
+  padding: 2px;
+  font-size: 0.8em;
+
+}
+
+.textRedBig {
+  color: #ed001c;
+  padding: 2px;
+  font-size: 1.2em;
+}
+
+.textRedMedium {
+  color: #ed001c;
+  padding: 2px;
+  font-size: 1.0em;
+}
+
+.textRedSmall {
+  color: #ed001c;
+  padding: 2px;
+  font-size: 0.8em;
+}
+
+
+.logoBox {
+  border: 2px solid rgba(255, 255, 255, .25);
+  border-radius: .75em;
+  padding: 20px;
+  background-color: #101010;
+
+}
+
+.footerBox {
+  /*border:2px solid rgba(255,255,255,.25);*/
+  font-size: 0.8em;
+  padding: 5px;
+  color: #ffffff;
+
+}
+
+.footerWeb {
+  width: 100%
+}
+
+@media only screen and (max-width: 1366px) {
+  .footerWeb {
+    display: none;
+  }
+}
+
+.slide-text {
+  margin-bottom: 10px;
+}
+
+.item {
+  cursor: pointer;
+}
+
+.sc-ion-modal-md-h.my-custom-class {
+  background-color: rgba(76, 175, 80, 0.3) !important;
+}
