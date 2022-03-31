@@ -1,0 +1,100 @@
+<ion-content [fullscreen]="true" class="ion-padding" scroll-y="true" class="lc-content">
+    <ion-grid>
+        <ion-row>
+            <ion-col col-5 class="ion-no-padding">
+                <ion-header>{{'user_list' | translate }}</ion-header>
+            </ion-col>
+            <ion-col col-2 class="ion-no-padding"></ion-col>
+            <ion-col col-5 class="ion-no-padding">
+                <ion-item lines="none" color="none">
+                    <input type="text" class="lc-input" #searchVal (input)="applyFilter(searchVal.value)"
+                        placeholder="Search" type="text" />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><span class="material-icons">search</span>
+                        </span>
+                    </div>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col class="ion-no-padding">
+                <ion-card class="lc-section">
+                    <ion-card-header class="lc-table-no-padding">
+                        <ion-row>
+                            <ion-col>
+                                <div class="example-container">
+                                    <mat-table [dataSource]="dataSource">
+                                        <ng-container matColumnDef="UserId">
+                                            <mat-header-cell *matHeaderCellDef>{{'username' | translate }}
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let element">
+                                                <span class="mobile-label">{{'username' | translate }}:</span>
+                                                <span class="cell-align">{{element.username || "--"}}</span>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="FirstName">
+                                            <mat-header-cell *matHeaderCellDef>{{'firstname' | translate }}
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let element">
+                                                <span class="mobile-label">{{'firstname' | translate }}:</span>
+                                                <span class="cell-align">{{element.firstname || "--"}}</span>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="LastName">
+                                            <mat-header-cell *matHeaderCellDef>{{'lastname' | translate }}
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let element">
+                                                <span class="mobile-label">{{'lastname' | translate }}:</span>
+                                                <span class="cell-align">{{element.lastname || "--"}}</span>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="DateofCreation">
+                                            <mat-header-cell *matHeaderCellDef style="justify-content:center;">
+                                                {{'date_of_creation' | translate }}</mat-header-cell>
+                                            <mat-cell *matCellDef="let element" style="justify-content:center;">
+                                                <span class="mobile-label">{{'date_of_creation' | translate }}:</span>
+                                                <span class="cell-align">{{ (element.createdon !== null) ?
+                                                    (element.createdon | date: 'dd/MM/yyyy') : "--" }}</span>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="LastAccess">
+                                            <mat-header-cell *matHeaderCellDef style="justify-content:center;">
+                                                {{'last_access' | translate }}</mat-header-cell>
+                                            <mat-cell *matCellDef="let element" style="justify-content:center;">
+                                                <span class="mobile-label">{{'last_access' | translate }}:</span>
+                                                <span class="cell-align">{{element.lastaccess || "N/A"}}</span>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="Action">
+                                            <mat-header-cell *matHeaderCellDef>{{'action' | translate }}
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let element">
+                                                <span class="mobile-label">{{'action' | translate }}:</span>
+                                                <span class="cell-align">
+                                                    <span class="material-icons" title="{{'edit' | translate }}"
+                                                        (click)="navMenu('user-registration',element.id)">edit</span>&nbsp;
+                                                    <span class="material-icons" title="{{'delete' | translate }}"
+                                                        (click)="delete(element.id)">delete</span>&nbsp;
+                                                    <span class="material-icons"
+                                                        title="{{element.toggleTitle | translate }}"
+                                                        (click)="suspend(element.id,element.suspended)">{{element.toggleIcon
+                                                        || "person_off"}}</span>&nbsp;
+                                                </span>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
+                                        <mat-row *matRowDef="let row; columns: displayedColumns; "></mat-row>
+                                    </mat-table>
+                                </div>
+                                <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5,10,25,50,100]"
+                                    showFirstLastButtons>
+                                </mat-paginator>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card-header>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

@@ -3,8 +3,6 @@
 
         <ion-toolbar class="lc-toolbar">
 
-
-
             <button mat-icon-button slot="start">
                 <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
             </button>
@@ -50,25 +48,20 @@
                         <mat-accordion>
                             <mat-expansion-panel class="nav-expand">
                                 <mat-expansion-panel-header style="height:40px;">
-                                    <mat-panel-title><span class="material-icons">credit_card</span>
-                                        <ion-label class="lc-menu-align">{{'Manage_Users' | translate }}</ion-label>
+                                    <mat-panel-title><span class="material-icons">account_box</span>
+                                        <ion-label class="lc-menu-align">{{'manage_users' | translate }}</ion-label>
                                     </mat-panel-title>
                                 </mat-expansion-panel-header>
-                                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('buy-credit')">
+                                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('users')">
                                     <mat-list-item>
                                         <a class="lc-sub-menu">{{'user_list' | translate }}</a>
                                     </mat-list-item>
                                 </mat-list>
-                                <mat-list class="nav-list-container"
-                                    (click)="sidenav.toggle();navMenu('credit-history')">
+                                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('add-new-user')">
                                     <mat-list-item>
-                                        <a class="lc-sub-menu">{{'create_user' | translate }}</a>
+                                        <a class="lc-sub-menu">{{'add_new_user' | translate }}</a>
                                     </mat-list-item>
                                 </mat-list>
-                                <!--mat-list class="nav-list-container" (click)="navMenu('payment-history')">
-                                    <mat-list-item>
-                                        <a class="lc-sub-menu">Payment History</a></mat-list-item>
-                                </mat-list-->
                             </mat-expansion-panel>
                         </mat-accordion>
                     </ion-item>

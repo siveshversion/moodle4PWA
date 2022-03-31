@@ -1,16 +1,18 @@
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatTableModule } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
+import { HomePageRoutingModule } from './home-routing.module';
+import { GlobalApiService } from '../services/global-api.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule, } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -21,9 +23,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { HomePageRoutingModule } from './home-routing.module';
-import { GlobalApiService } from '../services/global-api.service';
-import { HttpLoaderFactory } from '../app.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ManageUsersComponent } from './user-management/manage-users/manage-users.component';
+import { AddUsersComponent } from './user-management/add-users/add-users.component';
 
 
 @NgModule({
@@ -42,13 +44,13 @@ import { HttpLoaderFactory } from '../app.module';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    MatTableModule,
     MatPaginatorModule,
     MatListModule,
     MatTabsModule,
     MatIconModule,
     MatBadgeModule,
     MatMenuModule,
+    MatTableModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -57,7 +59,12 @@ import { HttpLoaderFactory } from '../app.module';
       }
     }),
   ],
-  declarations: [HomePage],
+  declarations: [HomePage,ManageUsersComponent,AddUsersComponent],
   providers: [GlobalApiService, HttpClient, Storage]
 })
 export class HomePageModule { }
+
+// required for AOT compilation
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}

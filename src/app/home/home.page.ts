@@ -9,6 +9,7 @@ import { Storage } from '@ionic/storage-angular';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  providers: [TranslateService]
 })
 export class HomePage {
 
@@ -23,7 +24,9 @@ export class HomePage {
     private alert: AlertController,
     private service: GlobalApiService,
     private translateService: TranslateService,
-    private elRef: ElementRef,) {}
+    private elRef: ElementRef,) {
+      this.translateService.setDefaultLang('en');
+    }
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -38,13 +41,18 @@ export class HomePage {
 
   }
 
+  ngOnInit(){
+    this.elRef.nativeElement.style.setProperty('--selectedColorCode', '#1B1B1B');
+    this.elRef.nativeElement.style.setProperty('--background', '#1B1B1B');
+    this.elRef.nativeElement.style.setProperty('--selectedFontColor', '#94a0ad');
+    this.elRef.nativeElement.style.setProperty('--color', '#94a0ad');
+  }
+
   navMenu(routeName: any) {
-    localStorage.setItem('plan_expired', '0');
-    const today = new Date();
-    if (localStorage.getItem('recent_txnToken') != '') {
-      this.navCtrl.navigateForward('/home/dashboard', { queryParams: { dashboard: 2 } });
-    } else {
-      this.navCtrl.navigateForward('/home/dashboard');
+    if(routeName == 'users'){
+      this.navCtrl.navigateForward('/home/users');
+    } else if(routeName == 'add-new-user'){
+      this.navCtrl.navigateForward('/home/usercreation');
     }
   }
 
