@@ -1,32 +1,38 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, ElementRef, HostListener } from '@angular/core';
 import { AlertController, MenuController, NavController } from '@ionic/angular';
 import { GlobalApiService } from '../services/global-api.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Storage } from '@ionic/storage-angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  providers: [TranslateService]
+  providers: [TranslateService,Storage]
 })
 export class HomePage {
 
   innerWidth: number;
   hamburgFlag = false;
+  loginDetails: any = '';
+  cancel_text: string;
+  logout_text: string;
+  title_text: string;
+  msg: string;
 
   constructor(
     private route: Router,
     private menu: MenuController,
     private navCtrl: NavController,
     private storage: Storage,
-    private alert: AlertController,
+    private acroute: ActivatedRoute,
+    public alertCtrl: AlertController,
     private service: GlobalApiService,
     private translateService: TranslateService,
     private elRef: ElementRef,) {
-      this.translateService.setDefaultLang('en');
-    }
+    this.translateService.setDefaultLang('en');
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -38,10 +44,11 @@ export class HomePage {
   }
 
   logout() {
-
+    this.showAffirmativeAlert();
   }
 
-  ngOnInit(){
+
+  ngOnInit() {
     this.elRef.nativeElement.style.setProperty('--selectedColorCode', '#1B1B1B');
     this.elRef.nativeElement.style.setProperty('--background', '#1B1B1B');
     this.elRef.nativeElement.style.setProperty('--selectedFontColor', '#94a0ad');
@@ -51,17 +58,49 @@ export class HomePage {
   }
 
   navMenu(routeName: any) {
-    if(routeName == 'users'){
+    if (routeName == 'users') {
       this.navCtrl.navigateForward('/home/users');
-    } else if(routeName == 'add-new-user'){
+    } else if (routeName == 'add-new-user') {
       this.navCtrl.navigateForward('/home/usercreation');
-    }else if(routeName == 'dashboard'){
+    } else if (routeName == 'dashboard') {
       this.navCtrl.navigateForward('/home/dashboard');
     }
+  }
+
+  ionViewDidEnter() {
+    // this.storage.get('user').then((val) => {
+    //   this.loginDetails = JSON.parse(val);
+    //   if (val.profileimageurlsmall === null || val.profileimageurlsmall == '') {
+    //     this.loginDetails.profileimageurlsmall = './assets/icon/user-8.png';
+    //   }
+
+    // });
+    this.onResize();
   }
 
   stickyMenu() {
     this.menu.getOpen();
   }
+
+  async showAffirmativeAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm Logout?',
+      message: '',
+      backdropDismiss: false,
+      buttons: [{
+        text: 'Cancel',
+        handler: () => {
+        }
+      }, {
+        text: 'Yes',
+        handler: () => {
+          this.route.navigateByUrl('login');
+        }
+      },]
+    });
+    await alert.present();
+    await alert.onDidDismiss();
+  }
+
 
 }

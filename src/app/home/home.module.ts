@@ -27,6 +27,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ManageUsersComponent } from './user-management/manage-users/manage-users.component';
 import { AddUsersComponent } from './user-management/add-users/add-users.component';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { AddUsersComponent } from './user-management/add-users/add-users.compone
     CommonModule,
     FormsModule,
     IonicModule,
+    IonicStorageModule.forRoot(),
     HomePageRoutingModule,
     MatButtonModule,
     MatSidenavModule,

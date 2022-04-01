@@ -58,7 +58,7 @@ export class ManageUsersComponent implements OnInit {
   ngOnInit() { }
 
   getUserList() {
-    //this.showLoader('Loading User list...<br> Please wait...');
+    this.showLoader('Loading User list...<br> Please wait...');
     this.userList = [];
 
     let ToggleIcon: string;

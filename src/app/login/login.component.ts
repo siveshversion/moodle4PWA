@@ -4,12 +4,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertController, LoadingController, MenuController, ModalController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [GlobalApiService]
+  providers: [GlobalApiService,Storage]
 })
 export class LoginComponent implements OnInit {
 
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   passType: any;
 
   constructor(private translate: TranslateService,
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
+    private storage: Storage, 
     private router: Router, 
     private service: GlobalApiService,
     public alertCtrl: AlertController, 
@@ -59,8 +61,6 @@ export class LoginComponent implements OnInit {
         console.log(JSON.stringify(res));
         this.hideLoader();
         if (res.Data.result == 1) {
-          alert('Success');
-
           localStorage.setItem('username', (this.loginForm.value).username);
           localStorage.setItem('password', (this.loginForm.value).password);
           localStorage.setItem('user_key', res.Data.token);
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
 
           this.router.navigateByUrl('home');
 
-          // this.getUserDetails();
+        //  this.getUserDetails();
 
         } else {
           this.showAlert('Wrong username or password. Please try again.');
@@ -111,5 +111,22 @@ export class LoginComponent implements OnInit {
       await alert.present();
       await alert.onDidDismiss();
     }
+
+    // getUserDetails() {
+    //   this.hideLoader();
+    //   this.service.lc_user(localStorage.getItem('username')).subscribe(
+    //     (res: any) => {
+    //       console.log(JSON.stringify(res));
+    //         //localStorage.setItem('user_id', res[0].id);
+            
+    //         this.storage.set('user', JSON.stringify(res[0]));
+    //         // localStorage.setItem('user', JSON.stringify(res[0]));
+    //         //this.createUserKey();
+    //     },
+    //     (err: any) => {
+    //       console.log(err);
+    //     }
+    //   );
+    // }
   
 }

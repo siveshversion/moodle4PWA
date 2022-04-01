@@ -17,12 +17,20 @@
                 </ion-buttons>
             </ng-container>
             <ion-item class="lc-profile" *ngIf="innerWidth > 768" style="float: right; --background: transparent;">
-                <div class="RoleTitle">Learner</div>
+                <!--<div class="RoleTitle">Learner</div> -->
                 <!--button mat-button [matMenuTriggerFor]="notifyMenu" style="background-color: transparent; outline: none;"-->
 
                 <button mat-button [matMenuTriggerFor]="profileMenu"
                     style="background-color: transparent; outline: none;">
-
+                    <mat-panel-title>
+                        <ion-avatar class="lc-avatar">
+                            <ion-img [src]="loginDetails.profileimageurlsmall" class="lc-profile-img"
+                                *ngIf="loginDetails.profileimageurlsmall !== null"></ion-img>
+                            <ion-img src="../../assets/icon/account.png" class="lc-profile-img"
+                                *ngIf="loginDetails.profileimageurlsmall === null"></ion-img>
+                        </ion-avatar>
+                        <ion-label class="lc-profile-name">{{loginDetails.fullname}}</ion-label>
+                    </mat-panel-title>
 
                 </button>
                 <mat-menu #profileMenu="matMenu" yPosition="below">
