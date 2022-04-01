@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  lc_moodle_url: 'http://localhost/moodle311'
+  MOODLE_TOKEN: '6c55a6c123a01a545efc8c20fd3a0d8a',
+  lc_moodle_url: 'http://localhost/moodle311',
+  api_path: '/cm/api/methods.php'
 };
 
 /*

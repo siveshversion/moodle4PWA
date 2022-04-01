@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -25,33 +25,46 @@ export interface Users {
 
 export class ManageUsersComponent implements OnInit {
 
-  userList=[];
-  users:any =[];
+  userList = [];
+  users: any = [];
+  data: any;
 
   dataSource: any;
-  displayedColumns = ['UserId', 'FirstName', 'LastName','DateofCreation', 'LastAccess', 'Action'];
+  displayedColumns = ['UserId', 'FirstName', 'LastName', 'DateofCreation', 'LastAccess', 'Action'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   constructor(private service: GlobalApiService, public alertCtrl: AlertController,
     public loadingController: LoadingController,
-    private http: HttpClient, private route:Router,
-    private translateService:TranslateService) {
-        this.translateService.setDefaultLang('en');
+    private http: HttpClient, private route: Router,
+    private navCtrl: NavController,
+    private translateService: TranslateService) {
+    this.translateService.setDefaultLang('en');
+    this.route.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+
+    this.data = this.route.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Trick the Router into believing it's last link wasn't previously loaded
+        this.route.navigated = false;
+        let navigation = this.route.url;
+        if (navigation === '/home/users') {
+          this.getUserList();
+        }
       }
-  ngOnInit() {
-    this.getUserList();
+    });
   }
+
+  ngOnInit() { }
+
   getUserList() {
-
-
-    //this.showLoader('Loading Student list...<br> Please wait...');
-
+    //this.showLoader('Loading User list...<br> Please wait...');
     this.userList = [];
 
     let ToggleIcon: string;
     let ToggleTitle: string;
     const data = new FormData();
-    // data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('wstoken', environment.MOODLE_TOKEN);
 
     this.service.lc_mod_get_user_list(data).subscribe(
       res => {
@@ -98,7 +111,11 @@ export class ManageUsersComponent implements OnInit {
 
   navMenu(routeName: string, user_id: number) {
     if (routeName === 'users') {
-      this.route.navigateByUrl('users');
+      this.navCtrl.navigateForward('/home/users');
+    }
+    else if (routeName === 'user-registration') {
+      this.navCtrl.navigateForward('/home/usercreation', { queryParams: { id: user_id } });
+
     }
   }
 
@@ -108,53 +125,69 @@ export class ManageUsersComponent implements OnInit {
     let formData = new FormData();
     mode = (mode == '1') ? '0' : '1';
     let status = (mode == '0') ? ' Activated ' : ' Suspended ';
-    formData.append("student_id", userid);
+    formData.append("user_id", userid);
     formData.append("mode", mode);
-    // this.service.lc_mod_suspend_student(formData).subscribe((response) => {
-    //   if (response) {
-    //     this.hideLoader();
-    //     let msg = "User" + status + "Successfully"
-    //     this.showAlert(msg);
-    //   }
-    // }, err => {
-    //   console.log(err);
-    //   this.hideLoader();
-    // });
+    this.service.lc_mod_suspend_user(formData).subscribe((response) => {
+      if (response) {
+        this.hideLoader();
+        let msg = "User" + status + "Successfully"
+        this.showAlert(msg);
+      }
+    }, err => {
+      console.log(err);
+      this.hideLoader();
+    });
   }
 
 
   delete(userid: any) {
     this.showLoader('Processing Request...');
     let formData = new FormData();
-    formData.append("student_id", userid);
-    // this.service.lc_mod_delete_student(formData).subscribe((response) => {
-    //   if (response) {
-    //     this.hideLoader();
-    //     let msg = 'Student Deleted successfully';
-    //     this.showAlert(msg);
-    //   }
-    // }, err => {
-    //   console.log(err);
-    //   this.hideLoader();
-    // });
+    formData.append("user_id", userid);
+    this.service.lc_mod_delete_user(formData).subscribe((response) => {
+      if (response.Data) {
+        this.hideLoader();
+        let msg = 'User Deleted successfully';
+        this.showAlert(msg);
+      }
+    }, err => {
+      console.log(err);
+      this.hideLoader();
+    });
+  }
+
+  async showAlert(msg: string) {
+    const alert = await this.alertCtrl.create({
+      header: 'Status',
+      message: msg,
+      buttons: [{
+        text: 'OK',
+        handler: () => {
+          this.getUserList();
+        }
+      },]
+    });
+    await alert.present();
+    await alert.onDidDismiss();
   }
 
 
-    // Show the loader for infinite time
-    showLoader(msg: any) {
-      this.loadingController.create({
-        message: msg,
-      }).then((res) => {
-        res.present();
-      });
-    }
-  
-    // Hide the loader if already created otherwise return error
-    hideLoader() {
-      this.loadingController.dismiss().then((res) => {
-      }).catch((error) => {
-      });
-    }
+
+  // Show the loader for infinite time
+  showLoader(msg: any) {
+    this.loadingController.create({
+      message: msg,
+    }).then((res) => {
+      res.present();
+    });
+  }
+
+  // Hide the loader if already created otherwise return error
+  hideLoader() {
+    this.loadingController.dismiss().then((res) => {
+    }).catch((error) => {
+    });
+  }
 
 
 }

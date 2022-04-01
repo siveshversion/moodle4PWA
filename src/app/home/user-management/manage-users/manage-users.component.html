@@ -55,7 +55,7 @@
                                             <mat-cell *matCellDef="let element" style="justify-content:center;">
                                                 <span class="mobile-label">{{'date_of_creation' | translate }}:</span>
                                                 <span class="cell-align">{{ (element.createdon !== null) ?
-                                                    (element.createdon | date: 'dd/MM/yyyy') : "--" }}</span>
+                                                    (element.createdon) : "N/A" }}</span>
                                             </mat-cell>
                                         </ng-container>
                                         <ng-container matColumnDef="LastAccess">

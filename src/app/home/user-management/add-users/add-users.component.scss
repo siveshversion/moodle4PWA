@@ -1,0 +1,116 @@
+ion-header {
+    color: #fff !important;
+    font-weight: 700;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-top: 34px;
+    padding-bottom: 10px;
+}
+
+.lc-note {
+    text-align: center;
+    color: #FFFFFF80;
+}
+
+.lc-input {
+    border-radius: 5px;
+    background-color: #2b2b2b;
+    --padding-start: 1em;
+    font-size: 0.9em;
+    min-width: 50%;
+    max-width: 99%;
+}
+
+input.native-input.sc-ion-input-md {
+    background-color: #898F96;
+}
+
+ion-card-title {
+    font-weight: 700;
+    color: #94a0ad;
+}
+
+ion-card-subtitle {
+    font-weight: 500;
+    color: #94a0ad;
+}
+
+ion-content {
+    --ion-background-color: #000000;
+}
+
+ion-item {
+    --color: #FFFFFF80;
+    --ion-background-color: transparent;
+    padding-top: 15px;
+}
+
+ion-list {
+    --ion-background-color: transparent;
+}
+
+ion-header.md.header-md.header-collapse-none.hydrated {
+    background-color: #000000;
+}
+
+.inputIcon {
+    font-size: 25px;
+    color: black;
+    border: none;
+    outline: none;
+    display: block;
+    position: relative;
+    z-index: 10;
+    margin-left: -35px;
+}
+
+.pwdIcon {
+    font-size: 25px;
+    color: black;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    display: block;
+    position: relative;
+    z-index: 10;
+    margin-left: -35px;
+}
+
+#lc_pass {
+    background: #969CA5;
+}
+
+.lc-btn {
+    cursor: pointer;
+    background-color: #16ACF0;
+    color: #fff;
+    min-width: 99%;
+    min-height: 30px;
+    --border-radius: 8px;
+    text-transform: uppercase;
+}
+
+#nationality {
+    height: 44px;
+    width: 99%;
+}
+
+.card-custom {
+    width: 100%;
+    margin-left: 2%;
+}
+
+@media only screen and (min-device-width: 668px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
+    .card-custom {
+        width: 50%;
+        margin-left: 2%;
+    }
+}
+
+ion-text.md.hydrated {
+    display: block;
+}
+
+ion-item {
+    margin-top: 8px;
+}

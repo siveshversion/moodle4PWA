@@ -25,8 +25,6 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-
-
 .swiper-slide {
   display: inline-table !important;
 }
@@ -110,6 +108,7 @@
 }
 
 .mat-select-value {
+  width:95% !important;
   color: #94a0ad !important;
 }
 
@@ -712,7 +711,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .lc-title {
   margin-top: 1em;
-  --color: #94a0ad;
+  --color: white;
   font-weight: bold;
 }
 
