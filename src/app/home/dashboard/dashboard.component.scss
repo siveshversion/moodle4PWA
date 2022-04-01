@@ -1,0 +1,43 @@
+.lc-content {
+    --background: #000000;
+}
+
+.lc-section {
+    height: auto;
+    --background: #1B1B1B;
+}
+
+.lc-section ion-card-content {
+    --background: transparent !important;
+}
+
+.lc-section ion-card-content ion-list,
+.lc-section ion-card-content ion-list ion-item {
+    --ion-background-color: transparent !important;
+    color: #94a0ad !important;
+    --border-color: #94a0ad;
+}
+
+.lc-section ion-card-header ion-row ion-card-title {
+    padding-left: 0.5em;
+    --color: #94a0ad;
+    font-weight: 550;
+}
+
+.lc-title {
+    margin-top: 1em;
+    --color: #94a0ad;
+    font-weight: bold;
+}
+
+// .lc-section ion-card-content ion-row ion-col ion-text {
+//     text-align: end;
+// }
+.widget_card {
+    cursor: pointer;
+}
+
+.mat-column-eventDur{
+    display: flex !important;
+    justify-content: center flex-start !important; /* Left aligned*/
+  }

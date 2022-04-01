@@ -1,3 +1,4 @@
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddUsersComponent } from './user-management/add-users/add-users.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -15,6 +16,9 @@ const routes: Routes = [
       },{
         path: 'usercreation',
         component: AddUsersComponent
+      }, {
+        path: 'dashboard',
+        component: DashboardComponent
       } ]
     }
 ];

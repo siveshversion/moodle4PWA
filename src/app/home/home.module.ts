@@ -1,3 +1,4 @@
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatTableModule } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
@@ -59,7 +60,7 @@ import { AddUsersComponent } from './user-management/add-users/add-users.compone
       }
     }),
   ],
-  declarations: [HomePage,ManageUsersComponent,AddUsersComponent],
+  declarations: [HomePage,ManageUsersComponent,AddUsersComponent,DashboardComponent],
   providers: [GlobalApiService, HttpClient, Storage]
 })
 export class HomePageModule { }

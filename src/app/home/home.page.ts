@@ -46,6 +46,8 @@ export class HomePage {
     this.elRef.nativeElement.style.setProperty('--background', '#1B1B1B');
     this.elRef.nativeElement.style.setProperty('--selectedFontColor', '#94a0ad');
     this.elRef.nativeElement.style.setProperty('--color', '#94a0ad');
+
+    this.navCtrl.navigateForward('/home/dashboard');
   }
 
   navMenu(routeName: any) {
@@ -53,6 +55,8 @@ export class HomePage {
       this.navCtrl.navigateForward('/home/users');
     } else if(routeName == 'add-new-user'){
       this.navCtrl.navigateForward('/home/usercreation');
+    }else if(routeName == 'dashboard'){
+      this.navCtrl.navigateForward('/home/dashboard');
     }
   }
 
