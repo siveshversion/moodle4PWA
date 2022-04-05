@@ -1,3 +1,7 @@
+import { CreateCourseComponent } from './course-management/create-course/create-course.component';
+import { CourseListComponent } from './course-management/course-list/course-list.component';
+import { CategoryListComponent } from './course-management/category-list/category-list.component';
+import { CreateCategoryComponent } from './course-management/create-category/create-category.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatTableModule } from '@angular/material/table';
@@ -62,7 +66,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
       }
     }),
   ],
-  declarations: [HomePage,ManageUsersComponent,AddUsersComponent,DashboardComponent],
+  declarations: [HomePage,ManageUsersComponent,AddUsersComponent,DashboardComponent,CreateCategoryComponent,CategoryListComponent,CourseListComponent,CreateCourseComponent],
   providers: [GlobalApiService, HttpClient, Storage]
 })
 export class HomePageModule { }

@@ -1,3 +1,7 @@
+import { CreateCourseComponent } from './course-management/create-course/create-course.component';
+import { CourseListComponent } from './course-management/course-list/course-list.component';
+import { CategoryListComponent } from './course-management/category-list/category-list.component';
+import { CreateCategoryComponent } from './course-management/create-category/create-category.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddUsersComponent } from './user-management/add-users/add-users.component';
 import { NgModule } from '@angular/core';
@@ -19,6 +23,18 @@ const routes: Routes = [
       }, {
         path: 'dashboard',
         component: DashboardComponent
+      }, {
+        path: 'categorycreation',
+        component: CreateCategoryComponent
+      }, {
+        path: 'categories',
+        component: CategoryListComponent
+      }, {
+        path: 'courses',
+        component: CourseListComponent
+      }, {
+        path: 'coursecreation',
+        component: CreateCourseComponent
       } ]
     }
 ];

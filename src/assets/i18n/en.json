@@ -217,6 +217,9 @@
 	"feedback": "Feedback %",
 	"manage_users": "Manage Users",
 	"manage_cohorts": "Manage Cohorts",
+	"manage_courses": "Manage Courses",
+	"manage_categories": "Manage Categories",
+	"update_category": "Update Category",
 	"edit_course": "Edit Course",
 	"add_question_bank": "Add Question bank",
 	"select_filter": "Select Filter",
@@ -399,6 +402,7 @@
 	"confirm_domainname": "Confirm Domain Name",
 	"pwd_mismatch": "Password Mismatch",
 	"domain_mismatch": "Domain Name Mismatch",
-	"domain_note": "Note: Once the domain name is entered you cannot change it later."
+	"domain_note": "Note: Once the domain name is entered you cannot change it later.",
+	"course_list": "Course List"
 
 }

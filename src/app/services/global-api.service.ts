@@ -26,7 +26,6 @@ export class GlobalApiService {
   }
 
   lc_check_already_taken(data: any): Observable<any> {
-
     return this.http.post(this.base_url + '?methodname=already_taken_validator', data);
   }
 
@@ -52,14 +51,57 @@ export class GlobalApiService {
   lc_mod_delete_user(data: any): Observable<any> {
     data.append('wstoken', environment.MOODLE_TOKEN);
     data.append('wsfunction', 'core_user_delete_users');
-    return this.http.post(this.base_url + '/cm/api/methods.php?methodname=deleteUser', data);
+    return this.http.post(this.base_url + '?methodname=deleteUser', data);
   }
 
   lc_mod_suspend_user(data: any): Observable<any> {
     data.append('wstoken', environment.MOODLE_TOKEN);
     data.append('wsfunction', 'core_user_update_users');
-    return this.http.post(this.base_url + '/cm/api/methods.php?methodname=suspendUser', data);
+    return this.http.post(this.base_url + '?methodname=suspendUser', data);
   }
 
+  lc_create_category(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('wsfunction', 'core_course_create_categories');
+    return this.http.post(this.base_url + '?methodname=createCategory', data);
+  }
+
+  lc_update_category(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('wsfunction', 'core_course_update_categories');
+    return this.http.post(this.base_url + '?methodname=updateCategory', data);
+  }
+
+  lc_get_category_by_id(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=get_category_by_id', data);
+  }
+
+  lc_category_list(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    return this.http.post(this.base_url + '?methodname=listCategories', data);
+  }
+
+  lc_course_list(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    return this.http.post(this.base_url + '?methodname=listCourses', data);
+  }
+
+  lc_get_course_by_id(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('wsfunction', 'core_course_get_courses');
+    return this.http.post(this.base_url + '?methodname=get_course_by_id', data);
+  }
+
+  lc_create_course(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('wsfunction', 'core_course_create_courses');
+    return this.http.post(this.base_url + '?methodname=create_course', data);
+  }
+
+  lc_update_course(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('wsfunction', 'core_course_update_courses');
+    return this.http.post(this.base_url + '?methodname=update_course', data);
+  }
 
 }

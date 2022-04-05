@@ -1,0 +1,128 @@
+<ion-content [fullscreen]="true" class="ion-padding" scroll-y="true" class="lc-content">
+  <!--ion-header>{{title}}</ion-header-->
+  <form [formGroup]="courseForm">
+
+      <ion-grid>
+          <ion-card class="lc-section">
+              <ion-card-header>
+                  <ion-row>
+                      <ion-col size="12" size-xs="11" size-md="11" size-lg="11" class="ion-no-padding">
+                          <ion-header>{{subtitle | translate }} </ion-header>
+                      </ion-col>
+                  </ion-row>
+                  <hr>
+                  <ion-row class="ion-padding-top">
+                      <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+                          <ion-label class="lc-label-align">{{'select_category' | translate }}</ion-label>
+                          <ion-item lines="none" color="none">
+                              <mat-select class="lc-input" id="cocat" placeholder="{{'select_category' | translate }}"
+                                  formControlName="courseCategory" name="item">
+                                  <mat-option *ngFor="let item of categories" [value]="item.value">
+                                      {{ item.viewValue }}
+                                  </mat-option>
+                              </mat-select>
+                          </ion-item>
+                          <ion-text color="danger" class="lc-error"
+                              *ngIf="courseForm.get('courseCategory').errors && (courseForm.get('courseCategory').invalid && courseForm.get('courseCategory').dirty || courseForm.get('courseCategory').touched)">
+                              <ion-text *ngIf="hasError('courseCategory','required')">{{'reqiuired' | translate }}
+                              </ion-text>
+                          </ion-text>
+                      </ion-col>
+                  </ion-row>
+                  <ion-row class="ion-padding-top">
+                      <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+                          <ion-label class="lc-label-align">{{'course_full_name' | translate }}</ion-label>
+                          <ion-item lines="none" color="none">
+                              <ion-input class="lc-input" formControlName="courseFullName" type="text">
+                              </ion-input>
+                          </ion-item>
+                          <ion-text color="danger" class="lc-error"
+                              *ngIf="courseForm.get('courseFullName').errors && (courseForm.get('courseFullName').invalid && courseForm.get('courseFullName').dirty || courseForm.get('courseFullName').touched)">
+                              <ion-text *ngIf="hasError('courseFullName','required')">{{'reqiuired' | translate }}
+                              </ion-text>
+                          </ion-text>
+                      </ion-col>
+                  </ion-row>
+                  <ion-row class="ion-padding-top">
+                      <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+                          <ion-label class="lc-label-align">{{'course_short_name' | translate }}</ion-label>
+                          <ion-item lines="none" color="none">
+                              <ion-input class="lc-input" (ionChange)="ShortnameRegistryCheck($event.target.value)"
+                                  formControlName="courseShortName" type="text">
+                              </ion-input>
+                          </ion-item>
+                          <ion-text color="danger" class="lc-error"
+                              *ngIf="courseForm.get('courseShortName').errors && (courseForm.get('courseShortName').invalid && courseForm.get('courseShortName').dirty || courseForm.get('courseShortName').touched)">
+                              <ion-text *ngIf="hasError('courseShortName','required')">{{'reqiuired' | translate }}
+                              </ion-text>
+                          </ion-text>
+                          <ion-text color="danger" class="lc-error" *ngIf="shortnameConflict">
+                              <ion-text *ngIf="shortnameConflict">ShortName already in use</ion-text>
+                          </ion-text>
+                      </ion-col>
+                  </ion-row>
+
+                  <ion-row class="ion-padding-top">
+                      <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+                          <ion-label class="lc-label-align">{{'enrollment_type' | translate }}</ion-label>
+                          <ion-item lines="none" color="none">
+                              <mat-select class="lc-input" id="enrollType"
+                                  placeholder="{{'enrollment_type' | translate }}"                                 formControlName="enrollmentType" name="item">
+                                  <mat-option *ngFor="let item of enrollType" [value]="item.value">
+                                      {{ item.viewValue }}
+                                  </mat-option>
+                              </mat-select>
+
+                          </ion-item>
+                          <ion-text color="danger" class="lc-error"
+                              *ngIf="courseForm.get('enrollmentType').errors && (courseForm.get('enrollmentType').invalid && courseForm.get('enrollmentType').dirty || courseForm.get('enrollmentType').touched)">
+                              <ion-text *ngIf="hasError('enrollmentType','required')">{{'reqiuired' | translate }}
+                              </ion-text>
+                          </ion-text>
+                      </ion-col>
+                  </ion-row>
+
+
+                  <ion-row class="ion-padding-top">
+                      <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+                          <ion-label class="lc-label-align">{{'course_description' | translate }}</ion-label>
+                          <ion-item lines="none" color="none">
+                              <ion-textarea rows="6" cols="20" class="lc-text-area"
+                                  formControlName="courseDescription" type="text">
+                              </ion-textarea>
+                          </ion-item>
+                          <ion-text color="danger" class="lc-error" *ngIf="courseForm.get('courseDescription').errors && (courseForm.get('courseDescription').invalid && courseForm.get('courseDescription').dirty || courseForm.get(
+                     'courseDescription').touched)">
+                              <ion-text *ngIf="hasError('courseDescription','required')">{{'reqiuired' | translate }}
+                              </ion-text>
+                          </ion-text>
+                      </ion-col>
+                  </ion-row>
+
+                  <ion-row class="ion-padding-top">
+                      <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+                          <ion-label class="lc-label-align">{{'no_of_topics' | translate }}</ion-label>
+                          <ion-item lines="none" color="none">
+                              <ion-input class="lc-input" formControlName="topicCnt" type="number">
+                              </ion-input>
+                          </ion-item>
+                          <ion-text color="danger" class="lc-error"
+                              *ngIf="courseForm.get('topicCnt').errors && (courseForm.get('topicCnt').invalid && courseForm.get('topicCnt').dirty || courseForm.get('topicCnt').touched)">
+                              <ion-text *ngIf="hasError('topicCnt','required')">{{'reqiuired' | translate }}
+                              </ion-text>
+                          </ion-text>
+                      </ion-col>
+                  </ion-row>
+
+              </ion-card-header>
+              <ion-row>
+                  <ion-col size="12" size-xs="12" size-md="2" size-lg="2" class="ion-no-padding">
+                      <ion-button id="savebtn" [disabled]="!courseForm.valid" type="button" expand="block"
+                          fill="solid" class="lc-button lc-btn-color" (click)="submit()">{{'submit' | translate }}
+                      </ion-button>
+                  </ion-col>
+              </ion-row>
+          </ion-card>
+      </ion-grid>
+  </form>
+</ion-content>

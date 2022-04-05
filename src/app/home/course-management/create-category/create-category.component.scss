@@ -1,0 +1,32 @@
+ion-header {
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+    padding-left: 10px;
+    padding-top: 28px;
+    padding-bottom: 10px;
+}
+
+ion-item {
+    margin-top: 8px;
+}
+
+hr {
+    border-width: 1px;
+    border-color: #2b2b2b;
+}
+
+@media screen and (max-width: 768px) {
+    .lc-btn-padding {
+        padding-top: 1em !important;
+    }
+}
+
+#savebtn {
+    margin-left: 17px;
+    margin-bottom: 20px;
+}
+
+ion-text.md.hydrated {
+    display: block;
+}

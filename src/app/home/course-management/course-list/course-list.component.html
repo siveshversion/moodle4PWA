@@ -1,0 +1,59 @@
+<ion-content [fullscreen]="true" class="ion-padding" scroll-y="true" class="lc-content">
+  <ion-grid>
+      <ion-row>
+          <ion-col col-5 class="ion-no-padding">
+              <ion-header>{{'manage_courses' | translate }}</ion-header>
+          </ion-col>
+          <ion-col col-2 class="ion-no-padding"></ion-col>
+          <ion-col col-5 class="ion-no-padding">
+              <ion-item lines="none" color="none">
+                  <input type="text" class="lc-input" #searchVal (input)="applyFilter(searchVal.value)" placeholder="Search" type="text" />
+                  <div class="input-group-prepend">
+                      <span class="input-group-text"><span class="material-icons">search</span>
+                      </span>
+                  </div>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col class="ion-no-padding">
+              <ion-card class="lc-section">
+                  <ion-card-header class="lc-table-no-padding">
+                      <ion-row>
+                          <ion-col>
+                              <div class="example-container">
+                                  <mat-table [dataSource]="dataSource">
+                                      <ng-container matColumnDef="courseName">
+                                          <mat-header-cell *matHeaderCellDef>{{'course_name' | translate }}</mat-header-cell>
+                                          <mat-cell *matCellDef="let element">
+                                              <span class="mobile-label">{{'course_name' | translate }}:</span>
+                                              <span class="cell-align">{{element.course_name || "--"}}</span>
+                                          </mat-cell>
+                                      </ng-container>
+                                      <ng-container matColumnDef="categoryName">
+                                        <mat-header-cell *matHeaderCellDef>{{'category_name' | translate }}</mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">{{'category_name' | translate }}:</span>
+                                            <span class="cell-align">{{element.category_name || "--"}}</span>
+                                        </mat-cell>
+                                    </ng-container>
+                                      <ng-container matColumnDef="Action">
+                                          <mat-header-cell *matHeaderCellDef>{{'action' | translate }}</mat-header-cell>
+                                          <mat-cell *matCellDef="let element">
+                                              <span class="mobile-label">Action:</span>
+                                              <span class="material-icons" title="Edit course" (click)="navMenu('edit',element.course_id)">edit</span>
+                                          </mat-cell>
+                                      </ng-container>
+                                      <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
+                                      <mat-row *matRowDef="let row; columns: displayedColumns; "></mat-row>
+                                  </mat-table>
+                              </div>
+                              <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5,10,25,50,100]" showFirstLastButtons></mat-paginator>
+                          </ion-col>
+                      </ion-row>
+                  </ion-card-header>
+              </ion-card>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>

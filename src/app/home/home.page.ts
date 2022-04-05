@@ -64,6 +64,14 @@ export class HomePage {
       this.navCtrl.navigateForward('/home/usercreation');
     } else if (routeName == 'dashboard') {
       this.navCtrl.navigateForward('/home/dashboard');
+    } else if (routeName == 'add-new-category') {
+      this.navCtrl.navigateForward('/home/categorycreation');
+    }else if (routeName == 'category-list') {
+      this.navCtrl.navigateForward('/home/categories');
+    }else if (routeName == 'course-list') {
+      this.navCtrl.navigateForward('/home/courses');
+    }else if (routeName == 'add-new-course') {
+      this.navCtrl.navigateForward('/home/coursecreation');
     }
   }
 
