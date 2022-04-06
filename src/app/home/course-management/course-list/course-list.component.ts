@@ -1,7 +1,7 @@
 import { GlobalApiService } from './../../../services/global-api.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuController, NavController, AlertController, LoadingController } from '@ionic/angular';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
@@ -16,8 +16,9 @@ import { HttpClient } from '@angular/common/http';
 export class CourseListComponent implements OnInit {
 
   data: any;
-  displayedColumns = ['courseName', 'categoryName','Action'];
+  displayedColumns = ['courseName', 'courseShortName','categoryName', 'Action'];
   coursesList = [];
+  catId: any;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
@@ -25,23 +26,23 @@ export class CourseListComponent implements OnInit {
     private service: GlobalApiService,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
-    private http: HttpClient, private router:
-      Router, private navCtrl: NavController) {
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router,
+    private navCtrl: NavController) {
 
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
-
-    this.data = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Trick the Router into believing it's last link wasn't previously loaded
-        this.router.navigated = false;
-        let navigation = this.router.url;
-        if (navigation === '/home/courses') {
-          this.courseList();
+    this.route.queryParams.subscribe(
+      params => {
+        if (params.cat) {
+          this.catId = params.cat;
         }
+        this.courseList();
       }
-    });
+    );
+
 
   }
 
@@ -57,6 +58,10 @@ export class CourseListComponent implements OnInit {
     const data = new FormData();
     data.append('userId', localStorage.getItem('user_id'));
 
+    if (this.catId) {
+      data.append("catId", this.catId);
+    }
+
     this.service.lc_course_list(data).subscribe(
       res => {
 
@@ -68,7 +73,9 @@ export class CourseListComponent implements OnInit {
           const course = {
             course_id: element.course_id,
             course_name: element.course_fullname,
+            course_short_name: element.course_shortname,
             category_name: element.category_name,
+            category_id: element.category_id
           };
           this.coursesList.push(course);
         });
@@ -110,16 +117,14 @@ export class CourseListComponent implements OnInit {
   }
 
 
-  navMenu(action: any, catId: any) {
+  navMenu(action: any, courseId: any, catId: any) {
     if (action === 'edit') {
-      this.navCtrl.navigateForward('home/coursecreation?id=' + catId);
+      this.navCtrl.navigateForward('home/coursecreation?cid=' + courseId + '&cat=' + catId);
+    } else if (action === 'view_users') {
+      this.navCtrl.navigateForward('home/courseparticipants?cid=' + catId);
+    } else if (action === 'add') {
+      this.navCtrl.navigateForward('home/coursecreation?cat=' + catId);
     }
-    else if (action === 'view') {
-      this.navCtrl.navigateForward('home/course-list?id=' + catId);
-    }  else if (action === 'add') {
-      this.navCtrl.navigateForward('home/add-course?catid=' + catId);
-    }
-
   }
 
 }

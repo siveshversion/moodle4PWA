@@ -1,3 +1,4 @@
+import { CourseManageUsersComponent } from './course-management/course-manage-users/course-manage-users.component';
 import { CreateCourseComponent } from './course-management/create-course/create-course.component';
 import { CourseListComponent } from './course-management/course-list/course-list.component';
 import { CategoryListComponent } from './course-management/category-list/category-list.component';
@@ -35,6 +36,9 @@ const routes: Routes = [
       }, {
         path: 'coursecreation',
         component: CreateCourseComponent
+      }, {
+        path: 'courseparticipants',
+        component: CourseManageUsersComponent
       } ]
     }
 ];

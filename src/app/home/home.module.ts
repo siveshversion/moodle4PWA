@@ -32,6 +32,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ManageUsersComponent } from './user-management/manage-users/manage-users.component';
 import { AddUsersComponent } from './user-management/add-users/add-users.component';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { CourseManageUsersComponent } from './course-management/course-manage-users/course-manage-users.component';
 
 
 @NgModule({
@@ -66,7 +67,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
       }
     }),
   ],
-  declarations: [HomePage,ManageUsersComponent,AddUsersComponent,DashboardComponent,CreateCategoryComponent,CategoryListComponent,CourseListComponent,CreateCourseComponent],
+  declarations: [HomePage,ManageUsersComponent,AddUsersComponent,DashboardComponent,CreateCategoryComponent,CategoryListComponent,CourseListComponent,CreateCourseComponent,CourseManageUsersComponent],
   providers: [GlobalApiService, HttpClient, Storage]
 })
 export class HomePageModule { }

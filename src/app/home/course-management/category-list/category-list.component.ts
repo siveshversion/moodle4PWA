@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class CategoryListComponent implements OnInit {
 
   data: any;
-  displayedColumns = ['categoryName', 'coursesCount','Action'];
+  displayedColumns = ['categoryName', 'coursesCount', 'Action'];
   categorysList = [];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -111,11 +111,10 @@ export class CategoryListComponent implements OnInit {
   navMenu(action: any, catId: any) {
     if (action === 'edit') {
       this.navCtrl.navigateForward('home/categorycreation?id=' + catId);
-    }
-    else if (action === 'view') {
-      this.navCtrl.navigateForward('home/course-list?id=' + catId);
-    }  else if (action === 'add') {
-      this.navCtrl.navigateForward('home/add-course?catid=' + catId);
+    } else if (action === 'view') {
+      this.navCtrl.navigateForward('home/courses?cat=' + catId);
+    } else if (action === 'add') {
+      this.navCtrl.navigateForward('home/coursecreation?cat=' + catId);
     }
 
   }

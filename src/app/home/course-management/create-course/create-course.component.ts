@@ -27,8 +27,6 @@ export class CreateCourseComponent implements OnInit {
     { value: 'self', viewValue: 'Free' },
     { value: 'manual', viewValue: 'Admin' }
   ];
-  dynamicArray = [];
-  newDynamic: {};
 
   public addresses: any[] = [{
     id: 1,
@@ -55,33 +53,21 @@ export class CreateCourseComponent implements OnInit {
 
     this.route.queryParams.subscribe(
       params => {
-        if (params.newcourse) {
-          this.courseForm.reset();
-          this.dynamicArray = [];
-        }
-        if (params.id || params.newcourse) {
-          this.courseId = params.id;
-          if (params.newcourse != 1) {
-            this.setformFields(this.courseId);
-          }
-
-        }
-        else if (params.catid) {
-          this.cat_id = Number(params.catid);
-          this.setformFields('category');
+        if (params.cid && params.cat) {
+          this.courseId = params.cid;
+          this.cat_id = Number(params.cat);
+          this.setformFields('update');
         }
         else {
+          this.courseForm.reset();
           this.setformFields('default');
         }
+
+
       }
     );
 
-    this.newDynamic = { name: "", email: "", phone: "" };
-    this.dynamicArray.push(this.newDynamic);
-
-
   }
-
 
   setformFields(data: any) {
     if (data === 'default') {
@@ -89,53 +75,41 @@ export class CreateCourseComponent implements OnInit {
       this.subtitle = 'add_new_course';
       this.btnName = 'save';
     }
-    else if (data === 'category') {
-      this.title = 'Course Creation';
-      this.subtitle = 'add_new_course';
-      this.btnName = 'save';
-      this.setCategoryField();
-    }
-    else {
+    else if (data === 'update') {
       this.title = '';
       this.subtitle = 'update_course';
       this.btnName = 'update';
       this.setEditFields();
-
     }
-  }
-
-  setCategoryField() {
-    this.courseForm.patchValue({
-      courseCategory: this.cat_id
-    });
   }
 
   setEditFields() {
     //this.showLoader('Loading Course form data...');
     let formData = new FormData();
     formData.append("course_id", this.courseId);
-
+    
     this.service.lc_get_course_by_id(formData).subscribe((response) => {
-      if (response) {
-        let category = Number(response.category);
-        let enrolled_type = response.enrol_method;
+      if (response.Data) {
+        let enrolled_type = response.Data.enrol_method;
         this.old_enroll_id = response.old_enroll_id;
-        this.cat_id = category;
 
-
+        this.setCategoryField(this.cat_id);
 
         this.courseForm.patchValue({
-          courseCategory: category,
-          courseFullName: response.fullname,
-          courseShortName: response.shortname,
-          courseDescription: response.description,
-          topicCnt: response.topics_cnt,
+          courseFullName: response.Data.fullname,
+          courseShortName: response.Data.shortname,
+          courseDescription: response.Data.description,
+          topicCnt: response.Data.topics_cnt,
           enrollmentType: enrolled_type,
         });
+
         this.hideLoader();
       }
     });
   }
+
+
+
 
 
   setformValidators() {
@@ -319,8 +293,10 @@ export class CreateCourseComponent implements OnInit {
     this.courseForm.controls[formcontrolname].setErrors(state);
   }
 
-  logValue() {
-    console.log(this.dynamicArray);
+
+  setCategoryField(catid: any) {
+    let index = this.categories.findIndex(p => p.value == catid);
+    this.courseForm.controls['courseCategory'].setValue(this.categories[index].value);
   }
 
 

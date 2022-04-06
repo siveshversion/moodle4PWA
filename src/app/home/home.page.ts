@@ -72,6 +72,8 @@ export class HomePage {
       this.navCtrl.navigateForward('/home/courses');
     }else if (routeName == 'add-new-course') {
       this.navCtrl.navigateForward('/home/coursecreation');
+    } else if (routeName == 'courseparticipants') {
+      this.navCtrl.navigateForward('/home/course-manage-users');
     }
   }
 
