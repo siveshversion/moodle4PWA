@@ -1,5 +1,5 @@
 # moodlePWA
-pwa app for moodle
+**Progressive Web App using moodle - E Learning app using ionic and angular (can be built with android & ios as well)**
 
 set up dependenicies using **npm install**  and run this app with **ionic serve**
 
