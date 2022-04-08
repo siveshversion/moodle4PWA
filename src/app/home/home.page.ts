@@ -48,7 +48,10 @@ export class HomePage {
         this.isStudent = true;
         this.isAdmin = false;
       }
-      this.route.navigateByUrl('home/dashboard');
+      let navigation = this.route.url;
+        if (navigation === '/home') {
+          this.route.navigateByUrl('home/dashboard');
+        }
     });
 
   }
@@ -91,6 +94,8 @@ export class HomePage {
       this.navCtrl.navigateForward('/home/coursecreation');
     } else if (routeName == 'courseparticipants') {
       this.navCtrl.navigateForward('/home/course-manage-users');
+    }else if (routeName == 'mycourses') {
+      this.navCtrl.navigateForward('/home/mycourses');
     }
   }
 

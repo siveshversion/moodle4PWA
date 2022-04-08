@@ -1,3 +1,4 @@
+import { MyCoursesComponent } from './my-courses/my-courses.component';
 import { CreateCourseComponent } from './course-management/create-course/create-course.component';
 import { CourseListComponent } from './course-management/course-list/course-list.component';
 import { CategoryListComponent } from './course-management/category-list/category-list.component';
@@ -67,7 +68,7 @@ import { CourseManageUsersComponent } from './course-management/course-manage-us
       }
     }),
   ],
-  declarations: [HomePage,ManageUsersComponent,AddUsersComponent,DashboardComponent,CreateCategoryComponent,CategoryListComponent,CourseListComponent,CreateCourseComponent,CourseManageUsersComponent],
+  declarations: [HomePage,ManageUsersComponent,AddUsersComponent,DashboardComponent,CreateCategoryComponent,CategoryListComponent,CourseListComponent,CreateCourseComponent,CourseManageUsersComponent,MyCoursesComponent],
   providers: [GlobalApiService, HttpClient, Storage]
 })
 export class HomePageModule { }

@@ -1,3 +1,4 @@
+import { MyCoursesComponent } from './my-courses/my-courses.component';
 import { CourseManageUsersComponent } from './course-management/course-manage-users/course-manage-users.component';
 import { CreateCourseComponent } from './course-management/create-course/create-course.component';
 import { CourseListComponent } from './course-management/course-list/course-list.component';
@@ -39,6 +40,9 @@ const routes: Routes = [
       }, {
         path: 'courseparticipants',
         component: CourseManageUsersComponent
+      },{
+        path:'mycourses',
+        component: MyCoursesComponent
       } ]
     }
 ];

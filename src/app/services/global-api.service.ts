@@ -122,4 +122,10 @@ export class GlobalApiService {
     return this.http.post(this.base_url + '?methodname=enrollUserToCourse', data);
   }
 
+  lc_mod_get_enrol_courses(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('wsfunction', 'core_enrol_get_users_courses');
+    return this.http.post(this.base_url + '?methodname=getMyEnrolledCourses', data);
+  }
+
 }
