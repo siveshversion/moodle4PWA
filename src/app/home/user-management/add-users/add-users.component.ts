@@ -204,7 +204,7 @@ export class AddUsersComponent implements OnInit {
           msg = "User Created Successfully";
 
           let formData = new FormData();
-          formData.append("role",'Employee');
+          formData.append("role",'Student');
           formData.append("username", this.userCreateForm.get('username').value);
           formData.append("new_pwd", this.userCreateForm.get('new_pwd').value);
           formData.append("email", this.userCreateForm.get('email').value);

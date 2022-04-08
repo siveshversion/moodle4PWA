@@ -209,6 +209,10 @@ lc-toolbar ios in-toolbar hydrated {
   color: var(--selectedFontColor);
 }
 
+#uname {
+  color: var(--selectedFontColor);
+  margin-bottom: 20px;
+}
 
 @media only screen and (max-width: 1024px) {
 

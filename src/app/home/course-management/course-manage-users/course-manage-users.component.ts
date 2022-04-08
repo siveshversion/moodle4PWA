@@ -1,6 +1,6 @@
 import { GlobalApiService } from './../../../services/global-api.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {  NavController, AlertController, LoadingController, ModalController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -42,10 +42,10 @@ export class CourseManageUsersComponent implements OnInit {
 
     this.router.queryParams.subscribe(
       params => {
-        if (params.id) {
-          this.courseid = params.id;
+        if (params.cid) {
+          this.courseid = params.cid;
           this.selectedFilter = 'all';
-          this.viewCourseMembers(params.id);
+          this.viewCourseMembers(params.cid);
         }
       }
     );
@@ -63,27 +63,26 @@ export class CourseManageUsersComponent implements OnInit {
 
     const data = new FormData();
     data.append('course_id', cid);
-    data.append('enroll_status', this.selectedFilter );
+    data.append('enroll_status', this.selectedFilter);
 
-    // this.service.lc_course_members(data).subscribe(
-    //   res => {
-    //     res.forEach((element: any) => {
-
-    //       const course = {
-    //         sl_no: element.sl_no,
-    //         user_name: element.user_name,
-    //         user_id: element.user_id,
-    //         course_id: cid,
-    //         enrolled: element.enrolled
-    //       };
-    //       this.coursesList.push(course);
-    //     });
-    //     this.applyFilter('');
-    //     this.hideLoader();
-    //   }, err => {
-    //     console.log(err);
-    //     this.hideLoader();
-    //   });
+    this.service.lc_course_members(data).subscribe(
+      res => {
+        res.Data.forEach((element: any) => {
+          const course = {
+            sl_no: element.sl_no,
+            user_name: element.user_name,
+            user_id: element.user_id,
+            course_id: cid,
+            enrolled: element.enrolled
+          };
+          this.coursesList.push(course);
+        });
+        this.applyFilter('');
+        this.hideLoader();
+      }, err => {
+        console.log(err);
+        this.hideLoader();
+      });
 
     this.dataSource = new MatTableDataSource<any>(this.coursesList);
     this.dataSource.paginator = this.paginator;
@@ -122,27 +121,35 @@ export class CourseManageUsersComponent implements OnInit {
     data.append('course_id', cid);
     data.append('user_id', uid);
 
-    // this.service.lc_unenroll_user_to_course(data).subscribe(
-    //   res => {
-    //     let msg = 'User Unenrolled Successfully';
-    //     this.showAlert(msg, cid);
-    //     this.hideLoader();
-    //   }, err => {
-    //     console.log(err);
-    //     this.hideLoader();
-    //   });
+    this.service.lc_unenroll_user_to_course(data).subscribe(
+      res => {
+        let msg = 'User Unenrolled Successfully';
+        this.showAlert(msg, cid);
+        this.hideLoader();
+      }, err => {
+        console.log(err);
+        this.hideLoader();
+      });
   }
 
-  async openEnrollRoleModal(uid: any, cid: any) {
-    // const modal = await this.modalController.create({
-    //   component: EnrollRolePage, cssClass: 'enroll-role',
-    //   componentProps: {
-    //     'cid': cid,
-    //     'uid': uid
-    //   }
-    // });
+  async enrolUser(uid: any, cid: any) {
+    this.showLoader('Processing Request..');
+    const data = new FormData();
+    data.append('course_id', cid);
+    data.append('user_id', uid);
+    data.append('role_id', '5');
 
-    // return await modal.present();
+    this.service.lc_enroll_user_to_course(data).subscribe(
+      res => {
+        if (res.Data.cat_id) {
+          let msg = 'User Enrolled Successfully';
+          this.showAlert(msg, cid);
+          this.hideLoader();
+        }
+      }, err => {
+        console.log(err);
+        this.hideLoader();
+      });
   }
 
   async closeModal() {

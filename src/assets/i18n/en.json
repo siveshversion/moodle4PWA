@@ -403,6 +403,8 @@
 	"pwd_mismatch": "Password Mismatch",
 	"domain_mismatch": "Domain Name Mismatch",
 	"domain_note": "Note: Once the domain name is entered you cannot change it later.",
-	"course_list": "Course List"
+	"course_list": "Course List",
+	"student" : "Student",
+	"admin": "Siteadmin"
 
 }

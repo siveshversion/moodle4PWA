@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 export class CourseListComponent implements OnInit {
 
   data: any;
-  displayedColumns = ['courseName', 'courseShortName','categoryName', 'Action'];
+  displayedColumns = ['courseName', 'courseShortName','categoryName','enrolledCnt', 'Action'];
   coursesList = [];
   catId: any;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
@@ -75,7 +75,8 @@ export class CourseListComponent implements OnInit {
             course_name: element.course_fullname,
             course_short_name: element.course_shortname,
             category_name: element.category_name,
-            category_id: element.category_id
+            category_id: element.category_id,
+            enrolled_cnt: element.enrolled_cnt
           };
           this.coursesList.push(course);
         });
@@ -121,7 +122,7 @@ export class CourseListComponent implements OnInit {
     if (action === 'edit') {
       this.navCtrl.navigateForward('home/coursecreation?cid=' + courseId + '&cat=' + catId);
     } else if (action === 'view_users') {
-      this.navCtrl.navigateForward('home/courseparticipants?cid=' + catId);
+      this.navCtrl.navigateForward('home/courseparticipants?cid=' + courseId);
     } else if (action === 'add') {
       this.navCtrl.navigateForward('home/coursecreation?cat=' + catId);
     }

@@ -30,9 +30,9 @@
                               <div class="example-container">
                                   <mat-table [dataSource]="dataSource">
                                       <ng-container matColumnDef="slNo">
-                                          <mat-header-cell *matHeaderCellDef>Sl No</mat-header-cell>
+                                          <mat-header-cell *matHeaderCellDef>SL No</mat-header-cell>
                                           <mat-cell *matCellDef="let element">
-                                              <span class="mobile-label">Sl No:</span>
+                                              <span class="mobile-label">SL No:</span>
                                               <span class="cell-align">{{element.sl_no || "--"}}</span>
                                           </mat-cell>
                                       </ng-container>
@@ -47,7 +47,7 @@
                                           <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
                                           <mat-cell *matCellDef="let element">
                                               <span class="mobile-label">Action:</span>
-                                              <span class="cell-align-action" (click)="openEnrollRoleModal(element.user_id,element.course_id)" *ngIf="element.enrolled == false">Enroll</span>
+                                              <span class="cell-align-action" (click)="enrolUser(element.user_id,element.course_id)" *ngIf="element.enrolled == false">Enroll</span>
                                               <span class="cell-align-action" (click)="unenroll(element.user_id,element.course_id)" *ngIf="element.enrolled == true">Unenroll</span>
                                           </mat-cell>
                                       </ng-container>

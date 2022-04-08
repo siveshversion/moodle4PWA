@@ -44,6 +44,13 @@
                                             <span class="cell-align">{{element.category_name || "--"}}</span>
                                         </mat-cell>
                                     </ng-container>
+                                    <ng-container matColumnDef="enrolledCnt">
+                                        <mat-header-cell *matHeaderCellDef>No of Participants</mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">No of Participants:</span>
+                                            <span class="cell-align">{{element.enrolled_cnt || "--"}}</span>
+                                        </mat-cell>
+                                    </ng-container>
                                       <ng-container matColumnDef="Action">
                                           <mat-header-cell *matHeaderCellDef>{{'action' | translate }}</mat-header-cell>
                                           <mat-cell *matCellDef="let element">

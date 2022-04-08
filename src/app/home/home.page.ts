@@ -1,4 +1,4 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Component, ElementRef, HostListener } from '@angular/core';
 import { AlertController, MenuController, NavController } from '@ionic/angular';
 import { GlobalApiService } from '../services/global-api.service';
@@ -9,7 +9,7 @@ import { Storage } from '@ionic/storage';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  providers: [TranslateService,Storage]
+  providers: [TranslateService, Storage]
 })
 export class HomePage {
 
@@ -20,8 +20,12 @@ export class HomePage {
   logout_text: string;
   title_text: string;
   msg: string;
+  role: string;
+  isAdmin: Boolean;
+  isStudent: Boolean;
 
   constructor(
+    private routea: ActivatedRoute,
     private route: Router,
     private menu: MenuController,
     private navCtrl: NavController,
@@ -30,8 +34,23 @@ export class HomePage {
     public alertCtrl: AlertController,
     private service: GlobalApiService,
     private translateService: TranslateService,
-    private elRef: ElementRef,) {
-    this.translateService.setDefaultLang('en');
+    private elRef: ElementRef) {
+    this.onResize();
+
+    this.routea.params.subscribe((params) => {
+      this.translateService.setDefaultLang('en');
+      this.role = localStorage.getItem('role');
+      if (this.role === 'admin') {
+        this.isAdmin = true;
+        this.isStudent = false;
+      }
+      else {
+        this.isStudent = true;
+        this.isAdmin = false;
+      }
+      this.route.navigateByUrl('home/dashboard');
+    });
+
   }
 
   @HostListener('window:resize', ['$event'])
@@ -53,8 +72,6 @@ export class HomePage {
     this.elRef.nativeElement.style.setProperty('--background', '#1B1B1B');
     this.elRef.nativeElement.style.setProperty('--selectedFontColor', '#94a0ad');
     this.elRef.nativeElement.style.setProperty('--color', '#94a0ad');
-
-    this.navCtrl.navigateForward('/home/dashboard');
   }
 
   navMenu(routeName: any) {
@@ -66,11 +83,11 @@ export class HomePage {
       this.navCtrl.navigateForward('/home/dashboard');
     } else if (routeName == 'add-new-category') {
       this.navCtrl.navigateForward('/home/categorycreation');
-    }else if (routeName == 'category-list') {
+    } else if (routeName == 'category-list') {
       this.navCtrl.navigateForward('/home/categories');
-    }else if (routeName == 'course-list') {
+    } else if (routeName == 'course-list') {
       this.navCtrl.navigateForward('/home/courses');
-    }else if (routeName == 'add-new-course') {
+    } else if (routeName == 'add-new-course') {
       this.navCtrl.navigateForward('/home/coursecreation');
     } else if (routeName == 'courseparticipants') {
       this.navCtrl.navigateForward('/home/course-manage-users');
@@ -85,6 +102,11 @@ export class HomePage {
     //   }
 
     // });
+    let uname = localStorage.getItem('username');
+    this.loginDetails = {
+      fullname: uname
+    };
+
     this.onResize();
   }
 

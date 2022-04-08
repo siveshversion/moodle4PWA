@@ -269,11 +269,10 @@ export class CreateCourseComponent implements OnInit {
         console.log(err);
       });
   }
-  ShortnameRegistryCheck(value: string) {
-
+  RegistryCheck(target: any) {
     let courseId = (this.courseId > 0) ? this.courseId : '';
     let formData = new FormData();
-    formData.append("field_value", value);
+    formData.append("field_value", target.value);
     formData.append("field_name", 'shortname');
     formData.append("table_name", 'mdl_course');
     formData.append("edit_id", courseId);
@@ -281,7 +280,7 @@ export class CreateCourseComponent implements OnInit {
     this.service.lc_check_already_taken(formData).subscribe((response) => {
       this.shortnameConflict = null;
       this.cmValidateToggler('courseShortName', null);
-      if (response.status) {
+      if (response.Data.exists) {
         this.shortnameConflict = true;
         this.cmValidateToggler('courseShortName', { 'incorrect': true });
       }

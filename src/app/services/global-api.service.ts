@@ -30,7 +30,6 @@ export class GlobalApiService {
   }
 
   lc_add_new_user(data: any): Observable<any> {
-
     data.append('wstoken', environment.MOODLE_TOKEN);
     data.append('wsfunction', 'core_user_create_users');
     data.append('creator_id', localStorage.getItem('user_id'));
@@ -83,9 +82,10 @@ export class GlobalApiService {
 
   lc_course_list(data: any): Observable<any> {
     data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('wsfunction', 'core_enrol_get_enrolled_users');
     return this.http.post(this.base_url + '?methodname=listCourses', data);
   }
-
+6
   lc_get_course_by_id(data: any): Observable<any> {
     data.append('wstoken', environment.MOODLE_TOKEN);
     data.append('wsfunction', 'core_course_get_courses');
@@ -102,6 +102,24 @@ export class GlobalApiService {
     data.append('wstoken', environment.MOODLE_TOKEN);
     data.append('wsfunction', 'core_course_update_courses');
     return this.http.post(this.base_url + '?methodname=update_course', data);
+  }
+
+  lc_course_members(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('wsfunction', 'core_enrol_get_enrolled_users');
+    return this.http.post(this.base_url + '?methodname=getCourseUsers', data);
+  }
+
+  lc_unenroll_user_to_course(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('wsfunction', 'enrol_manual_unenrol_users');
+    return this.http.post(this.base_url + '?methodname=unenrollUserToCourse', data);
+  }
+
+  lc_enroll_user_to_course(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('wsfunction','enrol_manual_enrol_users');
+    return this.http.post(this.base_url + '?methodname=enrollUserToCourse', data);
   }
 
 }
