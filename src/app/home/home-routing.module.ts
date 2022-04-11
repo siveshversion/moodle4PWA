@@ -1,3 +1,4 @@
+import { MyCourseStatsComponent } from './widget/my-course-stats/my-course-stats.component';
 import { MyCoursesComponent } from './my-courses/my-courses.component';
 import { CourseManageUsersComponent } from './course-management/course-manage-users/course-manage-users.component';
 import { CreateCourseComponent } from './course-management/create-course/create-course.component';
@@ -43,6 +44,9 @@ const routes: Routes = [
       },{
         path:'mycourses',
         component: MyCoursesComponent
+      },{
+        path:'coursestats',
+        component: MyCourseStatsComponent
       } ]
     }
 ];

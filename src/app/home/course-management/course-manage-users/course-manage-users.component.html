@@ -43,6 +43,13 @@
                                               <span class="cell-align">{{element.user_name || "--"}}</span>
                                           </mat-cell>
                                       </ng-container>
+                                      <ng-container matColumnDef="FullName">
+                                        <mat-header-cell *matHeaderCellDef>Full Name</mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Fullname:</span>
+                                            <span class="cell-align">{{element.user_fullname || "--"}}</span>
+                                        </mat-cell>
+                                    </ng-container>
                                       <ng-container matColumnDef="Action">
                                           <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
                                           <mat-cell *matCellDef="let element">

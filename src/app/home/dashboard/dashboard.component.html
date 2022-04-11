@@ -1,7 +1,9 @@
 <ion-content [fullscreen]="true" class="ion-padding" scroll-y="true" class="lc-content">
 
   <ion-header>
-      <ion-title class="lc-title">{{'welcome_moodle' | translate }}</ion-title>
+    <ion-title class="lc-title">{{dashtitle | translate }}</ion-title>
   </ion-header>
+
+  <app-my-course-stats *ngIf="isStudent"></app-my-course-stats>
 
 </ion-content>

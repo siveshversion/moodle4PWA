@@ -1,0 +1,85 @@
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-card class="lc-section">
+        <ion-card-content class="widget_card" (click)="navMenu('enrolled-completed-courses','enrolled')">
+          <ion-row>
+            <ion-col>
+              <ion-button>
+                <ion-icon name="people-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col class="ion-text-end">
+              <ion-text color="primary" class="lc-amount">
+                <span [countUp]="crsEnrolled" [options]="option"></span>
+              </ion-text>
+              <p>{{'courses_enrolled' | translate }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col>
+      <ion-card class="lc-section">
+        <ion-card-content class="widget_card" (click)="navMenu('enrolled-completed-courses',null)">
+          <ion-row>
+            <ion-col>
+              <ion-button style="--background:#f7b84b">
+                <ion-icon name="time-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col class="ion-text-end">
+              <ion-text style="color:#f7b84b" class="lc-amount">
+                <span [countUp]="crsInprogrs" [options]="option"></span>
+              </ion-text>
+              <p>{{'courses_in_progress' | translate }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col>
+      <ion-card class="lc-section">
+        <ion-card-content class="widget_card" (click)="navMenu('enrolled-completed-courses',null)">
+          <ion-row>
+            <ion-col>
+              <ion-button color="danger">
+                <ion-icon name="git-commit-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col class="ion-text-end">
+              <ion-text color="danger" class="lc-amount">
+                <span [countUp]="crsNotstart" [options]="option"></span>
+              </ion-text>
+              <p>{{'courses_not_started' | translate }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col>
+      <ion-card class="lc-section">
+        <ion-card-content class="widget_card" (click)="navMenu('enrolled-completed-courses','completed')">
+          <ion-row>
+            <ion-col>
+              <ion-button color="success">
+                <ion-icon name="thumbs-up-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col class="ion-text-end">
+              <ion-text color="success" class="lc-amount">
+                <span [countUp]="crsComplete" [options]="option"></span>
+              </ion-text>
+              <p>{{'courses_completed' | translate }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+
+  </ion-row>
+</ion-grid>

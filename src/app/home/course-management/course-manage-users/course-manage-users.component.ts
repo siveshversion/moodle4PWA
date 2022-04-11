@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 export class CourseManageUsersComponent implements OnInit {
 
   data: any;
-  displayedColumns = ['slNo', 'UserName', 'Action'];
+  displayedColumns = ['slNo', 'UserName','FullName', 'Action'];
   coursesList = [];
   userFilter = [
     { value: 'all', viewValue: 'All' },
@@ -71,6 +71,7 @@ export class CourseManageUsersComponent implements OnInit {
           const course = {
             sl_no: element.sl_no,
             user_name: element.user_name,
+            user_fullname: element.user_fullname,
             user_id: element.user_id,
             course_id: cid,
             enrolled: element.enrolled

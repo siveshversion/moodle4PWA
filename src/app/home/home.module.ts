@@ -1,3 +1,4 @@
+import { MyCourseStatsComponent } from './widget/my-course-stats/my-course-stats.component';
 import { MyCoursesComponent } from './my-courses/my-courses.component';
 import { CreateCourseComponent } from './course-management/create-course/create-course.component';
 import { CourseListComponent } from './course-management/course-list/course-list.component';
@@ -34,6 +35,7 @@ import { ManageUsersComponent } from './user-management/manage-users/manage-user
 import { AddUsersComponent } from './user-management/add-users/add-users.component';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { CourseManageUsersComponent } from './course-management/course-manage-users/course-manage-users.component';
+import { CountUpModule } from 'ngx-countup';
 
 
 @NgModule({
@@ -60,6 +62,7 @@ import { CourseManageUsersComponent } from './course-management/course-manage-us
     MatBadgeModule,
     MatMenuModule,
     MatTableModule,
+    CountUpModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -68,7 +71,7 @@ import { CourseManageUsersComponent } from './course-management/course-manage-us
       }
     }),
   ],
-  declarations: [HomePage,ManageUsersComponent,AddUsersComponent,DashboardComponent,CreateCategoryComponent,CategoryListComponent,CourseListComponent,CreateCourseComponent,CourseManageUsersComponent,MyCoursesComponent],
+  declarations: [HomePage,ManageUsersComponent,AddUsersComponent,DashboardComponent,CreateCategoryComponent,CategoryListComponent,CourseListComponent,CreateCourseComponent,CourseManageUsersComponent,MyCoursesComponent,MyCourseStatsComponent],
   providers: [GlobalApiService, HttpClient, Storage]
 })
 export class HomePageModule { }
