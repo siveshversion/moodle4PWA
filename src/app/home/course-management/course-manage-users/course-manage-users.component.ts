@@ -65,7 +65,7 @@ export class CourseManageUsersComponent implements OnInit {
     data.append('course_id', cid);
     data.append('enroll_status', this.selectedFilter);
 
-    this.service.lc_course_members(data).subscribe(
+    this.service.course_members(data).subscribe(
       res => {
         res.Data.forEach((element: any) => {
           const course = {
@@ -122,7 +122,7 @@ export class CourseManageUsersComponent implements OnInit {
     data.append('course_id', cid);
     data.append('user_id', uid);
 
-    this.service.lc_unenroll_user_to_course(data).subscribe(
+    this.service.unenroll_user_to_course(data).subscribe(
       res => {
         let msg = 'User Unenrolled Successfully';
         this.showAlert(msg, cid);
@@ -140,7 +140,7 @@ export class CourseManageUsersComponent implements OnInit {
     data.append('user_id', uid);
     data.append('role_id', '5');
 
-    this.service.lc_enroll_user_to_course(data).subscribe(
+    this.service.enroll_user_to_course(data).subscribe(
       res => {
         if (res.Data.cat_id) {
           let msg = 'User Enrolled Successfully';

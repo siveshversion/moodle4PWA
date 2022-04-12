@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
 
     this.showLoader();
 
-    this.service.lc_login_svc(this.loginForm.value).subscribe(
+    this.service.login_svc(this.loginForm.value).subscribe(
       res => {
 
         console.log(JSON.stringify(res));
@@ -116,7 +116,7 @@ export class LoginComponent implements OnInit {
 
     // getUserDetails() {
     //   this.hideLoader();
-    //   this.service.lc_user(localStorage.getItem('username')).subscribe(
+    //   this.service.user(localStorage.getItem('username')).subscribe(
     //     (res: any) => {
     //       console.log(JSON.stringify(res));
     //         //localStorage.setItem('user_id', res[0].id);

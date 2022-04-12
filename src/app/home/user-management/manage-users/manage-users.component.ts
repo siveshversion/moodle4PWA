@@ -66,7 +66,7 @@ export class ManageUsersComponent implements OnInit {
     const data = new FormData();
     data.append('wstoken', environment.MOODLE_TOKEN);
 
-    this.service.lc_mod_get_user_list(data).subscribe(
+    this.service.mod_get_user_list(data).subscribe(
       res => {
         this.users = res.Data;
         this.users.forEach((element: any) => {
@@ -127,7 +127,7 @@ export class ManageUsersComponent implements OnInit {
     let status = (mode == '0') ? ' Activated ' : ' Suspended ';
     formData.append("user_id", userid);
     formData.append("mode", mode);
-    this.service.lc_mod_suspend_user(formData).subscribe((response) => {
+    this.service.mod_suspend_user(formData).subscribe((response) => {
       if (response) {
         this.hideLoader();
         let msg = "User" + status + "Successfully"
@@ -144,7 +144,7 @@ export class ManageUsersComponent implements OnInit {
     this.showLoader('Processing Request...');
     let formData = new FormData();
     formData.append("user_id", userid);
-    this.service.lc_mod_delete_user(formData).subscribe((response) => {
+    this.service.mod_delete_user(formData).subscribe((response) => {
       if (response.Data) {
         this.hideLoader();
         let msg = 'User Deleted successfully';

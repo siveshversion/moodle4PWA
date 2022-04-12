@@ -1,0 +1,3 @@
+<ion-content [fullscreen]="true" class="ion-padding" class="lc-content" *ngIf="isRedirect" scroll-y="false">
+  <iframe id="viewframe" width="100%" height="100%" [src]="redirectUrl" frameborder="0" allowfullscreen (load)="frameUpdate($event)"></iframe>
+</ion-content>

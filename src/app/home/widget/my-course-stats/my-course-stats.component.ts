@@ -41,7 +41,7 @@ export class MyCourseStatsComponent implements OnInit {
 
 
   getCrsStats() {
-    this.service.lc_mod_get_course_status_count().subscribe(
+    this.service.mod_get_course_status_count().subscribe(
       res => {
         //console.log(JSON.stringify(res));
         this.crsEnrolled = res.Data.enrolled_courses;

@@ -96,6 +96,8 @@ export class HomePage {
       this.navCtrl.navigateForward('/home/course-manage-users');
     }else if (routeName == 'mycourses') {
       this.navCtrl.navigateForward('/home/mycourses');
+    }else if (routeName == 'course') {
+      this.navCtrl.navigateForward('/home/course');
     }
   }
 

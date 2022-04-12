@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 export class CourseListComponent implements OnInit {
 
   data: any;
-  displayedColumns = ['courseName', 'courseShortName','categoryName','enrolledCnt', 'Action'];
+  displayedColumns = ['courseName', 'courseShortName', 'categoryName', 'enrolledCnt', 'Action'];
   coursesList = [];
   catId: any;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
@@ -51,7 +51,7 @@ export class CourseListComponent implements OnInit {
 
   courseList() {
 
-    //this.showLoader('Loading course list...<br> Please wait...');
+    this.showLoader('Loading course list...<br> Please wait...');
 
     this.coursesList = [];
 
@@ -62,7 +62,7 @@ export class CourseListComponent implements OnInit {
       data.append("catId", this.catId);
     }
 
-    this.service.lc_course_list(data).subscribe(
+    this.service.course_list(data).subscribe(
       res => {
 
         res.Data.forEach((element: any) => {
@@ -125,6 +125,8 @@ export class CourseListComponent implements OnInit {
       this.navCtrl.navigateForward('home/courseparticipants?cid=' + courseId);
     } else if (action === 'add') {
       this.navCtrl.navigateForward('home/coursecreation?cat=' + catId);
+    } else if (action === 'course-summary') {
+      this.navCtrl.navigateForward('home/coursesummary?cid=' + courseId);
     }
   }
 

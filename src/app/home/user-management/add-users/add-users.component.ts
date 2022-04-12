@@ -110,7 +110,7 @@ export class AddUsersComponent implements OnInit {
   fillEditFields(userId: any) {
     let formData = new FormData();
     formData.append("user_id", userId);
-    this.service.lc_get_user(formData).subscribe((response) => {
+    this.service.get_user(formData).subscribe((response) => {
       response.Data.forEach((element: any) => {
         this.userCreateForm.patchValue({
           username: element.username,
@@ -137,7 +137,7 @@ export class AddUsersComponent implements OnInit {
       this.unameConflict = false;
       this.umailConflict = false;
 
-      this.service.lc_check_already_taken(formData).subscribe((response) => {
+      this.service.check_already_taken(formData).subscribe((response) => {
 
         this.cmValidateToggler(fieldname, null);
         if (response.Data.exists) {
@@ -182,7 +182,7 @@ export class AddUsersComponent implements OnInit {
       formData.append("user_id", this.param_userId);
       msg = "Updating User Please Wait...."
       this.showLoader(msg);
-      this.service.lc_update_user(formData).subscribe((response) => {
+      this.service.update_user(formData).subscribe((response) => {
         if (response.Data) {
           this.hideLoader();
           msg = "User Updated Successfully";
@@ -197,7 +197,7 @@ export class AddUsersComponent implements OnInit {
     else {
       msg = 'Creating User Please wait...';
       this.showLoader(msg);
-      this.service.lc_add_new_user(formData).subscribe((response) => {
+      this.service.add_new_user(formData).subscribe((response) => {
 
         if (response.Data) {
           this.hideLoader();

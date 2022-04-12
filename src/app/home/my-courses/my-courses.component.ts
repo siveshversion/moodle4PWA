@@ -119,7 +119,7 @@ export class MyCoursesComponent implements OnInit {
     const data = new FormData();
     data.append('userid', localStorage.getItem('user_id'));
 
-    this.service.lc_mod_get_enrol_courses(data).subscribe(
+    this.service.mod_get_enrol_courses(data).subscribe(
       res => {
 
         this.courses = res.Data;

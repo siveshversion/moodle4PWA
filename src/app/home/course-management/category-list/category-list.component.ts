@@ -54,7 +54,7 @@ export class CategoryListComponent implements OnInit {
     const data = new FormData();
     data.append('userId', localStorage.getItem('user_id'));
 
-    this.service.lc_category_list(data).subscribe(
+    this.service.category_list(data).subscribe(
       res => {
 
         res.Data.forEach((element: any) => {

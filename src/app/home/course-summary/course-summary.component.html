@@ -1,0 +1,66 @@
+<ion-content [fullscreen]="true" class="ion-padding" class="lc-content">
+  <ion-card class="lc-section" *ngIf="details">
+
+    <ion-card-content>
+      <div class="content-page">
+        <div class="content" *ngIf="details.displayname != ''">
+          <!-- Start Content-->
+          <div class="container-fluid">
+
+            <div class="row">
+              <div class="col-12">
+
+                <span class="badge badge-outline-primary badge-pill">{{details.categoryname}}</span>
+                <h1 class="display-4" style="font-weight: 400;">{{details.displayname}}</h1>
+
+                <div style="padding-left:0px !important">
+                  <button type="button" class="btn btn-primary btn-lg" (click)="goToCourse(courseId)">
+                    <i data-feather="play-circle"></i>
+                    {{'view_course' | translate }}</button>
+
+                </div>
+
+                <hr class="my-4">
+                <h3 class="mb-1">{{'course_description' | translate }} </h3>
+                <p class="lead" [innerHTML]="details.summary"></p>
+
+
+              </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+
+            <div class="row" *ngIf="false">
+                <div class="col-12">
+
+                    <h3 class="mb-1" >{{'course_content' | translate }}</h3>
+                    <div class="row" >
+                        <div class="col-xl-6">
+                            <div id="accordion" class="mb-3">
+                                <div class="card mb-1">
+                                    <div class="card-header" id="headingOne"
+                                        *ngFor="let module of contents;let i= index">
+                                        <h5 class="m-0">
+                                            <a class="text-dark" data-toggle="collapse"
+                                                aria-expanded="true">
+                                                <i data-feather="book-open" class="icon-dual"></i>
+                                                {{module.name}}</a>
+                                        </h5>
+                                    </div>
+                                </div>
+
+                            </div> <!-- end #accordions-->
+                        </div> <!-- end col -->
+                    </div> <!-- end row -->
+
+                </div>
+            </div>  
+            <!-- end row -->
+
+
+          </div> <!-- container -->
+        </div> <!-- content -->
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

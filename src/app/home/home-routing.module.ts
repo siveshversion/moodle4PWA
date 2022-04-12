@@ -1,3 +1,5 @@
+import { CourseDetailsComponent } from './course-details/course-details.component';
+import { CourseSummaryComponent } from './course-summary/course-summary.component';
 import { MyCourseStatsComponent } from './widget/my-course-stats/my-course-stats.component';
 import { MyCoursesComponent } from './my-courses/my-courses.component';
 import { CourseManageUsersComponent } from './course-management/course-manage-users/course-manage-users.component';
@@ -47,6 +49,12 @@ const routes: Routes = [
       },{
         path:'coursestats',
         component: MyCourseStatsComponent
+      },{
+        path:'coursesummary',
+        component: CourseSummaryComponent
+      },{
+        path:'course',
+        component: CourseDetailsComponent
       } ]
     }
 ];

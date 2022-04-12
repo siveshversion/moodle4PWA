@@ -65,7 +65,7 @@ export class CreateCategoryComponent implements OnInit {
     let formData = new FormData();
     formData.append("cat_id", this.catId);
 
-    this.service.lc_get_category_by_id(formData).subscribe((response) => {
+    this.service.get_category_by_id(formData).subscribe((response) => {
       if (response) {
         this.categoryForm.patchValue({
           categoryName: response.Data.name,
@@ -134,7 +134,7 @@ export class CreateCategoryComponent implements OnInit {
     formData.append("field_name", 'name');
     formData.append("table_name", 'mdl_course_categories');
 
-    this.service.lc_check_already_taken(formData).subscribe((response) => {
+    this.service.check_already_taken(formData).subscribe((response) => {
       this.categorynameConflict = null;
       this.cmValidateToggler('categoryName', null);
       if (response.Data.exists) {
@@ -172,7 +172,7 @@ export class CreateCategoryComponent implements OnInit {
     let msg: string;
     msg = "Updating Category Please Wait...."
     this.showLoader(msg);
-    this.service.lc_update_category(formData).subscribe((response) => {
+    this.service.update_category(formData).subscribe((response) => {
       if (response) {
         this.hideLoader();
         msg = "Category Updated Successfully";
@@ -189,7 +189,7 @@ export class CreateCategoryComponent implements OnInit {
     let msg: string;
     msg = "Creating Category Please Wait...."
     this.showLoader(msg);
-    this.service.lc_create_category(formData).subscribe((response) => {
+    this.service.create_category(formData).subscribe((response) => {
       if (response) {
         this.hideLoader();
         msg = "Category Created Successfully";

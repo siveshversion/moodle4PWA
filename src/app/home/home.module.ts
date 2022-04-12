@@ -1,3 +1,5 @@
+import { CourseDetailsComponent } from './course-details/course-details.component';
+import { CourseSummaryComponent } from './course-summary/course-summary.component';
 import { MyCourseStatsComponent } from './widget/my-course-stats/my-course-stats.component';
 import { MyCoursesComponent } from './my-courses/my-courses.component';
 import { CreateCourseComponent } from './course-management/create-course/create-course.component';
@@ -71,7 +73,7 @@ import { CountUpModule } from 'ngx-countup';
       }
     }),
   ],
-  declarations: [HomePage,ManageUsersComponent,AddUsersComponent,DashboardComponent,CreateCategoryComponent,CategoryListComponent,CourseListComponent,CreateCourseComponent,CourseManageUsersComponent,MyCoursesComponent,MyCourseStatsComponent],
+  declarations: [HomePage,ManageUsersComponent,AddUsersComponent,DashboardComponent,CreateCategoryComponent,CategoryListComponent,CourseListComponent,CreateCourseComponent,CourseManageUsersComponent,MyCoursesComponent,MyCourseStatsComponent,CourseSummaryComponent,CourseDetailsComponent],
   providers: [GlobalApiService, HttpClient, Storage]
 })
 export class HomePageModule { }

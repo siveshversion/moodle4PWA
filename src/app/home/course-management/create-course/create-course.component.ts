@@ -88,7 +88,7 @@ export class CreateCourseComponent implements OnInit {
     let formData = new FormData();
     formData.append("course_id", this.courseId);
     
-    this.service.lc_get_course_by_id(formData).subscribe((response) => {
+    this.service.get_course_by_id(formData).subscribe((response) => {
       if (response.Data) {
         let enrolled_type = response.Data.enrol_method;
         this.old_enroll_id = response.old_enroll_id;
@@ -191,7 +191,7 @@ export class CreateCourseComponent implements OnInit {
     let formData = new FormData();
     formData.append("userId", localStorage.getItem('user_id'));
 
-    this.service.lc_category_list(formData).subscribe(
+    this.service.category_list(formData).subscribe(
       res => {
         res.Data.forEach((element: any) => {
           var cat_data = {
@@ -235,7 +235,7 @@ export class CreateCourseComponent implements OnInit {
 
     msg = "Creating Course Please Wait...."
     this.showLoader(msg);
-    this.service.lc_create_course(formData).subscribe((response) => {
+    this.service.create_course(formData).subscribe((response) => {
       if (response.Data.id) {
         this.hideLoader();
         msg = "Course Created Successfully";
@@ -257,7 +257,7 @@ export class CreateCourseComponent implements OnInit {
 
     msg = "Updating Course Please Wait...."
     this.showLoader(msg);
-    this.service.lc_update_course(formData).subscribe((response) => {
+    this.service.update_course(formData).subscribe((response) => {
       if (response) {
         this.hideLoader();
         msg = "Course Updated Successfully";
@@ -277,7 +277,7 @@ export class CreateCourseComponent implements OnInit {
     formData.append("table_name", 'mdl_course');
     formData.append("edit_id", courseId);
 
-    this.service.lc_check_already_taken(formData).subscribe((response) => {
+    this.service.check_already_taken(formData).subscribe((response) => {
       this.shortnameConflict = null;
       this.cmValidateToggler('courseShortName', null);
       if (response.Data.exists) {
