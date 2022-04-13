@@ -43,7 +43,7 @@ export class CourseDetailsComponent implements OnInit {
 
   openLink(url: any) {
     let user_key = localStorage.getItem('user_key');
-    this.redirectUrl = this.sanitizer.bypassSecurityTrustResourceUrl(environment.moodle_url + '/auth/userkey/login.php?key=' + user_key + '&wantsurl=' + url + '&embedded=true&output=embed');
+    this.redirectUrl = this.sanitizer.bypassSecurityTrustResourceUrl(environment.moodle_url + '/auth/userkey/login.php?key=' + user_key + '&wantsurl=' + url + '&embedded=true');
     console.log('qqq' + this.redirectUrl);
     // this.redirectUrl =  url;
     this.isRedirect = true;
