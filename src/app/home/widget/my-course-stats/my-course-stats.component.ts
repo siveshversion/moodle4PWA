@@ -14,7 +14,7 @@ export class MyCourseStatsComponent implements OnInit {
   option = {
     startVal: 0,
     useEasing: true,
-    duration: 2
+    duration: 1
   };
 
   constructor(private service: GlobalApiService, private navCtrl: NavController, public loadingController: LoadingController, private router: ActivatedRoute, private translateService: TranslateService, private route: Router) {
@@ -35,7 +35,7 @@ export class MyCourseStatsComponent implements OnInit {
   crsInprogrs = 0;
 
 
-  ngOnInit() {}
+  ngOnInit() { }
 
 
 
@@ -57,14 +57,14 @@ export class MyCourseStatsComponent implements OnInit {
 
   navMenu(routeName: String, activetab: any) {
 
-    if (activetab == 'completed' || activetab == 'enrolled') {
-      localStorage.setItem('active_tab', activetab);
-    }
-    else {
-      localStorage.setItem('active_tab', 'default');
-    }
-    if (routeName === 'enrolled-completed-courses') {
-      this.navCtrl.navigateForward('/home/report/enrolled-completed-courses');
+    // if (activetab == 'completed' || activetab == 'enrolled') {
+    //   localStorage.setItem('active_tab', activetab);
+    // }
+    // else {
+    //   localStorage.setItem('active_tab', 'default');
+    // }
+    if (routeName === 'mycourses') {
+      this.navCtrl.navigateForward('/home/mycourses');
     }
   }
 

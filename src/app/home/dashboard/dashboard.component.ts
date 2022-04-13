@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   option = {
     startVal: 0,
     useEasing: true,
-    duration: 2
+    duration: 1
   };
 
   isAdmin: Boolean;

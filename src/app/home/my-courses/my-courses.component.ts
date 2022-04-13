@@ -1,12 +1,12 @@
 import { GlobalApiService } from './../../services/global-api.service';
-import { Component, OnInit, ViewChildren,QueryList,HostListener, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, HostListener, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
-import { NavController,LoadingController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
 
 
 export interface CatCourses {
- 
+
   categoryId: number;
   categoryName: string;
   categoryCourses: [];
@@ -20,8 +20,8 @@ export interface CatCourses {
 export class MyCoursesComponent implements OnInit {
 
   @ViewChildren(IonSlides) slides: QueryList<IonSlides>;
-  
-  
+
+
   innerWidth: number;
   courses: any = [];
   categories: any = [];
@@ -33,7 +33,7 @@ export class MyCoursesComponent implements OnInit {
 
   slideOpts = {
     slidesPerView: 0,
-    Navigator:true,
+    Navigator: true,
     coverflowEffect: {
       rotate: 50,
       stretch: 0,
@@ -72,37 +72,37 @@ export class MyCoursesComponent implements OnInit {
     }
   }
   IonSlides: any;
-  
+
 
 
 
   constructor(private service: GlobalApiService, private route: Router,
-    public loadingController: LoadingController, private router: ActivatedRoute,private navCtrl: NavController) { }
+    public loadingController: LoadingController, private router: ActivatedRoute, private navCtrl: NavController) { }
 
 
   ngOnInit() {
     this.onResize();
 
 
-    
+
     this.router.queryParams.subscribe(
       params => {
-        this.loadCourse();    
+        this.loadCourse();
       }
     )
 
-    
+
   }
 
-  
+
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.innerWidth = window.innerWidth;
     if (this.innerWidth <= 768) {
-      
+
       this.slideOpts.slidesPerView = 1;
     } else {
-      
+
       this.slideOpts.slidesPerView = 4;
     }
   }
@@ -110,18 +110,19 @@ export class MyCoursesComponent implements OnInit {
   ionViewDidEnter() {
     //this.navMenu();
   }
-  
+
 
   navMenu() {
-      this.navCtrl.navigateForward('/home/courses',{queryParams: {load: true}});
-    }
+    this.navCtrl.navigateForward('/home/courses', { queryParams: { load: true } });
+  }
   loadCourse() {
+
+    this.showLoader_1();
     const data = new FormData();
     data.append('userid', localStorage.getItem('user_id'));
 
     this.service.mod_get_enrol_courses(data).subscribe(
       res => {
-
         this.courses = res.Data;
         console.log(JSON.stringify(this.courses));
         this.coursesDummy = this.courses;
@@ -132,7 +133,7 @@ export class MyCoursesComponent implements OnInit {
             Object.assign(element, { imgUrl: './assets/icon/crs-img.jpg' });
           }
         });
-
+        this.hideLoader_1();
       }, err => {
         console.log(err);
       }
@@ -140,11 +141,8 @@ export class MyCoursesComponent implements OnInit {
   }
 
 
-  getCourseDetails(id,course,credits,status) {
-
-    this.route.navigate(['home/teacher/course-summary'], { queryParams: { id: id,status:status,credits: credits,course: course, } });
-
-
+  getCourseDetails(id, status) {
+    this.route.navigate(['home/coursesummary'], { queryParams: { cid: id, status: status } });
   }
 
   search(value: any): void {
@@ -178,7 +176,7 @@ export class MyCoursesComponent implements OnInit {
   // Show the loader for infinite time
   showLoader_1() {
     this.loadingController.create({
-      message: 'loading, Please Wait ...'
+      message: 'Loading, Please Wait ...'
     }).then((res) => {
       res.present();
     });
@@ -189,35 +187,35 @@ export class MyCoursesComponent implements OnInit {
     console.log('scrolled!!');
   }
 
-  
+
 
   next(count) {
-    
+
     let i = 0;
-      this.slides.forEach(element => {
-        
-       if(i == count){
-       
-        
+    this.slides.forEach(element => {
+
+      if (i == count) {
+
+
         element.slideNext();
-        
-       }
-        i++;
-      })    
+
+      }
+      i++;
+    })
   }
 
   prev(count) {
-    
+
     let i = 0;
-      this.slides.forEach(element => {
-       if(i == count){
-        
+    this.slides.forEach(element => {
+      if (i == count) {
+
         element.slidePrev();
-       }
-        i++;
-      })    
+      }
+      i++;
+    })
   }
 
-  
+
 
 }
