@@ -149,4 +149,9 @@ export class GlobalApiService {
     return this.http.post(this.base_url + '?methodname=getModuleDetails', data);
   }
 
+  admin_dash_content(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    return this.http.post(this.base_url + '?methodname=getadminDashStats', data);
+  }
+
 }

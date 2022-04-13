@@ -55,10 +55,6 @@ export class MyCourseStatsComponent implements OnInit {
     );
   }
 
-
-
-
-
   navMenu(routeName: String, activetab: any) {
 
     if (activetab == 'completed' || activetab == 'enrolled') {

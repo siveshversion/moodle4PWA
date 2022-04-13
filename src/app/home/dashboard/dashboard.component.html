@@ -6,4 +6,50 @@
 
   <app-my-course-stats *ngIf="isStudent"></app-my-course-stats>
 
+  <ion-grid *ngIf="isAdmin">
+    <ion-row>
+      <ion-col>
+        <ion-card class="lc-section">
+          <ion-card-content class="widget_card" (click)="navMenu('users')">
+            <ion-row>
+              <ion-col>
+                <ion-button color="tertiary">
+                  <ion-icon name="person-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col class="ion-text-end">
+                <ion-text color="tertiary" class="lc-amount">
+                  <span [countUp]="userscount" [options]="option"></span>
+                </ion-text>
+                <p>{{'users' | translate }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+  
+      <ion-col>
+        <ion-card class="lc-section">
+          <ion-card-content class="widget_card" (click)="navMenu('course-list')">
+            <ion-row>
+              <ion-col>
+                <ion-button color="secondary">
+                  <ion-icon name="book-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col class="ion-text-end">
+                <ion-text color="secondary" class="lc-amount">
+                  <span [countUp]="coursescount" [options]="option"></span>
+                </ion-text>
+                <p>{{'courses' | translate }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+  
+  
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

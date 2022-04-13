@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { MyCourseStatsComponent } from '../widget/my-course-stats/my-course-stats.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,10 +11,19 @@ import { MyCourseStatsComponent } from '../widget/my-course-stats/my-course-stat
 })
 export class DashboardComponent implements OnInit {
 
+  option = {
+    startVal: 0,
+    useEasing: true,
+    duration: 2
+  };
+
   isAdmin: Boolean;
   isStudent: Boolean;
   role: string;
   dashtitle: string;
+  userscount: any;
+  coursescount: any;
+
 
   constructor(private service: GlobalApiService, private navCtrl: NavController, public loadingController: LoadingController, private router: ActivatedRoute, private translateService: TranslateService, private route: Router) {
 
@@ -28,6 +36,7 @@ export class DashboardComponent implements OnInit {
           this.isAdmin = true;
           this.isStudent = false;
           this.dashtitle = 'welcome_moodle';
+          this.init_for_admin();
         }
         else {
           this.isStudent = true;
@@ -41,5 +50,31 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+
+  init_for_admin() {
+    let formData = new FormData();
+    this.service.admin_dash_content(formData).subscribe(
+      res => {
+        this.userscount= res.Data.usersCount;
+        this.coursescount= res.Data.coursesCount;
+
+
+      },
+      err => {
+        console.log(err);
+
+      }
+    );
+  }
+
+
+  navMenu(routeName: any) {
+    if (routeName == 'users') {
+      this.navCtrl.navigateForward('/home/users');
+    } else if (routeName == 'course-list') {
+      this.navCtrl.navigateForward('/home/courses');
+    }
+  }
 
 }
