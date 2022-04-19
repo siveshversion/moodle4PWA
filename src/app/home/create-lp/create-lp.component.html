@@ -1,0 +1,91 @@
+<ion-content [fullscreen]="true" class="ion-padding" scroll-y="true" class="lc-content">
+  <!--ion-header>{{title}}</ion-header-->
+  <form [formGroup]="lpForm">
+
+    <ion-grid>
+      <ion-card class="lc-section">
+        <ion-card-header>
+          <ion-row>
+            <ion-col size="12" size-xs="11" size-md="11" size-lg="11" class="ion-no-padding">
+              <ion-header>{{subtitle | translate }}</ion-header>
+            </ion-col>
+          </ion-row>
+          <hr>
+          <ion-row class="ion-padding-top">
+            <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+              <ion-label class="lc-label-align">{{'lp_name' | translate }}</ion-label>
+              <ion-item lines="none" color="none">
+                <ion-input class="lc-input" (ionChange)="LPnameRegistryCheck($event.target)" formControlName="lpName"
+                  type="text">
+                </ion-input>
+              </ion-item>
+              <ion-text color="danger" class="lc-error"
+                *ngIf="lpForm.get('lpName').errors && (lpForm.get('lpName').invalid && lpForm.get('lpName').dirty || lpForm.get('lpName').touched)">
+                <ion-text *ngIf="hasError('lpName','required')">{{'this_field_is_required' | translate }}</ion-text>
+              </ion-text>
+              <ion-text color="danger" class="lc-error" *ngIf="lpnameConflict">
+                <ion-text *ngIf="lpnameConflict">LP name already taken</ion-text>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-padding-top">
+            <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+              <ion-label class="lc-label-align">{{'lp_description' | translate }}</ion-label>
+              <ion-item lines="none" color="none">
+                <ion-textarea rows="6" cols="20" class="lc-text-area" formControlName="lpDescription" type="text">
+                </ion-textarea>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-padding-top">
+            <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+              <ion-label class="lc-label-align">{{'credit_points' | translate }}</ion-label>
+              <ion-item lines="none" color="none">
+                <ion-input class="lc-input" (ionChange)="transform($event)" formControlName="lpCredit" type="number">
+                </ion-input>
+              </ion-item>
+              <ion-text color="danger" class="lc-error"
+                *ngIf="lpForm.get('lpCredit').errors && (lpForm.get('lpCredit').invalid && lpForm.get('lpCredit').dirty || lpForm.get('lpCredit').touched)">
+                <ion-text *ngIf="hasError('lpCredit','required')">{{'this_field_is_required' | translate }}</ion-text>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-padding-top">
+            <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+              <ion-label class="lc-label-align">{{'days_to_complete' | translate }}</ion-label>
+              <ion-item lines="none" color="none">
+                <ion-input class="lc-input" (ionChange)="transform($event)" formControlName="lpDays" type="number">
+                </ion-input>
+              </ion-item>
+              <ion-text color="danger" class="lc-error"
+                *ngIf="lpForm.get('lpDays').errors && (lpForm.get('lpDays').invalid && lpForm.get('lpDays').dirty || lpForm.get('lpDays').touched)">
+                <ion-text *ngIf="hasError('lpDays','required')">{{'this_field_is_required' | translate }}</ion-text>
+              </ion-text>
+            </ion-col>
+          </ion-row>  
+          <ion-row class="ion-padding-top">
+            <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+              <ion-label class="lc-label-align">{{'threshold' | translate }}</ion-label>
+              <ion-item lines="none" color="none">
+                <ion-input class="lc-input" (ionChange)="transform($event)" formControlName="lpThreshold" type="number">
+                </ion-input>
+              </ion-item>
+              <ion-text color="danger" class="lc-error"
+                *ngIf="lpForm.get('lpThreshold').errors && (lpForm.get('lpThreshold').invalid && lpForm.get('lpThreshold').dirty || lpForm.get('lpThreshold').touched)">
+                <ion-text *ngIf="hasError('lpThreshold','required')">{{'this_field_is_required' | translate }}
+                </ion-text>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+          
+        </ion-card-header>
+        <ion-row>
+          <ion-col size="12" size-xs="12" size-md="2" size-lg="2" class="ion-no-padding">
+            <ion-button id="savebtn" [disabled]="!lpForm.valid" type="button" expand="block" fill="solid"
+              class="lc-button lc-btn-color" (click)="submit()">{{btnName | translate }}</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-grid>
+  </form>
+</ion-content>

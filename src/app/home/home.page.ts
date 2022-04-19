@@ -98,6 +98,10 @@ export class HomePage {
       this.navCtrl.navigateForward('/home/mycourses');
     }else if (routeName == 'course') {
       this.navCtrl.navigateForward('/home/course');
+    } else if (routeName == 'create-lp') {
+      this.navCtrl.navigateForward('/home/create-lp');
+    } else if (routeName == 'list-lp') {
+      this.navCtrl.navigateForward('/home/lps');
     }
   }
 

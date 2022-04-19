@@ -85,7 +85,7 @@ export class GlobalApiService {
     data.append('wsfunction', 'core_enrol_get_enrolled_users');
     return this.http.post(this.base_url + '?methodname=listCourses', data);
   }
-  6
+
   get_course_by_id(data: any): Observable<any> {
     data.append('wstoken', environment.MOODLE_TOKEN);
     data.append('wsfunction', 'core_course_get_courses');
@@ -153,5 +153,22 @@ export class GlobalApiService {
     data.append('wstoken', environment.MOODLE_TOKEN);
     return this.http.post(this.base_url + '?methodname=getadminDashStats', data);
   }
+
+  create_lp(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=createLP', data);
+  }
+
+  lp_list(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=listLP', data);
+  }
+
+  get_lp_by_id(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=get_lp_by_id', data);
+  }
+
+  update_lp(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=update_lp', data);
+  }
+
 
 }

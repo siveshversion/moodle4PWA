@@ -1,3 +1,5 @@
+import { LPsComponent } from './lps/lps.component';
+import { CreateLPComponent } from './create-lp/create-lp.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseSummaryComponent } from './course-summary/course-summary.component';
 import { MyCourseStatsComponent } from './widget/my-course-stats/my-course-stats.component';
@@ -22,7 +24,7 @@ const routes: Routes = [
       {
         path: 'users',
         component: ManageUsersComponent
-      },{
+      }, {
         path: 'usercreation',
         component: AddUsersComponent
       }, {
@@ -43,24 +45,30 @@ const routes: Routes = [
       }, {
         path: 'courseparticipants',
         component: CourseManageUsersComponent
-      },{
-        path:'mycourses',
+      }, {
+        path: 'mycourses',
         component: MyCoursesComponent
-      },{
-        path:'coursestats',
+      }, {
+        path: 'coursestats',
         component: MyCourseStatsComponent
-      },{
-        path:'coursesummary',
+      }, {
+        path: 'coursesummary',
         component: CourseSummaryComponent
-      },{
-        path:'course',
+      }, {
+        path: 'course',
         component: CourseDetailsComponent
-      } ]
-    }
+      }, {
+        path: 'create-lp',
+        component: CreateLPComponent
+      }, {
+        path: 'lps',
+        component: LPsComponent
+      }]
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class HomePageRoutingModule {}
+export class HomePageRoutingModule { }

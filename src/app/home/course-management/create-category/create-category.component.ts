@@ -61,7 +61,7 @@ export class CreateCategoryComponent implements OnInit {
   }
 
   setEditFields() {
-    //this.showLoader('Loading Category form data...');
+    this.showLoader('Loading Category form data...');
     let formData = new FormData();
     formData.append("cat_id", this.catId);
 

@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
   dashtitle: string;
   userscount: any;
   coursescount: any;
+  lpscount: any;
 
 
   constructor(private service: GlobalApiService, private navCtrl: NavController, public loadingController: LoadingController, private router: ActivatedRoute, private translateService: TranslateService, private route: Router) {
@@ -56,10 +57,9 @@ export class DashboardComponent implements OnInit {
     let formData = new FormData();
     this.service.admin_dash_content(formData).subscribe(
       res => {
-        this.userscount= res.Data.usersCount;
-        this.coursescount= res.Data.coursesCount;
-
-
+        this.userscount = res.Data.usersCount;
+        this.coursescount = res.Data.coursesCount;
+        this.lpscount = res.Data.lpsCount;
       },
       err => {
         console.log(err);
@@ -74,6 +74,8 @@ export class DashboardComponent implements OnInit {
       this.navCtrl.navigateForward('/home/users');
     } else if (routeName == 'course-list') {
       this.navCtrl.navigateForward('/home/courses');
+    }  else if (routeName == 'lps') {
+      this.navCtrl.navigateForward('/home/lps');
     }
   }
 

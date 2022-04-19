@@ -1,20 +1,21 @@
-import { GlobalApiService } from './../../../services/global-api.service';
+import { GlobalApiService } from 'src/app/services/global-api.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuController, NavController, AlertController, LoadingController } from '@ionic/angular';
 import { Router, NavigationEnd } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
+
 @Component({
-  selector: 'app-category-list',
-  templateUrl: './category-list.component.html',
-  styleUrls: ['./category-list.component.scss'],
+  selector: 'app-lps',
+  templateUrl: './lps.component.html',
+  styleUrls: ['./lps.component.scss'],
 })
-export class CategoryListComponent implements OnInit {
+export class LPsComponent implements OnInit {
 
   data: any;
-  displayedColumns = ['categoryName', 'coursesCount', 'Action'];
-  categorysList = [];
+  displayedColumns = ['lpName', 'bu', 'courses', 'users', 'cmp_days', 'lp_threshold', 'status', 'Action'];
+  lpsList = [];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
@@ -34,8 +35,8 @@ export class CategoryListComponent implements OnInit {
         // Trick the Router into believing it's last link wasn't previously loaded
         this.router.navigated = false;
         let navigation = this.router.url;
-        if (navigation === '/home/categories') {
-          this.categoryList();
+        if (navigation === '/home/lps') {
+          this.lpList();
         }
       }
     });
@@ -45,30 +46,32 @@ export class CategoryListComponent implements OnInit {
   ngOnInit() { }
 
 
-  categoryList() {
+  lpList() {
 
-    this.showLoader('Loading Category list...<br> Please wait...');
+    this.showLoader('Loading LP list...<br> Please wait...');
 
-    this.categorysList = [];
+    this.lpsList = [];
 
     const data = new FormData();
     data.append('userId', localStorage.getItem('user_id'));
 
-    this.service.category_list(data).subscribe(
+    this.service.lp_list(data).subscribe(
       res => {
 
         res.Data.forEach((element: any) => {
 
-          let cnt = Number(element.category_courses_cnt);
-          let course_exist = (cnt > 0) ? true : false;
+          const lp = {
+            lp_id: element.lp_id,
+            lp_name: element.lp_name,
+            lp_bu: element.lp_bu,
+            lp_courses_cnt: element.lp_courses_cnt,
+            lp_users_cnt: element.lp_users_cnt,
+            lp_days: element.lp_days,
+            lp_threshold: element.lp_threshold,
+            lp_status: element.lp_status,
 
-          const category = {
-            category_id: element.category_id,
-            category_name: element.category_name,
-            category_courses_cnt: element.category_courses_cnt,
-            category_course_exist: course_exist
           };
-          this.categorysList.push(category);
+          this.lpsList.push(lp);
         });
         this.applyFilter('');
         this.hideLoader();
@@ -77,7 +80,7 @@ export class CategoryListComponent implements OnInit {
         this.hideLoader();
       });
 
-    this.dataSource = new MatTableDataSource<any>(this.categorysList);
+    this.dataSource = new MatTableDataSource<any>(this.lpsList);
     this.dataSource.paginator = this.paginator;
 
   }
@@ -108,13 +111,9 @@ export class CategoryListComponent implements OnInit {
   }
 
 
-  navMenu(action: any, catId: any) {
+  navMenu(action: any, lpId: any) {
     if (action === 'edit') {
-      this.navCtrl.navigateForward('home/categorycreation?id=' + catId);
-    } else if (action === 'view') {
-      this.navCtrl.navigateForward('home/courses?cat=' + catId);
-    } else if (action === 'add') {
-      this.navCtrl.navigateForward('home/coursecreation?cat=' + catId);
+      this.navCtrl.navigateForward('home/create-lp?id=' + lpId);
     }
 
   }

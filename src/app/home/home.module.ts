@@ -1,3 +1,5 @@
+import { LPsComponent } from './lps/lps.component';
+import { CreateLPComponent } from './create-lp/create-lp.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseSummaryComponent } from './course-summary/course-summary.component';
 import { MyCourseStatsComponent } from './widget/my-course-stats/my-course-stats.component';
@@ -67,13 +69,13 @@ import { CountUpModule } from 'ngx-countup';
     CountUpModule,
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
     }),
   ],
-  declarations: [HomePage,ManageUsersComponent,AddUsersComponent,DashboardComponent,CreateCategoryComponent,CategoryListComponent,CourseListComponent,CreateCourseComponent,CourseManageUsersComponent,MyCoursesComponent,MyCourseStatsComponent,CourseSummaryComponent,CourseDetailsComponent],
+  declarations: [HomePage, ManageUsersComponent, AddUsersComponent, DashboardComponent, CreateCategoryComponent, CategoryListComponent, CourseListComponent, CreateCourseComponent, CourseManageUsersComponent, MyCoursesComponent, MyCourseStatsComponent, CourseSummaryComponent, CourseDetailsComponent, CreateLPComponent, LPsComponent],
   providers: [GlobalApiService, HttpClient, Storage]
 })
 export class HomePageModule { }

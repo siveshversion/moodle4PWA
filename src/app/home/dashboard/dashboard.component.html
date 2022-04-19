@@ -47,6 +47,26 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
+
+      <ion-col>
+        <ion-card class="lc-section">
+          <ion-card-content class="widget_card" (click)="navMenu('lps')">
+            <ion-row>
+              <ion-col>
+                <ion-button color="tertiary">
+                  <ion-icon name="easel-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col class="ion-text-end">
+                <ion-text color="tertiary" class="lc-amount">
+                  <span [countUp]="lpscount" [options]="option"></span>
+                </ion-text>
+                <p>{{'lps' | translate }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
   
   
     </ion-row>
