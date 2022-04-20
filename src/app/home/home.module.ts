@@ -1,3 +1,4 @@
+import { LpSummaryComponent } from './lp-summary/lp-summary.component';
 import { LpUsersComponent } from './lp-users/lp-users.component';
 import { LpCoursesComponent } from './lp-courses/lp-courses.component';
 import { LPsComponent } from './lps/lps.component';
@@ -77,7 +78,7 @@ import { CountUpModule } from 'ngx-countup';
       }
     }),
   ],
-  declarations: [HomePage, ManageUsersComponent, AddUsersComponent, DashboardComponent, CreateCategoryComponent, CategoryListComponent, CourseListComponent, CreateCourseComponent, CourseManageUsersComponent, MyCoursesComponent, MyCourseStatsComponent, CourseSummaryComponent, CourseDetailsComponent, CreateLPComponent, LPsComponent,LpCoursesComponent,LpUsersComponent],
+  declarations: [HomePage, ManageUsersComponent, AddUsersComponent, DashboardComponent, CreateCategoryComponent, CategoryListComponent, CourseListComponent, CreateCourseComponent, CourseManageUsersComponent, MyCoursesComponent, MyCourseStatsComponent, CourseSummaryComponent, CourseDetailsComponent, CreateLPComponent, LPsComponent,LpCoursesComponent,LpUsersComponent,LpSummaryComponent],
   providers: [GlobalApiService, HttpClient, Storage]
 })
 export class HomePageModule { }

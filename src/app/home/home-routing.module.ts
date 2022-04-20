@@ -1,3 +1,4 @@
+import { LpSummaryComponent } from './lp-summary/lp-summary.component';
 import { LpUsersComponent } from './lp-users/lp-users.component';
 import { LpCoursesComponent } from './lp-courses/lp-courses.component';
 import { LPsComponent } from './lps/lps.component';
@@ -71,6 +72,9 @@ const routes: Routes = [
       }, {
         path: 'lp-users',
         component: LpUsersComponent
+      }, {
+        path: 'lp-summary',
+        component: LpSummaryComponent
       }]
   }
 ];

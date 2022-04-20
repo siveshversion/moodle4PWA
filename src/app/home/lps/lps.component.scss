@@ -1,43 +1,49 @@
 ion-header {
-    color: #fff;
-    font-weight: 500;
-    font-size: 20px;
-    padding-left: 10px;
-    padding-top: 28px;
-    padding-bottom: 10px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 20px;
+  padding-left: 10px;
+  padding-top: 28px;
+  padding-bottom: 10px;
 }
 
 ion-item {
-    margin-top: 8px;
+  margin-top: 8px;
 }
 
 mat-row:nth-child(even) {
-    background-color: #1B1B1B !important;
+  background-color: #1B1B1B !important;
 }
 
 @media(max-width: 768px) {
-    .lc-table-no-padding {
-        padding: 0 !important;
-    }
+  .lc-table-no-padding {
+    padding: 0 !important;
+  }
 }
 
 @media(min-width: 769px) {
-    .lc-certId-align {
-        padding-left: 24px !important;
-    }
-    .lc-btn-align {
-        margin-top: 2em;
-        --background: #02A5EF !important;
-    }
+  .lc-certId-align {
+    padding-left: 24px !important;
+  }
+
+  .lc-btn-align {
+    margin-top: 2em;
+    --background: #02A5EF !important;
+  }
 }
 
 .material-icons {
-    cursor: pointer !important;
+  cursor: pointer !important;
 }
 
 
 
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
 .spacer {
-    margin-right: 10px;
+  margin-right: 10px;
+}
+
+.anchor {
+  cursor: pointer;
 }

@@ -27,8 +27,10 @@
                     <ng-container matColumnDef="lpName">
                       <mat-header-cell *matHeaderCellDef>{{'lpName' | translate }}</mat-header-cell>
                       <mat-cell *matCellDef="let element">
-                        <span class="mobile-label">{{'lpName' | translate }}:</span>
-                        <span class="cell-align">{{element.lp_name || "--"}}</span>
+                        <span class="anchor" (click)="navMenu('lpsummary',element.lp_id)">
+                          <span class="mobile-label">{{'lpName' | translate }}:</span>
+                          <span class="cell-align">{{element.lp_name || "--"}}</span>
+                        </span>
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="bu">
@@ -84,7 +86,8 @@
                       <mat-cell *matCellDef="let element">
                         <span class="mobile-label">Action:</span>
                         <span class="material-icons" title="Edit LP" (click)="navMenu('edit',element.lp_id)">edit</span>
-                        <span class="spacer"></span><span class="material-icons" title="{{'manage_lp_courses' | translate }}"
+                        <span class="spacer"></span><span class="material-icons"
+                          title="{{'manage_lp_courses' | translate }}"
                           (click)="navMenu('mg-courses',element.lp_id)">school</span>
                       </mat-cell>
                     </ng-container>
