@@ -1,0 +1,86 @@
+<ion-content [fullscreen]="true" class="ion-padding" scroll-y="true" class="lc-content">
+  <ion-grid>
+      <ion-row>
+          <ion-col col-5 class="ion-no-padding">
+              <ion-header>Manage LP Courses</ion-header>
+          </ion-col>
+          <ion-col col-2 class="ion-no-padding"></ion-col>
+          <ion-col col-5 class="ion-no-padding">
+              <ion-item lines="none" color="none">
+                  <input type="text" class="lc-input" #searchVal (input)="applyFilter(searchVal.value)" placeholder="Search" type="text" />
+                  <div class="input-group-prepend">
+                      <span class="input-group-text"><span class="material-icons">search</span>
+                      </span>
+                  </div>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col class="ion-no-padding">
+              <ion-card class="lc-section">
+                  <ion-card-header class="lc-table-no-padding">
+                      <ion-row>
+                          <ion-col>
+                              <mat-select class="lc-input" id="courseFilter" placeholder="Select Filter" (selectionChange)="selectFilter($event.value)" name="item">
+                                  <mat-option *ngFor="let item of courseFilter" [value]="item.value">
+                                      {{ item.viewValue }}
+                                  </mat-option>
+                              </mat-select>
+                              <div class="example-container">
+                                  <mat-table [dataSource]="dataSource">
+                                      <ng-container matColumnDef="sNo">
+                                          <mat-header-cell *matHeaderCellDef>SNo</mat-header-cell>
+                                          <mat-cell *matCellDef="let element">
+                                              <span class="mobile-label">SNo:</span>
+                                              <span class="cell-align">{{element.sl_no || "--"}}</span>
+                                          </mat-cell>
+                                      </ng-container>
+                                      <ng-container matColumnDef="courseName">
+                                        <mat-header-cell *matHeaderCellDef>{{'course_name' | translate }}
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="anchor" 
+                                                (click)="navMenu('course-summary',element.course_id)">
+                                                <span class="mobile-label">{{'course_name'| translate }}:</span>
+                                                <span class="cell-align">{{element.course_name || "--"}}</span>
+                                            </span>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="courseShortName">
+                                        <mat-header-cell *matHeaderCellDef>Course Short Name</mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">Course Short name:</span>
+                                            <span class="cell-align">{{element.course_short_name || "--"}}</span>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="categoryName">
+                                        <mat-header-cell *matHeaderCellDef>{{'category_name' | translate }}
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let element">
+                                            <span class="mobile-label">{{'category_name' | translate }}:</span>
+                                            <span class="cell-align">{{element.category_name || "--"}}</span>
+                                        </mat-cell>
+                                    </ng-container>
+                                      <ng-container matColumnDef="Action">
+                                          <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                                          <mat-cell *matCellDef="let element">
+                                              <span class="mobile-label">Action:</span>
+                                              <span class="cell-align-action" (click)="assignCourse(element.course_id)" *ngIf="element.assigned == false">Assign</span>
+                                              <span class="cell-align-action" (click)="unassignCourse(element.course_id)" *ngIf="element.assigned == true">Unassign</span>
+                                          </mat-cell>
+                                      </ng-container>
+
+                                      <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
+                                      <mat-row *matRowDef="let row; columns: displayedColumns; "></mat-row>
+                                  </mat-table>
+                              </div>
+                              <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5,10,25,50,100]" showFirstLastButtons></mat-paginator>
+                          </ion-col>
+                      </ion-row>
+                  </ion-card-header>
+              </ion-card>
+          </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>

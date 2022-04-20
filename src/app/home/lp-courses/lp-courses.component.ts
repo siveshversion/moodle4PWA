@@ -6,26 +6,24 @@ import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { GlobalApiService } from 'src/app/services/global-api.service';
 
-
-
 @Component({
-  selector: 'app-course-manage-users',
-  templateUrl: './course-manage-users.component.html',
-  styleUrls: ['./course-manage-users.component.scss'],
+  selector: 'app-lp-courses',
+  templateUrl: './lp-courses.component.html',
+  styleUrls: ['./lp-courses.component.scss'],
 })
+export class LpCoursesComponent implements OnInit {
 
-export class CourseManageUsersComponent implements OnInit {
 
   data: any;
-  displayedColumns = ['slNo', 'UserName', 'FullName', 'Action'];
+  displayedColumns = ['sNo', 'courseName', 'courseShortName', 'categoryName', 'Action'];
   coursesList = [];
-  userFilter = [
+  courseFilter = [
     { value: 'all', viewValue: 'All' },
-    { value: 'enrolled', viewValue: 'Enrolled' },
-    { value: 'not_enrolled', viewValue: 'Not Enrolled' }
+    { value: 'assigned', viewValue: 'Assigned' },
+    { value: 'not_assigned', viewValue: 'Unassigned' }
   ];
   selectedFilter: any;
-  courseid: any;
+  lpid: any;
 
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
@@ -43,10 +41,10 @@ export class CourseManageUsersComponent implements OnInit {
 
     this.router.queryParams.subscribe(
       params => {
-        if (params.cid) {
-          this.courseid = params.cid;
+        if (params.id) {
+          this.lpid = params.id;
           this.selectedFilter = 'all';
-          this.viewCourseMembers(params.cid);
+          this.viewCourses(this.lpid);
         }
       }
     );
@@ -56,26 +54,27 @@ export class CourseManageUsersComponent implements OnInit {
   ngOnInit() { }
 
 
-  viewCourseMembers(cid: any) {
+  viewCourses(lpid: any) {
 
-    this.showLoader('Loading Users...Please wait...');
+    this.showLoader('Loading Courses...Please wait...');
 
     this.coursesList = [];
 
     const data = new FormData();
-    data.append('course_id', cid);
-    data.append('enroll_status', this.selectedFilter);
+    data.append('lp_id', lpid);
+    data.append('assign_status', this.selectedFilter);
 
-    this.service.course_members(data).subscribe(
+    this.service.lp_courses(data).subscribe(
       res => {
         res.Data.forEach((element: any) => {
           const course = {
             sl_no: element.sl_no,
-            user_name: element.user_name,
-            user_fullname: element.user_fullname,
-            user_id: element.user_id,
-            course_id: cid,
-            enrolled: element.enrolled
+            course_id: element.course_id,
+            course_name: element.course_fullname,
+            course_short_name: element.course_shortname,
+            category_name: element.category_name,
+            category_id: element.category_id,
+            assigned: element.assigned,
           };
           this.coursesList.push(course);
         });
@@ -115,18 +114,18 @@ export class CourseManageUsersComponent implements OnInit {
   }
 
 
-  unenroll(uid: any, cid: any) {
+  unassignCourse(cid: any) {
 
     this.showLoader('Processing Request..');
 
     const data = new FormData();
+    data.append('lp_id', this.lpid);
     data.append('course_id', cid);
-    data.append('user_id', uid);
 
-    this.service.unenroll_user_to_course(data).subscribe(
+    this.service.remove_course_from_lp(data).subscribe(
       res => {
-        let msg = 'User Unenrolled Successfully';
-        this.showAlert(msg, cid);
+        let msg = 'Course Unassigned Successfully';
+        this.showAlert(msg, this.lpid);
         this.hideLoader();
       }, err => {
         console.log(err);
@@ -134,18 +133,19 @@ export class CourseManageUsersComponent implements OnInit {
       });
   }
 
-  async enrolUser(uid: any, cid: any) {
+  async assignCourse(cid: any) {
     this.showLoader('Processing Request..');
     const data = new FormData();
+    data.append('lp_id', this.lpid);
     data.append('course_id', cid);
-    data.append('user_id', uid);
-    data.append('role_id', '5');
+    data.append('userId', localStorage.getItem('user_id'));
 
-    this.service.enroll_user_to_course(data).subscribe(
+
+    this.service.add_course_to_LP(data).subscribe(
       res => {
-        if (res.Data.cat_id) {
-          let msg = 'User Enrolled Successfully';
-          this.showAlert(msg, cid);
+        if (res.Data.lpc_id) {
+          let msg = 'Course Assigned Successfully';
+          this.showAlert(msg, this.lpid);
           this.hideLoader();
         }
       }, err => {
@@ -158,14 +158,14 @@ export class CourseManageUsersComponent implements OnInit {
     await this.modalController.dismiss();
   }
 
-  async showAlert(msg: string, cid: any) {
+  async showAlert(msg: string, lpid: any) {
     const alert = await this.alertCtrl.create({
       header: 'Status',
       message: msg,
       buttons: [{
         text: 'OK',
         handler: () => {
-          this.viewCourseMembers(cid);
+          this.viewCourses(lpid);
         }
       },]
     });
@@ -175,7 +175,12 @@ export class CourseManageUsersComponent implements OnInit {
 
   selectFilter(value: any) {
     this.selectedFilter = value;
-    this.viewCourseMembers(this.courseid);
+    this.viewCourses(this.lpid);
   }
 
+  navMenu(action: any, courseId: any) {
+    if (action === 'course-summary') {
+      this.navCtrl.navigateForward('home/coursesummary?cid=' + courseId);
+    }
+  }
 }

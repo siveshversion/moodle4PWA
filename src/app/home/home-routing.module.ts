@@ -1,3 +1,5 @@
+import { LpUsersComponent } from './lp-users/lp-users.component';
+import { LpCoursesComponent } from './lp-courses/lp-courses.component';
 import { LPsComponent } from './lps/lps.component';
 import { CreateLPComponent } from './create-lp/create-lp.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
@@ -63,6 +65,12 @@ const routes: Routes = [
       }, {
         path: 'lps',
         component: LPsComponent
+      }, {
+        path: 'lp-courses',
+        component: LpCoursesComponent
+      }, {
+        path: 'lp-users',
+        component: LpUsersComponent
       }]
   }
 ];

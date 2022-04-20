@@ -114,8 +114,8 @@ export class LPsComponent implements OnInit {
   navMenu(action: any, lpId: any) {
     if (action === 'edit') {
       this.navCtrl.navigateForward('home/create-lp?id=' + lpId);
+    } else if (action === 'mg-courses') {
+      this.navCtrl.navigateForward('home/lp-courses?id=' + lpId);
     }
-
   }
-
 }
