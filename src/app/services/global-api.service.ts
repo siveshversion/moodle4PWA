@@ -182,5 +182,9 @@ export class GlobalApiService {
     return this.http.post(this.base_url + '?methodname=removeLPCourse', data);
   }
 
+  mod_get_lp_details(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=getLPDetails', data);
+  }
+
 
 }

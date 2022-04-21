@@ -1,10 +1,10 @@
-import { GlobalApiService } from './../../services/global-api.service';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder } from '@angular/forms';
+import { GlobalApiService } from 'src/app/services/global-api.service';
 
 @Component({
   selector: 'app-course-summary',

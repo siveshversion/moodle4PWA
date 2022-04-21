@@ -1,3 +1,51 @@
-<p>
-  lp-summary works!
-</p>
+<ion-content [fullscreen]="true" class="ion-padding" class="lc-content" *ngIf="lp">
+  <ion-card class="lc-section">
+    <ion-card-header>
+      <ion-card-title>
+              {{lp.name}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div> <img src="{{lp.image}}" alt="Girl in a jacket"></div>
+          </ion-col>
+          <ion-col>
+            <div class="md-spacer">
+              <h4>Description:</h4>
+              <p> {{lp.desc}}</p>
+            </div>
+            <ion-row>
+              <ion-col>
+                <div>
+                  <h4>Details:</h4>
+                </div>
+                <p>No of days to complete: <b>{{lp.days}}</b></p>
+                <p>Credits: <b>{{lp.points}}</b></p>
+              </ion-col>
+              <ion-col class="md-top-spacer">
+                <div>
+                  <h4>Courses:</h4>
+                </div>
+                <p>Assigned Courses: <b>{{lp.coursecnt}}</b></p>
+                <p>Participants: <b>0</b></p>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button id="assignbtn" type="button" fill="solid" class="lc-button lc-btn-color"
+    (click)="navMenu('mg-courses',lp.id)">Assign Courses
+  </ion-button>
+
+  <ion-button type="button" fill="solid" class="lc-button lc-btn-color" *ngIf="lp.coursecnt > 0"
+    (click)="ordering(lp.id)">Set Order
+  </ion-button>
+
+</ion-content>
