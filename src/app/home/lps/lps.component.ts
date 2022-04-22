@@ -118,6 +118,8 @@ export class LPsComponent implements OnInit {
       this.navCtrl.navigateForward('home/lp-courses?id=' + lpId);
     } else if (action === 'lpsummary') {
       this.navCtrl.navigateForward('home/lp-summary?id=' + lpId);
+    }  else if (action === 'mg-users') {
+      this.navCtrl.navigateForward('home/lp-users?id=' + lpId);
     }
   }
 }

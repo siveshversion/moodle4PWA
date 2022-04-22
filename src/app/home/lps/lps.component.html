@@ -89,6 +89,8 @@
                         <span class="spacer"></span><span class="material-icons"
                           title="{{'manage_lp_courses' | translate }}"
                           (click)="navMenu('mg-courses',element.lp_id)">school</span>
+                          <span class="spacer"></span> <span *ngIf="element.lp_courses_cnt > 0" class="material-icons" title="Manage Users"
+                          (click)="navMenu('mg-users',element.lp_id)">manage_accounts</span>
                       </mat-cell>
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>

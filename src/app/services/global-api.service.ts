@@ -186,5 +186,16 @@ export class GlobalApiService {
     return this.http.post(this.base_url + '?methodname=getLPDetails', data);
   }
 
+  lp_course_members(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=getLPUsers', data);
+  }
+
+  assign_LP_user(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=assignLpUser', data);
+  }
+
+  unassign_LP_user(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=UnassignLpUser', data);
+  }
 
 }
