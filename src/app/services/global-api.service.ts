@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -14,7 +15,7 @@ export class GlobalApiService {
   constructor(private http: HttpClient) { }
 
   login_svc(data: any): Observable<any> {
-    const form = new FormData;
+    const form = new FormData();
     form.append('username', data.username);
     form.append('password', data.password);
     return this.http.post(this.base_url + '?methodname=validateLogin', form);
@@ -196,6 +197,10 @@ export class GlobalApiService {
 
   unassign_LP_user(data: any): Observable<any> {
     return this.http.post(this.base_url + '?methodname=UnassignLpUser', data);
+  }
+
+  mod_get_enrol_lps(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=getMyEnrolledLPs', data);
   }
 
 }

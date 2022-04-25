@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable eqeqeq */
 import { GlobalApiService } from './../../services/global-api.service';
-import { Component, OnInit } from '@angular/core';
-import { LoadingController, NavController } from '@ionic/angular';
+import { Component, HostListener, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { IonSlides, LoadingController, NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -10,73 +12,203 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-
+  @ViewChildren(IonSlides) slides: QueryList<IonSlides>;
   option = {
     startVal: 0,
     useEasing: true,
-    duration: 1
+    duration: 1,
   };
 
-  isAdmin: Boolean;
-  isStudent: Boolean;
+  isAdmin: boolean;
+  isStudent: boolean;
   role: string;
   dashtitle: string;
   userscount: any;
   coursescount: any;
   lpscount: any;
 
+  lps: any = [];
+  lpsDummy: any = [];
+  innerWidth: number;
 
-  constructor(private service: GlobalApiService, private navCtrl: NavController, public loadingController: LoadingController, private router: ActivatedRoute, private translateService: TranslateService, private route: Router) {
+  slideOpts = {
+    slidesPerView: 0,
+    Navigator: true,
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 0,
+      slideShadows: true,
+    },
+  };
 
+  carouselOptions = {
+    margin: 25,
+    nav: true,
+    navText: [
+      '<div class=\'nav-btn prev-slide\'></div>',
+      '<div class=\'nav-btn next-slide\'></div>',
+    ],
+    responsiveClass: true,
+    responsive: {
+      0: {
+        items: 1,
+        nav: true,
+      },
+      600: {
+        items: 1,
+        nav: true,
+      },
+      1000: {
+        items: 4,
+        nav: true,
+        loop: false,
+      },
+      1500: {
+        items: 5,
+        nav: true,
+        loop: false,
+      },
+    },
+  };
+  IonSlides: any;
+
+  constructor(
+    private service: GlobalApiService,
+    private navCtrl: NavController,
+    public loadingController: LoadingController,
+    private route: Router,
+    private router: ActivatedRoute,
+    private translateService: TranslateService
+  ) {
     this.translateService.setDefaultLang('en');
 
-    this.router.queryParams.subscribe(
-      params => {
-        this.role = localStorage.getItem('role');
-        if (this.role === 'admin') {
-          this.isAdmin = true;
-          this.isStudent = false;
-          this.dashtitle = 'welcome_moodle';
-          this.init_for_admin();
-        }
-        else {
-          this.isStudent = true;
-          this.isAdmin = false;
-          this.dashtitle = 'welcome_learner';
-        }
+    this.router.queryParams.subscribe((params) => {
+      this.role = localStorage.getItem('role');
+      if (this.role === 'admin') {
+        this.isAdmin = true;
+        this.isStudent = false;
+        this.dashtitle = 'welcome_moodle';
+        this.init_for_admin();
+      } else {
+        this.isStudent = true;
+        this.isAdmin = false;
+        this.dashtitle = 'welcome_learner';
       }
-    );
-
-
+    });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.onResize();
+    this.router.queryParams.subscribe((params) => {
+      this.loadLP();
+    });
+  }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @HostListener('window:resize', ['$event'])
+    onResize() {
+      this.innerWidth = window.innerWidth;
+      if (this.innerWidth <= 768) {
+        this.slideOpts.slidesPerView = 1;
+      } else {
+        this.slideOpts.slidesPerView = 4;
+      }
+    }
+
+
+  loadLP() {
+    this.showLoader_1();
+    const data = new FormData();
+    data.append('userid', localStorage.getItem('user_id'));
+
+    this.service.mod_get_enrol_lps(data).subscribe(
+      (res) => {
+        this.lps = res.Data;
+        console.log(JSON.stringify(this.lps));
+        this.lpsDummy = this.lps;
+        this.hideLoader_1();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
   init_for_admin() {
-    let formData = new FormData();
+    const formData = new FormData();
     this.service.admin_dash_content(formData).subscribe(
-      res => {
+      (res) => {
         this.userscount = res.Data.usersCount;
         this.coursescount = res.Data.coursesCount;
         this.lpscount = res.Data.lpsCount;
       },
-      err => {
+      (err) => {
         console.log(err);
-
       }
     );
   }
-
 
   navMenu(routeName: any) {
     if (routeName == 'users') {
       this.navCtrl.navigateForward('/home/users');
     } else if (routeName == 'course-list') {
       this.navCtrl.navigateForward('/home/courses');
-    }  else if (routeName == 'lps') {
+    } else if (routeName == 'lps') {
       this.navCtrl.navigateForward('/home/lps');
     }
   }
 
+  getLPDetails(id) {
+    this.route.navigate(['home/lp-summary'], {
+      queryParams: { id },
+    });
+  }
+
+  search(target: any): void {
+    this.lps = this.lpsDummy.filter(
+      (item) => item.fullname.search(new RegExp(target.value, 'i')) > -1
+    );
+    //console.log(JSON.stringify(this.lps));
+  }
+
+  next(count) {
+    let i = 0;
+    this.slides.forEach((element) => {
+      // eslint-disable-next-line eqeqeq
+      if (i == count) {
+        element.slideNext();
+      }
+      i++;
+    });
+  }
+
+  prev(count) {
+    let i = 0;
+    this.slides.forEach((element) => {
+      // eslint-disable-next-line eqeqeq
+      if (i == count) {
+        element.slidePrev();
+      }
+      i++;
+    });
+  }
+
+  showLoader_1() {
+    this.loadingController
+      .create({
+        message: 'Loading, Please Wait ...',
+      })
+      .then((res) => {
+        res.present();
+      });
+  }
+
+  hideLoader_1() {
+    this.loadingController
+      .dismiss()
+      .then((res) => {})
+      .catch((error) => {});
+  }
 }

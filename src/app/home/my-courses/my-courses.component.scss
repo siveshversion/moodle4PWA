@@ -1,6 +1,6 @@
 .lc-content {
     --background: #000000;
-   
+
 }
 
 .lc-header {
@@ -18,9 +18,9 @@
         cursor: pointer;
         transition-duration: 0.3s;
         transition-property: transform;
-        display: inline-block;  
+        display: inline-block;
         width:250px
-        
+
     }
 }
 
@@ -33,9 +33,9 @@
     cursor: pointer;
     transition-duration: 0.3s;
     transition-property: transform;
-    display: inline-block;   
+    display: inline-block;
     width:250px;
-    
+
 }
 }
 
@@ -83,7 +83,7 @@
     margin-top: 3rem;
     margin-bottom: 0px !important;
     text-align: left;
-    
+
 }
 
 .lc-enroll-item>ion-label {
@@ -120,13 +120,14 @@
 }
 
 .searchTerm {
-    margin-left: 0.5em;
-    border: 1px solid #aaa;
-    height: 30px;
-    border-radius: 5px;
-    background-repeat: no-repeat;
-    background-position: 3px 6px;
-    padding-left: 25px;
+  margin-left: 0.5em;
+  border: 1px solid #aaa;
+  height: 30px;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-position: 3px 6px;
+  padding-left: 25px;
+  margin-right: 25px;
 }
 
 .fabPrevBtn {
@@ -171,7 +172,7 @@
     }
   }
 
-  
+
 .lc-title {
     margin-top: 1em;
     --color: #94a0ad;

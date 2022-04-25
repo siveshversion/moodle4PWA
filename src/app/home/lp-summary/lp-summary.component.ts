@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +17,13 @@ export class LpSummaryComponent implements OnInit {
   lpId: any;
   lp: any;
 
-  constructor(private service: GlobalApiService, private sanitizer: DomSanitizer, private router: ActivatedRoute, public loadingController: LoadingController, private route: Router, private translateService: TranslateService, private formBuilder: FormBuilder, private navCtrl: NavController) {
+  constructor(private service: GlobalApiService,
+    private sanitizer: DomSanitizer,
+    private router: ActivatedRoute,
+    public loadingController: LoadingController,
+    private route: Router, private translateService: TranslateService,
+    private formBuilder: FormBuilder,
+    private navCtrl: NavController) {
     this.translateService.setDefaultLang('en');
     this.router.queryParams.subscribe(
       params => {
