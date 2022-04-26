@@ -426,5 +426,13 @@
   "manage_all_lps": "Manage LPs",
   "update_lp": "Update Learning Plan",
   "manage_lp_courses": "Manage LP Courses",
-  "my_lps": "Learning Plans"
+  "my_lps": "Learning Plans",
+  "manage_all_bu": "Manage BUs",
+  "create_bu": "Create BU",
+  "list_bu": "List BU",
+  "bus": "Business Units",
+  "add_new_bu": "Add new Business Unit",
+  "update_bu": "Update Business Unit",
+  "manage_bus": "Manage Business Units",
+  "manage_bu_courses": "Manage BU Courses"
 }

@@ -203,4 +203,20 @@ export class GlobalApiService {
     return this.http.post(this.base_url + '?methodname=getMyEnrolledLPs', data);
   }
 
+  create_bu(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=createBU', data);
+  }
+
+  get_bu_by_id(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=get_bu_by_id', data);
+  }
+
+  update_bu(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=update_bu', data);
+  }
+
+  bu_list(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=listBU', data);
+  }
+
 }

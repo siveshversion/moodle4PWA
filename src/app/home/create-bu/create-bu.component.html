@@ -1,0 +1,41 @@
+<ion-content [fullscreen]="true" class="ion-padding" scroll-y="true" class="lc-content">
+  <!--ion-header>{{title}}</ion-header-->
+  <form [formGroup]="buForm">
+
+    <ion-grid>
+      <ion-card class="lc-section">
+        <ion-card-header>
+          <ion-row>
+            <ion-col size="12" size-xs="11" size-md="11" size-lg="11" class="ion-no-padding">
+              <ion-header>{{subtitle | translate }}</ion-header>
+            </ion-col>
+          </ion-row>
+          <hr>
+          <ion-row class="ion-padding-top">
+            <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+              <ion-label class="lc-label-align">{{'lp_name' | translate }}</ion-label>
+              <ion-item lines="none" color="none">
+                <ion-input class="lc-input" (ionChange)="buNameRegistryCheck($event.target)" formControlName="buName"
+                  type="text">
+                </ion-input>
+              </ion-item>
+              <ion-text color="danger" class="lc-error"
+                *ngIf="buForm.get('buName').errors && (buForm.get('buName').invalid && buForm.get('buName').dirty || buForm.get('buName').touched)">
+                <ion-text *ngIf="hasError('buName','required')">{{'this_field_is_required' | translate }}</ion-text>
+              </ion-text>
+              <ion-text color="danger" class="lc-error" *ngIf="buNameConflict">
+                <ion-text *ngIf="buNameConflict">LP name already taken</ion-text>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-card-header>
+        <ion-row>
+          <ion-col size="12" size-xs="12" size-md="2" size-lg="2" class="ion-no-padding">
+            <ion-button id="savebtn" [disabled]="!buForm.valid" type="button" expand="block" fill="solid"
+              class="lc-button lc-btn-color" (click)="submit()">{{btnName | translate }}</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-grid>
+  </form>
+</ion-content>

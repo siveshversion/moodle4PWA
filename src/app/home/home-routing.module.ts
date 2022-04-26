@@ -1,3 +1,5 @@
+import { BUsComponent } from './bus/bus.component';
+import { CreateBUComponent } from './create-bu/create-bu.component';
 import { LpSummaryComponent } from './lp-summary/lp-summary.component';
 import { LpUsersComponent } from './lp-users/lp-users.component';
 import { LpCoursesComponent } from './lp-courses/lp-courses.component';
@@ -75,7 +77,14 @@ const routes: Routes = [
       }, {
         path: 'lp-summary',
         component: LpSummaryComponent
-      }]
+      }, {
+        path: 'create-bu',
+        component: CreateBUComponent
+      } , {
+        path: 'bus',
+        component: BUsComponent
+      }
+      ]
   }
 ];
 

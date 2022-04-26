@@ -1,3 +1,6 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable @angular-eslint/use-lifecycle-interface */
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Component, ElementRef, HostListener } from '@angular/core';
 import { AlertController, MenuController, NavController } from '@ionic/angular';
@@ -21,8 +24,8 @@ export class HomePage {
   title_text: string;
   msg: string;
   role: string;
-  isAdmin: Boolean;
-  isStudent: Boolean;
+  isAdmin: boolean;
+  isStudent: boolean;
 
   constructor(
     private routea: ActivatedRoute,
@@ -48,7 +51,7 @@ export class HomePage {
         this.isStudent = true;
         this.isAdmin = false;
       }
-      let navigation = this.route.url;
+      const navigation = this.route.url;
         if (navigation === '/home') {
           this.route.navigateByUrl('home/dashboard');
         }
@@ -70,7 +73,7 @@ export class HomePage {
   }
 
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.elRef.nativeElement.style.setProperty('--selectedColorCode', '#1B1B1B');
     this.elRef.nativeElement.style.setProperty('--background', '#1B1B1B');
     this.elRef.nativeElement.style.setProperty('--selectedFontColor', '#94a0ad');
@@ -102,6 +105,10 @@ export class HomePage {
       this.navCtrl.navigateForward('/home/create-lp');
     } else if (routeName == 'list-lp') {
       this.navCtrl.navigateForward('/home/lps');
+    } else if (routeName == 'create-bu') {
+      this.navCtrl.navigateForward('/home/create-bu');
+    } else if (routeName == 'list-bu') {
+      this.navCtrl.navigateForward('/home/bus');
     }
   }
 
@@ -113,7 +120,7 @@ export class HomePage {
     //   }
 
     // });
-    let uname = localStorage.getItem('username');
+    const uname = localStorage.getItem('username');
     this.loginDetails = {
       fullname: uname
     };

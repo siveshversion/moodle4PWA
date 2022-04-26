@@ -23,9 +23,8 @@ export class DashboardComponent implements OnInit {
   isStudent: boolean;
   role: string;
   dashtitle: string;
-  userscount: any;
-  coursescount: any;
-  lpscount: any;
+  details: any;
+
 
   lps: any = [];
   lpsDummy: any = [];
@@ -140,9 +139,7 @@ export class DashboardComponent implements OnInit {
     const formData = new FormData();
     this.service.admin_dash_content(formData).subscribe(
       (res) => {
-        this.userscount = res.Data.usersCount;
-        this.coursescount = res.Data.coursesCount;
-        this.lpscount = res.Data.lpsCount;
+        this.details = res.Data;
       },
       (err) => {
         console.log(err);
@@ -157,6 +154,8 @@ export class DashboardComponent implements OnInit {
       this.navCtrl.navigateForward('/home/courses');
     } else if (routeName == 'lps') {
       this.navCtrl.navigateForward('/home/lps');
+    }  else if (routeName == 'bus') {
+      this.navCtrl.navigateForward('/home/bus');
     }
   }
 

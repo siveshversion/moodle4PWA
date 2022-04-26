@@ -7,7 +7,7 @@
   <!--for Admin dash-->
 
   <ion-grid *ngIf="isAdmin">
-    <ion-row>
+    <ion-row *ngIf="details">
       <ion-col>
         <ion-card class="lc-section">
           <ion-card-content class="widget_card" (click)="navMenu('users')">
@@ -19,7 +19,7 @@
               </ion-col>
               <ion-col class="ion-text-end">
                 <ion-text color="tertiary" class="lc-amount">
-                  <span [countUp]="userscount" [options]="option"></span>
+                  <span [countUp]="details.usersCount" [options]="option"></span>
                 </ion-text>
                 <p>{{'users' | translate }}</p>
               </ion-col>
@@ -39,7 +39,7 @@
               </ion-col>
               <ion-col class="ion-text-end">
                 <ion-text color="secondary" class="lc-amount">
-                  <span [countUp]="coursescount" [options]="option"></span>
+                  <span [countUp]="details.coursesCount" [options]="option"></span>
                 </ion-text>
                 <p>{{'courses' | translate }}</p>
               </ion-col>
@@ -59,9 +59,29 @@
               </ion-col>
               <ion-col class="ion-text-end">
                 <ion-text color="tertiary" class="lc-amount">
-                  <span [countUp]="lpscount" [options]="option"></span>
+                  <span [countUp]="details.lpsCount" [options]="option"></span>
                 </ion-text>
                 <p>{{'lps' | translate }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col>
+        <ion-card class="lc-section">
+          <ion-card-content class="widget_card" (click)="navMenu('bus')">
+            <ion-row>
+              <ion-col>
+                <ion-button color="tertiary">
+                  <ion-icon name="business-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col class="ion-text-end">
+                <ion-text color="tertiary" class="lc-amount">
+                  <span [countUp]="details.busCount" [options]="option"></span>
+                </ion-text>
+                <p>{{'bus' | translate }}</p>
               </ion-col>
             </ion-row>
           </ion-card-content>
