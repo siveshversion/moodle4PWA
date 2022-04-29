@@ -1,3 +1,5 @@
+import { BuUsersComponent } from './bu-users/bu-users.component';
+import { BuCoursesComponent } from './bu-courses/bu-courses.component';
 import { BUsComponent } from './bus/bus.component';
 import { CreateBUComponent } from './create-bu/create-bu.component';
 import { LpSummaryComponent } from './lp-summary/lp-summary.component';
@@ -28,68 +30,94 @@ const routes: Routes = [
     children: [
       {
         path: 'users',
-        component: ManageUsersComponent
-      }, {
+        component: ManageUsersComponent,
+      },
+      {
         path: 'usercreation',
-        component: AddUsersComponent
-      }, {
+        component: AddUsersComponent,
+      },
+      {
         path: 'dashboard',
-        component: DashboardComponent
-      }, {
+        component: DashboardComponent,
+      },
+      {
         path: 'categorycreation',
-        component: CreateCategoryComponent
-      }, {
+        component: CreateCategoryComponent,
+      },
+      {
         path: 'categories',
-        component: CategoryListComponent
-      }, {
+        component: CategoryListComponent,
+      },
+      {
         path: 'courses',
-        component: CourseListComponent
-      }, {
+        component: CourseListComponent,
+      },
+      {
         path: 'coursecreation',
-        component: CreateCourseComponent
-      }, {
+        component: CreateCourseComponent,
+      },
+      {
         path: 'courseparticipants',
-        component: CourseManageUsersComponent
-      }, {
+        component: CourseManageUsersComponent,
+      },
+      {
         path: 'mycourses',
-        component: MyCoursesComponent
-      }, {
+        component: MyCoursesComponent,
+      },
+      {
         path: 'coursestats',
-        component: MyCourseStatsComponent
-      }, {
+        component: MyCourseStatsComponent,
+      },
+      {
         path: 'coursesummary',
-        component: CourseSummaryComponent
-      }, {
+        component: CourseSummaryComponent,
+      },
+      {
         path: 'course',
-        component: CourseDetailsComponent
-      }, {
+        component: CourseDetailsComponent,
+      },
+      {
         path: 'create-lp',
-        component: CreateLPComponent
-      }, {
+        component: CreateLPComponent,
+      },
+      {
         path: 'lps',
-        component: LPsComponent
-      }, {
+        component: LPsComponent,
+      },
+      {
         path: 'lp-courses',
-        component: LpCoursesComponent
-      }, {
+        component: LpCoursesComponent,
+      },
+      {
         path: 'lp-users',
-        component: LpUsersComponent
-      }, {
+        component: LpUsersComponent,
+      },
+      {
         path: 'lp-summary',
-        component: LpSummaryComponent
-      }, {
+        component: LpSummaryComponent,
+      },
+      {
         path: 'create-bu',
-        component: CreateBUComponent
-      } , {
+        component: CreateBUComponent,
+      },
+      {
         path: 'bus',
-        component: BUsComponent
-      }
-      ]
-  }
+        component: BUsComponent,
+      },
+      {
+        path: 'bu-courses',
+        component: BuCoursesComponent,
+      },
+      {
+        path: 'bu-users',
+        component: BuUsersComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class HomePageRoutingModule { }
+export class HomePageRoutingModule {}

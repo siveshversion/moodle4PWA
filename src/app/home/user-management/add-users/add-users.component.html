@@ -1,93 +1,134 @@
 <ion-content [fullscreen]="true" class="ion-padding" class="lc-content">
 
   <ion-header>
-      <ion-title class="lc-title">{{title | translate }}</ion-title>
+    <ion-title class="lc-title">{{title | translate }}</ion-title>
   </ion-header>
 
   <ion-card class="card-custom">
-      <form [formGroup]="userCreateForm" (ngSubmit)="onSubmit()">
-          <ion-list>
-              <ion-item lines="none" color="none">
-                  <ion-input type="text" placeholder="{{'username' | translate }}" formControlName="username" [disabled]="update_flag" autocomplete="" class="lc-input" (ionChange)="RegistryCheck($event.target,'username')" required>
-                  </ion-input>
-                  <ion-icon name="person" class="inputIcon"></ion-icon>
-              </ion-item>
-              <ion-text color="danger" class="lc-error" *ngIf="userCreateForm.get('username').errors && (userCreateForm.get('username').invalid && userCreateForm.get('username').dirty || userCreateForm.get('username').touched)">
-                  <ion-text *ngIf="hasError('username','required')">{{'this_field_is_required' | translate }}</ion-text>
-              </ion-text>
-              <ion-text color="danger" class="lc-error" *ngIf="unameConflict">
-                  <ion-text *ngIf="unameConflict">{{'username_already_taken' | translate }}</ion-text>
-              </ion-text>
+    <form [formGroup]="userCreateForm" (ngSubmit)="onSubmit()">
+      <ion-list>
+        <ion-item lines="none" color="none">
+          <ion-input type="text" placeholder="{{'username' | translate }}" formControlName="username"
+            [disabled]="update_flag" autocomplete="" class="lc-input"
+            (ionChange)="RegistryCheck($event.target,'username')" required>
+          </ion-input>
+          <ion-icon name="person" class="inputIcon"></ion-icon>
+        </ion-item>
+        <ion-text color="danger" class="lc-error"
+          *ngIf="userCreateForm.get('username').errors && (userCreateForm.get('username').invalid && userCreateForm.get('username').dirty || userCreateForm.get('username').touched)">
+          <ion-text *ngIf="hasError('username','required')">{{'this_field_is_required' | translate }}</ion-text>
+        </ion-text>
+        <ion-text color="danger" class="lc-error" *ngIf="unameConflict">
+          <ion-text *ngIf="unameConflict">{{'username_already_taken' | translate }}</ion-text>
+        </ion-text>
 
-              <ion-item lines="none" color="none">
-                  <ion-input type="{{passType}}" placeholder="{{'password' | translate }}" [disabled]="update_flag" formControlName="new_pwd"  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$" autocomplete="" class="lc-input" required></ion-input>
-                  <ion-icon name="{{passwordIcon}}" class="pwdIcon" (click)='hideShowPassword(1)'></ion-icon>
-              </ion-item>
-              <ion-text color="danger" class="lc-error" *ngIf="update_flag == false && userCreateForm.get('new_pwd').errors && (userCreateForm.get('new_pwd').invalid && userCreateForm.get('new_pwd').dirty || userCreateForm.get('new_pwd').touched)">
-                  <ion-text *ngIf="hasError('new_pwd','required')">{{'this_field_is_required' | translate }}</ion-text>
-                  <ion-text *ngIf="userCreateForm.get('new_pwd').invalid && (userCreateForm.get('new_pwd').hasError('required') === false)">{{'passwords_must_have_at_least' | translate }}<br></ion-text>
-                  <ion-text *ngIf="userCreateForm.get('new_pwd').invalid && (userCreateForm.get('new_pwd').hasError('required') === false)">{{'1_upper_case_letter_1_lower_case_letter' | translate }}<br></ion-text>
-                  <ion-text *ngIf="userCreateForm.get('new_pwd').invalid && (userCreateForm.get('new_pwd').hasError('required') === false)">{{'1_special_character_1_number_and' | translate }}<br></ion-text>
-                  <ion-text *ngIf="userCreateForm.get('new_pwd').invalid && (userCreateForm.get('new_pwd').hasError('required') === false)">{{'minimum_of_8_characters' | translate }}</ion-text>
-              </ion-text>
+        <ion-item lines="none" color="none">
+          <ion-input type="{{passType}}" placeholder="{{'password' | translate }}" [disabled]="update_flag"
+            formControlName="new_pwd" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+            autocomplete="" class="lc-input" required></ion-input>
+          <ion-icon name="{{passwordIcon}}" class="pwdIcon" (click)='hideShowPassword(1)'></ion-icon>
+        </ion-item>
+        <ion-text color="danger" class="lc-error"
+          *ngIf="update_flag === false && userCreateForm.get('new_pwd').errors && (userCreateForm.get('new_pwd').invalid && userCreateForm.get('new_pwd').dirty || userCreateForm.get('new_pwd').touched)">
+          <ion-text *ngIf="hasError('new_pwd','required')">{{'this_field_is_required' | translate }}</ion-text>
+          <ion-text
+            *ngIf="userCreateForm.get('new_pwd').invalid && (userCreateForm.get('new_pwd').hasError('required') === false)">
+            {{'passwords_must_have_at_least' | translate }}<br></ion-text>
+          <ion-text
+            *ngIf="userCreateForm.get('new_pwd').invalid && (userCreateForm.get('new_pwd').hasError('required') === false)">
+            {{'1_upper_case_letter_1_lower_case_letter' | translate }}<br></ion-text>
+          <ion-text
+            *ngIf="userCreateForm.get('new_pwd').invalid && (userCreateForm.get('new_pwd').hasError('required') === false)">
+            {{'1_special_character_1_number_and' | translate }}<br></ion-text>
+          <ion-text
+            *ngIf="userCreateForm.get('new_pwd').invalid && (userCreateForm.get('new_pwd').hasError('required') === false)">
+            {{'minimum_of_8_characters' | translate }}</ion-text>
+        </ion-text>
 
-              <ion-item lines="none" color="none">
-                  <ion-input type="text" placeholder="{{'email_id' | translate }}" formControlName="email" class="lc-input" [disabled]="update_flag" (ionChange)="RegistryCheck($event.target,'email')" required></ion-input>
-                  <ion-icon name="mail" class="inputIcon"></ion-icon>
-              </ion-item>
-              <ion-text color="danger" class="lc-error" *ngIf="userCreateForm.get('email').errors && (userCreateForm.get('email').invalid && userCreateForm.get('email').dirty || userCreateForm.get('email').touched)">
-                  <ion-text *ngIf="hasError('email','required')">{{'this_field_is_required' | translate }}</ion-text>
-              </ion-text>
-              <ion-text color="danger" class="lc-error" *ngIf="(userCreateForm.get('email').invalid) && (userCreateForm.get('email').hasError('required') === false) && umailConflict == null ">
-                  <ion-text>{{'invalid_email_id' | translate }}</ion-text>
-              </ion-text>
-              <ion-text color="danger" class="lc-error" *ngIf="umailConflict == true">
-                  <ion-text>{{'mail_id_already_exists' | translate }}</ion-text>
-              </ion-text>
-
-
-              <ion-item lines="none" color="none">
-                  <ion-input type="text" placeholder="{{'firstname' | translate }}" formControlName="first_name" autocomplete="" class="lc-input" required></ion-input>
-                  <ion-icon name="person" class="inputIcon"></ion-icon>
-              </ion-item>
-              <ion-text color="danger" class="lc-error" *ngIf="userCreateForm.get('first_name').errors && (userCreateForm.get('first_name').invalid && userCreateForm.get('first_name').dirty || userCreateForm.get('first_name').touched)">
-                  <ion-text *ngIf="hasError('first_name','required')">{{'this_field_is_required' | translate }}</ion-text>
-              </ion-text>
-
-              <ion-item lines="none" color="none">
-                  <ion-input type="text" placeholder="{{'lastname' | translate }}" formControlName="surname" autocomplete="" class="lc-input" required></ion-input>
-                  <ion-icon name="person" class="inputIcon"></ion-icon>
-              </ion-item>
-              <ion-text color="danger" class="lc-error" *ngIf="userCreateForm.get('surname').errors && (userCreateForm.get('surname').invalid && userCreateForm.get('surname').dirty || userCreateForm.get('surname').touched)">
-                  <ion-text *ngIf="hasError('surname','required')">{{'this_field_is_required' | translate }}</ion-text>
-              </ion-text>
-
-              <ion-item lines="none" color="none">
-                  <ion-input type="text" placeholder="{{'city' | translate }}" formControlName="location" autocomplete="" class="lc-input" required></ion-input>
-                  <ion-icon name="location" class="inputIcon"></ion-icon>
-              </ion-item>
-              <ion-text color="danger" class="lc-error" *ngIf="userCreateForm.get('location').errors && (userCreateForm.get('location').invalid && userCreateForm.get('location').dirty || userCreateForm.get('location').touched)">
-                  <ion-text *ngIf="hasError('location','required')">{{'this_field_is_required' | translate }}</ion-text>
-              </ion-text>
-
-              <ion-item>
-                  <mat-select class="lc-input" id="nationality" placeholder="{{'select_country' | translate }}" formControlName="country" name="item">
-                      <mat-option *ngFor="let item of countries" [value]="item.value">
-                          {{item.display}}
-                      </mat-option>
-                  </mat-select>
-              </ion-item>
-              <ion-text color="danger" class="lc-error" *ngIf="userCreateForm.get('country').errors && (userCreateForm.get('country').invalid && userCreateForm.get('country').dirty || userCreateForm.get('country').touched)">
-                  <ion-text *ngIf="hasError('country','required')">{{'this_field_is_required' | translate }}</ion-text>
-              </ion-text>
-
-          </ion-list>
-          <ion-item>
-              <ion-button expand="full" class="lc-btn" type="submit" [disabled]="!userCreateForm.valid">{{btnTitle | translate }}</ion-button>
-          </ion-item>
+        <ion-item lines="none" color="none">
+          <ion-input type="text" placeholder="{{'email_id' | translate }}" formControlName="email" class="lc-input"
+            [disabled]="update_flag" (ionChange)="RegistryCheck($event.target,'email')" required></ion-input>
+          <ion-icon name="mail" class="inputIcon"></ion-icon>
+        </ion-item>
+        <ion-text color="danger" class="lc-error"
+          *ngIf="userCreateForm.get('email').errors && (userCreateForm.get('email').invalid && userCreateForm.get('email').dirty || userCreateForm.get('email').touched)">
+          <ion-text *ngIf="hasError('email','required')">{{'this_field_is_required' | translate }}</ion-text>
+        </ion-text>
+        <ion-text color="danger" class="lc-error"
+          *ngIf="(userCreateForm.get('email').invalid) && (userCreateForm.get('email').hasError('required') === false) && umailConflict === null ">
+          <ion-text>{{'invalid_email_id' | translate }}</ion-text>
+        </ion-text>
+        <ion-text color="danger" class="lc-error" *ngIf="umailConflict === true">
+          <ion-text>{{'mail_id_already_exists' | translate }}</ion-text>
+        </ion-text>
 
 
-      </form>
+        <ion-item lines="none" color="none">
+          <ion-input type="text" placeholder="{{'firstname' | translate }}" formControlName="first_name" autocomplete=""
+            class="lc-input" required></ion-input>
+          <ion-icon name="person" class="inputIcon"></ion-icon>
+        </ion-item>
+        <ion-text color="danger" class="lc-error"
+          *ngIf="userCreateForm.get('first_name').errors && (userCreateForm.get('first_name').invalid && userCreateForm.get('first_name').dirty || userCreateForm.get('first_name').touched)">
+          <ion-text *ngIf="hasError('first_name','required')">{{'this_field_is_required' | translate }}</ion-text>
+        </ion-text>
+
+        <ion-item lines="none" color="none">
+          <ion-input type="text" placeholder="{{'lastname' | translate }}" formControlName="surname" autocomplete=""
+            class="lc-input" required></ion-input>
+          <ion-icon name="person" class="inputIcon"></ion-icon>
+        </ion-item>
+        <ion-text color="danger" class="lc-error"
+          *ngIf="userCreateForm.get('surname').errors && (userCreateForm.get('surname').invalid && userCreateForm.get('surname').dirty || userCreateForm.get('surname').touched)">
+          <ion-text *ngIf="hasError('surname','required')">{{'this_field_is_required' | translate }}</ion-text>
+        </ion-text>
+
+        <ion-item lines="none" color="none">
+          <ion-input type="text" placeholder="{{'city' | translate }}" formControlName="location" autocomplete=""
+            class="lc-input" required></ion-input>
+          <ion-icon name="location" class="inputIcon"></ion-icon>
+        </ion-item>
+        <ion-text color="danger" class="lc-error"
+          *ngIf="userCreateForm.get('location').errors && (userCreateForm.get('location').invalid && userCreateForm.get('location').dirty || userCreateForm.get('location').touched)">
+          <ion-text *ngIf="hasError('location','required')">{{'this_field_is_required' | translate }}</ion-text>
+        </ion-text>
+
+        <ion-item>
+          <mat-select class="lc-input" id="nationality" placeholder="{{'select_country' | translate }}"
+            formControlName="country" name="item">
+            <mat-option *ngFor="let item of countries" [value]="item.value">
+              {{item.display}}
+            </mat-option>
+          </mat-select>
+        </ion-item>
+        <ion-text color="danger" class="lc-error"
+          *ngIf="userCreateForm.get('country').errors && (userCreateForm.get('country').invalid && userCreateForm.get('country').dirty || userCreateForm.get('country').touched)">
+          <ion-text *ngIf="hasError('country','required')">{{'this_field_is_required' | translate }}</ion-text>
+        </ion-text>
+
+        <ion-item>
+          <mat-select class="lc-input" id="bu" placeholder="{{'select_bu' | translate }}" formControlName="bu"
+            name="item">
+            <mat-option *ngFor="let item of bus" [value]="item.value">
+              {{item.viewValue}}
+            </mat-option>
+          </mat-select>
+        </ion-item>
+
+        <ion-text color="danger" class="lc-error"
+          *ngIf="userCreateForm.get('bu').errors && (userCreateForm.get('bu').invalid && userCreateForm.get('bu').dirty || userCreateForm.get('bu').touched)">
+          <ion-text *ngIf="hasError('bu','required')">{{'this_field_is_required' | translate }}</ion-text>
+        </ion-text>
+
+
+      </ion-list>
+      <ion-item>
+        <ion-button expand="full" class="lc-btn" type="submit" [disabled]="!userCreateForm.valid">{{btnTitle | translate
+          }}</ion-button>
+      </ion-item>
+
+
+    </form>
   </ion-card>
 
 

@@ -434,5 +434,7 @@
   "add_new_bu": "Add new Business Unit",
   "update_bu": "Update Business Unit",
   "manage_bus": "Manage Business Units",
-  "manage_bu_courses": "Manage BU Courses"
+  "manage_bu_courses": "Manage BU Courses",
+  "select_bu": "Select Business Unit",
+  "buName": "Business Unit"
 }

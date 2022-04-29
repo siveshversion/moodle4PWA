@@ -17,7 +17,11 @@ import { CourseListComponent } from './course-management/course-list/course-list
 import { CategoryListComponent } from './course-management/category-list/category-list.component';
 import { CreateCategoryComponent } from './course-management/create-category/create-category.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { MatTableModule } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -28,7 +32,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { GlobalApiService } from '../services/global-api.service';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule, } from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -48,7 +52,8 @@ import { AddUsersComponent } from './user-management/add-users/add-users.compone
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { CourseManageUsersComponent } from './course-management/course-manage-users/course-manage-users.component';
 import { CountUpModule } from 'ngx-countup';
-
+import { BuCoursesComponent } from './bu-courses/bu-courses.component';
+import { BuUsersComponent } from './bu-users/bu-users.component';
 
 @NgModule({
   imports: [
@@ -79,14 +84,37 @@ import { CountUpModule } from 'ngx-countup';
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
   ],
-  declarations: [HomePage, ManageUsersComponent, AddUsersComponent, DashboardComponent, CreateCategoryComponent, CategoryListComponent, CourseListComponent, CreateCourseComponent, CourseManageUsersComponent, MyCoursesComponent, MyCourseStatsComponent, CourseSummaryComponent, CourseDetailsComponent, CreateLPComponent, LPsComponent,LpCoursesComponent,LpUsersComponent,LpSummaryComponent,CreateBUComponent,BUsComponent],
-  providers: [GlobalApiService, HttpClient, Storage]
+  declarations: [
+    HomePage,
+    ManageUsersComponent,
+    AddUsersComponent,
+    DashboardComponent,
+    CreateCategoryComponent,
+    CategoryListComponent,
+    CourseListComponent,
+    CreateCourseComponent,
+    CourseManageUsersComponent,
+    MyCoursesComponent,
+    MyCourseStatsComponent,
+    CourseSummaryComponent,
+    CourseDetailsComponent,
+    CreateLPComponent,
+    LPsComponent,
+    LpCoursesComponent,
+    LpUsersComponent,
+    LpSummaryComponent,
+    CreateBUComponent,
+    BUsComponent,
+    BuCoursesComponent,
+    BuUsersComponent,
+  ],
+  providers: [GlobalApiService, HttpClient, Storage],
 })
-export class HomePageModule { }
+export class HomePageModule {}
 
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {

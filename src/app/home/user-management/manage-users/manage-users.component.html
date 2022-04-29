@@ -49,6 +49,14 @@
                                                 <span class="cell-align">{{element.lastname || "--"}}</span>
                                             </mat-cell>
                                         </ng-container>
+                                        <ng-container matColumnDef="BuName">
+                                          <mat-header-cell *matHeaderCellDef>{{'buName' | translate }}
+                                          </mat-header-cell>
+                                          <mat-cell *matCellDef="let element">
+                                              <span class="mobile-label">{{'buName' | translate }}:</span>
+                                              <span class="cell-align">{{element.buName || "--"}}</span>
+                                          </mat-cell>
+                                      </ng-container>
                                         <ng-container matColumnDef="DateofCreation">
                                             <mat-header-cell *matHeaderCellDef style="justify-content:center;">
                                                 {{'date_of_creation' | translate }}</mat-header-cell>

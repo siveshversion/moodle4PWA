@@ -1,8 +1,5 @@
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
-/* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable quote-props */
 /* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,22 +9,23 @@ import { HttpClient } from '@angular/common/http';
 import { GlobalApiService } from 'src/app/services/global-api.service';
 
 @Component({
-  selector: 'app-lp-users',
-  templateUrl: './lp-users.component.html',
-  styleUrls: ['./lp-users.component.scss'],
+  selector: 'app-bu-courses',
+  templateUrl: './bu-courses.component.html',
+  styleUrls: ['./bu-courses.component.scss'],
 })
-export class LpUsersComponent implements OnInit {
+export class BuCoursesComponent implements OnInit {
+
 
   data: any;
-  displayedColumns = ['slNo', 'UserName', 'FullName', 'Action'];
+  displayedColumns = ['sNo', 'courseName', 'courseShortName', 'categoryName', 'Action'];
   coursesList = [];
-  userFilter = [
+  courseFilter = [
     { value: 'all', viewValue: 'All' },
     { value: 'assigned', viewValue: 'Assigned' },
-    { value: 'not_assigned', viewValue: 'Not Assigned' }
+    { value: 'not_assigned', viewValue: 'Unassigned' }
   ];
   selectedFilter: any;
-  lpId: any;
+  buid: any;
 
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
@@ -46,9 +44,9 @@ export class LpUsersComponent implements OnInit {
     this.router.queryParams.subscribe(
       params => {
         if (params.id) {
-          this.lpId = params.id;
+          this.buid = params.id;
           this.selectedFilter = 'all';
-          this.viewLPCourseMembers(this.lpId);
+          this.viewCourses(this.buid);
         }
       }
     );
@@ -58,26 +56,27 @@ export class LpUsersComponent implements OnInit {
   ngOnInit() { }
 
 
-  viewLPCourseMembers(lpId: any) {
+  viewCourses(buid: any) {
 
-    this.showLoader('Loading Users...Please wait...');
+    this.showLoader('Loading Courses...Please wait...');
 
     this.coursesList = [];
 
     const data = new FormData();
-    data.append('lp_id', lpId);
+    data.append('bu_id', buid);
     data.append('assign_status', this.selectedFilter);
 
-    this.service.lp_course_members(data).subscribe(
+    this.service.bu_courses(data).subscribe(
       res => {
         res.Data.forEach((element: any) => {
           const course = {
             sl_no: element.sl_no,
-            user_name: element.user_name,
-            user_fullname: element.user_fullname,
-            user_id: element.user_id,
-            lp_id: lpId,
-            assigned: element.assigned
+            course_id: element.course_id,
+            course_name: element.course_fullname,
+            course_short_name: element.course_shortname,
+            category_name: element.category_name,
+            category_id: element.category_id,
+            assigned: element.assigned,
           };
           this.coursesList.push(course);
         });
@@ -117,19 +116,18 @@ export class LpUsersComponent implements OnInit {
   }
 
 
-  async unassignUser(uid: any, lpId: any) {
+  unassignCourse(cid: any) {
 
     this.showLoader('Processing Request..');
 
     const data = new FormData();
-    data.append('lp_id', lpId);
-    data.append('user_id', uid);
-    data.append('creatorId', localStorage.getItem('user_id'));
+    data.append('bu_id', this.buid);
+    data.append('course_id', cid);
 
-    this.service.unassign_LP_user(data).subscribe(
+    this.service.remove_course_from_bu(data).subscribe(
       res => {
-        let msg = 'User Unassigned Successfully';
-        this.showAlert(msg, lpId);
+        const msg = 'Course Unassigned Successfully';
+        this.showAlert(msg, this.buid);
         this.hideLoader();
       }, err => {
         console.log(err);
@@ -137,18 +135,19 @@ export class LpUsersComponent implements OnInit {
       });
   }
 
-  async assignUser(uid: any, lpId: any) {
+  async assignCourse(cid: any) {
     this.showLoader('Processing Request..');
     const data = new FormData();
-    data.append('lp_id', lpId);
-    data.append('user_id', uid);
-    data.append('creatorId', localStorage.getItem('user_id'));
+    data.append('bu_id', this.buid);
+    data.append('course_id', cid);
+    data.append('userId', localStorage.getItem('user_id'));
 
-    this.service.assign_LP_user(data).subscribe(
+
+    this.service.add_course_to_BU(data).subscribe(
       res => {
-        if (res.Data.status) {
-          let msg = 'User Assigned Successfully';
-          this.showAlert(msg, lpId);
+        if (res.Data.buc_id) {
+          const msg = 'Course Assigned Successfully';
+          this.showAlert(msg, this.buid);
           this.hideLoader();
         }
       }, err => {
@@ -161,14 +160,14 @@ export class LpUsersComponent implements OnInit {
     await this.modalController.dismiss();
   }
 
-  async showAlert(msg: string, lpId: any) {
+  async showAlert(msg: string, buid: any) {
     const alert = await this.alertCtrl.create({
       header: 'Status',
       message: msg,
       buttons: [{
         text: 'OK',
         handler: () => {
-          this.viewLPCourseMembers(lpId);
+          this.viewCourses(buid);
         }
       },]
     });
@@ -178,7 +177,13 @@ export class LpUsersComponent implements OnInit {
 
   selectFilter(value: any) {
     this.selectedFilter = value;
-    this.viewLPCourseMembers(this.lpId);
+    this.viewCourses(this.buid);
   }
 
+  navMenu(action: any, courseId: any) {
+    if (action === 'course-summary') {
+      this.navCtrl.navigateForward('home/coursesummary?cid=' + courseId);
+    }
+  }
 }
+

@@ -30,7 +30,7 @@ export class ManageUsersComponent implements OnInit {
   data: any;
 
   dataSource: any;
-  displayedColumns = ['UserId', 'FirstName', 'LastName', 'DateofCreation', 'LastAccess', 'Action'];
+  displayedColumns = ['UserId', 'FirstName', 'LastName','BuName', 'DateofCreation', 'LastAccess', 'Action'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   constructor(private service: GlobalApiService, public alertCtrl: AlertController,
@@ -84,6 +84,7 @@ export class ManageUsersComponent implements OnInit {
             username: element.username,
             firstname: element.firstname,
             lastname: element.lastname,
+            buName: element.buName,
             createdon: element.createdon,
             lastaccess: element.lastaccess,
             suspended: element.suspended,

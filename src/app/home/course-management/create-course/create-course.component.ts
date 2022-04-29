@@ -87,7 +87,7 @@ export class CreateCourseComponent implements OnInit {
     //this.showLoader('Loading Course form data...');
     let formData = new FormData();
     formData.append("course_id", this.courseId);
-    
+
     this.service.get_course_by_id(formData).subscribe((response) => {
       if (response.Data) {
         let enrolled_type = response.Data.enrol_method;

@@ -22,7 +22,6 @@ export class GlobalApiService {
   }
 
   mod_get_user_list(data: any): Observable<any> {
-
     return this.http.post(this.base_url + '?methodname=getUserList', data);
   }
 
@@ -217,6 +216,30 @@ export class GlobalApiService {
 
   bu_list(data: any): Observable<any> {
     return this.http.post(this.base_url + '?methodname=listBU', data);
+  }
+
+  bu_courses(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=listBUCourses', data);
+  }
+
+  add_course_to_BU(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=AddBUCourse', data);
+  }
+
+  remove_course_from_bu(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=removeBUCourse', data);
+  }
+
+  bu_course_members(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=getBUUsers', data);
+  }
+
+  assign_BU_user(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=assignBuUser', data);
+  }
+
+  unassign_BU_user(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=UnassignBuUser', data);
   }
 
 }
