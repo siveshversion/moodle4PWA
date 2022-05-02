@@ -230,16 +230,20 @@ export class GlobalApiService {
     return this.http.post(this.base_url + '?methodname=removeBUCourse', data);
   }
 
-  bu_course_members(data: any): Observable<any> {
+  bu_users(data: any): Observable<any> {
     return this.http.post(this.base_url + '?methodname=getBUUsers', data);
   }
 
-  assign_BU_user(data: any): Observable<any> {
-    return this.http.post(this.base_url + '?methodname=assignBuUser', data);
+  assign_BU_manager(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=assignBuManager', data);
   }
 
-  unassign_BU_user(data: any): Observable<any> {
+  unassign_BU_manager(data: any): Observable<any> {
     return this.http.post(this.base_url + '?methodname=UnassignBuUser', data);
+  }
+
+  delete_BU(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=DeleteBu', data);
   }
 
 }

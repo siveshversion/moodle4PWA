@@ -71,7 +71,7 @@ export class BuUsersComponent implements OnInit {
 
 
   viewBUCourseMembers(buId: any) {
-    this.showLoader('Loading Users...Please wait...');
+    this.showLoader('Loading Managers...Please wait...');
 
     this.coursesList = [];
 
@@ -79,7 +79,7 @@ export class BuUsersComponent implements OnInit {
     data.append('bu_id', buId);
     data.append('assign_status', this.selectedFilter);
 
-    this.service.bu_course_members(data).subscribe(
+    this.service.bu_users(data).subscribe(
       (res) => {
         res.Data.forEach((element: any) => {
           const course = {
@@ -88,7 +88,6 @@ export class BuUsersComponent implements OnInit {
             user_fullname: element.user_fullname,
             user_id: element.user_id,
             bu_id: buId,
-            allotted_buId: element.allotted_buId,
             allotted_bu_name: element.allotted_bu_name,
             assigned: element.assigned,
           };
@@ -134,7 +133,7 @@ export class BuUsersComponent implements OnInit {
       .catch((error) => {});
   }
 
-  async unassignUser(uid: any, buId: any) {
+  async unassignManager(uid: any, buId: any) {
     this.showLoader('Processing Request..');
 
     const data = new FormData();
@@ -142,9 +141,9 @@ export class BuUsersComponent implements OnInit {
     data.append('user_id', uid);
     data.append('creatorId', localStorage.getItem('user_id'));
 
-    this.service.unassign_BU_user(data).subscribe(
+    this.service.unassign_BU_manager(data).subscribe(
       (res) => {
-        const msg = 'User Unassigned Successfully';
+        const msg = 'Manager Unassigned Successfully';
         this.showAlert(msg, buId);
         this.hideLoader();
       },
@@ -155,17 +154,17 @@ export class BuUsersComponent implements OnInit {
     );
   }
 
-  async assignUser(uid: any, buId: any) {
+  async assignManager(uid: any, buId: any) {
     this.showLoader('Processing Request..');
     const data = new FormData();
     data.append('bu_id', buId);
     data.append('user_id', uid);
     data.append('creatorId', localStorage.getItem('user_id'));
 
-    this.service.assign_BU_user(data).subscribe(
+    this.service.assign_BU_manager(data).subscribe(
       (res) => {
         if (res.Data.status) {
-          const msg = 'User Assigned Successfully';
+          const msg = 'Manager Assigned Successfully';
           this.showAlert(msg, buId);
           this.hideLoader();
         }

@@ -85,6 +85,37 @@ export class BUsComponent implements OnInit {
 
   }
 
+  delete(bu_id: any) {
+    this.showLoader('Processing Request...');
+    const formData = new FormData();
+    formData.append("bu_id", bu_id);
+    this.service.delete_BU(formData).subscribe((response) => {
+      if (response.Data) {
+        this.hideLoader();
+        const msg = 'BU Deleted successfully';
+        this.showAlert(msg);
+      }
+    }, err => {
+      console.log(err);
+      this.hideLoader();
+    });
+  }
+
+  async showAlert(msg: string) {
+    const alert = await this.alertCtrl.create({
+      header: 'Status',
+      message: msg,
+      buttons: [{
+        text: 'OK',
+        handler: () => {
+          this.buList();
+        }
+      },]
+    });
+    await alert.present();
+    await alert.onDidDismiss();
+  }
+
   applyFilter(filterValue: any) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }

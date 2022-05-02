@@ -2,7 +2,7 @@
   <ion-grid>
     <ion-row>
       <ion-col col-5 class="ion-no-padding">
-        <ion-header>Manage  {{buName}} Users (BU)</ion-header>
+        <ion-header>Managers for  {{buName}} (BU)</ion-header>
       </ion-col>
       <ion-col col-2 class="ion-no-padding"></ion-col>
       <ion-col col-5 class="ion-no-padding">
@@ -63,12 +63,11 @@
                       <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
                       <mat-cell *matCellDef="let element">
                         <span class="mobile-label">Action:</span>
-                        <span class="cell-align-action" (click)="assignUser(element.user_id,element.bu_id)"
-                          *ngIf="(element.assigned === false) && (element.allotted_buId === 0 )">Assign</span>
-                        <span class="cell-align-action" (click)="unassignUser(element.user_id,element.bu_id)"
-                          *ngIf="(element.assigned === true) && (element.allotted_buId === buId )">Unassign</span>
-                        <span class="cell-align-action" (click)="unassignUser(element.user_id,element.allotted_buId)"
-                          *ngIf="(element.allotted_buId > 0) && (element.allotted_buId !== buId )">UnAssign</span>
+                        <span class="cell-align-action" (click)="assignManager(element.user_id,element.bu_id)"
+                          *ngIf="(element.assigned === false)">Assign</span>
+                        <span class="cell-align-action" (click)="unassignManager(element.user_id,element.bu_id)"
+                          *ngIf="(element.assigned === true)">Unassign</span>
+
                       </mat-cell>
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
