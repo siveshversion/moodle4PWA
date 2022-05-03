@@ -4,7 +4,7 @@
     <ion-title class="lc-title">{{dashtitle | translate }}</ion-title>
   </ion-header>
 
-  <!--for Admin dash-->
+  <!--for Admin dash & BUs-->
 
   <ion-grid *ngIf="isAdmin">
     <ion-row *ngIf="details">
@@ -84,6 +84,61 @@
                 <p>{{'bus' | translate }}</p>
               </ion-col>
             </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="isAdmin">
+    <ion-row>
+      <ion-col>
+        <ion-card class="lc-section" *ngIf="bus">
+          <ion-card-header>
+            <ion-card-title>{{'my_bus' | translate }}( {{ bus.length }} )</ion-card-title>
+          </ion-card-header>
+          <div class="search" *ngIf="busDummy.length > 0">
+            <input type="text" class="searchTerm"
+              style="background: url(./assets/icon/search.png) no-repeat;background-position: 3px 6px;"
+              placeholder="{{'search' | translate }}..." (input)="search($event.target)">
+          </div>
+          <ion-card-content>
+
+            <ion-label *ngIf="bus.length === 0">{{'no_bus_to_view' | translate }}</ion-label>
+
+            <!--ion-slides style="margin-bottom:20px"  pager="true" [options]="slideOpts" loop="false"-->
+            <ion-slides style="margin-bottom:20px" [options]="slideOpts" loop="false" pager="true">
+              <ion-slide *ngFor="let item of bus;let i= index">
+                <ion-card class="lc-card-item" (click)="getBUDetails(item.id)">
+                  <ion-card-header>
+                    <ion-img *ngIf="item.imgUrl !== null" [src]=item.imgUrl class="lc-img"></ion-img>
+                    <ion-item>
+                      <!--    <ion-chip slot="start">
+                                              <ion-label>{{ (categories | catFilter: {catId: item.category}) }}</ion-label>
+                                          </ion-chip> -->
+                    </ion-item>
+                    <ion-card-subtitle class="lc-subtitle">{{item.buName}}</ion-card-subtitle>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <ion-row class="v-spacer">
+                      <ion-col>
+                        <p>Employees: {{item.buCourses}}</p>
+                      </ion-col>
+                      <ion-col>
+                        <p>Courses: {{item.buUsers}}</p>
+                      </ion-col>
+                    </ion-row>
+
+
+                  </ion-card-content>
+                </ion-card>
+              </ion-slide>
+
+            </ion-slides>
+
+            <span *ngIf="bus.length > 4" type="submit" class="fabPrevBtn" (click)="prev(0)"></span>
+            <span *ngIf="bus.length > 4" type="submit" class="fabNxtBtn" (click)="next(0)"></span>
+
           </ion-card-content>
         </ion-card>
       </ion-col>

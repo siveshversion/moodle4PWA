@@ -316,7 +316,7 @@ export class AddUsersComponent implements OnInit {
   }
 
   setBUSelector(buid: any) {
-    if ((this.bus.length > 0) && (buid > 0)) {
+    if (this.bus.length > 0 && buid > 0) {
       const index = this.bus.findIndex((p) => p.value === buid);
       this.userCreateForm.controls['bu'].setValue(this.bus[index].value);
     }

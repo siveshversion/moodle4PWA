@@ -4,15 +4,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GlobalApiService {
-
   base_url = environment.moodle_url + environment.api_path;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   login_svc(data: any): Observable<any> {
     const form = new FormData();
@@ -26,7 +24,10 @@ export class GlobalApiService {
   }
 
   check_already_taken(data: any): Observable<any> {
-    return this.http.post(this.base_url + '?methodname=already_taken_validator', data);
+    return this.http.post(
+      this.base_url + '?methodname=already_taken_validator',
+      data
+    );
   }
 
   add_new_user(data: any): Observable<any> {
@@ -72,7 +73,10 @@ export class GlobalApiService {
   }
 
   get_category_by_id(data: any): Observable<any> {
-    return this.http.post(this.base_url + '?methodname=get_category_by_id', data);
+    return this.http.post(
+      this.base_url + '?methodname=get_category_by_id',
+      data
+    );
   }
 
   category_list(data: any): Observable<any> {
@@ -113,19 +117,28 @@ export class GlobalApiService {
   unenroll_user_to_course(data: any): Observable<any> {
     data.append('wstoken', environment.MOODLE_TOKEN);
     data.append('wsfunction', 'enrol_manual_unenrol_users');
-    return this.http.post(this.base_url + '?methodname=unenrollUserToCourse', data);
+    return this.http.post(
+      this.base_url + '?methodname=unenrollUserToCourse',
+      data
+    );
   }
 
   enroll_user_to_course(data: any): Observable<any> {
     data.append('wstoken', environment.MOODLE_TOKEN);
     data.append('wsfunction', 'enrol_manual_enrol_users');
-    return this.http.post(this.base_url + '?methodname=enrollUserToCourse', data);
+    return this.http.post(
+      this.base_url + '?methodname=enrollUserToCourse',
+      data
+    );
   }
 
   mod_get_enrol_courses(data: any): Observable<any> {
     data.append('wstoken', environment.MOODLE_TOKEN);
     data.append('wsfunction', 'core_enrol_get_users_courses');
-    return this.http.post(this.base_url + '?methodname=getMyEnrolledCourses', data);
+    return this.http.post(
+      this.base_url + '?methodname=getMyEnrolledCourses',
+      data
+    );
   }
 
   mod_get_course_status_count(): Observable<any> {
@@ -134,7 +147,10 @@ export class GlobalApiService {
     data.append('wstoken', environment.MOODLE_TOKEN);
     data.append('userid', localStorage.getItem('user_id'));
     data.append('wsfunction', 'core_enrol_get_users_courses');
-    return this.http.post(this.base_url + '?methodname=getCourseStatusCount', data);
+    return this.http.post(
+      this.base_url + '?methodname=getCourseStatusCount',
+      data
+    );
   }
 
   mod_get_course_details(data: any): Observable<any> {
@@ -151,7 +167,10 @@ export class GlobalApiService {
 
   admin_dash_content(data: any): Observable<any> {
     data.append('wstoken', environment.MOODLE_TOKEN);
-    return this.http.post(this.base_url + '?methodname=getadminDashStats', data);
+    return this.http.post(
+      this.base_url + '?methodname=getadminDashStats',
+      data
+    );
   }
 
   create_lp(data: any): Observable<any> {
@@ -202,6 +221,10 @@ export class GlobalApiService {
     return this.http.post(this.base_url + '?methodname=getMyEnrolledLPs', data);
   }
 
+  mod_get_my_bus(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=getMyEnrolledBUs', data);
+  }
+
   create_bu(data: any): Observable<any> {
     return this.http.post(this.base_url + '?methodname=createBU', data);
   }
@@ -211,7 +234,7 @@ export class GlobalApiService {
   }
 
   update_bu(data: any): Observable<any> {
-    return this.http.post(this.base_url + '?methodname=update_bu', data);
+    return this.http.post(this.base_url + '?methodname=updateBU', data);
   }
 
   bu_list(data: any): Observable<any> {
@@ -245,5 +268,4 @@ export class GlobalApiService {
   delete_BU(data: any): Observable<any> {
     return this.http.post(this.base_url + '?methodname=DeleteBu', data);
   }
-
 }

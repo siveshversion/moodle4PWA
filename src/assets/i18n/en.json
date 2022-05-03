@@ -436,5 +436,7 @@
   "manage_bus": "Manage Business Units",
   "manage_bu_courses": "Manage BU Courses",
   "select_bu": "Select Business Unit",
-  "buName": "Business Unit"
+  "buName": "Business Unit",
+  "my_bus": "Business Units",
+  "no_bus_to_view": "No Business Units to view"
 }

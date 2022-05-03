@@ -28,6 +28,22 @@
               </ion-text>
             </ion-col>
           </ion-row>
+          <ion-row class="ion-padding-top">
+            <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+                <ion-label class="lc-label-align ">Logo</ion-label>
+                <div class="input-group mat-form-field-wrapper" id="filePicker">
+                  <div class="custom-file">
+                      <input input type="file" class="custom-file-input" [ngStyle]="{cursor:'pointer'}"
+                          (change)="chooseFile($event.target.files[0].name,$event.target.files[0])"
+                          formControlName="file" accept=".png,.jpeg,.jpg" required>
+                      <label class="custom-file-label">{{fileName}}</label>
+                  </div>
+                  <span id="download_icon" title="uploaded logo" (click)="getUploadedLogo()"
+                  *ngIf="update_flag === true && logoexists ===true"
+                  class="material-icons ">cloud_download</span>
+              </div>
+            </ion-col>
+        </ion-row>
         </ion-card-header>
         <ion-row>
           <ion-col size="12" size-xs="12" size-md="2" size-lg="2" class="ion-no-padding">

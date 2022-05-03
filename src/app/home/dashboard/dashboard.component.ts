@@ -1,7 +1,14 @@
+/* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable eqeqeq */
 import { GlobalApiService } from './../../services/global-api.service';
-import { Component, HostListener, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { IonSlides, LoadingController, NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -25,9 +32,10 @@ export class DashboardComponent implements OnInit {
   dashtitle: string;
   details: any;
 
-
   lps: any = [];
   lpsDummy: any = [];
+  bus: any = [];
+  busDummy: any = [];
   innerWidth: number;
 
   slideOpts = {
@@ -46,8 +54,8 @@ export class DashboardComponent implements OnInit {
     margin: 25,
     nav: true,
     navText: [
-      '<div class=\'nav-btn prev-slide\'></div>',
-      '<div class=\'nav-btn next-slide\'></div>',
+      "<div class='nav-btn prev-slide'></div>",
+      "<div class='nav-btn next-slide'></div>",
     ],
     responsiveClass: true,
     responsive: {
@@ -101,21 +109,42 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.onResize();
     this.router.queryParams.subscribe((params) => {
-      this.loadLP();
+      if (this.isAdmin) {
+        this.loadBU();
+      } else {
+        this.loadLP();
+      }
     });
   }
 
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    @HostListener('window:resize', ['$event'])
-    onResize() {
-      this.innerWidth = window.innerWidth;
-      if (this.innerWidth <= 768) {
-        this.slideOpts.slidesPerView = 1;
-      } else {
-        this.slideOpts.slidesPerView = 4;
-      }
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.innerWidth = window.innerWidth;
+    if (this.innerWidth <= 768) {
+      this.slideOpts.slidesPerView = 1;
+    } else {
+      this.slideOpts.slidesPerView = 4;
     }
+  }
 
+  loadBU() {
+    this.showLoader_1();
+    const data = new FormData();
+    data.append('userid', localStorage.getItem('user_id'));
+
+    this.service.mod_get_my_bus(data).subscribe(
+      (res) => {
+        this.bus = res.Data;
+        console.log(JSON.stringify(this.bus));
+        this.busDummy = this.bus;
+        this.hideLoader_1();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
   loadLP() {
     this.showLoader_1();
@@ -154,7 +183,7 @@ export class DashboardComponent implements OnInit {
       this.navCtrl.navigateForward('/home/courses');
     } else if (routeName == 'lps') {
       this.navCtrl.navigateForward('/home/lps');
-    }  else if (routeName == 'bus') {
+    } else if (routeName == 'bus') {
       this.navCtrl.navigateForward('/home/bus');
     }
   }
@@ -163,6 +192,10 @@ export class DashboardComponent implements OnInit {
     this.route.navigate(['home/lp-summary'], {
       queryParams: { id },
     });
+  }
+
+  getBUDetails(id) {
+    this.route.navigate(['home/bus'], {});
   }
 
   search(target: any): void {
