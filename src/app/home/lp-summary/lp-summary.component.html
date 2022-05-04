@@ -2,7 +2,7 @@
   <ion-card class="lc-section">
     <ion-card-header>
       <ion-card-title>
-              {{lp.name}}
+        {{lp.name}}
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
@@ -44,8 +44,34 @@
     (click)="navMenu('mg-courses',lp.id)">Assign Courses
   </ion-button>
 
-  <ion-button type="button" fill="solid" class="lc-button lc-btn-color" *ngIf="lp.coursecnt > 0"
-    (click)="ordering(lp.id)">Set Order
+  <ion-button type="button" fill="solid" class="lc-button lc-btn-color" *ngIf="lp.coursecnt > 0" (click)="ordering()">
+    {{dyamicBtnLabel}}
   </ion-button>
+
+
+  <div *ngIf="dynamicClass === 'lc-section-custom'; else draggables">
+    <ion-card class="{{dynamicClass}}" *ngFor="let item of lp.coursesarr">
+      <ion-card-header>
+        <ion-card-title>
+          <a (click)="navMenu('course-summary',item.id)">{{item.fullname}}</a>
+        </ion-card-title>
+      </ion-card-header>
+
+
+    </ion-card>
+  </div>
+
+  <ng-template #draggables>
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+      <ion-card class="{{dynamicClass}}" *ngFor="let item of lp.coursesarr" cdkDrag>
+        <ion-card-header>
+          <ion-card-title>
+            {{item.fullname}}
+          </ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </div>
+
+  </ng-template>
 
 </ion-content>

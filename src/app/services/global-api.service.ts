@@ -268,4 +268,8 @@ export class GlobalApiService {
   delete_BU(data: any): Observable<any> {
     return this.http.post(this.base_url + '?methodname=DeleteBu', data);
   }
+
+  lp_course_sorting(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=LpCourseSorting', data);
+  }
 }

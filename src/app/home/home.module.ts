@@ -54,6 +54,7 @@ import { CourseManageUsersComponent } from './course-management/course-manage-us
 import { CountUpModule } from 'ngx-countup';
 import { BuCoursesComponent } from './bu-courses/bu-courses.component';
 import { BuUsersComponent } from './bu-users/bu-users.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -80,6 +81,7 @@ import { BuUsersComponent } from './bu-users/bu-users.component';
     MatMenuModule,
     MatTableModule,
     CountUpModule,
+    DragDropModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
