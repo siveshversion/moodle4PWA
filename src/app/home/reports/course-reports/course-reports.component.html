@@ -1,0 +1,85 @@
+<ion-content [fullscreen]="true" class="ion-padding" scroll-y="true" class="lc-content">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-5 class="ion-no-padding">
+        <ion-header>{{'course_report' | translate }}</ion-header>
+      </ion-col>
+      <ion-col col-2 class="ion-no-padding"></ion-col>
+      <ion-col col-5 class="ion-no-padding">
+        <ion-item lines="none" color="none">
+          <input type="text" class="lc-input" #searchVal (input)="applyFilter(searchVal.value)" placeholder="Search"
+            type="text" />
+          <div class="input-group-prepend">
+            <span class="input-group-text"><span class="material-icons">search</span>
+            </span>
+          </div>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-card class="lc-section">
+          <ion-card-header class="lc-table-no-padding">
+            <ion-row>
+              <ion-col>
+                <div class="example-container">
+                  <mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="SN">
+                      <mat-header-cell *matHeaderCellDef>SNo</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">SNo:</span>
+                        <span class="cell-align">{{element.sl_no || "--"}}</span>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="courseName">
+                      <mat-header-cell *matHeaderCellDef>{{'course_name' | translate }}
+                      </mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="anchor" (click)="navMenu('course-summary',element.course_id,'null')">
+                          <span class="mobile-label">{{'course_name'| translate }}:</span>
+                          <span class="cell-align">{{element.course_name || "--"}}</span>
+                        </span>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="enrolledCnt">
+                      <mat-header-cell *matHeaderCellDef>Enrolled</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Enrolled:</span>
+                        <span class="cell-align" [ngStyle]="{'cursor':'pointer'}" (click)="navMenu('course-detailing',element.course_id,'enrolled')">{{element.enrolled_cnt || "--"}}</span>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="completedCnt">
+                      <mat-header-cell *matHeaderCellDef>Completed</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Completed:</span>
+                        <span class="cell-align" [ngStyle]="{'cursor':'pointer'}" (click)="navMenu('course-detailing',element.course_id,'completed')">{{element.completed_cnt || "--"}}</span>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="inprogressCnt">
+                      <mat-header-cell *matHeaderCellDef>In Progress</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">In Progress:</span>
+                        <span class="cell-align" [ngStyle]="{'cursor':'pointer'}" (click)="navMenu('course-detailing',element.course_id,'inprogress')">{{element.inprogress_cnt || "--"}}</span>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="notstartedCnt">
+                      <mat-header-cell *matHeaderCellDef>Not Started</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Not Started:</span>
+                        <span class="cell-align" [ngStyle]="{'cursor':'pointer'}" (click)="navMenu('course-detailing',element.course_id,'notstarted')">{{element.notstarted_cnt || "--"}}</span>
+                      </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns; "></mat-row>
+                  </mat-table>
+                </div>
+                <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5,10,25,50,100]" showFirstLastButtons>
+                </mat-paginator>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

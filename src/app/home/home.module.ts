@@ -1,3 +1,5 @@
+import { CourseDetailedReportComponent } from './reports/course-detailed-report/course-detailed-report.component';
+import { CourseReportsComponent } from './reports/course-reports/course-reports.component';
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 /* eslint-disable max-len */
@@ -113,6 +115,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     BUsComponent,
     BuCoursesComponent,
     BuUsersComponent,
+    CourseReportsComponent,
+    CourseDetailedReportComponent
   ],
   providers: [GlobalApiService, HttpClient, Storage],
 })

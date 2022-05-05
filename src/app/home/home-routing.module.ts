@@ -1,3 +1,5 @@
+import { CourseDetailedReportComponent } from './reports/course-detailed-report/course-detailed-report.component';
+import { CourseReportsComponent } from './reports/course-reports/course-reports.component';
 import { BuUsersComponent } from './bu-users/bu-users.component';
 import { BuCoursesComponent } from './bu-courses/bu-courses.component';
 import { BUsComponent } from './bus/bus.component';
@@ -111,7 +113,13 @@ const routes: Routes = [
       {
         path: 'bu-users',
         component: BuUsersComponent,
-      },
+      }, {
+        path: 'reports/course-report',
+        component: CourseReportsComponent,
+      },{
+        path: 'reports/course-detailed-report',
+        component: CourseDetailedReportComponent,
+      }
     ],
   },
 ];

@@ -438,5 +438,6 @@
   "select_bu": "Select Business Unit",
   "buName": "Business Unit",
   "my_bus": "Business Units",
-  "no_bus_to_view": "No Business Units to view"
+  "no_bus_to_view": "No Business Units to view",
+  "course_report": "Course Report"
 }

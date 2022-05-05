@@ -151,6 +151,22 @@
                           </mat-expansion-panel>
                       </mat-accordion>
                   </ion-item>
+                  <ion-item class="pointer">
+                    <mat-accordion>
+                        <mat-expansion-panel class="nav-expand">
+                            <mat-expansion-panel-header style="height:40px;">
+                                <mat-panel-title><span class="material-icons">analytics</span>
+                                    <ion-label class="lc-menu-align">{{'reports' | translate }}</ion-label>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('course-report')">
+                                <mat-list-item>
+                                    <a class="lc-sub-menu">{{'course_report' | translate }}</a>
+                                </mat-list-item>
+                            </mat-list>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </ion-item>
                 </ion-list>
                 <ion-list lines="none" *ngIf="isStudent">
                     <ion-item (click)="sidenav.toggle();navMenu('dashboard');" class="pointer">
