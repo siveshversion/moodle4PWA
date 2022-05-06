@@ -54,8 +54,8 @@
                                           <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
                                           <mat-cell *matCellDef="let element">
                                               <span class="mobile-label">Action:</span>
-                                              <span class="cell-align-action" (click)="enrolUser(element.user_id,element.course_id)" *ngIf="element.enrolled == false">Enroll</span>
-                                              <span class="cell-align-action" (click)="unenroll(element.user_id,element.course_id)" *ngIf="element.enrolled == true">Unenroll</span>
+                                              <span class="cell-align-action" (click)="enrolUser(element.user_id,element.course_id)" *ngIf="element.enrolled === false">Enroll</span>
+                                              <span class="cell-align-action" (click)="unenroll(element.user_id,element.course_id)" *ngIf="element.enrolled === true">Unenroll</span>
                                           </mat-cell>
                                       </ng-container>
 
