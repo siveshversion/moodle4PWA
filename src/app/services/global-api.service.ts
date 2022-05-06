@@ -119,6 +119,15 @@ export class GlobalApiService {
     return this.http.post(this.base_url + '?methodname=getCourseUsers', data);
   }
 
+  course_filtered_members(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('wsfunction', 'core_enrol_get_enrolled_users');
+    return this.http.post(
+      this.base_url + '?methodname=courseDetailedReport',
+      data
+    );
+  }
+
   unenroll_user_to_course(data: any): Observable<any> {
     data.append('wstoken', environment.MOODLE_TOKEN);
     data.append('wsfunction', 'enrol_manual_unenrol_users');
