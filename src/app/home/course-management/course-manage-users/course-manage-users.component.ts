@@ -28,6 +28,7 @@ export class CourseManageUsersComponent implements OnInit {
   courseid: any;
 
 
+
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -144,7 +145,7 @@ export class CourseManageUsersComponent implements OnInit {
     this.service.enroll_user_to_course(data).subscribe(
       res => {
         if (res.Data.cat_id) {
-          let msg = 'User Enrolled Successfully';
+          const msg = 'User Enrolled Successfully';
           this.showAlert(msg, cid);
           this.hideLoader();
         }

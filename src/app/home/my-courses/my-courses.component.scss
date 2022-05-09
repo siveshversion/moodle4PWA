@@ -182,3 +182,16 @@
 ion-item{
     --border-style:none;
 }
+
+
+
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+.mat-select {
+    width: 175px !important;
+}
+
+.filter{
+  float: right;
+  margin: 10px;
+  color: #ffffff;
+}

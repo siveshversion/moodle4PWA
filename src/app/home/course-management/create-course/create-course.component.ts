@@ -18,7 +18,6 @@ export class CreateCourseComponent implements OnInit {
   subtitle: any;
   btnName: any;
   courseForm: FormGroup;
-  myGroup: FormGroup;
   categories = [];
   shortnameConflict: Boolean;
   old_enroll_id: any;

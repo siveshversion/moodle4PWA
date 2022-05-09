@@ -149,8 +149,19 @@ export class GlobalApiService {
   mod_get_enrol_courses(data: any): Observable<any> {
     data.append('wstoken', environment.MOODLE_TOKEN);
     data.append('wsfunction', 'core_enrol_get_users_courses');
+    data.append('userid', localStorage.getItem('user_id'));
     return this.http.post(
       this.base_url + '?methodname=getMyEnrolledCourses',
+      data
+    );
+  }
+
+  mod_get_filtered_courses(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('wsfunction', 'core_enrol_get_users_courses');
+    data.append('userid', localStorage.getItem('user_id'));
+    return this.http.post(
+      this.base_url + '?methodname=mod_get_filtered_courses',
       data
     );
   }
@@ -288,6 +299,9 @@ export class GlobalApiService {
   }
 
   lp_generate_get_user_token(data: any): Observable<any> {
-    return this.http.post(this.base_url + '?methodname=generate_get_user_token', data);
+    return this.http.post(
+      this.base_url + '?methodname=generate_get_user_token',
+      data
+    );
   }
 }

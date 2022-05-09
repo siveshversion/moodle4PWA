@@ -1,39 +1,46 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, AlertController, LoadingController, ModalController } from '@ionic/angular';
+import {
+  NavController,
+  AlertController,
+  LoadingController,
+  ModalController,
+} from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-course-detailed-report',
   templateUrl: './course-detailed-report.component.html',
   styleUrls: ['./course-detailed-report.component.scss'],
 })
-
-
 export class CourseDetailedReportComponent implements OnInit {
-
   data: any;
-  displayedColumns = ['slNo', 'UserName', 'FullName','BusinessUnit'];
+  displayedColumns = ['slNo', 'UserName', 'FullName', 'BusinessUnit'];
   coursesList = [];
   userFilter = [
     { value: 'all', viewValue: 'All' },
     { value: 'enrolled', viewValue: 'Enrolled' },
-    { value: 'not_enrolled', viewValue: 'Not Enrolled' }
+    { value: 'not_enrolled', viewValue: 'Not Enrolled' },
   ];
-  selectedFilter: any;
   courseid: any;
   type: string;
+  filterForm: FormGroup;
   course: any;
-
+  bus = [];
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-
 
   constructor(
     private service: GlobalApiService,
@@ -42,38 +49,39 @@ export class CourseDetailedReportComponent implements OnInit {
     private http: HttpClient,
     private router: ActivatedRoute,
     private modalController: ModalController,
-    private navCtrl: NavController) {
+    private formBuilder: FormBuilder,
 
-    this.router.queryParams.subscribe(
-      params => {
-        if (params.cid) {
-          this.courseid = params.cid;
-          this.type = params.type;
-          this.selectedFilter = 'enrolled';
-          this.viewCourseMembers(params.cid);
-        }
+    private navCtrl: NavController
+  ) {
+    this.router.queryParams.subscribe((params) => {
+      if (params.cid) {
+        this.courseid = params.cid;
+        this.type = params.type;
+        this.getBUs();
+        this.viewCourseMembers(params.cid, -1);
       }
-    );
-
+    });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.filterForm = this.formBuilder.group({
+      filter: new FormControl(),
+    });
+  }
 
-
-  viewCourseMembers(cid: any) {
-
+  viewCourseMembers(cid: any, filterVal: any) {
     this.showLoader('Loading Users...Please wait...');
 
     this.coursesList = [];
 
     const data = new FormData();
     data.append('course_id', cid);
-    data.append('enroll_status', this.selectedFilter);
     data.append('type', this.type);
+    data.append('bu_id', filterVal);
     data.append('userId', localStorage.getItem('user_id'));
 
     this.service.course_filtered_members(data).subscribe(
-      res => {
+      (res) => {
         this.course = res.Data.Course;
         res.Data.Participants.forEach((element: any) => {
           const course = {
@@ -83,16 +91,18 @@ export class CourseDetailedReportComponent implements OnInit {
             user_id: element.user_id,
             course_id: cid,
             enrolled: element.enrolled,
-            bu_name: element.bu_name
+            bu_name: element.bu_name,
           };
           this.coursesList.push(course);
         });
         this.applyFilter('');
         this.hideLoader();
-      }, err => {
+      },
+      (err) => {
         console.log(err);
         this.hideLoader();
-      });
+      }
+    );
 
     this.dataSource = new MatTableDataSource<any>(this.coursesList);
     this.dataSource.paginator = this.paginator;
@@ -108,18 +118,21 @@ export class CourseDetailedReportComponent implements OnInit {
 
   // Show the loader for infinite time
   showLoader(msg: any) {
-    this.loadingController.create({
-      message: msg,
-    }).then((res) => {
-      res.present();
-    });
+    this.loadingController
+      .create({
+        message: msg,
+      })
+      .then((res) => {
+        res.present();
+      });
   }
 
   // Hide the loader if already created otherwise return error
   hideLoader() {
-    this.loadingController.dismiss().then((res) => {
-    }).catch((error) => {
-    });
+    this.loadingController
+      .dismiss()
+      .then((res) => {})
+      .catch((error) => {});
   }
 
   async closeModal() {
@@ -130,20 +143,52 @@ export class CourseDetailedReportComponent implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Status',
       message: msg,
-      buttons: [{
-        text: 'OK',
-        handler: () => {
-          this.viewCourseMembers(cid);
-        }
-      },]
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.viewCourseMembers(cid, -1);
+          },
+        },
+      ],
     });
     await alert.present();
     await alert.onDidDismiss();
   }
 
   selectFilter(value: any) {
-    this.selectedFilter = value;
-    this.viewCourseMembers(this.courseid);
+    this.viewCourseMembers(this.courseid, value);
   }
 
+  getBUs() {
+    const formData = new FormData();
+
+    this.service.bu_list(formData).subscribe(
+      (res) => {
+        this.bus = [];
+        res.Data.forEach((element: any) => {
+          const BU_data = {
+            value: Number(element.bu_id),
+            viewValue: element.bu_name,
+          };
+          this.bus.push(BU_data);
+        });
+        const all_BU = {
+          value: -1,
+          viewValue: 'Show All BU',
+        };
+        this.bus.unshift(all_BU);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  setBUSelector(buid: any) {
+    if (this.bus.length > 0 && buid > 0) {
+      const index = this.bus.findIndex((p) => p.value === buid);
+      this.filterForm.controls.bu.setValue(this.bus[index].value);
+    }
+  }
 }

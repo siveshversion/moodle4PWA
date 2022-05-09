@@ -11,6 +11,12 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 import { NavController, LoadingController } from '@ionic/angular';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 export interface CatCourses {
   categoryId: number;
@@ -34,6 +40,16 @@ export class MyCoursesComponent implements OnInit {
   coursesDummy: any = [];
   allCourses: any = [];
   allCoursesDummy: any = [];
+  selectedFilter: any;
+  filterForm: FormGroup;
+  filterType: string;
+
+  enrollStatFilter = [
+    { value: 'enrolled', viewValue: 'Enrolled' },
+    { value: 'in_progress', viewValue: 'In Progress' },
+    { value: 'not_started', viewValue: 'Not Started' },
+    { value: 'completed', viewValue: 'Completed' },
+  ];
 
   slideOpts = {
     slidesPerView: 0,
@@ -83,14 +99,24 @@ export class MyCoursesComponent implements OnInit {
     private route: Router,
     public loadingController: LoadingController,
     private router: ActivatedRoute,
-    private navCtrl: NavController
-  ) {}
+    private navCtrl: NavController,
+    private formBuilder: FormBuilder
+  ) {
+    this.router.queryParams.subscribe((params) => {
+      if (params.filter) {
+        this.filterType = params.filter;
+      }
+      this.loadCourse(this.filterType);
+    });
+  }
 
   ngOnInit() {
-    this.onResize();
-    this.router.queryParams.subscribe((params) => {
-      this.loadCourse();
+    this.filterForm = this.formBuilder.group({
+      filter: new FormControl(),
     });
+
+    this.setFilter(this.filterType);
+    this.onResize();
   }
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
@@ -114,18 +140,21 @@ export class MyCoursesComponent implements OnInit {
     });
   }
 
-  loadCourse() {
+  loadCourse(filtertype: string) {
     this.showLoader_1();
     const data = new FormData();
     data.append('userid', localStorage.getItem('user_id'));
+    data.append('selected_filter', filtertype);
 
-    this.service.mod_get_enrol_courses(data).subscribe(
+    this.coursesDummy = [];
+
+    this.service.mod_get_filtered_courses(data).subscribe(
       (res) => {
         this.courses = res.Data;
         console.log(JSON.stringify(this.courses));
         this.coursesDummy = this.courses;
         this.courses.forEach((element) => {
-          if (element.overviewfiles.length != 0) {
+          if (element.overviewfiles.length !== 0) {
             Object.assign(element, {
               imgUrl:
                 element.overviewfiles[0].fileurl +
@@ -206,5 +235,17 @@ export class MyCoursesComponent implements OnInit {
       }
       i++;
     });
+  }
+
+  selectFilter(value: any) {
+    this.selectedFilter = value;
+    this.loadCourse(value);
+  }
+
+  setFilter(value: string) {
+    const index = this.enrollStatFilter.findIndex((p) => p.value === value);
+    this.filterForm.controls.filter.setValue(
+      this.enrollStatFilter[index].value
+    );
   }
 }

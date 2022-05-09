@@ -1,67 +1,80 @@
 <ion-content [fullscreen]="true" class="ion-padding" scroll-y="true" class="lc-content">
   <ion-grid>
-      <ion-row>
-          <ion-col col-5 class="ion-no-padding">
-              <ion-header *ngIf="course">{{course.fullname  | titlecase}} - Course Detailed Report ({{type  | titlecase}} users)</ion-header>
-          </ion-col>
-          <ion-col col-2 class="ion-no-padding"></ion-col>
-          <ion-col col-5 class="ion-no-padding">
-              <ion-item lines="none" color="none">
-                  <input type="text" class="lc-input" #searchVal (input)="applyFilter(searchVal.value)" placeholder="Search" type="text" />
-                  <div class="input-group-prepend">
-                      <span class="input-group-text"><span class="material-icons">search</span>
-                      </span>
-                  </div>
-              </ion-item>
-          </ion-col>
-      </ion-row>
+    <ion-row>
+      <ion-col col-5 class="ion-no-padding">
+        <ion-header *ngIf="course">{{course.fullname | titlecase}} - Course Detailed Report ({{type | titlecase}} users)
+        </ion-header>
+      </ion-col>
+      <ion-col col-2 class="ion-no-padding"></ion-col>
+      <ion-col col-5 class="ion-no-padding">
+        <ion-item lines="none" color="none">
+          <input type="text" class="lc-input" #searchVal (input)="applyFilter(searchVal.value)" placeholder="Search"
+            type="text" />
+          <div class="input-group-prepend">
+            <span class="input-group-text"><span class="material-icons">search</span>
+            </span>
+          </div>
+          <form [formGroup]="filterForm">
+            <span class="filter">
+              <mat-select class="lc-input" id="BuFilter" placeholder="Select Filter"
+                (selectionChange)="selectFilter($event.value)" [formControlName]="'filter'" name="item">
+                <mat-option *ngFor="let item of bus" [value]="item.value">
+                  {{ item.viewValue }}
+                </mat-option>
+              </mat-select>
+            </span>
+            </form>
+        </ion-item>
+      </ion-col>
+    </ion-row>
 
-      <ion-row>
-          <ion-col class="ion-no-padding">
-              <ion-card class="lc-section">
-                  <ion-card-header class="lc-table-no-padding">
-                      <ion-row>
-                          <ion-col>
-                              <div class="example-container">
-                                  <mat-table [dataSource]="dataSource">
-                                      <ng-container matColumnDef="slNo">
-                                          <mat-header-cell *matHeaderCellDef>SL No</mat-header-cell>
-                                          <mat-cell *matCellDef="let element">
-                                              <span class="mobile-label">SL No:</span>
-                                              <span class="cell-align">{{element.sl_no || "--"}}</span>
-                                          </mat-cell>
-                                      </ng-container>
-                                      <ng-container matColumnDef="UserName">
-                                          <mat-header-cell *matHeaderCellDef>User Name</mat-header-cell>
-                                          <mat-cell *matCellDef="let element">
-                                              <span class="mobile-label">Username:</span>
-                                              <span class="cell-align">{{element.user_name || "--"}}</span>
-                                          </mat-cell>
-                                      </ng-container>
-                                      <ng-container matColumnDef="FullName">
-                                        <mat-header-cell *matHeaderCellDef>Full Name</mat-header-cell>
-                                        <mat-cell *matCellDef="let element">
-                                            <span class="mobile-label">Fullname:</span>
-                                            <span class="cell-align">{{element.user_fullname || "--"}}</span>
-                                        </mat-cell>
-                                    </ng-container>
-                                    <ng-container matColumnDef="BusinessUnit">
-                                      <mat-header-cell *matHeaderCellDef>Business Unit</mat-header-cell>
-                                      <mat-cell *matCellDef="let element">
-                                          <span class="mobile-label">Business Unit:</span>
-                                          <span class="cell-align">{{element.bu_name || "--"}}</span>
-                                      </mat-cell>
-                                  </ng-container>
-                                      <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
-                                      <mat-row *matRowDef="let row; columns: displayedColumns; "></mat-row>
-                                  </mat-table>
-                              </div>
-                              <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5,10,25,50,100]" showFirstLastButtons></mat-paginator>
-                          </ion-col>
-                      </ion-row>
-                  </ion-card-header>
-              </ion-card>
-          </ion-col>
-      </ion-row>
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-card class="lc-section">
+          <ion-card-header class="lc-table-no-padding">
+            <ion-row>
+                <ion-col>
+                  <div class="example-container">
+                    <mat-table [dataSource]="dataSource">
+                      <ng-container matColumnDef="slNo">
+                        <mat-header-cell *matHeaderCellDef>SL No</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                          <span class="mobile-label">SL No:</span>
+                          <span class="cell-align">{{element.sl_no || "--"}}</span>
+                        </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="UserName">
+                        <mat-header-cell *matHeaderCellDef>User Name</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                          <span class="mobile-label">Username:</span>
+                          <span class="cell-align">{{element.user_name || "--"}}</span>
+                        </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="FullName">
+                        <mat-header-cell *matHeaderCellDef>Full Name</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                          <span class="mobile-label">Fullname:</span>
+                          <span class="cell-align">{{element.user_fullname || "--"}}</span>
+                        </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="BusinessUnit">
+                        <mat-header-cell *matHeaderCellDef>Business Unit</mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                          <span class="mobile-label">Business Unit:</span>
+                          <span class="cell-align">{{element.bu_name || "--"}}</span>
+                        </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns; "></mat-row>
+                    </mat-table>
+                  </div>
+                  <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5,10,25,50,100]" showFirstLastButtons>
+                  </mat-paginator>
+                </ion-col>
+            </ion-row>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 </ion-content>
