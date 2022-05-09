@@ -286,4 +286,8 @@ export class GlobalApiService {
   lp_course_sorting(data: any): Observable<any> {
     return this.http.post(this.base_url + '?methodname=LpCourseSorting', data);
   }
+
+  lp_generate_get_user_token(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=generate_get_user_token', data);
+  }
 }

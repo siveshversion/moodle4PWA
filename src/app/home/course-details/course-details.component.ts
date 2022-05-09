@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable max-len */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
@@ -11,8 +13,6 @@ import { ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
   templateUrl: './course-details.component.html',
   styleUrls: ['./course-details.component.scss'],
 })
-
-
 export class CourseDetailsComponent implements OnInit {
   courseId: any;
   contents: any = [];
@@ -20,30 +20,49 @@ export class CourseDetailsComponent implements OnInit {
   panelOpenState = false;
   token: any;
   isRedirect = true;
-  redirectUrl: any = "";
-  content = "";
+  redirectUrl: any = '';
+  content = '';
   expire_status: any;
   courseName: any;
 
-  constructor(private service: GlobalApiService, private router: ActivatedRoute, private sanitizer: DomSanitizer, public loadingController: LoadingController, private route: Router) { }
+  constructor(
+    private service: GlobalApiService,
+    private router: ActivatedRoute,
+    private sanitizer: DomSanitizer,
+    public loadingController: LoadingController,
+    private route: Router
+  ) {}
 
   ngOnInit() {
     //this.showLoader();
     this.token = localStorage.getItem('user_key');
-    this.router.queryParams.subscribe(
-      params => {
-        this.courseId = params.id;
-        this.openLink(environment.moodle_url + '/course/view.php?id=' + params.id);
 
-      }
-    );
+    const data = new FormData();
+    data.append('username', localStorage.getItem('username'));
+    data.append('password', localStorage.getItem('password'));
 
+    this.service.lp_generate_get_user_token(data).subscribe((res) => {
+      this.token = res.Data.user_token;
+    });
 
+    this.router.queryParams.subscribe((params) => {
+      this.courseId = params.id;
+      this.openLink(
+        environment.moodle_url + '/course/view.php?id=' + params.id
+      );
+    });
   }
 
   openLink(url: any) {
-    let user_key = localStorage.getItem('user_key');
-    this.redirectUrl = this.sanitizer.bypassSecurityTrustResourceUrl(environment.moodle_url + '/auth/userkey/login.php?key=' + user_key + '&wantsurl=' + url + '&embedded=true');
+    const user_key = this.token;
+    this.redirectUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      environment.moodle_url +
+        '/auth/userkey/login.php?key=' +
+        user_key +
+        '&wantsurl=' +
+        url +
+        '&embedded=true'
+    );
     console.log('qqq' + this.redirectUrl);
     // this.redirectUrl =  url;
     this.isRedirect = true;
@@ -51,24 +70,25 @@ export class CourseDetailsComponent implements OnInit {
 
   // Show the loader for infinite time
   showLoader() {
-    this.loadingController.create({
-      message: 'Loading Activities Please wait...'
-    }).then((res) => {
-      res.present();
-    });
+    this.loadingController
+      .create({
+        message: 'Loading Activities Please wait...',
+      })
+      .then((res) => {
+        res.present();
+      });
   }
 
   // Hide the loader if already created otherwise return error
   hideLoader() {
-    this.loadingController.dismiss().then((res) => {
-    }).catch((error) => {
-    });
+    this.loadingController
+      .dismiss()
+      .then((res) => {})
+      .catch((error) => {});
   }
-
 
   frameUpdate(event: any) {
     // document.querySelector('iframe').contentDocument.body.querySelector('nav').style.display='none';
     // document.querySelector('iframe').contentDocument.body.querySelector('nav').style.display='none';
   }
-
 }

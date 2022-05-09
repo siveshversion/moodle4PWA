@@ -20,15 +20,15 @@ export class LoginComponent implements OnInit {
 
   constructor(private translate: TranslateService,
     private formBuilder: FormBuilder,
-    private storage: Storage, 
-    private router: Router, 
+    private storage: Storage,
+    private router: Router,
     private service: GlobalApiService,
-    public alertCtrl: AlertController, 
+    public alertCtrl: AlertController,
     private route: ActivatedRoute,
-    public loadingController: LoadingController, 
+    public loadingController: LoadingController,
     private modalController: ModalController,
     private menu: MenuController,
-    private elRef: ElementRef,) { 
+    private elRef: ElementRef,) {
     translate.setDefaultLang('en');
   }
 
@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit {
         res.present();
       });
     }
-  
+
     // Hide the loader if already created otherwise return error
     hideLoader() {
       this.loadingController.dismiss().then((res) => {
@@ -120,7 +120,7 @@ export class LoginComponent implements OnInit {
     //     (res: any) => {
     //       console.log(JSON.stringify(res));
     //         //localStorage.setItem('user_id', res[0].id);
-            
+
     //         this.storage.set('user', JSON.stringify(res[0]));
     //         // localStorage.setItem('user', JSON.stringify(res[0]));
     //         //this.createUserKey();
@@ -130,5 +130,4 @@ export class LoginComponent implements OnInit {
     //     }
     //   );
     // }
-  
 }
