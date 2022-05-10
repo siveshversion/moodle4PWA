@@ -31,7 +31,7 @@
   "checking": "Checking",
   "dashboard": "Dashboard",
   "welcome_learner": "Welcome to Learner's Dashboard",
-  "welcome_moodle": "Welcome to Moodle 3.11",
+  "welcome_moodle": "Welcome to Moodle 4",
   "view_profile": "View Profile",
   "profile": "Profile",
   "courses_enrolled": "Enrolled Courses",
@@ -224,6 +224,7 @@
   "edit_course": "Edit Course",
   "add_question_bank": "Add Question bank",
   "select_filter": "Select Filter",
+  "select_bu_filter": "Select BU",
   "question_bank_name": "Question Bank Name",
   "course_admin": "Course Admin",
   "add_new_user": "Add New User",
@@ -439,5 +440,8 @@
   "buName": "Business Unit",
   "my_bus": "Business Units",
   "no_bus_to_view": "No Business Units to view",
-  "course_report": "Course Report"
+  "course_report": "Course Report",
+  "users_report": "Users Report"
+
 }
+

@@ -1,3 +1,5 @@
+import { UserDetailedReportComponent } from './reports/user-detailed-report/user-detailed-report.component';
+import { UsersReportComponent } from './reports/users-report/users-report.component';
 import { CourseDetailedReportComponent } from './reports/course-detailed-report/course-detailed-report.component';
 import { CourseReportsComponent } from './reports/course-reports/course-reports.component';
 import { BuUsersComponent } from './bu-users/bu-users.component';
@@ -113,13 +115,23 @@ const routes: Routes = [
       {
         path: 'bu-users',
         component: BuUsersComponent,
-      }, {
+      },
+      {
         path: 'reports/course-report',
         component: CourseReportsComponent,
-      },{
+      },
+      {
         path: 'reports/course-detailed-report',
         component: CourseDetailedReportComponent,
-      }
+      },
+      {
+        path: 'reports/users-report',
+        component: UsersReportComponent,
+      },
+      {
+        path: 'reports/user-detailed-report',
+        component: UserDetailedReportComponent,
+      },
     ],
   },
 ];

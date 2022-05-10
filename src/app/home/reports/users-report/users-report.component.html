@@ -2,10 +2,9 @@
   <ion-grid>
     <ion-row>
       <ion-col col-5 class="ion-no-padding">
-        <ion-header *ngIf="course">{{course.fullname | titlecase}} - Course Detailed Report ({{type | titlecase}} users)
-        </ion-header>
+        <ion-header>{{'users_report' | translate }}</ion-header>
       </ion-col>
-      <ion-col searchValselect_bu_filtercol-2 class="ion-no-padding"></ion-col>
+      <ion-col col-2 class="ion-no-padding"></ion-col>
       <ion-col col-5 class="ion-no-padding">
         <ion-item lines="none" color="none">
           <input type="text" class="lc-input" #searchVal (input)="applyFilter(searchVal.value)" placeholder="Search"
@@ -27,7 +26,6 @@
         </ion-item>
       </ion-col>
     </ion-row>
-
     <ion-row>
       <ion-col class="ion-no-padding">
         <ion-card class="lc-section">
@@ -36,10 +34,10 @@
               <ion-col>
                 <div class="example-container">
                   <mat-table [dataSource]="dataSource">
-                    <ng-container matColumnDef="slNo">
-                      <mat-header-cell *matHeaderCellDef>SL No</mat-header-cell>
+                    <ng-container matColumnDef="SN">
+                      <mat-header-cell *matHeaderCellDef>SNo</mat-header-cell>
                       <mat-cell *matCellDef="let element">
-                        <span class="mobile-label">SL No:</span>
+                        <span class="mobile-label">SNo:</span>
                         <span class="cell-align">{{element.sl_no || "--"}}</span>
                       </mat-cell>
                     </ng-container>
@@ -62,6 +60,42 @@
                       <mat-cell *matCellDef="let element">
                         <span class="mobile-label">Business Unit:</span>
                         <span class="cell-align">{{element.bu_name || "--"}}</span>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="enrolledCnt">
+                      <mat-header-cell *matHeaderCellDef>Enrolled</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Enrolled:</span>
+                        <span class="cell-align" [ngStyle]="{'cursor':'pointer'}" *ngIf="element.enrolled_cnt > 0"
+                          (click)="navMenu('user-course-detailing',element.course_id,'enrolled')">{{element.enrolled_cnt}}</span>
+                        <span class="cell-align" *ngIf="element.enrolled_cnt <= 0">{{"--"}}</span>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="completedCnt">
+                      <mat-header-cell *matHeaderCellDef>Completed</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Completed:</span>
+                        <span class="cell-align" [ngStyle]="{'cursor':'pointer'}" *ngIf="element.completed_cnt > 0"
+                          (click)="navMenu('user-course-detailing',element.course_id,'completed')">{{element.completed_cnt}}</span>
+                        <span class="cell-align" *ngIf="element.completed_cnt <= 0">{{"--"}}</span>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="inprogressCnt">
+                      <mat-header-cell *matHeaderCellDef>In Progress</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">In Progress:</span>
+                        <span class="cell-align" *ngIf="element.inprogress_cnt > 0" [ngStyle]="{'cursor':'pointer'}"
+                          (click)="navMenu('user-course-detailing',element.course_id,'inprogress')">{{element.inprogress_cnt}}</span>
+                        <span class="cell-align" *ngIf="element.inprogress_cnt <= 0">{{"--"}}</span>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="notstartedCnt">
+                      <mat-header-cell *matHeaderCellDef>Not Started</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Not Started:</span>
+                        <span class="cell-align" *ngIf="element.notstarted_cnt > 0" [ngStyle]="{'cursor':'pointer'}"
+                          (click)="navMenu('user-course-detailing',element.course_id,'notstarted')">{{element.notstarted_cnt}}</span>
+                        <span class="cell-align" *ngIf="element.notstarted_cnt <= 0">{{"--"}}</span>
                       </mat-cell>
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>

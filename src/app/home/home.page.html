@@ -1,204 +1,205 @@
 <ion-content [fullscreen]="true" class="ion-padding" scroll-y="true" class="lc-content">
-    <ion-header [translucent]="true">
+  <ion-header [translucent]="true">
 
-        <ion-toolbar class="lc-toolbar">
+    <ion-toolbar class="lc-toolbar">
 
-            <button mat-icon-button slot="start">
-                <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-            </button>
+      <button mat-icon-button slot="start">
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+      </button>
 
 
-            <ng-container *ngIf="innerWidth <= 768">
-                <ion-buttons slot="primary">
+      <ng-container *ngIf="innerWidth <= 768">
+        <ion-buttons slot="primary">
 
-                    <ion-button (click)="logout()" style="height: 4em;">
-                        <mat-icon class="pointer">exit_to_app</mat-icon>
-                    </ion-button>
-                </ion-buttons>
-            </ng-container>
-            <ion-item class="lc-profile" *ngIf="innerWidth > 768" style="float: right; --background: transparent;">
-                <div class="RoleTitle">{{role | translate}}</div>
-                <!--button mat-button [matMenuTriggerFor]="notifyMenu" style="background-color: transparent; outline: none;"-->
+          <ion-button (click)="logout()" style="height: 4em;">
+            <mat-icon class="pointer">exit_to_app</mat-icon>
+          </ion-button>
+        </ion-buttons>
+      </ng-container>
+      <ion-item class="lc-profile" *ngIf="innerWidth > 768" style="float: right; --background: transparent;">
+        <div class="RoleTitle">{{role | translate}}</div>
+        <!--button mat-button [matMenuTriggerFor]="notifyMenu" style="background-color: transparent; outline: none;"-->
 
-                <button mat-button [matMenuTriggerFor]="profileMenu"
-                    style="background-color: transparent; outline: none;">
-                    <mat-panel-title>
-                        <ion-avatar class="lc-avatar">
-                            <!--  <ion-img [src]="loginDetails.profileimageurlsmall" class="lc-profile-img"
+        <button mat-button [matMenuTriggerFor]="profileMenu" style="background-color: transparent; outline: none;">
+          <mat-panel-title>
+            <ion-avatar class="lc-avatar">
+              <!--  <ion-img [src]="loginDetails.profileimageurlsmall" class="lc-profile-img"
                                 *ngIf="loginDetails.profileimageurlsmall !== null"></ion-img> -->
-                            <ion-img src="../../assets/icon/account.png" class="lc-profile-img"></ion-img>
-                        </ion-avatar>
-                        <ion-label class="lc-profile-name" id="uname">{{loginDetails.fullname}}</ion-label>
-                    </mat-panel-title>
+              <ion-img src="../../assets/icon/account.png" class="lc-profile-img"></ion-img>
+            </ion-avatar>
+            <ion-label class="lc-profile-name" id="uname">{{loginDetails.fullname}}</ion-label>
+          </mat-panel-title>
 
-                </button>
-                <mat-menu #profileMenu="matMenu" yPosition="below">
-                    <!--button mat-menu-item (click)="navMenu('profile-view')">
+        </button>
+        <mat-menu #profileMenu="matMenu" yPosition="below">
+          <!--button mat-menu-item (click)="navMenu('profile-view')">
                         <mat-icon class="pointer">account_circle</mat-icon>
                         <ion-label id="logoutLabel" class="lc-profile-name">{{'view_profile' | translate }}</ion-label>
                     </button-->
-                    <button mat-menu-item (click)="logout()">
-                        <mat-icon class="pointer">exit_to_app</mat-icon>
-                        <ion-label id="logoutLabel" class="lc-profile-name">{{'logout' | translate }}</ion-label>
-                    </button>
-                </mat-menu>
-            </ion-item>
-        </ion-toolbar>
-    </ion-header>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon class="pointer">exit_to_app</mat-icon>
+            <ion-label id="logoutLabel" class="lc-profile-name">{{'logout' | translate }}</ion-label>
+          </button>
+        </mat-menu>
+      </ion-item>
+    </ion-toolbar>
+  </ion-header>
 
-    <mat-sidenav-container>
-        <mat-sidenav #sidenav>
-            <mat-nav-list class="lc-menu">
-                <ion-list lines="none" *ngIf="isAdmin">
-                    <ion-item (click)="sidenav.toggle();navMenu('dashboard');" class="pointer">
-                        <span class="material-icons">home</span>
-                        <ion-label class="lc-menu-align">{{'home' | translate }}</ion-label>
-                    </ion-item>
-                    <ion-item class="pointer">
-                        <mat-accordion>
-                            <mat-expansion-panel class="nav-expand">
-                                <mat-expansion-panel-header style="height:40px;">
-                                    <mat-panel-title><span class="material-icons">account_box</span>
-                                        <ion-label class="lc-menu-align">{{'manage_users' | translate }}</ion-label>
-                                    </mat-panel-title>
-                                </mat-expansion-panel-header>
-                                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('users')">
-                                    <mat-list-item>
-                                        <a class="lc-sub-menu">{{'user_list' | translate }}</a>
-                                    </mat-list-item>
-                                </mat-list>
-                                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('add-new-user')">
-                                    <mat-list-item>
-                                        <a class="lc-sub-menu">{{'add_new_user' | translate }}</a>
-                                    </mat-list-item>
-                                </mat-list>
-                            </mat-expansion-panel>
-                        </mat-accordion>
-                    </ion-item>
-                    <ion-item class="pointer">
-                        <mat-accordion>
-                            <mat-expansion-panel class="nav-expand">
-                                <mat-expansion-panel-header style="height:40px;">
-                                    <mat-panel-title><span class="material-icons">school</span>
-                                        <ion-label class="lc-menu-align">{{'manage_courses' | translate }}</ion-label>
-                                    </mat-panel-title>
-                                </mat-expansion-panel-header>
-                                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('course-list')">
-                                    <mat-list-item>
-                                        <a class="lc-sub-menu">{{'course_list' | translate }}</a>
-                                    </mat-list-item>
-                                </mat-list>
-                                <mat-list class="nav-list-container"
-                                    (click)="sidenav.toggle();navMenu('add-new-course')">
-                                    <mat-list-item>
-                                        <a class="lc-sub-menu">{{'add_course' | translate }}</a>
-                                    </mat-list-item>
-                                </mat-list>
-                                <mat-list class="nav-list-container"
-                                    (click)="sidenav.toggle();navMenu('add-new-category')">
-                                    <mat-list-item>
-                                        <a class="lc-sub-menu">{{'add_category' | translate }}</a>
-                                    </mat-list-item>
-                                </mat-list>
-                                <mat-list class="nav-list-container"
-                                    (click)="sidenav.toggle();navMenu('category-list')">
-                                    <mat-list-item>
-                                        <a class="lc-sub-menu">{{'manage_categories' | translate }}</a>
-                                    </mat-list-item>
-                                </mat-list>
-                            </mat-expansion-panel>
-                        </mat-accordion>
-                    </ion-item>
-                    <ion-item class="pointer">
-                        <mat-accordion>
-                            <mat-expansion-panel class="nav-expand">
-                                <mat-expansion-panel-header style="height:40px;">
-                                    <mat-panel-title><span class="material-icons">article</span>
-                                        <ion-label class="lc-menu-align">{{'manage_all_lps' | translate }}</ion-label>
-                                    </mat-panel-title>
-                                </mat-expansion-panel-header>
-                                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('create-lp')">
-                                    <mat-list-item>
-                                        <a class="lc-sub-menu">{{'create_lp' | translate }}</a>
-                                    </mat-list-item>
-                                </mat-list>
-                                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('list-lp')">
-                                    <mat-list-item>
-                                        <a class="lc-sub-menu">{{'list_lp' | translate }}</a>
-                                    </mat-list-item>
-                                </mat-list>
-                            </mat-expansion-panel>
-                        </mat-accordion>
-                    </ion-item>
-                    <ion-item class="pointer">
-                      <mat-accordion>
-                          <mat-expansion-panel class="nav-expand">
-                              <mat-expansion-panel-header style="height:40px;">
-                                  <mat-panel-title><span class="material-icons">tab</span>
-                                      <ion-label class="lc-menu-align">{{'manage_all_bu' | translate }}</ion-label>
-                                  </mat-panel-title>
-                              </mat-expansion-panel-header>
-                              <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('create-bu')">
-                                  <mat-list-item>
-                                      <a class="lc-sub-menu">{{'create_bu' | translate }}</a>
-                                  </mat-list-item>
-                              </mat-list>
-                              <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('list-bu')">
-                                  <mat-list-item>
-                                      <a class="lc-sub-menu">{{'list_bu' | translate }}</a>
-                                  </mat-list-item>
-                              </mat-list>
-                          </mat-expansion-panel>
-                      </mat-accordion>
-                  </ion-item>
-                  <ion-item class="pointer">
-                    <mat-accordion>
-                        <mat-expansion-panel class="nav-expand">
-                            <mat-expansion-panel-header style="height:40px;">
-                                <mat-panel-title><span class="material-icons">analytics</span>
-                                    <ion-label class="lc-menu-align">{{'reports' | translate }}</ion-label>
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('course-report')">
-                                <mat-list-item>
-                                    <a class="lc-sub-menu">{{'course_report' | translate }}</a>
-                                </mat-list-item>
-                            </mat-list>
-                        </mat-expansion-panel>
-                    </mat-accordion>
-                </ion-item>
-                </ion-list>
-                <ion-list lines="none" *ngIf="isStudent">
-                    <ion-item (click)="sidenav.toggle();navMenu('dashboard');" class="pointer">
-                        <span class="material-icons">home</span>
-                        <ion-label class="lc-menu-align">{{'home' | translate }}</ion-label>
-                    </ion-item>
-                    <ion-item class="pointer">
-                        <mat-accordion>
-                            <mat-expansion-panel class="nav-expand">
-                                <mat-expansion-panel-header style="height:40px;">
-                                    <mat-panel-title><span class="material-icons">library_books</span>
-                                        <ion-label class="lc-menu-align">{{'courses' | translate }}</ion-label>
-                                    </mat-panel-title>
-                                </mat-expansion-panel-header>
-                                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('mycourses')">
-                                    <mat-list-item>
-                                        <a class="lc-sub-menu">{{'my_courses' | translate }}</a>
-                                    </mat-list-item>
-                                </mat-list>
-                            </mat-expansion-panel>
-                        </mat-accordion>
-                    </ion-item>
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav>
+      <mat-nav-list class="lc-menu">
+        <ion-list lines="none" *ngIf="isAdmin">
+          <ion-item (click)="sidenav.toggle();navMenu('dashboard');" class="pointer">
+            <span class="material-icons">home</span>
+            <ion-label class="lc-menu-align">{{'home' | translate }}</ion-label>
+          </ion-item>
+          <ion-item class="pointer">
+            <mat-accordion>
+              <mat-expansion-panel class="nav-expand">
+                <mat-expansion-panel-header style="height:40px;">
+                  <mat-panel-title><span class="material-icons">account_box</span>
+                    <ion-label class="lc-menu-align">{{'manage_users' | translate }}</ion-label>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('users')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'user_list' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('add-new-user')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'add_new_user' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-item>
+          <ion-item class="pointer">
+            <mat-accordion>
+              <mat-expansion-panel class="nav-expand">
+                <mat-expansion-panel-header style="height:40px;">
+                  <mat-panel-title><span class="material-icons">school</span>
+                    <ion-label class="lc-menu-align">{{'manage_courses' | translate }}</ion-label>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('course-list')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'course_list' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('add-new-course')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'add_course' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('add-new-category')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'add_category' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('category-list')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'manage_categories' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-item>
+          <ion-item class="pointer">
+            <mat-accordion>
+              <mat-expansion-panel class="nav-expand">
+                <mat-expansion-panel-header style="height:40px;">
+                  <mat-panel-title><span class="material-icons">article</span>
+                    <ion-label class="lc-menu-align">{{'manage_all_lps' | translate }}</ion-label>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('create-lp')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'create_lp' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('list-lp')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'list_lp' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-item>
+          <ion-item class="pointer">
+            <mat-accordion>
+              <mat-expansion-panel class="nav-expand">
+                <mat-expansion-panel-header style="height:40px;">
+                  <mat-panel-title><span class="material-icons">tab</span>
+                    <ion-label class="lc-menu-align">{{'manage_all_bu' | translate }}</ion-label>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('create-bu')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'create_bu' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('list-bu')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'list_bu' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-item>
+          <ion-item class="pointer">
+            <mat-accordion>
+              <mat-expansion-panel class="nav-expand">
+                <mat-expansion-panel-header style="height:40px;">
+                  <mat-panel-title><span class="material-icons">analytics</span>
+                    <ion-label class="lc-menu-align">{{'reports' | translate }}</ion-label>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('course-report')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'course_report' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('users-report')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'users_report' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-item>
+        </ion-list>
+        <ion-list lines="none" *ngIf="isStudent">
+          <ion-item (click)="sidenav.toggle();navMenu('dashboard');" class="pointer">
+            <span class="material-icons">home</span>
+            <ion-label class="lc-menu-align">{{'home' | translate }}</ion-label>
+          </ion-item>
+          <ion-item class="pointer">
+            <mat-accordion>
+              <mat-expansion-panel class="nav-expand">
+                <mat-expansion-panel-header style="height:40px;">
+                  <mat-panel-title><span class="material-icons">library_books</span>
+                    <ion-label class="lc-menu-align">{{'courses' | translate }}</ion-label>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('mycourses')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'my_courses' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-item>
 
-                </ion-list>
-            </mat-nav-list>
-        </mat-sidenav>
-        <mat-sidenav-content>
-            <div class="content_frame">
-                <ion-router-outlet class="lc-main-content" id="main"></ion-router-outlet>
-            </div>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
+        </ion-list>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="content_frame">
+        <ion-router-outlet class="lc-main-content" id="main"></ion-router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 
 
 

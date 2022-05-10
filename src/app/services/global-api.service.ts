@@ -95,6 +95,11 @@ export class GlobalApiService {
     return this.http.post(this.base_url + '?methodname=courseReport', data);
   }
 
+  user_course_report(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    return this.http.post(this.base_url + '?methodname=userCourseReport', data);
+  }
+
   get_course_by_id(data: any): Observable<any> {
     data.append('wstoken', environment.MOODLE_TOKEN);
     data.append('wsfunction', 'core_course_get_courses');

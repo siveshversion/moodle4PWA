@@ -1,3 +1,5 @@
+import { UserDetailedReportComponent } from './reports/user-detailed-report/user-detailed-report.component';
+import { UsersReportComponent } from './reports/users-report/users-report.component';
 import { CourseDetailedReportComponent } from './reports/course-detailed-report/course-detailed-report.component';
 import { CourseReportsComponent } from './reports/course-reports/course-reports.component';
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -116,13 +118,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     BuCoursesComponent,
     BuUsersComponent,
     CourseReportsComponent,
-    CourseDetailedReportComponent
+    CourseDetailedReportComponent,
+    UsersReportComponent,
+    UserDetailedReportComponent
   ],
   providers: [GlobalApiService, HttpClient, Storage],
 })
 export class HomePageModule {}
 
-// required for AOT compilation
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/');
 }

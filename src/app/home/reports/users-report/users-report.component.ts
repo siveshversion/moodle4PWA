@@ -1,65 +1,57 @@
-/* eslint-disable @typescript-eslint/member-ordering */
+import { FormBuilder, FormControl } from '@angular/forms';
 /* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
+  MenuController,
   NavController,
   AlertController,
   LoadingController,
-  ModalController,
 } from '@ionic/angular';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { GlobalApiService } from 'src/app/services/global-api.service';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-} from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-course-detailed-report',
-  templateUrl: './course-detailed-report.component.html',
-  styleUrls: ['./course-detailed-report.component.scss'],
+  selector: 'app-users-report',
+  templateUrl: './users-report.component.html',
+  styleUrls: ['./users-report.component.scss'],
 })
-export class CourseDetailedReportComponent implements OnInit {
+export class UsersReportComponent implements OnInit {
   data: any;
-  displayedColumns = ['slNo', 'UserName', 'FullName', 'BusinessUnit'];
-  coursesList = [];
-  userFilter = [
-    { value: 'all', viewValue: 'All' },
-    { value: 'enrolled', viewValue: 'Enrolled' },
-    { value: 'not_enrolled', viewValue: 'Not Enrolled' },
-  ];
-  courseid: any;
-  type: string;
   filterForm: FormGroup;
-  course: any;
+  displayedColumns = [
+    'SN',
+    'UserName',
+    'FullName',
+    'BusinessUnit',
+    'enrolledCnt',
+    'completedCnt',
+    'inprogressCnt',
+    'notstartedCnt',
+  ];
+  usersList = [];
   bus = [];
-
+  catId: any;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   constructor(
     private service: GlobalApiService,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
-    private router: ActivatedRoute,
-    private modalController: ModalController,
-    private formBuilder: FormBuilder,
-
-    private navCtrl: NavController
+    private route: ActivatedRoute,private router: Router,
+    private navCtrl: NavController,
+    private formBuilder: FormBuilder
   ) {
-    this.router.queryParams.subscribe((params) => {
-      if (params.cid) {
-        this.courseid = params.cid;
-        this.type = params.type;
-        this.getBUs();
-        this.viewCourseMembers(params.cid, -1);
-      }
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.route.queryParams.subscribe((params) => {
+      this.getBUs();
+      this.usersReportList(-1);
     });
   }
 
@@ -69,31 +61,31 @@ export class CourseDetailedReportComponent implements OnInit {
     });
   }
 
-  viewCourseMembers(cid: any, filterVal: any) {
-    this.showLoader('Loading Users...Please wait...');
+  usersReportList(buid: any) {
+    this.showLoader('Loading users report <br> Please wait...');
 
-    this.coursesList = [];
+    this.usersList = [];
 
     const data = new FormData();
-    data.append('course_id', cid);
-    data.append('type', this.type);
-    data.append('bu_id', filterVal);
     data.append('userId', localStorage.getItem('user_id'));
+    data.append('bu_id', buid);
 
-    this.service.course_filtered_members(data).subscribe(
+    this.service.user_course_report(data).subscribe(
       (res) => {
-        this.course = res.Data.Course;
-        res.Data.Participants.forEach((element: any) => {
+        res.Data.forEach((element: any) => {
           const course = {
-            sl_no: element.sl_no,
+            sl_no: element.sno,
+            course_id: element.course_id,
             user_name: element.user_name,
             user_fullname: element.user_fullname,
             user_id: element.user_id,
-            course_id: cid,
-            enrolled: element.enrolled,
-            bu_name: element.bu_name
+            bu_name: element.bu_name,
+            enrolled_cnt: element.enrolled_cnt,
+            completed_cnt: element.completed_cnt,
+            inprogress_cnt: element.inprogress_cnt,
+            notstarted_cnt: element.notstarted_cnt,
           };
-          this.coursesList.push(course);
+          this.usersList.push(course);
         });
         this.applyFilter('');
         this.hideLoader();
@@ -104,7 +96,7 @@ export class CourseDetailedReportComponent implements OnInit {
       }
     );
 
-    this.dataSource = new MatTableDataSource<any>(this.coursesList);
+    this.dataSource = new MatTableDataSource<any>(this.usersList);
     this.dataSource.paginator = this.paginator;
   }
 
@@ -135,29 +127,21 @@ export class CourseDetailedReportComponent implements OnInit {
       .catch((error) => {});
   }
 
-  async closeModal() {
-    await this.modalController.dismiss();
-  }
-
-  async showAlert(msg: string, cid: any) {
-    const alert = await this.alertCtrl.create({
-      header: 'Status',
-      message: msg,
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            this.viewCourseMembers(cid, -1);
-          },
-        },
-      ],
-    });
-    await alert.present();
-    await alert.onDidDismiss();
+  navMenu(action: any, courseId: any, optionalparam: string) {
+    if (action === 'user-course-detailing') {
+      this.navCtrl.navigateForward(
+        'home/reports/user-detailed-report?cid=' +
+          courseId +
+          '&type=' +
+          optionalparam
+      );
+    } else if (action === 'course-summary') {
+      this.navCtrl.navigateForward('home/coursesummary?cid=' + courseId);
+    }
   }
 
   selectFilter(value: any) {
-    this.viewCourseMembers(this.courseid, value);
+    this.usersReportList(value);
   }
 
   getBUs() {
