@@ -7,4 +7,4 @@ Get the documentation below which I used to build this app from scratch step by 
 https://docs.google.com/document/d/1b98HTnQ4DnjZc5kiqOGhHYmX6ZhXicR-73vNgwLsTwg/edit?usp=sharing
 
 **Note:** This app is dependent on the moodle LMS backend which repository is available below:
-https://github.com/siveshversion/moodle4
+https://github.com/siveshversion/moodle4-web-lms
