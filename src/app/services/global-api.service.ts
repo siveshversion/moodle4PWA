@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class GlobalApiService {
   base_url = environment.moodle_url + environment.api_path;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   login_svc(data: any): Observable<any> {
     const form = new FormData();
@@ -309,4 +309,14 @@ export class GlobalApiService {
       data
     );
   }
+
+  user_filtered_courses(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    return this.http.post(
+      this.base_url + '?methodname=userDetailedReport',
+      data
+    );
+  }
 }
+
+

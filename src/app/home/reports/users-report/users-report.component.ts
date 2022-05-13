@@ -44,7 +44,7 @@ export class UsersReportComponent implements OnInit {
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
-    private route: ActivatedRoute,private router: Router,
+    private route: ActivatedRoute, private router: Router,
     private navCtrl: NavController,
     private formBuilder: FormBuilder
   ) {
@@ -123,20 +123,20 @@ export class UsersReportComponent implements OnInit {
   hideLoader() {
     this.loadingController
       .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
+      .then((res) => { })
+      .catch((error) => { });
   }
 
-  navMenu(action: any, courseId: any, optionalparam: string) {
+  navMenu(action: any, Id: any, optionalparam: string) {
     if (action === 'user-course-detailing') {
       this.navCtrl.navigateForward(
-        'home/reports/user-detailed-report?cid=' +
-          courseId +
-          '&type=' +
-          optionalparam
+        'home/reports/user-detailed-report?uid=' +
+        Id +
+        '&type=' +
+        optionalparam
       );
     } else if (action === 'course-summary') {
-      this.navCtrl.navigateForward('home/coursesummary?cid=' + courseId);
+      this.navCtrl.navigateForward('home/coursesummary?cid=' + Id);
     }
   }
 

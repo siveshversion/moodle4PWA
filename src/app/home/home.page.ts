@@ -113,6 +113,8 @@ export class HomePage {
       this.navCtrl.navigateForward('/home/reports/course-report');
     } else if (routeName == 'users-report') {
       this.navCtrl.navigateForward('/home/reports/users-report');
+    }  else if (routeName == 'lp-report') {
+      this.navCtrl.navigateForward('/home/reports/lp-report');
     }
   }
 

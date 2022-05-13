@@ -67,7 +67,7 @@
                       <mat-cell *matCellDef="let element">
                         <span class="mobile-label">Enrolled:</span>
                         <span class="cell-align" [ngStyle]="{'cursor':'pointer'}" *ngIf="element.enrolled_cnt > 0"
-                          (click)="navMenu('user-course-detailing',element.course_id,'enrolled')">{{element.enrolled_cnt}}</span>
+                          (click)="navMenu('user-course-detailing',element.user_id,'enrolled')">{{element.enrolled_cnt}}</span>
                         <span class="cell-align" *ngIf="element.enrolled_cnt <= 0">{{"--"}}</span>
                       </mat-cell>
                     </ng-container>
@@ -76,7 +76,7 @@
                       <mat-cell *matCellDef="let element">
                         <span class="mobile-label">Completed:</span>
                         <span class="cell-align" [ngStyle]="{'cursor':'pointer'}" *ngIf="element.completed_cnt > 0"
-                          (click)="navMenu('user-course-detailing',element.course_id,'completed')">{{element.completed_cnt}}</span>
+                          (click)="navMenu('user-course-detailing',element.user_id,'completed')">{{element.completed_cnt}}</span>
                         <span class="cell-align" *ngIf="element.completed_cnt <= 0">{{"--"}}</span>
                       </mat-cell>
                     </ng-container>
@@ -85,7 +85,7 @@
                       <mat-cell *matCellDef="let element">
                         <span class="mobile-label">In Progress:</span>
                         <span class="cell-align" *ngIf="element.inprogress_cnt > 0" [ngStyle]="{'cursor':'pointer'}"
-                          (click)="navMenu('user-course-detailing',element.course_id,'inprogress')">{{element.inprogress_cnt}}</span>
+                          (click)="navMenu('user-course-detailing',element.user_id,'inprogress')">{{element.inprogress_cnt}}</span>
                         <span class="cell-align" *ngIf="element.inprogress_cnt <= 0">{{"--"}}</span>
                       </mat-cell>
                     </ng-container>
@@ -94,7 +94,7 @@
                       <mat-cell *matCellDef="let element">
                         <span class="mobile-label">Not Started:</span>
                         <span class="cell-align" *ngIf="element.notstarted_cnt > 0" [ngStyle]="{'cursor':'pointer'}"
-                          (click)="navMenu('user-course-detailing',element.course_id,'notstarted')">{{element.notstarted_cnt}}</span>
+                          (click)="navMenu('user-course-detailing',element.user_id,'notstarted')">{{element.notstarted_cnt}}</span>
                         <span class="cell-align" *ngIf="element.notstarted_cnt <= 0">{{"--"}}</span>
                       </mat-cell>
                     </ng-container>

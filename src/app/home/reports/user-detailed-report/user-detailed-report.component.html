@@ -1,3 +1,70 @@
-<p>
-  user-detailed-report works!
-</p>
+<ion-content [fullscreen]="true" class="ion-padding" scroll-y="true" class="lc-content">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-5 class="ion-no-padding">
+        <ion-header *ngIf="user">{{user.fullname | titlecase}} - User Detailed Report ({{type | titlecase}} Courses)
+        </ion-header>
+      </ion-col>
+      <ion-col searchValselect_bu_filtercol-2 class="ion-no-padding"></ion-col>
+      <ion-col col-5 class="ion-no-padding">
+        <ion-item lines="none" color="none">
+          <input type="text" class="lc-input" #searchVal (input)="applyFilter(searchVal.value)" placeholder="Search"
+            type="text" />
+          <div class="input-group-prepend">
+            <span class="input-group-text"><span class="material-icons">search</span>
+            </span>
+          </div>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="ion-no-padding">
+        <ion-card class="lc-section">
+          <ion-card-header class="lc-table-no-padding">
+            <ion-row>
+              <ion-col>
+                <div class="example-container">
+                  <mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="slNo">
+                      <mat-header-cell *matHeaderCellDef>SL No</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">SL No:</span>
+                        <span class="cell-align">{{element.sl_no || "--"}}</span>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="CourseName">
+                      <mat-header-cell *matHeaderCellDef>Course Name</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">CourseName:</span>
+                        <span class="cell-align">{{element.course_name || "--"}}</span>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="EnrolledOn">
+                      <mat-header-cell *matHeaderCellDef>Enrolled On</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Enrolled On:</span>
+                        <span class="cell-align">{{element.enrolled_on || "--"}}</span>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="LastAccess">
+                      <mat-header-cell *matHeaderCellDef>Last Access</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Last Access:</span>
+                        <span class="cell-align">{{element.last_access || "--"}}</span>
+                      </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns; "></mat-row>
+                  </mat-table>
+                </div>
+                <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5,10,25,50,100]" showFirstLastButtons>
+                </mat-paginator>
+              </ion-col>
+            </ion-row>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -26,6 +26,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePage } from './home.page';
 import { ManageUsersComponent } from './user-management/manage-users/manage-users.component';
+import { LpReportComponent } from './reports/lp-report/lp-report.component';
 
 const routes: Routes = [
   {
@@ -131,7 +132,10 @@ const routes: Routes = [
       {
         path: 'reports/user-detailed-report',
         component: UserDetailedReportComponent,
-      },
+      },{
+        path: 'reports/lp-report',
+        component: LpReportComponent,
+      }
     ],
   },
 ];

@@ -17,17 +17,18 @@ mat-row:nth-child(even) {
 
 @media(max-width: 768px) {
   .lc-table-no-padding {
-      padding: 0 !important;
+    padding: 0 !important;
   }
 }
 
 @media(min-width: 769px) {
   .lc-certId-align {
-      padding-left: 24px !important;
+    padding-left: 24px !important;
   }
+
   .lc-btn-align {
-      margin-top: 2em;
-      --background: #02A5EF !important;
+    margin-top: 2em;
+    --background: #02A5EF !important;
   }
 }
 
@@ -35,22 +36,14 @@ mat-row:nth-child(even) {
   cursor: pointer !important;
 }
 
-.cell-align-action {
-  cursor: pointer;
-}
+
 
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-.mat-select {
-  width: 175px !important;
+
+.spacer {
+  margin-right: 10px;
 }
 
-.anchor{
+.anchor {
   cursor: pointer;
 }
-
-.filter{
-  float: right;
-  margin: 10px;
-  color: #ffffff;
-}
-

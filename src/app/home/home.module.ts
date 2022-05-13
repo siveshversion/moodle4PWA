@@ -59,6 +59,7 @@ import { CountUpModule } from 'ngx-countup';
 import { BuCoursesComponent } from './bu-courses/bu-courses.component';
 import { BuUsersComponent } from './bu-users/bu-users.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { LpReportComponent } from './reports/lp-report/lp-report.component';
 
 @NgModule({
   imports: [
@@ -120,7 +121,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     CourseReportsComponent,
     CourseDetailedReportComponent,
     UsersReportComponent,
-    UserDetailedReportComponent
+    UserDetailedReportComponent,
+    LpReportComponent
   ],
   providers: [GlobalApiService, HttpClient, Storage],
 })
