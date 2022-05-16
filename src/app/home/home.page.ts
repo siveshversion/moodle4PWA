@@ -7,15 +7,16 @@ import { AlertController, MenuController, NavController } from '@ionic/angular';
 import { GlobalApiService } from '../services/global-api.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
+import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  providers: [TranslateService, Storage]
+  providers: [TranslateService, Storage],
 })
 export class HomePage {
-
   innerWidth: number;
   hamburgFlag = false;
   loginDetails: any = '';
@@ -26,6 +27,8 @@ export class HomePage {
   role: string;
   isAdmin: boolean;
   isStudent: boolean;
+  profileImg: string;
+  userprofile: any;
 
   constructor(
     private routea: ActivatedRoute,
@@ -36,27 +39,28 @@ export class HomePage {
     private acroute: ActivatedRoute,
     public alertCtrl: AlertController,
     private service: GlobalApiService,
+    private sanitizer: DomSanitizer,
     private translateService: TranslateService,
-    private elRef: ElementRef) {
+    private elRef: ElementRef
+  ) {
     this.onResize();
 
     this.routea.params.subscribe((params) => {
       this.translateService.setDefaultLang('en');
       this.role = localStorage.getItem('role');
+      this.getImgUrl();
       if (this.role === 'admin') {
         this.isAdmin = true;
         this.isStudent = false;
-      }
-      else {
+      } else {
         this.isStudent = true;
         this.isAdmin = false;
       }
       const navigation = this.route.url;
-        if (navigation === '/home') {
-          this.route.navigateByUrl('home/dashboard');
-        }
+      if (navigation === '/home') {
+        this.route.navigateByUrl('home/dashboard');
+      }
     });
-
   }
 
   @HostListener('window:resize', ['$event'])
@@ -72,11 +76,16 @@ export class HomePage {
     this.showAffirmativeAlert();
   }
 
-
   ngOnInit(): void {
-    this.elRef.nativeElement.style.setProperty('--selectedColorCode', '#1B1B1B');
+    this.elRef.nativeElement.style.setProperty(
+      '--selectedColorCode',
+      '#1B1B1B'
+    );
     this.elRef.nativeElement.style.setProperty('--background', '#1B1B1B');
-    this.elRef.nativeElement.style.setProperty('--selectedFontColor', '#94a0ad');
+    this.elRef.nativeElement.style.setProperty(
+      '--selectedFontColor',
+      '#94a0ad'
+    );
     this.elRef.nativeElement.style.setProperty('--color', '#94a0ad');
   }
 
@@ -97,9 +106,9 @@ export class HomePage {
       this.navCtrl.navigateForward('/home/coursecreation');
     } else if (routeName == 'courseparticipants') {
       this.navCtrl.navigateForward('/home/course-manage-users');
-    }else if (routeName == 'mycourses') {
+    } else if (routeName == 'mycourses') {
       this.navCtrl.navigateForward('/home/mycourses');
-    }else if (routeName == 'course') {
+    } else if (routeName == 'course') {
       this.navCtrl.navigateForward('/home/course');
     } else if (routeName == 'create-lp') {
       this.navCtrl.navigateForward('/home/create-lp');
@@ -113,24 +122,36 @@ export class HomePage {
       this.navCtrl.navigateForward('/home/reports/course-report');
     } else if (routeName == 'users-report') {
       this.navCtrl.navigateForward('/home/reports/users-report');
-    }  else if (routeName == 'lp-report') {
+    } else if (routeName == 'lp-report') {
       this.navCtrl.navigateForward('/home/reports/lp-report');
     }
   }
 
+  getImgUrl() {
+    const loggedinUserId = localStorage.getItem('user_id');
+
+    this.service.getUserImg(loggedinUserId).subscribe(
+      (res) => {
+        this.userprofile = res.Data.info;
+        this.profileImg = this.userprofile[0].profileimageurlsmall;
+        if (this.profileImg === null || this.profileImg == '') {
+          this.profileImg = './assets/icon/user-8.png';
+        }
+        const uname = localStorage.getItem('username');
+
+        console.log('profileImg' + this.profileImg);
+        this.loginDetails = {
+          fullname: uname,
+          profileimageurlsmall: this.profileImg,
+        };
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
+  }
+
   ionViewDidEnter() {
-    // this.storage.get('user').then((val) => {
-    //   this.loginDetails = JSON.parse(val);
-    //   if (val.profileimageurlsmall === null || val.profileimageurlsmall == '') {
-    //     this.loginDetails.profileimageurlsmall = './assets/icon/user-8.png';
-    //   }
-
-    // });
-    const uname = localStorage.getItem('username');
-    this.loginDetails = {
-      fullname: uname
-    };
-
     this.onResize();
   }
 
@@ -143,20 +164,21 @@ export class HomePage {
       header: 'Confirm Logout?',
       message: '',
       backdropDismiss: false,
-      buttons: [{
-        text: 'Cancel',
-        handler: () => {
-        }
-      }, {
-        text: 'Yes',
-        handler: () => {
-          this.route.navigateByUrl('login');
-        }
-      },]
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {},
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            localStorage.clear();
+            this.route.navigateByUrl('login');
+          },
+        },
+      ],
     });
     await alert.present();
     await alert.onDidDismiss();
   }
-
-
 }

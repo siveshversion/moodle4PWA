@@ -317,6 +317,14 @@ export class GlobalApiService {
       data
     );
   }
+
+  getUserImg(userid: any): Observable<any> {
+    const data = new FormData();
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('wsfunction', 'core_user_get_users_by_field');
+    data.append('user_id', userid);
+    return this.http.post(this.base_url+'?methodname=getUserDetail', data);
+  }
 }
 
 

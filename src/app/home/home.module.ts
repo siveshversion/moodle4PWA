@@ -60,6 +60,7 @@ import { BuCoursesComponent } from './bu-courses/bu-courses.component';
 import { BuUsersComponent } from './bu-users/bu-users.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LpReportComponent } from './reports/lp-report/lp-report.component';
+import { FixUrlPipe } from '../fix-url.pipe';
 
 @NgModule({
   imports: [
@@ -122,7 +123,8 @@ import { LpReportComponent } from './reports/lp-report/lp-report.component';
     CourseDetailedReportComponent,
     UsersReportComponent,
     UserDetailedReportComponent,
-    LpReportComponent
+    LpReportComponent,
+    FixUrlPipe
   ],
   providers: [GlobalApiService, HttpClient, Storage],
 })

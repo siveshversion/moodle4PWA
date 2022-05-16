@@ -23,9 +23,8 @@
         <button mat-button [matMenuTriggerFor]="profileMenu" style="background-color: transparent; outline: none;">
           <mat-panel-title>
             <ion-avatar class="lc-avatar">
-              <!--  <ion-img [src]="loginDetails.profileimageurlsmall" class="lc-profile-img"
-                                *ngIf="loginDetails.profileimageurlsmall !== null"></ion-img> -->
-              <ion-img src="../../assets/icon/account.png" class="lc-profile-img"></ion-img>
+              <ion-img [src]="profileImg |fixUrl"  class="lc-profile-img"
+                                *ngIf="profileImg !== null"></ion-img>
             </ion-avatar>
             <ion-label class="lc-profile-name" id="uname">{{loginDetails.fullname}}</ion-label>
           </mat-panel-title>
