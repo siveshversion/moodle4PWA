@@ -39,6 +39,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    if (localStorage.getItem('user_id')) {
+      this.router.navigateByUrl('home');
+    }
+
     this.passwordIcon = 'eye-off';
     this.passType = 'password';
 

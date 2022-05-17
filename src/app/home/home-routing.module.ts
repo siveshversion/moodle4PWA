@@ -1,3 +1,4 @@
+import { AuthGuard } from './../services/auth.guard';
 import { UserDetailedReportComponent } from './reports/user-detailed-report/user-detailed-report.component';
 import { UsersReportComponent } from './reports/users-report/users-report.component';
 import { CourseDetailedReportComponent } from './reports/course-detailed-report/course-detailed-report.component';
@@ -32,6 +33,7 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'users',
