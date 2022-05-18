@@ -325,6 +325,14 @@ export class GlobalApiService {
     data.append('user_id', userid);
     return this.http.post(this.base_url+'?methodname=getUserDetail', data);
   }
+
+  saveReview(data: any): Observable<any> {
+    return this.http.post(this.base_url+'?methodname=saveReview', data);
+  }
+
+  getReviews(data: any): Observable<any> {
+    return this.http.post(this.base_url+'?methodname=getReviewsbyCid', data);
+  }
 }
 
 

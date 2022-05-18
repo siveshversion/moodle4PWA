@@ -444,7 +444,10 @@
   "users_report": "Users Report",
   "lp_report": "LP Report",
   "bu_report": "BU Report",
-  "course_rating": "Course Rating"
+  "course_rating": "Course Rating",
+  "review_headline": "Add a headline",
+  "rate": "Rate",
+  "review_description": "Write your review"
 
 }
 

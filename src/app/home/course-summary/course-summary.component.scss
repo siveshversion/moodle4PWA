@@ -1858,7 +1858,7 @@ fieldset:disabled a.btn {
 .btn-secondary {
   color: #ffffff;
   background-color: #0c853d;
-  border-color: #00c851; 
+  border-color: #00c851;
   margin:10px;
 
 }
@@ -5715,11 +5715,11 @@ button.bg-blue:focus {
   box-shadow: 0 0 45px 0 rgba(0, 0, 0, 0.12) !important; }
 
 .shadow-none {
-  box-shadow: none !important; 
+  box-shadow: none !important;
 }
 
 .w-25 {
-  width: 25% !important; 
+  width: 25% !important;
 }
 
 .w-50 {
@@ -8440,7 +8440,7 @@ h6 {
 
 .font-weight-semibold {
   font-weight: 600; }
-  
+
 .hvr-grow {
     display: inline-block;
     vertical-align: middle;
@@ -8456,8 +8456,8 @@ h6 {
 .hvr-grow:focus,
 .hvr-grow:active {
     transform: scale(1.1);
-}  
- 
+}
+
  .lc-img {
     height: 134px;
     object-fit: cover;
@@ -8476,9 +8476,9 @@ h6 {
         cursor: pointer;
         transition-duration: 0.3s;
         transition-property: transform;
-        display: inline-block;  
+        display: inline-block;
         width:80%;
-        
+
     }
 }
 
@@ -8491,15 +8491,15 @@ h6 {
     cursor: pointer;
     transition-duration: 0.3s;
     transition-property: transform;
-    display: inline-block;   
+    display: inline-block;
     width:60%;
-    
+
 }
 }
 
 .lc-content {
   --background: #000000;
- 
+
 }
 
 .lc-header {
@@ -8552,7 +8552,7 @@ h6 {
   margin-top: 3rem;
   margin-bottom: 0px !important;
   text-align: left;
-  
+
 }
 
 @media (min-width: 768px) {
@@ -8572,9 +8572,9 @@ h6 {
       cursor: pointer;
       transition-duration: 0.3s;
       transition-property: transform;
-      display: inline-block;  
+      display: inline-block;
       width:230px
-      
+
   }
 }
 
@@ -8587,9 +8587,9 @@ h6 {
   cursor: pointer;
   transition-duration: 0.3s;
   transition-property: transform;
-  display: inline-block;   
+  display: inline-block;
   width:250px;
-  
+
 }
 }
 
@@ -8623,3 +8623,6 @@ h6 {
   border-bottom-right-radius: 25px;
 }
 
+.rating-summary{
+    cursor: pointer;
+}

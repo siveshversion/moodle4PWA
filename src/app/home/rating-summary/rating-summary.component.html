@@ -1,3 +1,50 @@
-<p>
-  rating-summary works!
-</p>
+<ion-content [fullscreen]="true" class="ion-padding" scroll-y="true" class="lc-content">
+  <!--ion-header>{{title}}</ion-header-->
+  <form [formGroup]="ratingForm" *ngIf="this.alreadySubmitted === 0">
+
+    <ion-grid>
+      <ion-card class="lc-section">
+        <ion-card-header>
+
+          <h3 [ngStyle]="{'color':'#94A0AD', 'font-weight': '500' }">Create Course Review</h3>
+
+          <div class="hr"></div>
+
+          <ion-row class="ion-padding-top">
+            <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+              <ion-label class="lc-label-align">{{'rate' | translate }}</ion-label>
+              <div class="rating-summary">
+                <ngx-material-rating [ngStyle]="{color: '#EF7921'}" formControlName="ratings" [max]="5">
+                </ngx-material-rating>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-padding-top">
+            <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+              <ion-label class="lc-label-align">{{'review_headline' | translate }}</ion-label>
+              <ion-item lines="none" color="none">
+                <ion-input class="lc-input" formControlName="review_headline" type="text">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-padding-top">
+            <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+              <ion-label class="lc-label-align">{{'review_description' | translate }}</ion-label>
+              <ion-item lines="none" color="none">
+                <ion-textarea rows="6" cols="20" class="lc-text-area" formControlName="reviewDesc" type="text">
+                </ion-textarea>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-card-header>
+        <ion-row>
+          <ion-col size="12" size-xs="12" size-md="2" size-lg="2" class="ion-no-padding">
+            <ion-button id="savebtn" [disabled]="!ratingForm.valid" type="button" expand="block" fill="solid"
+              class="lc-button lc-btn-color" (click)="submit()">Save Review</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-grid>
+  </form>
+</ion-content>

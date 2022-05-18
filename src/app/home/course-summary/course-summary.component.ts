@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,6 +13,14 @@ import { GlobalApiService } from 'src/app/services/global-api.service';
   styleUrls: ['./course-summary.component.scss'],
 })
 export class CourseSummaryComponent implements OnInit {
+  ratings: any[] = [
+    {
+      value: 2,
+      max: 5,
+      color: '#FFFF00',
+      readonly: true,
+    },
+  ];
 
   courseId: any;
   details: any;
@@ -19,39 +28,40 @@ export class CourseSummaryComponent implements OnInit {
   contents: any = [];
   loading_text: string;
 
-
-  constructor(private service: GlobalApiService, private sanitizer: DomSanitizer, private router: ActivatedRoute, public loadingController: LoadingController, private route: Router, private translateService: TranslateService, private formBuilder: FormBuilder) {
+  constructor(
+    private service: GlobalApiService,
+    private sanitizer: DomSanitizer,
+    private router: ActivatedRoute,
+    public loadingController: LoadingController,
+    private route: Router,
+    private translateService: TranslateService,
+    private formBuilder: FormBuilder
+  ) {
     this.translateService.setDefaultLang('en');
-    this.router.queryParams.subscribe(
-      params => {
-        this.showLoader();
-        this.courseId = params.cid;
-        this.get_enrolled_course_details();
-        this.get_enrolled_course_contents();
-      }
-
-    );
+    this.router.queryParams.subscribe((params) => {
+      this.showLoader();
+      this.courseId = params.cid;
+      this.get_enrolled_course_details();
+      this.get_enrolled_course_contents();
+    });
   }
 
-
-
-  ngOnInit() { }
+  ngOnInit() {}
 
   get_enrolled_course_details() {
     const crsData = new FormData();
 
     crsData.append('courseid', this.courseId);
     this.service.mod_get_course_details(crsData).subscribe(
-      res => {
+      (res) => {
         this.details = res.Data;
         // alert(localStorage.getItem('user_key'));
         //console.log(JSON.stringify(this.details));
 
         this.hideLoader();
       },
-      err => {
+      (err) => {
         console.log(err);
-
       }
     );
   }
@@ -62,15 +72,13 @@ export class CourseSummaryComponent implements OnInit {
     data.append('user_id', localStorage.getItem('user_id'));
 
     this.service.mod_get_course_content(data).subscribe(
-      res => {
+      (res) => {
         this.coursecontents = res.Data;
 
         console.log(this.coursecontents);
       },
-      err => {
-
+      (err) => {
         console.log(err);
-
       }
     );
   }
@@ -78,26 +86,34 @@ export class CourseSummaryComponent implements OnInit {
   // Show the loader for infinite time
   showLoader() {
     this.translateService.get('loading').subscribe((loading_res: string) => {
-
       this.loading_text = loading_res;
-    })
-    this.loadingController.create({
-      message: this.loading_text
-    }).then((res) => {
-      res.present();
     });
+    this.loadingController
+      .create({
+        message: this.loading_text,
+      })
+      .then((res) => {
+        res.present();
+      });
   }
 
   // Hide the loader if already created otherwise return error
   hideLoader() {
-    this.loadingController.dismiss().then((res) => {
-    }).catch((error) => {
-    });
+    this.loadingController
+      .dismiss()
+      .then((res) => {})
+      .catch((error) => {});
   }
-
 
   goToCourse(courseid) {
     this.route.navigate(['home/course'], { queryParams: { id: courseid } });
   }
+
+  navmenu(url: string) {
+    if (url === 'rating-summary') {
+      this.route.navigate(['home/rating-summary'], { queryParams: { id: this.courseId } });
+    }
+  }
+
 
 }

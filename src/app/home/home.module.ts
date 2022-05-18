@@ -63,6 +63,7 @@ import { BuUsersComponent } from './bu-users/bu-users.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LpReportComponent } from './reports/lp-report/lp-report.component';
 import { FixUrlPipe } from '../fix-url.pipe';
+import { NgxMaterialRatingModule } from 'ngx-material-rating';
 
 @NgModule({
   imports: [
@@ -90,6 +91,7 @@ import { FixUrlPipe } from '../fix-url.pipe';
     MatTableModule,
     CountUpModule,
     DragDropModule,
+    NgxMaterialRatingModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
