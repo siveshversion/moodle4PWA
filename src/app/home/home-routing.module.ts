@@ -1,3 +1,4 @@
+import { RatingSummaryComponent } from './rating-summary/rating-summary.component';
 import { AuthGuard } from './../services/auth.guard';
 import { UserDetailedReportComponent } from './reports/user-detailed-report/user-detailed-report.component';
 import { UsersReportComponent } from './reports/users-report/users-report.component';
@@ -28,6 +29,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePage } from './home.page';
 import { ManageUsersComponent } from './user-management/manage-users/manage-users.component';
 import { LpReportComponent } from './reports/lp-report/lp-report.component';
+import { BuReportComponent } from './reports/bu-report/bu-report.component';
 
 const routes: Routes = [
   {
@@ -137,6 +139,12 @@ const routes: Routes = [
       },{
         path: 'reports/lp-report',
         component: LpReportComponent,
+      } ,{
+        path: 'reports/bu-report',
+        component: BuReportComponent,
+      }, {
+        path: 'rating-summary',
+        component: RatingSummaryComponent,
       }
     ],
   },

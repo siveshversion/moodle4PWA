@@ -442,7 +442,9 @@
   "no_bus_to_view": "No Business Units to view",
   "course_report": "Course Report",
   "users_report": "Users Report",
-  "lp_report": "LP Report"
+  "lp_report": "LP Report",
+  "bu_report": "BU Report",
+  "course_rating": "Course Rating"
 
 }
 

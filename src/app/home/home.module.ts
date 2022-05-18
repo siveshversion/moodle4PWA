@@ -1,3 +1,5 @@
+import { RatingSummaryComponent } from './rating-summary/rating-summary.component';
+import { BuReportComponent } from './reports/bu-report/bu-report.component';
 import { UserDetailedReportComponent } from './reports/user-detailed-report/user-detailed-report.component';
 import { UsersReportComponent } from './reports/users-report/users-report.component';
 import { CourseDetailedReportComponent } from './reports/course-detailed-report/course-detailed-report.component';
@@ -124,7 +126,9 @@ import { FixUrlPipe } from '../fix-url.pipe';
     UsersReportComponent,
     UserDetailedReportComponent,
     LpReportComponent,
-    FixUrlPipe
+    FixUrlPipe,
+    BuReportComponent,
+    RatingSummaryComponent
   ],
   providers: [GlobalApiService, HttpClient, Storage],
 })
