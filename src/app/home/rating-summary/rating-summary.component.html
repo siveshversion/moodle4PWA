@@ -47,4 +47,32 @@
       </ion-card>
     </ion-grid>
   </form>
+
+
+  <ion-grid>
+    <ion-card class="lc-section">
+      <ion-card-header>
+        <h3 [ngStyle]="{'color':'#94A0AD', 'font-weight': '500' }">Course Review</h3>
+        <div class="hr"></div>
+        <ion-row class="ion-padding-top" *ngFor="let item of submittedResponse">
+          <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+            <ion-label class="lc-label-align">{{item.username}}</ion-label>
+            <ion-row class="ion-padding-top">
+              <ion-label class="lc-label-align">{{item.title }}</ion-label>
+            </ion-row>
+            <ion-row class="ion-padding-top">
+              <ion-label class="lc-label-align">{{item.comments}}</ion-label>
+            </ion-row>
+            <div class="rating-summary">
+              <ngx-material-rating [ngStyle]="{color: '#EF7921'}" [value]="item.ratingnumber" [max]="5"
+                [readonly]="true">
+              </ngx-material-rating>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-card-header>
+    </ion-card>
+  </ion-grid>
+
+
 </ion-content>

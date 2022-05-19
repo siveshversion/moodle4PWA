@@ -13,6 +13,15 @@ import {
 import { AlertController, LoadingController } from '@ionic/angular';
 import { GlobalApiService } from 'src/app/services/global-api.service';
 
+
+interface RatingResponse{
+  username: string;
+  title: string;
+  comments: string;
+  ratingnumber: number;
+
+}
+
 @Component({
   selector: 'app-rating-summary',
   templateUrl: './rating-summary.component.html',
@@ -23,6 +32,7 @@ export class RatingSummaryComponent implements OnInit {
   cId: any;
   ratings: any;
   alreadySubmitted: number;
+  submittedResponse: RatingResponse[] = [];
 
 
   constructor(
@@ -41,7 +51,7 @@ export class RatingSummaryComponent implements OnInit {
       this.ratingForm.reset();
       if (params.id) {
         this.cId = params.id;
-        this.getReviewsbyCid();
+        this.getReviews();
       }
     });
   }
@@ -119,7 +129,7 @@ export class RatingSummaryComponent implements OnInit {
     );
   }
 
-  getReviewsbyCid(){
+  getReviews(){
     const formData = new FormData();
     formData.append('cid', this.cId);
     formData.append('userid', localStorage.getItem('user_id'));
@@ -129,6 +139,7 @@ export class RatingSummaryComponent implements OnInit {
       (res) => {
         if (res.Data) {
           this.alreadySubmitted = res.Data.submitted;
+          this.submittedResponse= res.Data.response;
           this.hideLoader();
         }
       },
