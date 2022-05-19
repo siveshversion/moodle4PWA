@@ -333,6 +333,10 @@ export class GlobalApiService {
   getReviews(data: any): Observable<any> {
     return this.http.post(this.base_url+'?methodname=getReviewsbyCid', data);
   }
+
+  getMyRating(data: any): Observable<any> {
+    return this.http.post(this.base_url+'?methodname=getMyRating', data);
+  }
 }
 
 

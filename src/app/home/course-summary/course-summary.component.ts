@@ -27,6 +27,7 @@ export class CourseSummaryComponent implements OnInit {
   coursecontents: any = [];
   contents: any = [];
   loading_text: string;
+  submittedRating: any = [];
 
   constructor(
     private service: GlobalApiService,
@@ -43,6 +44,7 @@ export class CourseSummaryComponent implements OnInit {
       this.courseId = params.cid;
       this.get_enrolled_course_details();
       this.get_enrolled_course_contents();
+      this.get_my_rating();
     });
   }
 
@@ -106,14 +108,30 @@ export class CourseSummaryComponent implements OnInit {
   }
 
   goToCourse(courseid) {
-    this.route.navigate(['home/course'], { queryParams: { id: courseid } });
+
   }
 
   navmenu(url: string) {
     if (url === 'rating-summary') {
-      this.route.navigate(['home/rating-summary'], { queryParams: { id: this.courseId } });
+      this.route.navigate(['home/rating-summary'], {
+        queryParams: { id: this.courseId },
+      });
     }
   }
 
-
+  get_my_rating() {
+    const formdata = new FormData();
+    formdata.append('userid', localStorage.getItem('user_id'));
+    formdata.append('cid', this.courseId);
+    this.service.getMyRating(formdata).subscribe(
+      (res) => {
+        if (res.Data) {
+          this.submittedRating = res.Data;
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 }

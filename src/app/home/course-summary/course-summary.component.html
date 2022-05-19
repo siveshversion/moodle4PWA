@@ -26,19 +26,21 @@
 
                 <hr class="my-4">
                 <h3 class="mb-1">{{'course_rating' | translate }} </h3>
-                <ng-container *ngFor="let rating of ratings; index as i">
-                  <div class="rating">
+                <div class="rating">
+                  <span *ngIf="submittedRating.rating > 0;else show">
+                    {{submittedRating.ratestr}}
+                  </span>
+                  <ng-template #show>
                     <span>
-                      Rating {{rating.value}} of {{rating.max}}
+                      Not rated yet
                     </span>
-                    <div (click)="navmenu('rating-summary')" class="rating-summary">
-                      <ngx-material-rating [ngStyle]="{color: '#EF7921'}" [(ngModel)]="ratings[i].value" [max]="rating.max"
-                        [readonly]="rating.readonly">
-                      </ngx-material-rating>
-                    </div>
+                  </ng-template>
+                  <div (click)="navmenu('rating-summary')" class="rating-summary">
+                    <ngx-material-rating [ngStyle]="{color: '#EF7921'}" [value]="submittedRating.rating" [max]="5"
+                      [readonly]="true">
+                    </ngx-material-rating>
                   </div>
-                </ng-container>
-
+                </div>
 
               </div> <!-- end col -->
             </div>

@@ -13,13 +13,11 @@ import {
 import { AlertController, LoadingController } from '@ionic/angular';
 import { GlobalApiService } from 'src/app/services/global-api.service';
 
-
-interface RatingResponse{
+interface RatingResponse {
   username: string;
   title: string;
   comments: string;
   ratingnumber: number;
-
 }
 
 @Component({
@@ -32,8 +30,8 @@ export class RatingSummaryComponent implements OnInit {
   cId: any;
   ratings: any;
   alreadySubmitted: number;
+  submissions: number;
   submittedResponse: RatingResponse[] = [];
-
 
   constructor(
     private service: GlobalApiService,
@@ -64,11 +62,19 @@ export class RatingSummaryComponent implements OnInit {
     });
   }
 
-  async showCustomAlert(title, msg) {
+  async showCustomAlert(msg) {
     const alert = await this.alertCtrl.create({
-      header: title,
       message: msg,
-      buttons: ['OK'],
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.router.navigate(['home/coursesummary'], {
+              queryParams: { cid: this.cId },
+            });
+          },
+        },
+      ],
     });
     await alert.present();
     await alert.onDidDismiss();
@@ -93,16 +99,6 @@ export class RatingSummaryComponent implements OnInit {
       .catch((error) => {});
   }
 
-  async showAlert(msg) {
-    const alert = await this.alertCtrl.create({
-      header: 'Status',
-      message: msg,
-      backdropDismiss: false
-    });
-    await alert.present();
-    await alert.onDidDismiss();
-  }
-
   submit() {
     const formData = new FormData();
     formData.append('rating', this.ratingForm.get('ratings').value);
@@ -118,7 +114,7 @@ export class RatingSummaryComponent implements OnInit {
       (res) => {
         if (res.Data) {
           const msg = 'Review Submitted Successfully';
-          this.showAlert(msg);
+          this.showCustomAlert(msg);
           this.hideLoader();
         }
       },
@@ -129,7 +125,7 @@ export class RatingSummaryComponent implements OnInit {
     );
   }
 
-  getReviews(){
+  getReviews() {
     const formData = new FormData();
     formData.append('cid', this.cId);
     formData.append('userid', localStorage.getItem('user_id'));
@@ -139,7 +135,8 @@ export class RatingSummaryComponent implements OnInit {
       (res) => {
         if (res.Data) {
           this.alreadySubmitted = res.Data.submitted;
-          this.submittedResponse= res.Data.response;
+          this.submissions = res.Data.submissions;
+          this.submittedResponse = res.Data.response;
           this.hideLoader();
         }
       },
@@ -148,6 +145,5 @@ export class RatingSummaryComponent implements OnInit {
         this.hideLoader();
       }
     );
-
   }
 }

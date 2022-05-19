@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true" class="ion-padding" scroll-y="true" class="lc-content">
   <!--ion-header>{{title}}</ion-header-->
-  <form [formGroup]="ratingForm" *ngIf="this.alreadySubmitted === 0">
+  <form [formGroup]="ratingForm" *ngIf="alreadySubmitted === 0">
 
     <ion-grid>
       <ion-card class="lc-section">
@@ -49,14 +49,14 @@
   </form>
 
 
-  <ion-grid>
+  <ion-grid *ngIf="submissions === 1">
     <ion-card class="lc-section">
       <ion-card-header>
         <h3 [ngStyle]="{'color':'#94A0AD', 'font-weight': '500' }">Course Review</h3>
         <div class="hr"></div>
         <ion-row class="ion-padding-top" *ngFor="let item of submittedResponse">
           <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
-            <ion-label class="lc-label-align">{{item.username}}</ion-label>
+            <ion-label class="lc-label-align"><b>{{item.username}}</b></ion-label>
             <ion-row class="ion-padding-top">
               <ion-label class="lc-label-align">{{item.title }}</ion-label>
             </ion-row>
