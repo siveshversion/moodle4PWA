@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { GlobalApiService } from './../../../services/global-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,6 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-create-course',
@@ -57,7 +59,6 @@ export class CreateCourseComponent implements OnInit {
     public alertCtrl: AlertController,
     public loadingController: LoadingController
   ) {
-
     this.setformValidators();
     this.getCategories();
     this.route.queryParams.subscribe((params) => {
@@ -82,8 +83,6 @@ export class CreateCourseComponent implements OnInit {
       const val = { value: i, viewValue: i };
       this.minsValue.push(val);
     }
-
-
   }
 
   setformFields(data: any) {
@@ -117,6 +116,12 @@ export class CreateCourseComponent implements OnInit {
           courseDescription: response.Data.description,
           topicCnt: response.Data.topics_cnt,
           enrollmentType: enrolled_type,
+          points : response.Data.points,
+          courseType : response.Data.course_type,
+          durationHrs : response.Data.duration_hrs,
+          durationMins : response.Data.duration_mins,
+
+
         });
 
         this.hideLoader();
@@ -202,10 +207,10 @@ export class CreateCourseComponent implements OnInit {
 
     this.service.category_list(formData).subscribe(
       (res) => {
-        res.Data.forEach((element: any) => {
+        res.Data.forEach((elem: any) => {
           const cat_data = {
-            value: element.category_id,
-            viewValue: element.category_name,
+            value: elem.category_id,
+            viewValue: elem.category_name,
           };
           this.categories.push(cat_data);
         });
@@ -315,13 +320,10 @@ export class CreateCourseComponent implements OnInit {
   }
 
   setCategoryField(catid: any) {
-    const index = this.categories.findIndex((p) => p.value === catid);
+    const index = this.categories.findIndex((p) => p.value == catid);
 
-    const cat = obj => obj.value === catid;
-
-    alert(catid + ' '+ index  + ' ' + this.categories.some(cat));
-    // this.courseForm.controls.courseCategory.setValue(
-    //   this.categories[index].value
-    // );
+    this.courseForm.controls.courseCategory.setValue(
+      this.categories[index].value
+    );
   }
 }
