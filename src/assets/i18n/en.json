@@ -447,7 +447,10 @@
   "course_rating": "Course Rating",
   "review_headline": "Add a headline",
   "rate": "Rate",
-  "review_description": "Write your review"
+  "review_description": "Write your review",
+  "course_type":"Course Type",
+  "points": "Points (Number)",
+  "duration_hm": "Duration (HH:MM)"
 
 }
 
