@@ -1,3 +1,6 @@
+import { PointsComponent } from './learnerWidgets/points/points.component';
+import { BadgesComponent } from './learnerWidgets/badges/badges.component';
+import { CertsComponent } from './learnerWidgets/certs/certs.component';
 import { RatingSummaryComponent } from './rating-summary/rating-summary.component';
 import { BuReportComponent } from './reports/bu-report/bu-report.component';
 import { UserDetailedReportComponent } from './reports/user-detailed-report/user-detailed-report.component';
@@ -130,7 +133,10 @@ import { NgxMaterialRatingModule } from 'ngx-material-rating';
     LpReportComponent,
     FixUrlPipe,
     BuReportComponent,
-    RatingSummaryComponent
+    RatingSummaryComponent,
+    CertsComponent,
+    BadgesComponent,
+    PointsComponent
   ],
   providers: [GlobalApiService, HttpClient, Storage],
 })

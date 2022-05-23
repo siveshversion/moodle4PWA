@@ -213,20 +213,17 @@
         <ion-card-content>
           <ion-grid>
             <ion-row>
-              <ion-col>
-                <ion-button expand="block" class="lc-toggle-btn" (click)="toggleTab('certs')"
-                  [ngClass]="{'lc-active-btn': certs}">{{'certs' | translate }}</ion-button>
-              </ion-col>
-              <ion-col>
-                <ion-button expand="block" class="lc-toggle-btn" (click)="toggleTab('badges')"
-                  [ngClass]="{'lc-active-btn': badges}">{{'badges' | translate }}</ion-button>
-              </ion-col>
-              <ion-col>
-                <ion-button expand="block" class="lc-toggle-btn" (click)="toggleTab('points')"
-                  [ngClass]="{'lc-active-btn': points}">{{'points_lead' | translate }}</ion-button>
+              <ion-col *ngFor="let tab of tabOutlet">
+                <ion-button expand="block" class="lc-toggle-btn" (click)="toggleTab(tab.tabName)"
+                  [ngClass]="{'lc-active-btn': tab.activeState}">{{tab.tabString | translate }}</ion-button>
               </ion-col>
             </ion-row>
             <ion-row>
+              <ion-col>
+                <app-certs *ngIf="tabOutlet[0].activeState === true"></app-certs>
+                <app-badges *ngIf="tabOutlet[1].activeState === true"></app-badges>
+                <app-points *ngIf="tabOutlet[2].activeState === true"></app-points>
+              </ion-col>
             </ion-row>
           </ion-grid>
         </ion-card-content>

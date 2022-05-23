@@ -32,15 +32,17 @@ export class DashboardComponent implements OnInit {
   dashtitle: string;
   details: any;
 
-  badges = true;
-  certs = false;
-  points = false;
-
   lps: any = [];
   lpsDummy: any = [];
   bus: any = [];
   busDummy: any = [];
   innerWidth: number;
+
+  tabOutlet = [
+    { tabString: 'certs', tabName: 'certs', activeState: true },
+    { tabString: 'badges', tabName: 'badges', activeState: false },
+    { tabString: 'points_lead', tabName: 'points', activeState: false },
+  ];
 
   slideOpts = {
     slidesPerView: 0,
@@ -256,24 +258,32 @@ export class DashboardComponent implements OnInit {
     return null;
   }
 
+  getPoints() {
+    return null;
+  }
+
   toggleTab(flag: any) {
+    const index = this.tabOutlet.findIndex((x) => x.tabName === flag);
     if (flag === 'certs') {
-      this.certs = true;
-      this.badges = false;
-      this.points = false;
+      this.activeState(index);
       this.getCerts();
     } else if (flag === 'badges') {
-      this.certs = false;
-      this.badges = true;
-      this.points = false;
-      this.getCerts();
+      this.activeState(index);
       this.getBadges();
     } else if (flag === 'points') {
-      this.certs = false;
-      this.badges = false;
-      this.points = true;
-      this.getCerts();
-      this.getBadges();
+      this.activeState(index);
+      this.getPoints();
+    }
+  }
+
+  activeState(index: number) {
+    this.tabOutlet[index].activeState = true;
+    let i = 0;
+    while (i < this.tabOutlet.length) {
+      if (index !== i) {
+        this.tabOutlet[i].activeState = false;
+      }
+      ++i;
     }
   }
 }
