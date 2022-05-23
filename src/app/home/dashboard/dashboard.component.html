@@ -206,4 +206,32 @@
     </ion-row>
   </ion-grid>
 
+
+  <ion-row *ngIf="isStudent">
+    <ion-col>
+      <ion-card class="lc-section">
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-button expand="block" class="lc-toggle-btn" (click)="toggleTab('certs')"
+                  [ngClass]="{'lc-active-btn': certs}">{{'certs' | translate }}</ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button expand="block" class="lc-toggle-btn" (click)="toggleTab('badges')"
+                  [ngClass]="{'lc-active-btn': badges}">{{'badges' | translate }}</ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button expand="block" class="lc-toggle-btn" (click)="toggleTab('points')"
+                  [ngClass]="{'lc-active-btn': points}">{{'points_lead' | translate }}</ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
 </ion-content>

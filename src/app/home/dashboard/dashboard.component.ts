@@ -32,6 +32,10 @@ export class DashboardComponent implements OnInit {
   dashtitle: string;
   details: any;
 
+  badges = true;
+  certs = false;
+  points = false;
+
   lps: any = [];
   lpsDummy: any = [];
   bus: any = [];
@@ -242,5 +246,34 @@ export class DashboardComponent implements OnInit {
       .dismiss()
       .then((res) => {})
       .catch((error) => {});
+  }
+
+  getCerts() {
+    return null;
+  }
+
+  getBadges() {
+    return null;
+  }
+
+  toggleTab(flag: any) {
+    if (flag === 'certs') {
+      this.certs = true;
+      this.badges = false;
+      this.points = false;
+      this.getCerts();
+    } else if (flag === 'badges') {
+      this.certs = false;
+      this.badges = true;
+      this.points = false;
+      this.getCerts();
+      this.getBadges();
+    } else if (flag === 'points') {
+      this.certs = false;
+      this.badges = false;
+      this.points = true;
+      this.getCerts();
+      this.getBadges();
+    }
   }
 }

@@ -450,7 +450,9 @@
   "review_description": "Write your review",
   "course_type":"Course Type",
   "points": "Points (Number)",
-  "duration_hm": "Duration (HH:MM)"
-
+  "duration_hm": "Duration (HH:MM)",
+  "certs": "My Certificates",
+  "badges": "My Badges",
+  "points_lead": "Leaderboard"
 }
 

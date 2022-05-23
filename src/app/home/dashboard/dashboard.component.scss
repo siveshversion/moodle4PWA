@@ -226,3 +226,21 @@ ion-item {
 .v-spacer {
   margin-top: 20px;
 }
+
+.lc-btn-tile {
+  height: 3.5rem;
+  width: 3.5rem;
+}
+
+.lc-toggle-btn {
+  --background: #2B2B2B;
+  text-transform: capitalize;
+}
+
+.lc-active-btn {
+  --background: #02A5EF;
+}
+
+.widget_card {
+  cursor: pointer;
+}
