@@ -453,6 +453,7 @@
   "duration_hm": "Duration (HH:MM)",
   "certs": "My Certificates",
   "badges": "My Badges",
-  "points_lead": "Leaderboard"
+  "points_lead": "Leaderboard",
+  "points_report": "Points Report"
 }
 

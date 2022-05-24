@@ -337,6 +337,14 @@ export class GlobalApiService {
   getMyRating(data: any): Observable<any> {
     return this.http.post(this.base_url+'?methodname=getMyRating', data);
   }
+
+  point_list(data: any): Observable<any> {
+    return this.http.post(this.base_url+'?methodname=getPointsReport', data);
+  }
+
+  user_point_filtered_courses(data: any): Observable<any> {
+    return this.http.post(this.base_url+'?methodname=getPointsDetailReport', data);
+  }
 }
 
 

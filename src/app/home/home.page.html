@@ -174,6 +174,11 @@
                     <a class="lc-sub-menu">{{'bu_report' | translate }}</a>
                   </mat-list-item>
                 </mat-list>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('points-report')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'points_report' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
               </mat-expansion-panel>
             </mat-accordion>
           </ion-item>

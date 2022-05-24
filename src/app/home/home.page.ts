@@ -126,6 +126,8 @@ export class HomePage {
       this.navCtrl.navigateForward('/home/reports/lp-report');
     } else if (routeName == 'bu-report') {
       this.navCtrl.navigateForward('/home/reports/bu-report');
+    } else if (routeName == 'points-report') {
+      this.navCtrl.navigateForward('/home/reports/points-report');
     }
   }
 

@@ -30,6 +30,8 @@ import { HomePage } from './home.page';
 import { ManageUsersComponent } from './user-management/manage-users/manage-users.component';
 import { LpReportComponent } from './reports/lp-report/lp-report.component';
 import { BuReportComponent } from './reports/bu-report/bu-report.component';
+import { PointsReportComponent } from './reports/points-report/points-report.component';
+import { PointsDetailingReportComponent } from './reports/points-detailing-report/points-detailing-report.component';
 
 const routes: Routes = [
   {
@@ -142,6 +144,12 @@ const routes: Routes = [
       } ,{
         path: 'reports/bu-report',
         component: BuReportComponent,
+      },{
+        path: 'reports/points-report',
+        component: PointsReportComponent,
+      },{
+        path: 'reports/points-detail-report',
+        component: PointsDetailingReportComponent,
       }, {
         path: 'rating-summary',
         component: RatingSummaryComponent,

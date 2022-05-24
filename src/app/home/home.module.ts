@@ -1,3 +1,5 @@
+import { PointsDetailingReportComponent } from './reports/points-detailing-report/points-detailing-report.component';
+import { PointsReportComponent } from './reports/points-report/points-report.component';
 import { PointsComponent } from './learnerWidgets/points/points.component';
 import { BadgesComponent } from './learnerWidgets/badges/badges.component';
 import { CertsComponent } from './learnerWidgets/certs/certs.component';
@@ -136,7 +138,9 @@ import { NgxMaterialRatingModule } from 'ngx-material-rating';
     RatingSummaryComponent,
     CertsComponent,
     BadgesComponent,
-    PointsComponent
+    PointsComponent,
+    PointsReportComponent,
+    PointsDetailingReportComponent
   ],
   providers: [GlobalApiService, HttpClient, Storage],
 })
