@@ -67,8 +67,8 @@ export class MyCoursesComponent implements OnInit {
     margin: 25,
     nav: true,
     navText: [
-      '<div class=\'nav-btn prev-slide\'></div>',
-      '<div class=\'nav-btn next-slide\'></div>',
+      "<div class='nav-btn prev-slide'></div>",
+      "<div class='nav-btn next-slide'></div>",
     ],
     responsiveClass: true,
     responsive: {
@@ -153,18 +153,23 @@ export class MyCoursesComponent implements OnInit {
         this.courses = res.Data;
         console.log(JSON.stringify(this.courses));
         this.coursesDummy = this.courses;
-        this.courses.forEach((element) => {
-          if (element.overviewfiles.length !== 0) {
-            Object.assign(element, {
-              imgUrl:
-                element.overviewfiles[0].fileurl +
-                '?token=' +
-                localStorage.getItem('user_key'),
-            });
-          } else {
-            Object.assign(element, { imgUrl: './assets/icon/crs-img.jpg' });
-          }
-        });
+        const type = typeof this.courses;
+        // eslint-disable-next-line eqeqeq
+        if (this.courses) {
+          this.courses.forEach((element) => {
+            if (element.overviewfiles.length !== 0) {
+              Object.assign(element, {
+                imgUrl:
+                  element.overviewfiles[0].fileurl +
+                  '?token=' +
+                  localStorage.getItem('user_key'),
+              });
+            } else {
+              Object.assign(element, { imgUrl: './assets/icon/crs-img.jpg' });
+            }
+          });
+        }
+
         this.hideLoader_1();
       },
       (err) => {
