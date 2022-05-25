@@ -2,7 +2,7 @@
   <ion-grid>
     <ion-row>
       <ion-col col-5 class="ion-no-padding">
-        <ion-header *ngIf="user">{{user.fullname | titlecase}} - Points Detailed Report ({{type | titlecase}} Courses)
+        <ion-header *ngIf="user">{{user | titlecase}} - Total Points Earned: {{type | titlecase}} {{totalPoints}}
         </ion-header>
       </ion-col>
       <ion-col searchValselect_bu_filtercol-2 class="ion-no-padding"></ion-col>
@@ -33,11 +33,18 @@
                         <span class="cell-align">{{element.sl_no || "--"}}</span>
                       </mat-cell>
                     </ng-container>
-                    <ng-container matColumnDef="CourseName">
-                      <mat-header-cell *matHeaderCellDef>Course Name</mat-header-cell>
+                    <ng-container matColumnDef="PType">
+                      <mat-header-cell *matHeaderCellDef>Activity Type</mat-header-cell>
                       <mat-cell *matCellDef="let element">
-                        <span class="mobile-label">CourseName:</span>
-                        <span class="cell-align">{{element.course_name || "--"}}</span>
+                        <span class="mobile-label">Activity Type:</span>
+                        <span class="cell-align">{{element.ptype || "--"}}</span>
+                      </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="Name">
+                      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Name:</span>
+                        <span class="cell-align">{{element.name || "--"}}</span>
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="Points">

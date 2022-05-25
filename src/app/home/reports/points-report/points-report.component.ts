@@ -40,13 +40,7 @@ export class PointsReportComponent implements OnInit {
       return false;
     };
 
-    this.data = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Trick the Router into believing it's last link wasn't previously loaded
-        this.router.navigated = false;
-        this.pointsList();
-      }
-    });
+    this.pointsList();
   }
 
   ngOnInit() {}

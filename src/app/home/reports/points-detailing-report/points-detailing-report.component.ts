@@ -26,12 +26,12 @@ import { FormBuilder } from '@angular/forms';
 })
 export class PointsDetailingReportComponent implements OnInit {
   data: any;
-  displayedColumns = ['slNo', 'CourseName', 'Points'];
+  displayedColumns = ['slNo', 'PType', 'Name', 'Points'];
   coursesList = [];
   userId: any;
   type: string;
   user: any;
-  bus = [];
+  totalPoints = 0;
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -49,37 +49,38 @@ export class PointsDetailingReportComponent implements OnInit {
       if (params.uid) {
         this.userId = params.uid;
         this.type = params.type;
-        this.ViewUserCourses(params.uid, -1);
+        this.ViewUserCourses(params.uid);
       }
     });
   }
 
   ngOnInit() {}
 
-  ViewUserCourses(uid: any, filterVal: any) {
-    this.showLoader('Loading User\'s Points Detail...Please wait...');
+  ViewUserCourses(uid: any) {
+    this.showLoader('Loading  Points Detail...<br>Please wait...');
 
     this.coursesList = [];
 
     const data = new FormData();
     data.append('type', this.type);
-    data.append('bu_id', filterVal);
     data.append('userId', uid);
     data.append('user_id', localStorage.getItem('user_id'));
 
     this.service.user_point_filtered_courses(data).subscribe(
       (res) => {
-        this.user = res.Data.User;
-        res.Data.Courses.forEach((element: any) => {
+        this.totalPoints = res.Data.totalPoints;
+        this.user = res.Data.fullname;
+        if (res.Data.exists === 1) {
+        res.Data.courseAlike.forEach((element: any) => {
           const user = {
-            sl_no: element.sl_no,
-            course_name: element.course_name,
-            course_id: element.course_id,
-            enrolled_on: element.enrolled_on,
-            last_access: element.last_access
+            sl_no: element.slno,
+            ptype: element.ptype,
+            name: element.aname,
+            points: element.points
           };
           this.coursesList.push(user);
         });
+      }
         this.applyFilter('');
         this.hideLoader();
       },
@@ -124,26 +125,8 @@ export class PointsDetailingReportComponent implements OnInit {
     await this.modalController.dismiss();
   }
 
-  async showAlert(msg: string, uid: any) {
-    const alert = await this.alertCtrl.create({
-      header: 'Status',
-      message: msg,
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            this.ViewUserCourses(uid, -1);
-          },
-        },
-      ],
-    });
-    await alert.present();
-    await alert.onDidDismiss();
-  }
 
-  selectFilter(value: any) {
-    this.ViewUserCourses(this.userId, value);
-  }
+
 
 
 }
