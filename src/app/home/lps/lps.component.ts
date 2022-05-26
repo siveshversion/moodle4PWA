@@ -1,6 +1,13 @@
+/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable @typescript-eslint/naming-convention */
 import { GlobalApiService } from 'src/app/services/global-api.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuController, NavController, AlertController, LoadingController } from '@ionic/angular';
+import {
+  MenuController,
+  NavController,
+  AlertController,
+  LoadingController,
+} from '@ionic/angular';
 import { Router, NavigationEnd } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,9 +19,17 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./lps.component.scss'],
 })
 export class LPsComponent implements OnInit {
-
   data: any;
-  displayedColumns = ['lpName', 'bu', 'courses', 'users', 'cmp_days', 'lp_threshold', 'status', 'Action'];
+  displayedColumns = [
+    'lpName',
+    'bu',
+    'courses',
+    'users',
+    'cmp_days',
+    'lp_threshold',
+    'status',
+    'Action',
+  ];
   lpsList = [];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -23,31 +38,27 @@ export class LPsComponent implements OnInit {
     private service: GlobalApiService,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
-    private http: HttpClient, private router:
-      Router, private navCtrl: NavController) {
-
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
+    private http: HttpClient,
+    private router: Router,
+    private navCtrl: NavController
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
     this.data = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // Trick the Router into believing it's last link wasn't previously loaded
         this.router.navigated = false;
-        let navigation = this.router.url;
+        const navigation = this.router.url;
         if (navigation === '/home/lps') {
           this.lpList();
         }
       }
     });
-
   }
 
-  ngOnInit() { }
-
+  ngOnInit() {}
 
   lpList() {
-
     this.showLoader('Loading LP list...<br> Please wait...');
 
     this.lpsList = [];
@@ -56,10 +67,8 @@ export class LPsComponent implements OnInit {
     data.append('userId', localStorage.getItem('user_id'));
 
     this.service.lp_list(data).subscribe(
-      res => {
-
+      (res) => {
         res.Data.forEach((element: any) => {
-
           const lp = {
             lp_id: element.lp_id,
             lp_name: element.lp_name,
@@ -69,20 +78,20 @@ export class LPsComponent implements OnInit {
             lp_days: element.lp_days,
             lp_threshold: element.lp_threshold,
             lp_status: element.lp_status,
-
           };
           this.lpsList.push(lp);
         });
         this.applyFilter('');
         this.hideLoader();
-      }, err => {
+      },
+      (err) => {
         console.log(err);
         this.hideLoader();
-      });
+      }
+    );
 
     this.dataSource = new MatTableDataSource<any>(this.lpsList);
     this.dataSource.paginator = this.paginator;
-
   }
 
   applyFilter(filterValue: any) {
@@ -93,23 +102,24 @@ export class LPsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-
   // Show the loader for infinite time
   showLoader(msg: any) {
-    this.loadingController.create({
-      message: msg,
-    }).then((res) => {
-      res.present();
-    });
+    this.loadingController
+      .create({
+        message: msg,
+      })
+      .then((res) => {
+        res.present();
+      });
   }
 
   // Hide the loader if already created otherwise return error
   hideLoader() {
-    this.loadingController.dismiss().then((res) => {
-    }).catch((error) => {
-    });
+    this.loadingController
+      .dismiss()
+      .then((res) => {})
+      .catch((error) => {});
   }
-
 
   navMenu(action: any, lpId: any) {
     if (action === 'edit') {
@@ -118,8 +128,12 @@ export class LPsComponent implements OnInit {
       this.navCtrl.navigateForward('home/lp-courses?id=' + lpId);
     } else if (action === 'lpsummary') {
       this.navCtrl.navigateForward('home/lp-summary?id=' + lpId);
-    }  else if (action === 'mg-users') {
+    } else if (action === 'mg-users') {
       this.navCtrl.navigateForward('home/lp-users?id=' + lpId);
     }
+  }
+
+  createLP() {
+    this.navCtrl.navigateForward('home/create-bu)');
   }
 }
