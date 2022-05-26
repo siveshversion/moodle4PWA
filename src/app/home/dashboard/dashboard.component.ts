@@ -196,12 +196,14 @@ export class DashboardComponent implements OnInit {
 
   getLPDetails(id) {
     this.route.navigate(['home/lp-summary'], {
-      queryParams: { id },
+      queryParams: { id }
     });
   }
 
   getBUDetails(id) {
-    this.route.navigate(['home/bus'], {});
+    this.route.navigate(['home/create-bu'], {
+      queryParams: { id }
+    });
   }
 
   search(target: any): void {
