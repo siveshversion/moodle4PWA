@@ -34,8 +34,8 @@
                 <div class="input-group mat-form-field-wrapper" id="filePicker">
                   <div class="custom-file">
                       <input input type="file" class="custom-file-input" [ngStyle]="{cursor:'pointer'}"
-                          (change)="chooseFile($event.target.files[0].name,$event.target.files[0])"
-                          formControlName="file" accept=".png,.jpeg,.jpg" required>
+                          (change)="chooseFile($event.target)"
+                          formControlName="file" accept=".png,.jpeg,.jpg">
                       <label class="custom-file-label">{{fileName}}</label>
                   </div>
                   <span id="download_icon" title="uploaded logo" (click)="getUploadedLogo()"

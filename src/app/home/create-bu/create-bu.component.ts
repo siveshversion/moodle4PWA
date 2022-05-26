@@ -79,8 +79,10 @@ export class CreateBUComponent implements OnInit {
 
     this.service.get_bu_by_id(formData).subscribe((response) => {
       if (response) {
-        this.fileName = (response.Data.logo_name) ? response.Data.logo_name : 'Choose File';
-        this.logoexists = (response.Data.logo_path) ? true : false;
+        this.fileName = response.Data.logo_name
+          ? response.Data.logo_name
+          : 'Choose File';
+        this.logoexists = response.Data.logo_path ? true : false;
         this.Logo_path = response.Data.logo_path;
         this.buForm.patchValue({
           buName: response.Data.buname,
@@ -90,17 +92,21 @@ export class CreateBUComponent implements OnInit {
     });
   }
 
-
   getUploadedLogo() {
     const file_src = environment.moodle_url + this.Logo_path;
-    const redirectUrl = environment.moodle_url + "/cm/api/download.php?src=" + file_src + "&filename=" + this.fileName;
-    window.open(redirectUrl, "_self");
+    const redirectUrl =
+      environment.moodle_url +
+      '/cm/api/download.php?src=' +
+      file_src +
+      '&filename=' +
+      this.fileName;
+    window.open(redirectUrl, '_self');
   }
 
   setformValidators() {
     this.buForm = this.formBuilder.group({
       buName: new FormControl('', Validators.required),
-      file: new FormControl('')
+      file: new FormControl(''),
     });
   }
 
@@ -108,19 +114,19 @@ export class CreateBUComponent implements OnInit {
     return this.buForm.get(controlName).hasError(validation);
   }
 
-
   async showCustomAlert(title, msg) {
     const alert = await this.alertCtrl.create({
       header: title,
       message: msg,
-      buttons: ['OK']
+      buttons: ['OK'],
     });
     await alert.present();
     await alert.onDidDismiss();
   }
 
-
-  chooseFile(filename: any, event: any) {
+  chooseFile(target: any) {
+    const filename = target.files[0].name;
+    const event = target.files[0];
     this.okFlag = this.isValid_extension(event);
     if (this.okFlag) {
       this.fileName = filename;
@@ -130,12 +136,10 @@ export class CreateBUComponent implements OnInit {
         this.encodedFile = e.target.result;
       };
       reader.readAsDataURL(this.selectedFile);
-    }
-    else {
+    } else {
       this.fileName = 'Choose Logo *';
     }
   }
-
 
   isValid_extension(file: File) {
     const allowedExtensions = this.allowedExtensions;
@@ -147,14 +151,12 @@ export class CreateBUComponent implements OnInit {
         const msg = 'Upload valid image type';
         this.showCustomAlert(title, msg);
         this.okFlag = null;
-      }
-      else {
+      } else {
         this.okFlag = true;
       }
     }
     return this.okFlag;
   }
-
 
   getExtension(filename: string): null | string {
     if (filename.indexOf('.') === -1) {
@@ -162,7 +164,6 @@ export class CreateBUComponent implements OnInit {
     }
     return filename.split('.').pop();
   }
-
 
   // Show the loader for infinite time
   showLoader(msg: any) {
@@ -226,8 +227,8 @@ export class CreateBUComponent implements OnInit {
   submit() {
     const formData = new FormData();
     formData.append('bu_name', this.buForm.get('buName').value);
-    formData.append("logoFile", this.encodedFile);
-    formData.append("logoFileName", this.fileName);
+    formData.append('logoFile', this.encodedFile);
+    formData.append('logoFileName', this.fileName);
 
     if (this.buId) {
       this.update(formData);
@@ -241,8 +242,8 @@ export class CreateBUComponent implements OnInit {
     msg = 'Updating BU Please Wait....';
     this.showLoader(msg);
     formData.append('bu_id', this.buId);
-    formData.append("logoFile", this.encodedFile);
-    formData.append("logoFileName", this.fileName);
+    formData.append('logoFile', this.encodedFile);
+    formData.append('logoFileName', this.fileName);
 
     this.service.update_bu(formData).subscribe(
       (response) => {
