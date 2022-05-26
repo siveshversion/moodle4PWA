@@ -100,7 +100,7 @@
           <div class="search" *ngIf="busDummy.length > 0">
             <input type="text" class="searchTerm"
               style="background: url(./assets/icon/search.png) no-repeat;background-position: 3px 6px;"
-              placeholder="{{'search' | translate }}..." (input)="search($event.target)">
+              placeholder="{{'search' | translate }}..." (input)="search($event.target,'bus')">
           </div>
           <ion-card-content>
 
@@ -160,7 +160,7 @@
           <div class="search" *ngIf="lpsDummy.length > 0">
             <input type="text" class="searchTerm"
               style="background: url(./assets/icon/search.png) no-repeat;background-position: 3px 6px;"
-              placeholder="{{'search' | translate }}..." (input)="search($event.target)">
+              placeholder="{{'search' | translate }}..." (input)="search($event.target,'lps')">
           </div>
           <ion-card-content>
 

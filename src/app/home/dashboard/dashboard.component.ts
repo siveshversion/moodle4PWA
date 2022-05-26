@@ -196,20 +196,26 @@ export class DashboardComponent implements OnInit {
 
   getLPDetails(id) {
     this.route.navigate(['home/lp-summary'], {
-      queryParams: { id }
+      queryParams: { id },
     });
   }
 
   getBUDetails(id) {
     this.route.navigate(['home/create-bu'], {
-      queryParams: { id }
+      queryParams: { id },
     });
   }
 
-  search(target: any): void {
-    this.lps = this.lpsDummy.filter(
-      (item) => item.fullname.search(new RegExp(target.value, 'i')) > -1
-    );
+  search(target: any, type: any): void {
+    if (type === 'bus') {
+      this.bus = this.busDummy.filter(
+        (item) => item.buName.search(new RegExp(target.value, 'i')) > -1
+      );
+    } else if (type === 'lps') {
+      this.lps = this.lpsDummy.filter(
+        (item) => item.lpname.search(new RegExp(target.value, 'i')) > -1
+      );
+    }
     //console.log(JSON.stringify(this.lps));
   }
 
