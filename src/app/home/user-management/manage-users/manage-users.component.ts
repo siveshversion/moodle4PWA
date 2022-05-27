@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable @typescript-eslint/naming-convention */
 import { GlobalApiService } from './../../../services/global-api.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -39,15 +41,13 @@ export class ManageUsersComponent implements OnInit {
     private navCtrl: NavController,
     private translateService: TranslateService) {
     this.translateService.setDefaultLang('en');
-    this.route.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
+    this.route.routeReuseStrategy.shouldReuseRoute = () => false;
 
     this.data = this.route.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         // Trick the Router into believing it's last link wasn't previously loaded
         this.route.navigated = false;
-        let navigation = this.route.url;
+        const navigation = this.route.url;
         if (navigation === '/home/users') {
           this.getUserList();
         }
@@ -70,7 +70,7 @@ export class ManageUsersComponent implements OnInit {
       res => {
         this.users = res.Data;
         this.users.forEach((element: any) => {
-          let suspended = element.suspended;
+          const suspended = element.suspended;
           if (suspended == '0') {
             ToggleIcon = 'person';
             ToggleTitle = 'suspend';
@@ -123,15 +123,15 @@ export class ManageUsersComponent implements OnInit {
 
   suspend(userid: any, mode: any) {
     this.showLoader('Processing Request...');
-    let formData = new FormData();
+    const formData = new FormData();
     mode = (mode == '1') ? '0' : '1';
-    let status = (mode == '0') ? ' Activated ' : ' Suspended ';
-    formData.append("user_id", userid);
-    formData.append("mode", mode);
+    const status = (mode == '0') ? ' Activated ' : ' Suspended ';
+    formData.append('user_id', userid);
+    formData.append('mode', mode);
     this.service.mod_suspend_user(formData).subscribe((response) => {
       if (response) {
         this.hideLoader();
-        let msg = "User" + status + "Successfully"
+        const msg = 'User' + status + 'Successfully';
         this.showAlert(msg);
       }
     }, err => {
@@ -143,12 +143,12 @@ export class ManageUsersComponent implements OnInit {
 
   delete(userid: any) {
     this.showLoader('Processing Request...');
-    let formData = new FormData();
-    formData.append("user_id", userid);
+    const formData = new FormData();
+    formData.append('user_id', userid);
     this.service.mod_delete_user(formData).subscribe((response) => {
       if (response.Data) {
         this.hideLoader();
-        let msg = 'User Deleted successfully';
+        const msg = 'User Deleted successfully';
         this.showAlert(msg);
       }
     }, err => {
