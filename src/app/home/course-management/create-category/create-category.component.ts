@@ -89,7 +89,6 @@ export class CreateCategoryComponent implements OnInit {
     return this.categoryForm.get(controlName).hasError(validation);
   }
 
-
   async showAlert(msg) {
     const alert = await this.alertCtrl.create({
       header: 'Status',
@@ -108,10 +107,10 @@ export class CreateCategoryComponent implements OnInit {
     await alert.onDidDismiss();
   }
 
-  CategorynameRegistryCheck(value: string) {
+  CategorynameRegistryCheck(target: any) {
     const formData = new FormData();
     const cat_id = this.catId > 0 ? this.catId : '';
-    formData.append('field_value', value);
+    formData.append('field_value', target.value);
     formData.append('edit_id', cat_id);
     formData.append('field_name', 'name');
     formData.append('table_name', 'mdl_course_categories');

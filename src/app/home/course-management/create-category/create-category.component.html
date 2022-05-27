@@ -2,49 +2,55 @@
   <!--ion-header>{{title}}</ion-header-->
   <form [formGroup]="categoryForm">
 
-      <ion-grid>
-          <ion-card class="lc-section">
-              <ion-card-header>
-                  <ion-row>
-                      <ion-col size="12" size-xs="11" size-md="11" size-lg="11" class="ion-no-padding">
-                          <ion-header>{{subtitle | translate }}</ion-header>
-                      </ion-col>
-                  </ion-row>
-                  <hr>
-                  <ion-row class="ion-padding-top">
-                      <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
-                          <ion-label class="lc-label-align">{{'category_name' | translate }}</ion-label>
-                          <ion-item lines="none" color="none">
-                              <ion-input class="lc-input" (ionChange)="CategorynameRegistryCheck($event.target.value)" formControlName="categoryName" type="text">
-                              </ion-input>
-                          </ion-item>
-                          <ion-text color="danger" class="lc-error" *ngIf="categoryForm.get('categoryName').errors && (categoryForm.get('categoryName').invalid && categoryForm.get('categoryName').dirty || categoryForm.get('categoryName').touched)">
-                              <ion-text *ngIf="hasError('categoryName','required')">{{'this_field_is_required' | translate }}</ion-text>
-                          </ion-text>
-                          <ion-text color="danger" class="lc-error" *ngIf="categorynameConflict">
-                              <ion-text *ngIf="categorynameConflict">Category name already taken</ion-text>
-                          </ion-text>
-                      </ion-col>
-                  </ion-row>
-                  <ion-row class="ion-padding-top">
-                      <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
-                          <ion-label class="lc-label-align">{{'category_description' | translate }}</ion-label>
-                          <ion-item lines="none" color="none">
-                              <ion-textarea rows="6" cols="20" class="lc-text-area" formControlName="categoryDescription" type="text">
-                              </ion-textarea>
-                          </ion-item>
-                          <ion-text color="danger" class="lc-error" *ngIf="categoryForm.get('categoryDescription').errors && (categoryForm.get('categoryDescription').invalid && categoryForm.get('categoryDescription').dirty || categoryForm.get('categoryDescription').touched)">
-                              <ion-text *ngIf="hasError('categoryDescription','required')">{{'this_field_is_required' | translate }}</ion-text>
-                          </ion-text>
-                      </ion-col>
-                  </ion-row>
-              </ion-card-header>
-              <ion-row>
-                  <ion-col size="12" size-xs="12" size-md="2" size-lg="2" class="ion-no-padding">
-                      <ion-button id="savebtn" [disabled]="!categoryForm.valid" type="button" expand="block" fill="solid" class="lc-button lc-btn-color" (click)="submit()">{{btnName | translate }}</ion-button>
-                  </ion-col>
-              </ion-row>
-          </ion-card>
-      </ion-grid>
+    <ion-grid>
+      <ion-card class="lc-section">
+        <ion-card-header>
+          <ion-row>
+            <ion-col size="12" size-xs="11" size-md="11" size-lg="11" class="ion-no-padding">
+              <ion-header>{{subtitle | translate }}</ion-header>
+            </ion-col>
+          </ion-row>
+          <hr>
+          <ion-row class="ion-padding-top">
+            <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+              <ion-label class="lc-label-align">{{'category_name' | translate }}</ion-label>
+              <ion-item lines="none" color="none">
+                <ion-input class="lc-input" (ionChange)="CategorynameRegistryCheck($event.target)"
+                  formControlName="categoryName" type="text">
+                </ion-input>
+              </ion-item>
+              <ion-text color="danger" class="lc-error"
+                *ngIf="categoryForm.get('categoryName').errors && (categoryForm.get('categoryName').invalid && categoryForm.get('categoryName').dirty || categoryForm.get('categoryName').touched)">
+                <ion-text *ngIf="hasError('categoryName','required')">{{'this_field_is_required' | translate }}
+                </ion-text>
+              </ion-text>
+              <ion-text color="danger" class="lc-error" *ngIf="categorynameConflict">
+                <ion-text *ngIf="categorynameConflict">Category name already taken</ion-text>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-padding-top">
+            <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+              <ion-label class="lc-label-align">{{'category_description' | translate }}</ion-label>
+              <ion-item lines="none" color="none">
+                <ion-textarea rows="6" cols="20" class="lc-text-area" formControlName="categoryDescription" type="text">
+                </ion-textarea>
+              </ion-item>
+              <ion-text color="danger" class="lc-error"
+                *ngIf="categoryForm.get('categoryDescription').errors && (categoryForm.get('categoryDescription').invalid && categoryForm.get('categoryDescription').dirty || categoryForm.get('categoryDescription').touched)">
+                <ion-text *ngIf="hasError('categoryDescription','required')">{{'this_field_is_required' | translate }}
+                </ion-text>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-card-header>
+        <ion-row>
+          <ion-col size="12" size-xs="12" size-md="2" size-lg="2" class="ion-no-padding">
+            <ion-button id="savebtn" [disabled]="!categoryForm.valid" type="button" expand="block" fill="solid"
+              class="lc-button lc-btn-color" (click)="submit()">{{btnName | translate }}</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-grid>
   </form>
 </ion-content>
