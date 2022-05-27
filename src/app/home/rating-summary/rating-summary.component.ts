@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 interface RatingResponse {
   username: string;
@@ -35,6 +36,7 @@ export class RatingSummaryComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -80,25 +82,6 @@ export class RatingSummaryComponent implements OnInit {
     await alert.onDidDismiss();
   }
 
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController
-      .create({
-        message: msg,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
-  }
-
   submit() {
     const formData = new FormData();
     formData.append('rating', this.ratingForm.get('ratings').value);
@@ -109,18 +92,17 @@ export class RatingSummaryComponent implements OnInit {
     formData.append('reviewDesc', this.ratingForm.get('reviewDesc').value);
     formData.append('userid', localStorage.getItem('user_id'));
     formData.append('cid', this.cId);
-    this.showLoader('Submiting Review');
+    let msg = 'Submiting Review';
+    this.loader.showAutoHideLoader(msg);
     this.service.saveReview(formData).subscribe(
       (res) => {
         if (res.Data) {
-          const msg = 'Review Submitted Successfully';
+          msg = 'Review Submitted Successfully';
           this.showCustomAlert(msg);
-          this.hideLoader();
         }
       },
       (err) => {
         console.log(err);
-        this.hideLoader();
       }
     );
   }
@@ -130,19 +112,17 @@ export class RatingSummaryComponent implements OnInit {
     formData.append('cid', this.cId);
     formData.append('userid', localStorage.getItem('user_id'));
     const msg = 'Loading Reviews';
-    this.showLoader(msg);
+    this.loader.showAutoHideLoader(msg);
     this.service.getReviews(formData).subscribe(
       (res) => {
         if (res.Data) {
           this.alreadySubmitted = res.Data.submitted;
           this.submissions = res.Data.submissions;
           this.submittedResponse = res.Data.response;
-          this.hideLoader();
         }
       },
       (err) => {
         console.log(err);
-        this.hideLoader();
       }
     );
   }

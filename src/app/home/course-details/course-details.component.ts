@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { DomSanitizer } from '@angular/platform-browser';
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { environment } from 'src/environments/environment';
 import { ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
 
@@ -27,6 +28,7 @@ export class CourseDetailsComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+private loader: LoaderService,
     private router: ActivatedRoute,
     private sanitizer: DomSanitizer,
     public loadingController: LoadingController,
@@ -34,7 +36,6 @@ export class CourseDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //this.showLoader();
     this.token = localStorage.getItem('user_key');
 
     const data = new FormData();
@@ -68,24 +69,6 @@ export class CourseDetailsComponent implements OnInit {
     this.isRedirect = true;
   }
 
-  // Show the loader for infinite time
-  showLoader() {
-    this.loadingController
-      .create({
-        message: 'Loading Activities Please wait...',
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
-  }
 
   frameUpdate(event: any) {
     // document.querySelector('iframe').contentDocument.body.querySelector('nav').style.display='none';

@@ -1,4 +1,5 @@
-import { GlobalApiService } from './../services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
+import { GlobalApiService } from 'src/app/services/global-api.service';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
     private storage: Storage,
     private router: Router,
     private service: GlobalApiService,
+    private loader: LoaderService,
     public alertCtrl: AlertController,
     private route: ActivatedRoute,
     public loadingController: LoadingController,
@@ -39,7 +41,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
     if (localStorage.getItem('user_id')) {
       this.router.navigateByUrl('home');
     }
@@ -65,12 +66,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.showLoader();
+    const msg = 'Logging In Please Wait ...';
+    this.loader.showAutoHideLoader(msg);
 
     this.service.login_svc(this.loginForm.value).subscribe(
       (res) => {
         console.log(JSON.stringify(res));
-        this.hideLoader();
         if (res.Data.result === 1) {
           localStorage.setItem('username', this.loginForm.value.username);
           localStorage.setItem('password', this.loginForm.value.password);
@@ -86,30 +87,9 @@ export class LoginComponent implements OnInit {
       },
       (err) => {
         this.showAlert('LMS Offline');
-        this.hideLoader();
-
         console.log(err);
       }
     );
-  }
-
-  // Show the loader for infinite time
-  showLoader() {
-    this.loadingController
-      .create({
-        message: 'Logging In Please Wait ...',
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
   }
 
   async showAlert(message) {

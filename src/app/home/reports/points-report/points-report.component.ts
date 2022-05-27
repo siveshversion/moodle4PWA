@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/quotes */
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   MenuController,
@@ -30,6 +31,7 @@ export class PointsReportComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
@@ -46,7 +48,8 @@ export class PointsReportComponent implements OnInit {
   ngOnInit() {}
 
   pointsList() {
-    this.showLoader('Loading Points Report...<br> Please wait...');
+    const msg = 'Loading Points Report...<br> Please wait...';
+    this.loader.showAutoHideLoader(msg);
 
     this.pointList = [];
 
@@ -66,11 +69,9 @@ export class PointsReportComponent implements OnInit {
           this.pointList.push(p);
         });
         this.applyFilter('');
-        this.hideLoader();
       },
       (err) => {
         console.log(err);
-        this.hideLoader();
       }
     );
 
@@ -85,8 +86,7 @@ export class PointsReportComponent implements OnInit {
       buttons: [
         {
           text: 'OK',
-          handler: () => {
-          },
+          handler: () => {},
         },
       ],
     });
@@ -100,25 +100,6 @@ export class PointsReportComponent implements OnInit {
 
   ionViewDidEnter() {
     this.dataSource.paginator = this.paginator;
-  }
-
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController
-      .create({
-        message: msg,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
   }
 
   navMenu(userId: number) {

@@ -1,10 +1,18 @@
+/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, AlertController, LoadingController, ModalController } from '@ionic/angular';
+import {
+  NavController,
+  AlertController,
+  LoadingController,
+  ModalController,
+} from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-lp-courses',
@@ -12,51 +20,50 @@ import { GlobalApiService } from 'src/app/services/global-api.service';
   styleUrls: ['./lp-courses.component.scss'],
 })
 export class LpCoursesComponent implements OnInit {
-
-
   data: any;
-  displayedColumns = ['sNo', 'courseName', 'courseShortName', 'categoryName', 'Action'];
+  displayedColumns = [
+    'sNo',
+    'courseName',
+    'courseShortName',
+    'categoryName',
+    'Action',
+  ];
   coursesList = [];
   courseFilter = [
     { value: 'all', viewValue: 'All' },
     { value: 'assigned', viewValue: 'Assigned' },
-    { value: 'not_assigned', viewValue: 'Unassigned' }
+    { value: 'not_assigned', viewValue: 'Unassigned' },
   ];
   selectedFilter: any;
   lpid: any;
 
-
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
     private router: ActivatedRoute,
     private modalController: ModalController,
-    private navCtrl: NavController) {
-
-    this.router.queryParams.subscribe(
-      params => {
-        if (params.id) {
-          this.lpid = params.id;
-          this.selectedFilter = 'all';
-          this.viewCourses(this.lpid);
-        }
+    private navCtrl: NavController
+  ) {
+    this.router.queryParams.subscribe((params) => {
+      if (params.id) {
+        this.lpid = params.id;
+        this.selectedFilter = 'all';
+        this.viewCourses(this.lpid);
       }
-    );
-
+    });
   }
 
-  ngOnInit() { }
-
+  ngOnInit() {}
 
   viewCourses(lpid: any) {
-
-    this.showLoader('Loading Courses...Please wait...');
+    const msg = 'Loading Courses...Please wait...';
+    this.loader.showAutoHideLoader(msg);
 
     this.coursesList = [];
 
@@ -65,7 +72,7 @@ export class LpCoursesComponent implements OnInit {
     data.append('assign_status', this.selectedFilter);
 
     this.service.lp_courses(data).subscribe(
-      res => {
+      (res) => {
         res.Data.forEach((element: any) => {
           const course = {
             sl_no: element.sl_no,
@@ -79,11 +86,11 @@ export class LpCoursesComponent implements OnInit {
           this.coursesList.push(course);
         });
         this.applyFilter('');
-        this.hideLoader();
-      }, err => {
+      },
+      (err) => {
         console.log(err);
-        this.hideLoader();
-      });
+      }
+    );
 
     this.dataSource = new MatTableDataSource<any>(this.coursesList);
     this.dataSource.paginator = this.paginator;
@@ -97,61 +104,44 @@ export class LpCoursesComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController.create({
-      message: msg,
-    }).then((res) => {
-      res.present();
-    });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController.dismiss().then((res) => {
-    }).catch((error) => {
-    });
-  }
-
-
   unassignCourse(cid: any) {
-
-    this.showLoader('Processing Request..');
+    let msg = 'Processing Request...';
+    this.loader.showAutoHideLoader(msg);
 
     const data = new FormData();
     data.append('lp_id', this.lpid);
     data.append('course_id', cid);
 
     this.service.remove_course_from_lp(data).subscribe(
-      res => {
-        let msg = 'Course Unassigned Successfully';
+      (res) => {
+        msg = 'Course Unassigned Successfully';
         this.showAlert(msg, this.lpid);
-        this.hideLoader();
-      }, err => {
+      },
+      (err) => {
         console.log(err);
-        this.hideLoader();
-      });
+      }
+    );
   }
 
   async assignCourse(cid: any) {
-    this.showLoader('Processing Request..');
+    let msg = 'Processing Request...';
+    this.loader.showAutoHideLoader(msg);
     const data = new FormData();
     data.append('lp_id', this.lpid);
     data.append('course_id', cid);
     data.append('userId', localStorage.getItem('user_id'));
 
-
     this.service.add_course_to_LP(data).subscribe(
-      res => {
+      (res) => {
         if (res.Data.lpc_id) {
-          let msg = 'Course Assigned Successfully';
+          msg = 'Course Assigned Successfully';
           this.showAlert(msg, this.lpid);
-          this.hideLoader();
         }
-      }, err => {
+      },
+      (err) => {
         console.log(err);
-        this.hideLoader();
-      });
+      }
+    );
   }
 
   async closeModal() {
@@ -162,12 +152,14 @@ export class LpCoursesComponent implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Status',
       message: msg,
-      buttons: [{
-        text: 'OK',
-        handler: () => {
-          this.viewCourses(lpid);
-        }
-      },]
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.viewCourses(lpid);
+          },
+        },
+      ],
     });
     await alert.present();
     await alert.onDidDismiss();

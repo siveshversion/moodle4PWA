@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -37,6 +38,7 @@ export class CreateBUComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -73,7 +75,8 @@ export class CreateBUComponent implements OnInit {
   }
 
   setEditFields() {
-    this.showLoader('Loading BU form data...');
+    const msg = 'Loading BU form data...';
+    this.loader.showAutoHideLoader(msg);
     const formData = new FormData();
     formData.append('bu_id', this.buId);
 
@@ -88,7 +91,6 @@ export class CreateBUComponent implements OnInit {
           buName: response.Data.buname,
         });
       }
-      this.hideLoader();
     });
   }
 
@@ -165,25 +167,6 @@ export class CreateBUComponent implements OnInit {
     return filename.split('.').pop();
   }
 
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController
-      .create({
-        message: msg,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
-  }
-
   async showAlert(msg) {
     const alert = await this.alertCtrl.create({
       header: 'Status',
@@ -240,7 +223,7 @@ export class CreateBUComponent implements OnInit {
   update(formData: any) {
     let msg: string;
     msg = 'Updating BU Please Wait....';
-    this.showLoader(msg);
+    this.loader.showAutoHideLoader(msg);
     formData.append('bu_id', this.buId);
     formData.append('logoFile', this.encodedFile);
     formData.append('logoFileName', this.fileName);
@@ -248,13 +231,11 @@ export class CreateBUComponent implements OnInit {
     this.service.update_bu(formData).subscribe(
       (response) => {
         if (response) {
-          this.hideLoader();
           msg = 'BU Updated Successfully';
           this.showAlert(msg);
         }
       },
       (err) => {
-        this.hideLoader();
         console.log(err);
       }
     );
@@ -263,17 +244,15 @@ export class CreateBUComponent implements OnInit {
   save(formData: any) {
     let msg: string;
     msg = 'Creating BU Please Wait....';
-    this.showLoader(msg);
+    this.loader.showAutoHideLoader(msg);
     this.service.create_bu(formData).subscribe(
       (response) => {
         if (response.Data) {
-          this.hideLoader();
           msg = 'BU Created Successfully';
           this.showAlert(msg);
         }
       },
       (err) => {
-        this.hideLoader();
         console.log(err);
       }
     );

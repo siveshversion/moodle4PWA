@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-create-lp',
@@ -29,6 +30,7 @@ export class CreateLPComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -63,7 +65,8 @@ export class CreateLPComponent implements OnInit {
   }
 
   setEditFields() {
-    this.showLoader('Loading LP form data...');
+    const msg = 'Loading LP form data...';
+    this.loader.showAutoHideLoader(msg);
     const formData = new FormData();
     formData.append('lp_id', this.lpId);
 
@@ -77,7 +80,6 @@ export class CreateLPComponent implements OnInit {
           lpCredit: response.Data.lp_credit,
         });
       }
-      this.hideLoader();
     });
   }
 
@@ -93,25 +95,6 @@ export class CreateLPComponent implements OnInit {
 
   hasError(controlName: string, validation: string) {
     return this.lpForm.get(controlName).hasError(validation);
-  }
-
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController
-      .create({
-        message: msg,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
   }
 
   async showAlert(msg) {
@@ -173,18 +156,16 @@ export class CreateLPComponent implements OnInit {
   update(formData: any) {
     let msg: string;
     msg = 'Updating LP Please Wait....';
-    this.showLoader(msg);
+    this.loader.showAutoHideLoader(msg);
     formData.append('lp_id', this.lpId);
     this.service.update_lp(formData).subscribe(
       (response) => {
         if (response) {
-          this.hideLoader();
           msg = 'LP Updated Successfully';
           this.showAlert(msg);
         }
       },
       (err) => {
-        this.hideLoader();
         console.log(err);
       }
     );
@@ -193,17 +174,15 @@ export class CreateLPComponent implements OnInit {
   save(formData: any) {
     let msg: string;
     msg = 'Creating LP Please Wait....';
-    this.showLoader(msg);
+    this.loader.showAutoHideLoader(msg);
     this.service.create_lp(formData).subscribe(
       (response) => {
         if (response.Data) {
-          this.hideLoader();
           msg = 'LP Created Successfully';
           this.showAlert(msg);
         }
       },
       (err) => {
-        this.hideLoader();
         console.log(err);
       }
     );

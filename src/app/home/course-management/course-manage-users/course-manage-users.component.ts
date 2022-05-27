@@ -1,65 +1,63 @@
+/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, AlertController, LoadingController, ModalController } from '@ionic/angular';
+import {
+  NavController,
+  AlertController,
+  LoadingController,
+  ModalController,
+} from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { GlobalApiService } from 'src/app/services/global-api.service';
-
-
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-course-manage-users',
   templateUrl: './course-manage-users.component.html',
   styleUrls: ['./course-manage-users.component.scss'],
 })
-
 export class CourseManageUsersComponent implements OnInit {
-
   data: any;
   displayedColumns = ['slNo', 'UserName', 'FullName', 'Action'];
   coursesList = [];
   userFilter = [
     { value: 'all', viewValue: 'All' },
     { value: 'enrolled', viewValue: 'Enrolled' },
-    { value: 'not_enrolled', viewValue: 'Not Enrolled' }
+    { value: 'not_enrolled', viewValue: 'Not Enrolled' },
   ];
   selectedFilter: any;
   courseid: any;
 
-
-
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
     private router: ActivatedRoute,
     private modalController: ModalController,
-    private navCtrl: NavController) {
-
-    this.router.queryParams.subscribe(
-      params => {
-        if (params.cid) {
-          this.courseid = params.cid;
-          this.selectedFilter = 'all';
-          this.viewCourseMembers(params.cid);
-        }
+    private navCtrl: NavController
+  ) {
+    this.router.queryParams.subscribe((params) => {
+      if (params.cid) {
+        this.courseid = params.cid;
+        this.selectedFilter = 'all';
+        this.viewCourseMembers(params.cid);
       }
-    );
-
+    });
   }
 
-  ngOnInit() { }
-
+  ngOnInit() {}
 
   viewCourseMembers(cid: any) {
-
-    this.showLoader('Loading Users...Please wait...');
+    const msg = 'Loading Users...Please wait...';
+    this.loader.showAutoHideLoader(msg);
 
     this.coursesList = [];
 
@@ -68,7 +66,7 @@ export class CourseManageUsersComponent implements OnInit {
     data.append('enroll_status', this.selectedFilter);
 
     this.service.course_members(data).subscribe(
-      res => {
+      (res) => {
         res.Data.forEach((element: any) => {
           const course = {
             sl_no: element.sl_no,
@@ -76,16 +74,16 @@ export class CourseManageUsersComponent implements OnInit {
             user_fullname: element.user_fullname,
             user_id: element.user_id,
             course_id: cid,
-            enrolled: element.enrolled
+            enrolled: element.enrolled,
           };
           this.coursesList.push(course);
         });
         this.applyFilter('');
-        this.hideLoader();
-      }, err => {
+      },
+      (err) => {
         console.log(err);
-        this.hideLoader();
-      });
+      }
+    );
 
     this.dataSource = new MatTableDataSource<any>(this.coursesList);
     this.dataSource.paginator = this.paginator;
@@ -99,60 +97,44 @@ export class CourseManageUsersComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController.create({
-      message: msg,
-    }).then((res) => {
-      res.present();
-    });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController.dismiss().then((res) => {
-    }).catch((error) => {
-    });
-  }
-
-
   unenroll(uid: any, cid: any) {
-
-    this.showLoader('Processing Request..');
+    let msg = 'Processing Request...';
+    this.loader.showAutoHideLoader(msg);
 
     const data = new FormData();
     data.append('course_id', cid);
     data.append('user_id', uid);
 
     this.service.unenroll_user_to_course(data).subscribe(
-      res => {
-        let msg = 'User Unenrolled Successfully';
+      (res) => {
+        msg = 'User Unenrolled Successfully';
         this.showAlert(msg, cid);
-        this.hideLoader();
-      }, err => {
+      },
+      (err) => {
         console.log(err);
-        this.hideLoader();
-      });
+      }
+    );
   }
 
   async enrolUser(uid: any, cid: any) {
-    this.showLoader('Processing Request..');
+    let msg = 'Processing Request...';
+    this.loader.showAutoHideLoader(msg);
     const data = new FormData();
     data.append('course_id', cid);
     data.append('user_id', uid);
     data.append('role_id', '5');
 
     this.service.enroll_user_to_course(data).subscribe(
-      res => {
+      (res) => {
         if (res.Data.cat_id) {
-          const msg = 'User Enrolled Successfully';
+          msg = 'User Enrolled Successfully';
           this.showAlert(msg, cid);
-          this.hideLoader();
         }
-      }, err => {
+      },
+      (err) => {
         console.log(err);
-        this.hideLoader();
-      });
+      }
+    );
   }
 
   async closeModal() {
@@ -163,12 +145,14 @@ export class CourseManageUsersComponent implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Status',
       message: msg,
-      buttons: [{
-        text: 'OK',
-        handler: () => {
-          this.viewCourseMembers(cid);
-        }
-      },]
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.viewCourseMembers(cid);
+          },
+        },
+      ],
     });
     await alert.present();
     await alert.onDidDismiss();
@@ -178,5 +162,4 @@ export class CourseManageUsersComponent implements OnInit {
     this.selectedFilter = value;
     this.viewCourseMembers(this.courseid);
   }
-
 }

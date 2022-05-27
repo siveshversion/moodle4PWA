@@ -13,6 +13,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -41,10 +42,12 @@ export class UsersReportComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
-    private route: ActivatedRoute, private router: Router,
+    private route: ActivatedRoute,
+    private router: Router,
     private navCtrl: NavController,
     private formBuilder: FormBuilder
   ) {
@@ -62,7 +65,8 @@ export class UsersReportComponent implements OnInit {
   }
 
   usersReportList(buid: any) {
-    this.showLoader('Loading users report <br> Please wait...');
+    const msg = 'Loading users report <br> Please wait...';
+    this.loader.showAutoHideLoader(msg);
 
     this.usersList = [];
 
@@ -88,11 +92,9 @@ export class UsersReportComponent implements OnInit {
           this.usersList.push(course);
         });
         this.applyFilter('');
-        this.hideLoader();
       },
       (err) => {
         console.log(err);
-        this.hideLoader();
       }
     );
 
@@ -108,32 +110,10 @@ export class UsersReportComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController
-      .create({
-        message: msg,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => { })
-      .catch((error) => { });
-  }
-
   navMenu(action: any, Id: any, optionalparam: string) {
     if (action === 'user-course-detailing') {
       this.navCtrl.navigateForward(
-        'home/reports/user-detailed-report?uid=' +
-        Id +
-        '&type=' +
-        optionalparam
+        'home/reports/user-detailed-report?uid=' + Id + '&type=' + optionalparam
       );
     } else if (action === 'course-summary') {
       this.navCtrl.navigateForward('home/coursesummary?cid=' + Id);

@@ -7,6 +7,7 @@ import { LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder } from '@angular/forms';
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -22,6 +23,7 @@ export class LpSummaryComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     private sanitizer: DomSanitizer,
     private router: ActivatedRoute,
     public loadingController: LoadingController,
@@ -32,31 +34,14 @@ export class LpSummaryComponent implements OnInit {
   ) {
     this.translateService.setDefaultLang('en');
     this.router.queryParams.subscribe((params) => {
-      this.showLoader('Loading LP details');
+      const msg = 'Loading LP details';
+      this.loader.showAutoHideLoader(msg);
       this.lpId = params.id;
       this.lp_details();
     });
   }
 
   ngOnInit() {}
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController
-      .create({
-        message: msg,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
-  }
 
   lp_details() {
     const lpData = new FormData();
@@ -67,8 +52,6 @@ export class LpSummaryComponent implements OnInit {
         this.lp = res.Data;
         // alert(localStorage.getItem('user_key'));
         //console.log(JSON.stringify(this.details));
-
-        this.hideLoader();
       },
       (err) => {
         console.log(err);

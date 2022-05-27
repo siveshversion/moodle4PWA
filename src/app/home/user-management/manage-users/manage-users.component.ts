@@ -1,6 +1,8 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { GlobalApiService } from './../../../services/global-api.service';
+import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -35,7 +37,8 @@ export class ManageUsersComponent implements OnInit {
   displayedColumns = ['UserId', 'FirstName', 'LastName','BuName', 'DateofCreation', 'LastAccess', 'Action'];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
-  constructor(private service: GlobalApiService, public alertCtrl: AlertController,
+  constructor(private service: GlobalApiService,
+private loader: LoaderService, public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient, private route: Router,
     private navCtrl: NavController,
@@ -58,7 +61,8 @@ export class ManageUsersComponent implements OnInit {
   ngOnInit() { }
 
   getUserList() {
-    this.showLoader('Loading User list...<br> Please wait...');
+    const msg = 'Loading User list...<br> Please wait...';
+    this.loader.showAutoHideLoader(msg);
     this.userList = [];
 
     let ToggleIcon: string;
@@ -94,10 +98,8 @@ export class ManageUsersComponent implements OnInit {
           this.userList.push(stud);
         });
         this.applyFilter('');
-        this.hideLoader();
       }, err => {
         console.log(err);
-        this.hideLoader();
       });
 
     this.dataSource = new MatTableDataSource<any>(this.userList);
@@ -122,7 +124,8 @@ export class ManageUsersComponent implements OnInit {
 
 
   suspend(userid: any, mode: any) {
-    this.showLoader('Processing Request...');
+    const msg = 'Processing Request...';
+    this.loader.showAutoHideLoader(msg);
     const formData = new FormData();
     mode = (mode == '1') ? '0' : '1';
     const status = (mode == '0') ? ' Activated ' : ' Suspended ';
@@ -130,30 +133,27 @@ export class ManageUsersComponent implements OnInit {
     formData.append('mode', mode);
     this.service.mod_suspend_user(formData).subscribe((response) => {
       if (response) {
-        this.hideLoader();
         const msg = 'User' + status + 'Successfully';
         this.showAlert(msg);
       }
     }, err => {
       console.log(err);
-      this.hideLoader();
     });
   }
 
 
   delete(userid: any) {
-    this.showLoader('Processing Request...');
+    let msg = 'Processing Request...';
+    this.loader.showAutoHideLoader(msg);
     const formData = new FormData();
     formData.append('user_id', userid);
     this.service.mod_delete_user(formData).subscribe((response) => {
       if (response.Data) {
-        this.hideLoader();
-        const msg = 'User Deleted successfully';
+        msg = 'User Deleted successfully';
         this.showAlert(msg);
       }
     }, err => {
       console.log(err);
-      this.hideLoader();
     });
   }
 
@@ -171,24 +171,5 @@ export class ManageUsersComponent implements OnInit {
     await alert.present();
     await alert.onDidDismiss();
   }
-
-
-
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController.create({
-      message: msg,
-    }).then((res) => {
-      res.present();
-    });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController.dismiss().then((res) => {
-    }).catch((error) => {
-    });
-  }
-
 
 }

@@ -1,12 +1,18 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, AlertController, LoadingController, ModalController } from '@ionic/angular';
+import {
+  NavController,
+  AlertController,
+  LoadingController,
+  ModalController,
+} from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-bu-courses',
@@ -14,52 +20,50 @@ import { GlobalApiService } from 'src/app/services/global-api.service';
   styleUrls: ['./bu-courses.component.scss'],
 })
 export class BuCoursesComponent implements OnInit {
-
-
   data: any;
-  displayedColumns = ['sNo', 'courseName', 'courseShortName', 'categoryName', 'Action'];
+  displayedColumns = [
+    'sNo',
+    'courseName',
+    'courseShortName',
+    'categoryName',
+    'Action',
+  ];
   coursesList = [];
   courseFilter = [
     { value: 'all', viewValue: 'All' },
     { value: 'assigned', viewValue: 'Assigned' },
-    { value: 'not_assigned', viewValue: 'Unassigned' }
+    { value: 'not_assigned', viewValue: 'Unassigned' },
   ];
   selectedFilter: any;
   buid: any;
 
-
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-
   constructor(
     private service: GlobalApiService,
+private loader: LoaderService,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
     private router: ActivatedRoute,
     private modalController: ModalController,
-    private navCtrl: NavController) {
-
-    this.router.queryParams.subscribe(
-      params => {
-        if (params.id) {
-          this.buid = params.id;
-          this.selectedFilter = 'all';
-          this.viewCourses(this.buid);
-        }
+    private navCtrl: NavController
+  ) {
+    this.router.queryParams.subscribe((params) => {
+      if (params.id) {
+        this.buid = params.id;
+        this.selectedFilter = 'all';
+        this.viewCourses(this.buid);
       }
-    );
-
+    });
   }
 
-  ngOnInit() { }
-
+  ngOnInit() {}
 
   viewCourses(buid: any) {
-
-    this.showLoader('Loading Courses...Please wait...');
-
+    const msg = 'Loading Courses...<br>Please wait';
+    this.loader.showAutoHideLoader(msg);
     this.coursesList = [];
 
     const data = new FormData();
@@ -67,7 +71,7 @@ export class BuCoursesComponent implements OnInit {
     data.append('assign_status', this.selectedFilter);
 
     this.service.bu_courses(data).subscribe(
-      res => {
+      (res) => {
         res.Data.forEach((element: any) => {
           const course = {
             sl_no: element.sl_no,
@@ -81,11 +85,11 @@ export class BuCoursesComponent implements OnInit {
           this.coursesList.push(course);
         });
         this.applyFilter('');
-        this.hideLoader();
-      }, err => {
+      },
+      (err) => {
         console.log(err);
-        this.hideLoader();
-      });
+      }
+    );
 
     this.dataSource = new MatTableDataSource<any>(this.coursesList);
     this.dataSource.paginator = this.paginator;
@@ -99,61 +103,45 @@ export class BuCoursesComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController.create({
-      message: msg,
-    }).then((res) => {
-      res.present();
-    });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController.dismiss().then((res) => {
-    }).catch((error) => {
-    });
-  }
-
 
   unassignCourse(cid: any) {
-
-    this.showLoader('Processing Request..');
+    const msg = 'Processing Request..';
+    this.loader.showAutoHideLoader(msg);
 
     const data = new FormData();
     data.append('bu_id', this.buid);
     data.append('course_id', cid);
 
     this.service.remove_course_from_bu(data).subscribe(
-      res => {
-        const msg = 'Course Unassigned Successfully';
-        this.showAlert(msg, this.buid);
-        this.hideLoader();
-      }, err => {
+      (res) => {
+        const m = 'Course Unassigned Successfully';
+        this.showAlert(m, this.buid);
+      },
+      (err) => {
         console.log(err);
-        this.hideLoader();
-      });
+      }
+    );
   }
 
   async assignCourse(cid: any) {
-    this.showLoader('Processing Request..');
+    const msg = 'Processing Request..';
+    this.loader.showAutoHideLoader(msg);
     const data = new FormData();
     data.append('bu_id', this.buid);
     data.append('course_id', cid);
     data.append('userId', localStorage.getItem('user_id'));
 
-
     this.service.add_course_to_BU(data).subscribe(
-      res => {
+      (res) => {
         if (res.Data.buc_id) {
-          const msg = 'Course Assigned Successfully';
-          this.showAlert(msg, this.buid);
-          this.hideLoader();
+          const m = 'Course Assigned Successfully';
+          this.showAlert(m, this.buid);
         }
-      }, err => {
+      },
+      (err) => {
         console.log(err);
-        this.hideLoader();
-      });
+      }
+    );
   }
 
   async closeModal() {
@@ -164,12 +152,14 @@ export class BuCoursesComponent implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Status',
       message: msg,
-      buttons: [{
-        text: 'OK',
-        handler: () => {
-          this.viewCourses(buid);
-        }
-      },]
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.viewCourses(buid);
+          },
+        },
+      ],
     });
     await alert.present();
     await alert.onDidDismiss();
@@ -186,4 +176,3 @@ export class BuCoursesComponent implements OnInit {
     }
   }
 }
-

@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/quotes */
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   MenuController,
@@ -38,6 +39,7 @@ export class PointsDetailingReportComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+private loader: LoaderService,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
@@ -57,7 +59,8 @@ export class PointsDetailingReportComponent implements OnInit {
   ngOnInit() {}
 
   ViewUserCourses(uid: any) {
-    this.showLoader('Loading  Points Detail...<br>Please wait...');
+    const msg = 'Loading  Points Detail...<br>Please wait...';
+    this.loader.showAutoHideLoader(msg);
 
     this.coursesList = [];
 
@@ -82,11 +85,9 @@ export class PointsDetailingReportComponent implements OnInit {
         });
       }
         this.applyFilter('');
-        this.hideLoader();
       },
       (err) => {
         console.log(err);
-        this.hideLoader();
       }
     );
 
@@ -100,25 +101,6 @@ export class PointsDetailingReportComponent implements OnInit {
 
   ionViewDidEnter() {
     this.dataSource.paginator = this.paginator;
-  }
-
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController
-      .create({
-        message: msg,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
   }
 
   async closeModal() {

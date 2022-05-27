@@ -1,3 +1,4 @@
+import { LoaderService } from './../services/loader.service';
 import { PointsDetailingReportComponent } from './reports/points-detailing-report/points-detailing-report.component';
 import { PointsReportComponent } from './reports/points-report/points-report.component';
 import { PointsComponent } from './learnerWidgets/points/points.component';
@@ -142,7 +143,7 @@ import { NgxMaterialRatingModule } from 'ngx-material-rating';
     PointsReportComponent,
     PointsDetailingReportComponent
   ],
-  providers: [GlobalApiService, HttpClient, Storage],
+  providers: [GlobalApiService, HttpClient, Storage,LoaderService],
 })
 export class HomePageModule {}
 

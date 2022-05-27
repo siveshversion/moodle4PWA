@@ -1,4 +1,5 @@
-import { GlobalApiService } from './../../../services/global-api.service';
+import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,6 +19,7 @@ export class MyCourseStatsComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+private loader: LoaderService,
     private navCtrl: NavController,
     public loadingController: LoadingController,
     private router: ActivatedRoute,

@@ -12,6 +12,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-course-reports',
@@ -35,6 +36,7 @@ export class CourseReportsComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
@@ -51,8 +53,8 @@ export class CourseReportsComponent implements OnInit {
   ngOnInit() {}
 
   courseReportList() {
-    this.showLoader('Loading course report <br> Please wait...');
-
+    const msg = 'Loading course report <br> Please wait...';
+    this.loader.showAutoHideLoader(msg);
     this.coursesList = [];
 
     const data = new FormData();
@@ -73,11 +75,9 @@ export class CourseReportsComponent implements OnInit {
           this.coursesList.push(course);
         });
         this.applyFilter('');
-        this.hideLoader();
       },
       (err) => {
         console.log(err);
-        this.hideLoader();
       }
     );
 
@@ -93,28 +93,14 @@ export class CourseReportsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController
-      .create({
-        message: msg,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
-  }
-
   navMenu(action: any, courseId: any, optionalparam: string) {
     if (action === 'course-detailing') {
-      this.navCtrl.navigateForward('home/reports/course-detailed-report?cid=' + courseId+ '&type='+ optionalparam);
+      this.navCtrl.navigateForward(
+        'home/reports/course-detailed-report?cid=' +
+          courseId +
+          '&type=' +
+          optionalparam
+      );
     } else if (action === 'course-summary') {
       this.navCtrl.navigateForward('home/coursesummary?cid=' + courseId);
     }

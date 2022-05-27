@@ -12,13 +12,13 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
 } from '@angular/forms';
-
 
 @Component({
   selector: 'app-user-detailed-report',
@@ -44,6 +44,7 @@ export class UserDetailedReportComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
@@ -65,7 +66,8 @@ export class UserDetailedReportComponent implements OnInit {
   ngOnInit() {}
 
   ViewUserCourses(uid: any, filterVal: any) {
-    this.showLoader('Loading User\'s Course Details...Please wait...');
+    const msg = 'Loading User\'s Course Details...Please wait...';
+    this.loader.showAutoHideLoader(msg);
 
     this.coursesList = [];
 
@@ -84,16 +86,14 @@ export class UserDetailedReportComponent implements OnInit {
             course_name: element.course_name,
             course_id: element.course_id,
             enrolled_on: element.enrolled_on,
-            last_access: element.last_access
+            last_access: element.last_access,
           };
           this.coursesList.push(user);
         });
         this.applyFilter('');
-        this.hideLoader();
       },
       (err) => {
         console.log(err);
-        this.hideLoader();
       }
     );
 
@@ -109,24 +109,6 @@ export class UserDetailedReportComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController
-      .create({
-        message: msg,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
-  }
 
   async closeModal() {
     await this.modalController.dismiss();
@@ -152,6 +134,4 @@ export class UserDetailedReportComponent implements OnInit {
   selectFilter(value: any) {
     this.ViewUserCourses(this.userId, value);
   }
-
-
 }

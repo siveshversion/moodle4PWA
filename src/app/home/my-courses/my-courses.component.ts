@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { GlobalApiService } from './../../services/global-api.service';
+import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import {
   Component,
   OnInit,
@@ -96,6 +97,7 @@ export class MyCoursesComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     private route: Router,
     public loadingController: LoadingController,
     private router: ActivatedRoute,
@@ -141,7 +143,8 @@ export class MyCoursesComponent implements OnInit {
   }
 
   loadCourse(filtertype: string) {
-    this.showLoader_1();
+    const msg = 'Loading, Please Wait ...';
+    this.loader.showAutoHideLoader(msg);
     const data = new FormData();
     data.append('userid', localStorage.getItem('user_id'));
     data.append('selected_filter', filtertype);
@@ -203,16 +206,6 @@ export class MyCoursesComponent implements OnInit {
       .dismiss()
       .then((res) => {})
       .catch((error) => {});
-  }
-
-  showLoader_1() {
-    this.loadingController
-      .create({
-        message: 'Loading, Please Wait ...',
-      })
-      .then((res) => {
-        res.present();
-      });
   }
 
   onScrollDown() {

@@ -2,7 +2,8 @@
 /* eslint-disable @typescript-eslint/dot-notation */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { GlobalApiService } from './../../../services/global-api.service';
+import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertController, LoadingController } from '@ionic/angular';
@@ -48,6 +49,7 @@ export class AddUsersComponent implements OnInit {
     private route: ActivatedRoute,
     public alertCtrl: AlertController,
     private service: GlobalApiService,
+    private loader: LoaderService,
     private loadingController: LoadingController
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -194,28 +196,25 @@ export class AddUsersComponent implements OnInit {
     if (this.update_flag === true) {
       formData.append('user_id', this.param_userId);
       msg = 'Updating User Please Wait....';
-      this.showLoader(msg);
+      this.loader.showAutoHideLoader(msg);
       this.service.update_user(formData).subscribe(
         (response) => {
           if (response.Data) {
-            this.hideLoader();
             msg = 'User Updated Successfully';
             this.showAlert(msg);
           }
         },
         (err) => {
-          this.hideLoader();
           console.log(err);
         }
       );
     } else {
       msg = 'Creating User Please wait...';
-      this.showLoader(msg);
+      this.loader.showAutoHideLoader(msg);
       this.service.add_new_user(formData).subscribe(
         (response) => {
           if (response.Data) {
             console.log(response);
-            this.hideLoader();
             msg = 'User Created Successfully';
             formData = new FormData();
             formData.append('role', 'Student');
@@ -246,35 +245,14 @@ export class AddUsersComponent implements OnInit {
               this.userCreateForm.get('country').value
             );
             formData.append('bu_id', this.userCreateForm.get('bu').value);
-            this.hideLoader();
             this.showAlert(msg);
           }
         },
         (err) => {
-          this.hideLoader();
           console.log(err);
         }
       );
     }
-  }
-
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController
-      .create({
-        message: msg,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
   }
 
   async showAlert(msg) {

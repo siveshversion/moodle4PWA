@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable eqeqeq */
-import { GlobalApiService } from './../../services/global-api.service';
+import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
+
 import {
   Component,
   HostListener,
@@ -89,8 +91,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     private navCtrl: NavController,
-    public loadingController: LoadingController,
     private route: Router,
     private router: ActivatedRoute,
     private translateService: TranslateService
@@ -135,7 +137,8 @@ export class DashboardComponent implements OnInit {
   }
 
   loadBU() {
-    this.showLoader_1();
+    const msg = 'Loading, Please Wait ...';
+    this.loader.showAutoHideLoader(msg);
     const data = new FormData();
     data.append('userid', localStorage.getItem('user_id'));
 
@@ -144,7 +147,6 @@ export class DashboardComponent implements OnInit {
         this.bus = res.Data;
         console.log(JSON.stringify(this.bus));
         this.busDummy = this.bus;
-        this.hideLoader_1();
       },
       (err) => {
         console.log(err);
@@ -153,7 +155,8 @@ export class DashboardComponent implements OnInit {
   }
 
   loadLP() {
-    this.showLoader_1();
+    const msg = 'Loading, Please Wait ...';
+    this.loader.showAutoHideLoader(msg);
     const data = new FormData();
     data.append('userid', localStorage.getItem('user_id'));
 
@@ -162,7 +165,6 @@ export class DashboardComponent implements OnInit {
         this.lps = res.Data;
         console.log(JSON.stringify(this.lps));
         this.lpsDummy = this.lps;
-        this.hideLoader_1();
       },
       (err) => {
         console.log(err);
@@ -239,23 +241,6 @@ export class DashboardComponent implements OnInit {
       }
       i++;
     });
-  }
-
-  showLoader_1() {
-    this.loadingController
-      .create({
-        message: 'Loading, Please Wait ...',
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  hideLoader_1() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
   }
 
   getCerts() {

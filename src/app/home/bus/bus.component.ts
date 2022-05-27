@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/quotes */
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   MenuController,
@@ -30,13 +31,14 @@ export class BUsComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
     private router: Router,
     private navCtrl: NavController
   ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
     };
 
@@ -55,7 +57,8 @@ export class BUsComponent implements OnInit {
   ngOnInit() {}
 
   buList() {
-    this.showLoader('Loading BU list...<br> Please wait...');
+    const msg = 'Loading BU list...<br> Please wait...';
+    this.loader.showAutoHideLoader(msg);
 
     this.busList = [];
 
@@ -74,11 +77,9 @@ export class BUsComponent implements OnInit {
           this.busList.push(bu);
         });
         this.applyFilter('');
-        this.hideLoader();
       },
       (err) => {
         console.log(err);
-        this.hideLoader();
       }
     );
 
@@ -87,20 +88,19 @@ export class BUsComponent implements OnInit {
   }
 
   delete(bu_id: any) {
-    this.showLoader('Processing Request...');
+    let msg = 'Processing Request..';
+    this.loader.showAutoHideLoader(msg);
     const formData = new FormData();
     formData.append('bu_id', bu_id);
     this.service.delete_BU(formData).subscribe(
       (response) => {
         if (response.Data) {
-          this.hideLoader();
-          const msg = 'BU Deleted successfully';
+          msg = 'BU Deleted successfully';
           this.showAlert(msg);
         }
       },
       (err) => {
         console.log(err);
-        this.hideLoader();
       }
     );
   }
@@ -130,24 +130,6 @@ export class BUsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController
-      .create({
-        message: msg,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
-  }
 
   navMenu(action: any, buId: any) {
     if (action === 'edit') {

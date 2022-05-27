@@ -12,6 +12,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import {
   FormBuilder,
   FormControl,
@@ -44,6 +45,7 @@ export class CourseDetailedReportComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
@@ -70,7 +72,8 @@ export class CourseDetailedReportComponent implements OnInit {
   }
 
   viewCourseMembers(cid: any, filterVal: any) {
-    this.showLoader('Loading Users...Please wait...');
+    const msg = 'Loading Users...Please wait...';
+    this.loader.showAutoHideLoader(msg);
 
     this.coursesList = [];
 
@@ -91,16 +94,14 @@ export class CourseDetailedReportComponent implements OnInit {
             user_id: element.user_id,
             course_id: cid,
             enrolled: element.enrolled,
-            bu_name: element.bu_name
+            bu_name: element.bu_name,
           };
           this.coursesList.push(course);
         });
         this.applyFilter('');
-        this.hideLoader();
       },
       (err) => {
         console.log(err);
-        this.hideLoader();
       }
     );
 
@@ -114,25 +115,6 @@ export class CourseDetailedReportComponent implements OnInit {
 
   ionViewDidEnter() {
     this.dataSource.paginator = this.paginator;
-  }
-
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController
-      .create({
-        message: msg,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
   }
 
   async closeModal() {

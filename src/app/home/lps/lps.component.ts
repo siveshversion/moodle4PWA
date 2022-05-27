@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   MenuController,
@@ -36,6 +37,7 @@ export class LPsComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
@@ -59,7 +61,8 @@ export class LPsComponent implements OnInit {
   ngOnInit() {}
 
   lpList() {
-    this.showLoader('Loading LP list...<br> Please wait...');
+    const msg = 'Loading LP list...<br> Please wait...';
+    this.loader.showAutoHideLoader(msg);
 
     this.lpsList = [];
 
@@ -82,11 +85,9 @@ export class LPsComponent implements OnInit {
           this.lpsList.push(lp);
         });
         this.applyFilter('');
-        this.hideLoader();
       },
       (err) => {
         console.log(err);
-        this.hideLoader();
       }
     );
 
@@ -100,25 +101,6 @@ export class LPsComponent implements OnInit {
 
   ionViewDidEnter() {
     this.dataSource.paginator = this.paginator;
-  }
-
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController
-      .create({
-        message: msg,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
   }
 
   navMenu(action: any, lpId: any) {

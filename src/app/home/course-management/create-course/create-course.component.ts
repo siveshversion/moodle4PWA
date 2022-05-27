@@ -1,6 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { GlobalApiService } from './../../../services/global-api.service';
+import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -52,6 +53,7 @@ export class CreateCourseComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -107,7 +109,6 @@ export class CreateCourseComponent implements OnInit {
   }
 
   setEditFields() {
-    //this.showLoader('Loading Course form data...');
     const formData = new FormData();
     formData.append('course_id', this.courseId);
 
@@ -129,15 +130,13 @@ export class CreateCourseComponent implements OnInit {
           durationHrs: response.Data.duration_hrs,
           durationMins: response.Data.duration_mins,
         });
-
-        this.hideLoader();
       }
     });
   }
 
   setCatField() {
-
-    this.showLoader('Allotting Category');
+    const msg = 'Allotting Category';
+    this.loader.showAutoHideLoader(msg);
     const formData = new FormData();
     formData.append('userId', localStorage.getItem('user_id'));
 
@@ -155,7 +154,6 @@ export class CreateCourseComponent implements OnInit {
           }
         });
         this.setCategoryField(this.cat_id);
-        this.hideLoader();
       },
       (err) => {
         console.log(err);
@@ -180,25 +178,6 @@ export class CreateCourseComponent implements OnInit {
 
   hasError(controlName: string, validation: string) {
     return this.courseForm.get(controlName).hasError(validation);
-  }
-
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController
-      .create({
-        message: msg,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
   }
 
   async showAlert(msg) {
@@ -290,20 +269,17 @@ export class CreateCourseComponent implements OnInit {
 
   save(formData) {
     let msg: string;
-
     msg = 'Creating Course Please Wait....';
-    this.showLoader(msg);
+    this.loader.showAutoHideLoader(msg);
     this.service.create_course(formData).subscribe(
       (response) => {
         if (response.Data.id) {
-          this.hideLoader();
           console.log(JSON.stringify(response.Data));
           msg = 'Course Created Successfully';
           this.showAlert(msg);
         }
       },
       (err) => {
-        this.hideLoader();
         console.log(err);
       }
     );
@@ -312,21 +288,17 @@ export class CreateCourseComponent implements OnInit {
   update(formData) {
     formData.append('course_id', this.courseId);
     formData.append('old_enroll_id', this.old_enroll_id);
-
     let msg: string;
-
     msg = 'Updating Course Please Wait....';
-    this.showLoader(msg);
+    this.loader.showAutoHideLoader(msg);
     this.service.update_course(formData).subscribe(
       (response) => {
         if (response) {
-          this.hideLoader();
           msg = 'Course Updated Successfully';
           this.showAlert(msg);
         }
       },
       (err) => {
-        this.hideLoader();
         console.log(err);
       }
     );

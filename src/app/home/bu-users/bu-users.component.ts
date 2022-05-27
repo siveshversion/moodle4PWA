@@ -16,6 +16,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-bu-users',
@@ -40,6 +41,7 @@ export class BuUsersComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
@@ -61,18 +63,17 @@ export class BuUsersComponent implements OnInit {
 
   setBUTitle(buId: any) {
     const formData = new FormData();
-    formData.append("bu_id", buId);
+    formData.append('bu_id', buId);
     this.service.get_bu_by_id(formData).subscribe((response) => {
       if (response) {
-          this.buName = response.Data.buname;
+        this.buName = response.Data.buname;
       }
     });
   }
 
-
   viewBUCourseMembers(buId: any) {
-    this.showLoader('Loading Managers...Please wait...');
-
+    const msg = 'Loading Managers...Please wait...';
+    this.loader.showAutoHideLoader(msg);
     this.coursesList = [];
 
     const data = new FormData();
@@ -94,11 +95,9 @@ export class BuUsersComponent implements OnInit {
           this.coursesList.push(course);
         });
         this.applyFilter('');
-        this.hideLoader();
       },
       (err) => {
         console.log(err);
-        this.hideLoader();
       }
     );
 
@@ -114,27 +113,9 @@ export class BuUsersComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  // Show the loader for infinite time
-  showLoader(msg: any) {
-    this.loadingController
-      .create({
-        message: msg,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
-  }
-
   async unassignManager(uid: any, buId: any) {
-    this.showLoader('Processing Request..');
+    let msg = 'Processing Request..';
+    this.loader.showAutoHideLoader(msg);
 
     const data = new FormData();
     data.append('bu_id', buId);
@@ -143,19 +124,18 @@ export class BuUsersComponent implements OnInit {
 
     this.service.unassign_BU_manager(data).subscribe(
       (res) => {
-        const msg = 'Manager Unassigned Successfully';
+        msg = 'Manager Unassigned Successfully';
         this.showAlert(msg, buId);
-        this.hideLoader();
       },
       (err) => {
         console.log(err);
-        this.hideLoader();
       }
     );
   }
 
   async assignManager(uid: any, buId: any) {
-    this.showLoader('Processing Request..');
+    let msg = 'Processing Request..';
+    this.loader.showAutoHideLoader(msg);
     const data = new FormData();
     data.append('bu_id', buId);
     data.append('user_id', uid);
@@ -164,14 +144,12 @@ export class BuUsersComponent implements OnInit {
     this.service.assign_BU_manager(data).subscribe(
       (res) => {
         if (res.Data.status) {
-          const msg = 'Manager Assigned Successfully';
+          msg = 'Manager Assigned Successfully';
           this.showAlert(msg, buId);
-          this.hideLoader();
         }
       },
       (err) => {
         console.log(err);
-        this.hideLoader();
       }
     );
   }

@@ -1,3 +1,4 @@
+import { LoaderService } from './../services/loader.service';
 /* eslint-disable eqeqeq */
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -39,6 +40,7 @@ export class HomePage {
     private acroute: ActivatedRoute,
     public alertCtrl: AlertController,
     private service: GlobalApiService,
+    private loader: LoaderService,
     private sanitizer: DomSanitizer,
     private translateService: TranslateService,
     private elRef: ElementRef

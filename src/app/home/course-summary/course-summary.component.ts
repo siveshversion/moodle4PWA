@@ -6,6 +6,7 @@ import { LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder } from '@angular/forms';
 import { GlobalApiService } from 'src/app/services/global-api.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-course-summary',
@@ -31,6 +32,7 @@ export class CourseSummaryComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
+    private loader: LoaderService,
     private sanitizer: DomSanitizer,
     private router: ActivatedRoute,
     public loadingController: LoadingController,
@@ -40,7 +42,8 @@ export class CourseSummaryComponent implements OnInit {
   ) {
     this.translateService.setDefaultLang('en');
     this.router.queryParams.subscribe((params) => {
-      this.showLoader();
+      const msg = 'Loading course summary...';
+      this.loader.showAutoHideLoader(msg);
       this.courseId = params.cid;
       this.get_enrolled_course_details();
       this.get_enrolled_course_contents();
@@ -59,8 +62,6 @@ export class CourseSummaryComponent implements OnInit {
         this.details = res.Data;
         // alert(localStorage.getItem('user_key'));
         //console.log(JSON.stringify(this.details));
-
-        this.hideLoader();
       },
       (err) => {
         console.log(err);
@@ -85,31 +86,7 @@ export class CourseSummaryComponent implements OnInit {
     );
   }
 
-  // Show the loader for infinite time
-  showLoader() {
-    this.translateService.get('loading').subscribe((loading_res: string) => {
-      this.loading_text = loading_res;
-    });
-    this.loadingController
-      .create({
-        message: this.loading_text,
-      })
-      .then((res) => {
-        res.present();
-      });
-  }
-
-  // Hide the loader if already created otherwise return error
-  hideLoader() {
-    this.loadingController
-      .dismiss()
-      .then((res) => {})
-      .catch((error) => {});
-  }
-
-  goToCourse(courseid) {
-
-  }
+  goToCourse(courseid) {}
 
   navmenu(url: string) {
     if (url === 'rating-summary') {
