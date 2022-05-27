@@ -6,12 +6,15 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import {
+  AlertController,
+  LoadingController,
+  NavController,
+} from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { NavigationEnd, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
-
 
 export interface Users {
   id: any;
@@ -26,23 +29,33 @@ export interface Users {
   templateUrl: './manage-users.component.html',
   styleUrls: ['./manage-users.component.scss'],
 })
-
 export class ManageUsersComponent implements OnInit {
-
   userList = [];
   users: any = [];
   data: any;
 
   dataSource: any;
-  displayedColumns = ['UserId', 'FirstName', 'LastName','BuName', 'DateofCreation', 'LastAccess', 'Action'];
+  displayedColumns = [
+    'UserId',
+    'FirstName',
+    'LastName',
+    'BuName',
+    'DateofCreation',
+    'LastAccess',
+    'Action',
+  ];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
-  constructor(private service: GlobalApiService,
-private loader: LoaderService, public alertCtrl: AlertController,
+  constructor(
+    private service: GlobalApiService,
+    private loader: LoaderService,
+    public alertCtrl: AlertController,
     public loadingController: LoadingController,
-    private http: HttpClient, private route: Router,
+    private http: HttpClient,
+    private route: Router,
     private navCtrl: NavController,
-    private translateService: TranslateService) {
+    private translateService: TranslateService
+  ) {
     this.translateService.setDefaultLang('en');
     this.route.routeReuseStrategy.shouldReuseRoute = () => false;
 
@@ -58,7 +71,7 @@ private loader: LoaderService, public alertCtrl: AlertController,
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   getUserList() {
     const msg = 'Loading User list...<br> Please wait...';
@@ -71,15 +84,14 @@ private loader: LoaderService, public alertCtrl: AlertController,
     data.append('wstoken', environment.MOODLE_TOKEN);
 
     this.service.mod_get_user_list(data).subscribe(
-      res => {
+      (res) => {
         this.users = res.Data;
         this.users.forEach((element: any) => {
           const suspended = element.suspended;
           if (suspended == '0') {
             ToggleIcon = 'person';
             ToggleTitle = 'suspend';
-          }
-          else if (suspended == '1') {
+          } else if (suspended == '1') {
             ToggleIcon = 'person_off';
             ToggleTitle = 'activate';
           }
@@ -93,83 +105,88 @@ private loader: LoaderService, public alertCtrl: AlertController,
             lastaccess: element.lastaccess,
             suspended: element.suspended,
             toggleIcon: ToggleIcon,
-            toggleTitle: ToggleTitle
+            toggleTitle: ToggleTitle,
           };
           this.userList.push(stud);
         });
         this.applyFilter('');
-      }, err => {
+      },
+      (err) => {
         console.log(err);
-      });
+      }
+    );
 
     this.dataSource = new MatTableDataSource<any>(this.userList);
     this.dataSource.paginator = this.paginator;
   }
 
-
   applyFilter(filterValue: any) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-
   navMenu(routeName: string, user_id: number) {
     if (routeName === 'users') {
       this.navCtrl.navigateForward('/home/users');
-    }
-    else if (routeName === 'user-registration') {
-      this.navCtrl.navigateForward('/home/usercreation', { queryParams: { id: user_id } });
-
+    } else if (routeName === 'user-registration') {
+      this.navCtrl.navigateForward('/home/usercreation', {
+        queryParams: { id: user_id },
+      });
     }
   }
-
 
   suspend(userid: any, mode: any) {
-    const msg = 'Processing Request...';
+    let msg = 'Processing Request...';
     this.loader.showAutoHideLoader(msg);
     const formData = new FormData();
-    mode = (mode == '1') ? '0' : '1';
-    const status = (mode == '0') ? ' Activated ' : ' Suspended ';
+    mode = mode == '1' ? '0' : '1';
+    const status = mode == '0' ? ' Activated ' : ' Suspended ';
     formData.append('user_id', userid);
     formData.append('mode', mode);
-    this.service.mod_suspend_user(formData).subscribe((response) => {
-      if (response) {
-        const msg = 'User' + status + 'Successfully';
-        this.showAlert(msg);
+    this.service.mod_suspend_user(formData).subscribe(
+      (response) => {
+        if (response) {
+          msg = 'User' + status + 'Successfully';
+          this.showAlert(msg);
+        }
+      },
+      (err) => {
+        console.log(err);
       }
-    }, err => {
-      console.log(err);
-    });
+    );
   }
-
 
   delete(userid: any) {
     let msg = 'Processing Request...';
     this.loader.showAutoHideLoader(msg);
     const formData = new FormData();
     formData.append('user_id', userid);
-    this.service.mod_delete_user(formData).subscribe((response) => {
-      if (response.Data) {
-        msg = 'User Deleted successfully';
-        this.showAlert(msg);
+    this.service.mod_delete_user(formData).subscribe(
+      (response) => {
+        if (response.Data) {
+          msg = 'User Deleted successfully';
+          this.showAlert(msg);
+        }
+      },
+      (err) => {
+        console.log(err);
       }
-    }, err => {
-      console.log(err);
-    });
+    );
   }
 
   async showAlert(msg: string) {
     const alert = await this.alertCtrl.create({
       header: 'Status',
       message: msg,
-      buttons: [{
-        text: 'OK',
-        handler: () => {
-          this.getUserList();
-        }
-      },]
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.getUserList();
+          },
+        },
+      ],
     });
     await alert.present();
     await alert.onDidDismiss();
   }
-
 }

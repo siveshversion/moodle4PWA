@@ -28,7 +28,7 @@ export class CourseDetailsComponent implements OnInit {
 
   constructor(
     private service: GlobalApiService,
-private loader: LoaderService,
+    private loader: LoaderService,
     private router: ActivatedRoute,
     private sanitizer: DomSanitizer,
     public loadingController: LoadingController,
@@ -68,7 +68,6 @@ private loader: LoaderService,
     // this.redirectUrl =  url;
     this.isRedirect = true;
   }
-
 
   frameUpdate(event: any) {
     // document.querySelector('iframe').contentDocument.body.querySelector('nav').style.display='none';
