@@ -13,7 +13,7 @@
           <hr>
           <ion-row class="ion-padding-top">
             <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
-              <ion-label class="lc-label-align">{{'lp_name' | translate }}</ion-label>
+              <ion-label class="lc-label-align">{{'bu_name' | translate }}</ion-label>
               <ion-item lines="none" color="none">
                 <ion-input class="lc-input" (ionChange)="buNameRegistryCheck($event.target)" formControlName="buName"
                   type="text">
@@ -24,7 +24,7 @@
                 <ion-text *ngIf="hasError('buName','required')">{{'this_field_is_required' | translate }}</ion-text>
               </ion-text>
               <ion-text color="danger" class="lc-error" *ngIf="buNameConflict">
-                <ion-text *ngIf="buNameConflict">LP name already taken</ion-text>
+                <ion-text *ngIf="buNameConflict">BU name already taken</ion-text>
               </ion-text>
             </ion-col>
           </ion-row>
