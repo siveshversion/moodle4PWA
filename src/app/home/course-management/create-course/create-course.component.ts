@@ -145,13 +145,11 @@ export class CreateCourseComponent implements OnInit {
     this.service.category_list(formData).subscribe(
       (res) => {
         res.Data.forEach((elem: any) => {
-          if (this.cat_id == elem.category_id) {
-            const cat_data = {
-              value: elem.category_id,
-              viewValue: elem.category_name,
-            };
-            this.categories.push(cat_data);
-          }
+          const cat_data = {
+            value: elem.category_id,
+            viewValue: elem.category_name,
+          };
+          this.categories.push(cat_data);
         });
         this.setCategoryField(this.cat_id);
       },
