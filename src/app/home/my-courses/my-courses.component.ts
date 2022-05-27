@@ -67,8 +67,8 @@ export class MyCoursesComponent implements OnInit {
     margin: 25,
     nav: true,
     navText: [
-      "<div class='nav-btn prev-slide'></div>",
-      "<div class='nav-btn next-slide'></div>",
+      '<div class=\'nav-btn prev-slide\'></div>',
+      '<div class=\'nav-btn next-slide\'></div>',
     ],
     responsiveClass: true,
     responsive: {
@@ -184,9 +184,9 @@ export class MyCoursesComponent implements OnInit {
     });
   }
 
-  search(value: any): void {
+  search(target: any): void {
     this.courses = this.coursesDummy.filter(
-      (item) => item.fullname.search(new RegExp(value, 'i')) > -1
+      (item) => item.fullname.search(new RegExp(target.value, 'i')) > -1
     );
     //console.log(JSON.stringify(this.courses));
   }
@@ -249,8 +249,10 @@ export class MyCoursesComponent implements OnInit {
 
   setFilter(value: string) {
     const index = this.enrollStatFilter.findIndex((p) => p.value === value);
-    this.filterForm.controls.filter.setValue(
-      this.enrollStatFilter[index].value
-    );
+    if (this.enrollStatFilter) {
+      this.filterForm.controls.filter.setValue(
+        this.enrollStatFilter[index].value
+      );
+    }
   }
 }

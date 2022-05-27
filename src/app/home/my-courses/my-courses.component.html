@@ -17,7 +17,7 @@
     <div class="search">
       <input type="text" class="searchTerm"
         style="background: url(./assets/icon/search.png) no-repeat;background-position: 3px 6px;"
-        placeholder="{{'search' | translate }}..." (input)="search($event.target.value)">
+        placeholder="{{'search' | translate }}..." (input)="search($event.target)">
     </div>
     <ion-card-content>
       <ion-label>{{'no_courses_to_view' | translate }}</ion-label>
@@ -41,7 +41,7 @@
     <div class="search" *ngIf="coursesDummy.length > 0">
       <input type="text" class="searchTerm"
         style="background: url(./assets/icon/search.png) no-repeat;background-position: 3px 6px;"
-        placeholder="{{'search' | translate }}..." (input)="search($event.target.value)">
+        placeholder="{{'search' | translate }}..." (input)="search($event.target)">
     </div>
     <ion-card-content>
 
