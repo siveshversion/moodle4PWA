@@ -11,7 +11,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { element } from 'protractor';
 
 @Component({
   selector: 'app-create-course',
@@ -60,14 +59,18 @@ export class CreateCourseComponent implements OnInit {
     public loadingController: LoadingController
   ) {
     this.setformValidators();
-    this.getCategories();
     this.route.queryParams.subscribe((params) => {
       if (params.cid && params.cat) {
         this.courseId = params.cid;
         this.cat_id = Number(params.cat);
+        this.getCategories();
         this.setformFields('update');
+      } else if (params.cat) {
+        this.cat_id = Number(params.cat);
+        this.setformFields('setCategory');
       } else {
         this.courseForm.reset();
+        this.getCategories();
         this.setformFields('default');
       }
     });
@@ -95,6 +98,11 @@ export class CreateCourseComponent implements OnInit {
       this.subtitle = 'update_course';
       this.btnName = 'update';
       this.setEditFields();
+    } else if (data === 'setCategory') {
+      this.title = 'Course Creation';
+      this.subtitle = 'add_new_course';
+      this.btnName = 'save';
+      this.setCatField();
     }
   }
 
@@ -116,17 +124,43 @@ export class CreateCourseComponent implements OnInit {
           courseDescription: response.Data.description,
           topicCnt: response.Data.topics_cnt,
           enrollmentType: enrolled_type,
-          points : response.Data.points,
-          courseType : response.Data.course_type,
-          durationHrs : response.Data.duration_hrs,
-          durationMins : response.Data.duration_mins,
-
-
+          points: response.Data.points,
+          courseType: response.Data.course_type,
+          durationHrs: response.Data.duration_hrs,
+          durationMins: response.Data.duration_mins,
         });
 
         this.hideLoader();
       }
     });
+  }
+
+  setCatField() {
+
+    this.showLoader('Allotting Category');
+    const formData = new FormData();
+    formData.append('userId', localStorage.getItem('user_id'));
+
+    this.categories = [];
+
+    this.service.category_list(formData).subscribe(
+      (res) => {
+        res.Data.forEach((elem: any) => {
+          if (this.cat_id == elem.category_id) {
+            const cat_data = {
+              value: elem.category_id,
+              viewValue: elem.category_name,
+            };
+            this.categories.push(cat_data);
+          }
+        });
+        this.setCategoryField(this.cat_id);
+        this.hideLoader();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   setformValidators() {
