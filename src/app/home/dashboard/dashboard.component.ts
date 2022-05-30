@@ -243,29 +243,16 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getCerts() {
-    return null;
-  }
 
-  getBadges() {
-    return null;
-  }
-
-  getPoints() {
-    return null;
-  }
 
   toggleTab(flag: any) {
     const index = this.tabOutlet.findIndex((x) => x.tabName === flag);
     if (flag === 'certs') {
       this.activeState(index);
-      this.getCerts();
     } else if (flag === 'badges') {
       this.activeState(index);
-      this.getBadges();
     } else if (flag === 'points') {
       this.activeState(index);
-      this.getPoints();
     }
   }
 

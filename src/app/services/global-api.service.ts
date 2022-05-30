@@ -345,6 +345,10 @@ export class GlobalApiService {
   user_point_filtered_courses(data: any): Observable<any> {
     return this.http.post(this.base_url+'?methodname=getPointsDetailReport', data);
   }
+
+  get_leaderboard_points(data: any): Observable<any> {
+    return this.http.post(this.base_url+'?methodname=getLeaderboardPoints', data);
+  }
 }
 
 
