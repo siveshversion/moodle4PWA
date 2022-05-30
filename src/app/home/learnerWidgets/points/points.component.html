@@ -2,12 +2,7 @@
   <p class="label" *ngIf="loading">
     <ion-spinner name="circles" class="spinners"></ion-spinner> Loading
   </p>
-  <p class="label" *ngIf="isEmpty">
-    No points record found
-  </p>
-</ion-item>
-
-<ion-item>
+  <p class="label" *ngIf="isEmpty">No points record found</p>
   <span class="avatar" *ngFor="let user of users">
     <ion-avatar class="lc-avatar">
       <ion-img [src]="user.profilepic |fixUrl" class="lc-profile-img"></ion-img>
