@@ -3,11 +3,14 @@
     <ion-spinner name="circles" class="spinners"></ion-spinner> Loading
   </p>
   <p class="label" *ngIf="isEmpty">No points record found</p>
-  <span class="avatar" *ngFor="let user of users">
-    <ion-avatar class="lc-avatar">
-      <ion-img [src]="user.profilepic |fixUrl" class="lc-profile-img"></ion-img>
-    </ion-avatar>
-    <ion-label class="unames">{{user.firstname | titlecase}}</ion-label>
-    <ion-label class="points">{{user.points | titlecase}}</ion-label>
-  </span>
+
+  <ion-slides #slides [options]="slideOpts" loop="false" pager="true">
+    <ion-slide class="avatar" *ngFor="let user of users">
+      <ion-avatar class="lc-avatar">
+        <ion-img [src]="user.profilepic |fixUrl" class="lc-profile-img"></ion-img>
+      </ion-avatar>
+      <ion-label class="unames">{{user.firstname | titlecase}}</ion-label>
+      <ion-label class="points">{{user.points | titlecase}}</ion-label>
+    </ion-slide>
+  </ion-slides>
 </ion-item>

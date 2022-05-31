@@ -222,7 +222,7 @@
               <ion-col>
                 <app-certs *ngIf="tabOutlet[0].activeState === true"></app-certs>
                 <app-badges *ngIf="tabOutlet[1].activeState === true"></app-badges>
-                <app-points *ngIf="tabOutlet[2].activeState === true"></app-points>
+                <app-points *ngIf="tabOutlet[2].activeState === true" [screenWidth]="innerWidth"></app-points>
               </ion-col>
             </ion-row>
           </ion-grid>

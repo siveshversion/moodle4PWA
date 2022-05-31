@@ -58,35 +58,6 @@ export class DashboardComponent implements OnInit {
     },
   };
 
-  carouselOptions = {
-    margin: 25,
-    nav: true,
-    navText: [
-      "<div class='nav-btn prev-slide'></div>",
-      "<div class='nav-btn next-slide'></div>",
-    ],
-    responsiveClass: true,
-    responsive: {
-      0: {
-        items: 1,
-        nav: true,
-      },
-      600: {
-        items: 1,
-        nav: true,
-      },
-      1000: {
-        items: 4,
-        nav: true,
-        loop: false,
-      },
-      1500: {
-        items: 5,
-        nav: true,
-        loop: false,
-      },
-    },
-  };
   IonSlides: any;
 
   constructor(
@@ -242,8 +213,6 @@ export class DashboardComponent implements OnInit {
       i++;
     });
   }
-
-
 
   toggleTab(flag: any) {
     const index = this.tabOutlet.findIndex((x) => x.tabName === flag);
