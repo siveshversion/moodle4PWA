@@ -86,7 +86,9 @@ export class CourseSummaryComponent implements OnInit {
     );
   }
 
-  goToCourse(courseid) {}
+  goToCourse(courseid) {
+    this.route.navigate(['home/course'], { queryParams: { id: courseid } });
+  }
 
   navmenu(url: string) {
     if (url === 'rating-summary') {
