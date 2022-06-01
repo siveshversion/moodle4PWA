@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { GlobalApiService } from 'src/app/services/global-api.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -68,8 +69,8 @@ export class MyCoursesComponent implements OnInit {
     margin: 25,
     nav: true,
     navText: [
-      '<div class=\'nav-btn prev-slide\'></div>',
-      '<div class=\'nav-btn next-slide\'></div>',
+      "<div class='nav-btn prev-slide'></div>",
+      "<div class='nav-btn next-slide'></div>",
     ],
     responsiveClass: true,
     responsive: {
@@ -107,6 +108,9 @@ export class MyCoursesComponent implements OnInit {
     this.router.queryParams.subscribe((params) => {
       if (params.filter) {
         this.filterType = params.filter;
+      }
+      if (!this.filterType) {
+        this.filterType = 'enrolled';
       }
       this.loadCourse(this.filterType);
     });
