@@ -349,6 +349,10 @@ export class GlobalApiService {
   get_leaderboard_points(data: any): Observable<any> {
     return this.http.post(this.base_url+'?methodname=getLeaderboardPoints', data);
   }
+
+  get_badges(data: any): Observable<any> {
+    return this.http.post(this.base_url+'?methodname=getBadges', data);
+  }
 }
 
 

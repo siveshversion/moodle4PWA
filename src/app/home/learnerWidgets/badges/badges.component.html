@@ -1,3 +1,15 @@
-<p>
-  badges works!
-</p>
+<ion-item>
+  <p class="label" *ngIf="loading">
+    <ion-spinner name="circles" class="spinners"></ion-spinner> Loading
+  </p>
+  <p class="label" *ngIf="isEmpty">No points record found</p>
+
+  <ion-slides #slides [options]="slideOpts" loop="false" pager="true">
+    <ion-slide class="avatar" *ngFor="let badge of badges">
+      <ion-avatar class="lc-avatar">
+        <ion-img [src]="badge.badgeimg |fixUrl" class="lc-profile-img"></ion-img>
+      </ion-avatar>
+      <ion-label class="names">{{badge.name | titlecase}}</ion-label>
+    </ion-slide>
+  </ion-slides>
+</ion-item>
