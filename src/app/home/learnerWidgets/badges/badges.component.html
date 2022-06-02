@@ -2,7 +2,7 @@
   <p class="label" *ngIf="loading">
     <ion-spinner name="circles" class="spinners"></ion-spinner> Loading
   </p>
-  <p class="label" *ngIf="isEmpty">No points record found</p>
+  <p class="label" *ngIf="isEmpty">No badges found</p>
 
   <ion-slides #slides [options]="slideOpts" loop="false" pager="true">
     <ion-slide class="avatar" *ngFor="let badge of badges">

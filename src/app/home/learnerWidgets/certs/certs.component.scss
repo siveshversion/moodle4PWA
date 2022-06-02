@@ -1,0 +1,80 @@
+.lc-avatar {
+  display: inline-flex;
+  margin-top: 16px;
+  margin-right: 10px;
+}
+
+ion-item {
+  --border-color: #000000;
+  --border-style: none;
+  --background: var(--selectedColorCode);
+  --background-color: var(--selectedColorCode);
+}
+
+.names {
+  color: var(--selectedFontColor);
+  margin-bottom: 2px;
+  font-size: 14px;
+  padding: 15px;
+}
+
+
+.label {
+  color: var(--selectedFontColor);
+}
+
+.spinners {
+  color: var(--selectedFontColor);
+}
+
+
+@media (min-width: 768px) {
+  .lc-slide {
+    width: 240px !important;
+    height: 270px !important;
+  }
+}
+
+
+.fabPrevBtn {
+  position: absolute;
+  z-index: 999;
+  top: 40%;
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+}
+
+.fabNxtBtn {
+  position: absolute;
+  z-index: 999;
+  top: 40%;
+  float: right;
+  right: 0px;
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+}
+
+@media only screen and (min-width: 992px) {
+  .fabNxtBtn {
+    position: absolute;
+    z-index: 999;
+    top: 40%;
+    left: 95%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+  }
+}
+
+
+.slider-nav {
+  ion-icon {
+    height: 100%;
+  }
+}
+

@@ -1,3 +1,15 @@
-<p>
-  certs works!
-</p>
+<ion-item>
+  <p class="label" *ngIf="loading">
+    <ion-spinner name="circles" class="spinners"></ion-spinner> Loading
+  </p>
+  <p class="label" *ngIf="isEmpty">No certificates found</p>
+
+  <ion-slides #slides [options]="slideOpts" loop="false" pager="true">
+    <ion-slide class="avatar" *ngFor="let cert of certs">
+      <ion-avatar class="lc-avatar">
+        <ion-img [src]="cert.certimg |fixUrl" class="lc-profile-img"></ion-img>
+      </ion-avatar>
+      <ion-label class="names">{{cert.name | titlecase}}</ion-label>
+    </ion-slide>
+  </ion-slides>
+</ion-item>

@@ -353,6 +353,10 @@ export class GlobalApiService {
   get_badges(data: any): Observable<any> {
     return this.http.post(this.base_url+'?methodname=getBadges', data);
   }
+
+  get_certs(data: any): Observable<any> {
+    return this.http.post(this.base_url+'?methodname=getCerts', data);
+  }
 }
 
 
