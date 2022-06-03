@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { GlobalApiService } from 'src/app/services/global-api.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {
@@ -45,6 +45,7 @@ export class ManageUsersComponent implements OnInit {
     'Action',
   ];
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild('searchVal', { static: true }) searchVal: ElementRef;
 
   constructor(
     private service: GlobalApiService,
@@ -74,6 +75,7 @@ export class ManageUsersComponent implements OnInit {
   ngOnInit() {}
 
   getUserList() {
+    this.searchVal.nativeElement.value = '';
     const msg = 'Loading User list...<br> Please wait...';
     this.loader.showAutoHideLoader(msg);
     this.userList = [];

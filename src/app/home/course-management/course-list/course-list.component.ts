@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { GlobalApiService } from 'src/app/services/global-api.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   MenuController,
   NavController,
@@ -32,6 +32,7 @@ export class CourseListComponent implements OnInit {
   catId: any;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild('searchVal', { static: true }) searchVal: ElementRef;
 
   constructor(
     private service: GlobalApiService,
@@ -55,6 +56,7 @@ export class CourseListComponent implements OnInit {
   ngOnInit() {}
 
   courseList() {
+    this.searchVal.nativeElement.value = '';
     const msg = 'Loading course list...<br> Please wait...';
     this.loader.showAutoHideLoader(msg);
 

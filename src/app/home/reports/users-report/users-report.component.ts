@@ -1,7 +1,7 @@
 import { FormBuilder, FormControl } from '@angular/forms';
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/member-ordering */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   MenuController,
   NavController,
@@ -39,6 +39,7 @@ export class UsersReportComponent implements OnInit {
   catId: any;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild('searchVal', { static: true }) searchVal: ElementRef;
 
   constructor(
     private service: GlobalApiService,
@@ -65,6 +66,7 @@ export class UsersReportComponent implements OnInit {
   }
 
   usersReportList(buid: any) {
+    this.searchVal.nativeElement.value = '';
     const msg = 'Loading users report <br> Please wait...';
     this.loader.showAutoHideLoader(msg);
 

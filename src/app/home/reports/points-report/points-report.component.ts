@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/quotes */
 import { GlobalApiService } from 'src/app/services/global-api.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   MenuController,
   NavController,
@@ -28,6 +28,7 @@ export class PointsReportComponent implements OnInit {
   pointList = [];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild('searchVal', { static: true }) searchVal: ElementRef;
 
   constructor(
     private service: GlobalApiService,
@@ -48,6 +49,7 @@ export class PointsReportComponent implements OnInit {
   ngOnInit() {}
 
   pointsList() {
+    this.searchVal.nativeElement.value = '';
     const msg = 'Loading Points Report...<br> Please wait...';
     this.loader.showAutoHideLoader(msg);
 

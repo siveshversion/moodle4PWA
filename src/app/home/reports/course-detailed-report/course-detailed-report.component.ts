@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   NavController,
   AlertController,
@@ -42,6 +42,7 @@ export class CourseDetailedReportComponent implements OnInit {
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('searchVal', { static: true }) searchVal: ElementRef;
 
   constructor(
     private service: GlobalApiService,
@@ -72,6 +73,7 @@ export class CourseDetailedReportComponent implements OnInit {
   }
 
   viewCourseMembers(cid: any, filterVal: any) {
+    this.searchVal.nativeElement.value = '';
     const msg = 'Loading Users...Please wait...';
     this.loader.showAutoHideLoader(msg);
 
