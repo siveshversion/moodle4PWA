@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
           // alert(res.Data.role);
           this.router.navigateByUrl('home');
         } else {
-          this.showAlert('Wrong username or password. Please try again.');
+          this.showAlert(res.Data.message);
         }
       },
       (err) => {
