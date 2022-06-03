@@ -40,14 +40,15 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-button id="assignbtn" type="button" fill="solid" class="lc-button lc-btn-color"
-    (click)="navMenu('mg-courses',lp.id)">Assign Courses
-  </ion-button>
+  <span class="conditional" *ngIf="this.role === 'admin'">
+    <ion-button id="assignbtn" type="button" fill="solid" class="lc-button lc-btn-color"
+      (click)="navMenu('mg-courses',lp.id)">Assign Courses
+    </ion-button>
 
-  <ion-button type="button" fill="solid" class="lc-button lc-btn-color" *ngIf="lp.coursecnt > 0" (click)="ordering()">
-    {{dyamicBtnLabel}}
-  </ion-button>
-
+    <ion-button type="button" fill="solid" class="lc-button lc-btn-color" *ngIf="lp.coursecnt > 0" (click)="ordering()">
+      {{dyamicBtnLabel}}
+    </ion-button>
+  </span>
 
   <div *ngIf="dynamicClass === 'lc-section-custom'; else draggables">
     <ion-card class="{{dynamicClass}}" *ngFor="let item of lp.coursesarr">

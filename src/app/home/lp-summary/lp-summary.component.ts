@@ -18,6 +18,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 export class LpSummaryComponent implements OnInit {
   lpId: any;
   lp: any;
+  role: string;
   dynamicClass = 'lc-section-custom';
   dyamicBtnLabel = 'Set Order';
 
@@ -34,6 +35,7 @@ export class LpSummaryComponent implements OnInit {
   ) {
     this.translateService.setDefaultLang('en');
     this.router.queryParams.subscribe((params) => {
+      this.role = localStorage.getItem('role');
       const msg = 'Loading LP details';
       this.loader.showAutoHideLoader(msg);
       this.lpId = params.id;
@@ -50,7 +52,6 @@ export class LpSummaryComponent implements OnInit {
     this.service.mod_get_lp_details(lpData).subscribe(
       (res) => {
         this.lp = res.Data;
-        // alert(localStorage.getItem('user_key'));
         //console.log(JSON.stringify(this.details));
       },
       (err) => {
