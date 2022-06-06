@@ -27,6 +27,7 @@ export class HomePage {
   msg: string;
   role: string;
   isAdmin: boolean;
+  isBuAdmin: boolean;
   isStudent: boolean;
   profileImg: string;
   userprofile: any;
@@ -54,9 +55,15 @@ export class HomePage {
       if (this.role === 'admin') {
         this.isAdmin = true;
         this.isStudent = false;
+        this.isBuAdmin = false;
+      } else if (this.role === 'manager') {
+        this.isBuAdmin = true;
+        this.isStudent = false;
+        this.isAdmin = false;
       } else {
         this.isStudent = true;
         this.isAdmin = false;
+        this.isBuAdmin = false;
       }
       const navigation = this.route.url;
       if (navigation === '/home') {
@@ -71,6 +78,7 @@ export class HomePage {
     if (this.innerWidth < 1024) {
       this.hamburgFlag = true;
     } else {
+      this.hamburgFlag = false;
     }
   }
 

@@ -292,7 +292,7 @@ export class GlobalApiService {
   }
 
   unassign_BU_manager(data: any): Observable<any> {
-    return this.http.post(this.base_url + '?methodname=UnassignBuUser', data);
+    return this.http.post(this.base_url + '?methodname=UnassignBuManager', data);
   }
 
   delete_BU(data: any): Observable<any> {
