@@ -4,7 +4,7 @@
     <ion-title class="lc-title">{{dashtitle | translate }}</ion-title>
   </ion-header>
 
-  <!--for Admin dash & BUs-->
+  <!--for Admin dash-->
 
   <ion-grid *ngIf="isAdmin">
     <ion-row *ngIf="details">
@@ -145,6 +145,9 @@
     </ion-row>
   </ion-grid>
 
+  <!--for BU Admin(Manager) dash-->
+
+  <app-bu-admin-dash *ngIf="isBuAdmin"></app-bu-admin-dash>
 
   <!--for student dash & LPs-->
 

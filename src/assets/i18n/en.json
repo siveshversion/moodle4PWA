@@ -455,6 +455,7 @@
   "badges": "My Badges",
   "points_lead": "Leaderboard",
   "points_report": "Points Report",
-  "bu_name": "Business Unit Name"
+  "bu_name": "Business Unit Name",
+  "welcome_manager":"Welcome to BU Admin's Dashboard"
 }
 

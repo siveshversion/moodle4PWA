@@ -1,3 +1,4 @@
+import { BuAdminDashComponent } from './bu-admin-dash/bu-admin-dash.component';
 import { LoaderService } from './../services/loader.service';
 import { PointsDetailingReportComponent } from './reports/points-detailing-report/points-detailing-report.component';
 import { PointsReportComponent } from './reports/points-report/points-report.component';
@@ -141,7 +142,8 @@ import { NgxMaterialRatingModule } from 'ngx-material-rating';
     BadgesComponent,
     PointsComponent,
     PointsReportComponent,
-    PointsDetailingReportComponent
+    PointsDetailingReportComponent,
+    BuAdminDashComponent
   ],
   providers: [GlobalApiService, HttpClient, Storage,LoaderService],
 })

@@ -23,8 +23,7 @@
         <button mat-button [matMenuTriggerFor]="profileMenu" style="background-color: transparent; outline: none;">
           <mat-panel-title>
             <ion-avatar class="lc-avatar">
-              <ion-img [src]="profileImg |fixUrl"  class="lc-profile-img"
-                                *ngIf="profileImg !== null"></ion-img>
+              <ion-img [src]="profileImg |fixUrl" class="lc-profile-img" *ngIf="profileImg !== null"></ion-img>
             </ion-avatar>
             <ion-label class="lc-profile-name" id="uname">{{loginDetails.fullname}}</ion-label>
           </mat-panel-title>
@@ -184,6 +183,29 @@
           </ion-item>
         </ion-list>
         <ion-list lines="none" *ngIf="isStudent">
+          <ion-item (click)="sidenav.toggle();navMenu('dashboard');" class="pointer">
+            <span class="material-icons">home</span>
+            <ion-label class="lc-menu-align">{{'home' | translate }}</ion-label>
+          </ion-item>
+          <ion-item class="pointer">
+            <mat-accordion>
+              <mat-expansion-panel class="nav-expand">
+                <mat-expansion-panel-header style="height:40px;">
+                  <mat-panel-title><span class="material-icons">library_books</span>
+                    <ion-label class="lc-menu-align">{{'courses' | translate }}</ion-label>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('mycourses')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'my_courses' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-item>
+
+        </ion-list>
+        <ion-list lines="none" *ngIf="isBuAdmin">
           <ion-item (click)="sidenav.toggle();navMenu('dashboard');" class="pointer">
             <span class="material-icons">home</span>
             <ion-label class="lc-menu-align">{{'home' | translate }}</ion-label>

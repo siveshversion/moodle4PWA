@@ -16,11 +16,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  selector: 'app-bu-admin-dash',
+  templateUrl: './bu-admin-dash.component.html',
+  styleUrls: ['./bu-admin-dash.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+
+export class BuAdminDashComponent implements OnInit {
   @ViewChildren(IonSlides) slides: QueryList<IonSlides>;
   option = {
     startVal: 0,
@@ -32,13 +33,10 @@ export class DashboardComponent implements OnInit {
   isBuAdmin: boolean;
   isStudent: boolean;
   role: string;
-  dashtitle: string;
   details: any;
 
   lps: any = [];
   lpsDummy: any = [];
-  bus: any = [];
-  busDummy: any = [];
   innerWidth: number;
 
   tabOutlet = [
@@ -77,19 +75,15 @@ export class DashboardComponent implements OnInit {
         this.isAdmin = true;
         this.isStudent = false;
         this.isBuAdmin = false;
-        this.dashtitle = 'welcome_moodle';
-        this.init_for_admin();
       } else if(this.role === 'manager'){
         this.isBuAdmin = true;
         this.isAdmin = false;
         this.isStudent = false;
-        this.dashtitle = 'welcome_manager';
-      }
-       else {
+        this.init_for_bu_admin();
+      } else {
         this.isStudent = true;
         this.isAdmin = false;
         this.isBuAdmin = false;
-        this.dashtitle = 'welcome_learner';
       }
     });
   }
@@ -97,11 +91,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.onResize();
     this.router.queryParams.subscribe((params) => {
-      if (this.isAdmin) {
-        this.loadBU();
-      } else {
         this.loadLP();
-      }
     });
   }
 
@@ -116,23 +106,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  loadBU() {
-    const msg = 'Loading, Please Wait ...';
-    this.loader.showAutoHideLoader(msg);
-    const data = new FormData();
-    data.append('userid', localStorage.getItem('user_id'));
 
-    this.service.mod_get_my_bus(data).subscribe(
-      (res) => {
-        this.bus = res.Data;
-        console.log(JSON.stringify(this.bus));
-        this.busDummy = this.bus;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
 
   loadLP() {
     const msg = 'Loading, Please Wait ...';
@@ -152,11 +126,13 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  init_for_admin() {
+  init_for_bu_admin() {
     const formData = new FormData();
-    this.service.admin_dash_content(formData).subscribe(
+    formData.append('userid', localStorage.getItem('user_id'));
+    this.service.bu_admin_dash_content(formData).subscribe(
       (res) => {
         this.details = res.Data;
+        console.log(JSON.stringify('buName: '+this.details.buName));
       },
       (err) => {
         console.log(err);
@@ -171,8 +147,8 @@ export class DashboardComponent implements OnInit {
       this.navCtrl.navigateForward('/home/courses');
     } else if (routeName == 'lps') {
       this.navCtrl.navigateForward('/home/lps');
-    } else if (routeName == 'bus') {
-      this.navCtrl.navigateForward('/home/bus');
+    } else if (routeName == 'enrolled') {
+      this.navCtrl.navigateForward('/home/mycourses');
     }
   }
 
@@ -189,11 +165,7 @@ export class DashboardComponent implements OnInit {
   }
 
   search(target: any, type: any): void {
-    if (type === 'bus') {
-      this.bus = this.busDummy.filter(
-        (item) => item.buName.search(new RegExp(target.value, 'i')) > -1
-      );
-    } else if (type === 'lps') {
+    if (type === 'lps') {
       this.lps = this.lpsDummy.filter(
         (item) => item.lpname.search(new RegExp(target.value, 'i')) > -1
       );

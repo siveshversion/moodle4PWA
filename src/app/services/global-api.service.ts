@@ -357,6 +357,15 @@ export class GlobalApiService {
   get_certs(data: any): Observable<any> {
     return this.http.post(this.base_url+'?methodname=getCerts', data);
   }
+
+  bu_admin_dash_content(data: any): Observable<any> {
+    data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('wsfunction', 'core_enrol_get_users_courses');
+    return this.http.post(
+      this.base_url + '?methodname=getBUadminDashStats',
+      data
+    );
+  }
 }
 
 

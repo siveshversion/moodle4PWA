@@ -1,0 +1,141 @@
+<ion-grid *ngIf="isBuAdmin">
+  <ion-row *ngIf="details">
+    <ion-col>
+      <ion-card class="lc-section">
+        <ion-card-content class="widget_card" (click)="navMenu('users')">
+          <ion-row>
+            <ion-col>
+              <ion-button color="tertiary">
+                <ion-icon name="person-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col class="ion-text-end">
+              <ion-text color="tertiary" class="lc-amount">
+                <span [countUp]="details.usersCount" [options]="option"></span>
+              </ion-text>
+              <p>{{'users' | translate }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col>
+      <ion-card class="lc-section">
+        <ion-card-content class="widget_card" (click)="navMenu('course-list')">
+          <ion-row>
+            <ion-col>
+              <ion-button color="secondary">
+                <ion-icon name="book-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col class="ion-text-end">
+              <ion-text color="secondary" class="lc-amount">
+                <span [countUp]="details.coursesCount" [options]="option"></span>
+              </ion-text>
+              <p>{{'courses' | translate }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col>
+      <ion-card class="lc-section">
+        <ion-card-content class="widget_card" (click)="navMenu('lps')">
+          <ion-row>
+            <ion-col>
+              <ion-button color="tertiary">
+                <ion-icon name="easel-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col class="ion-text-end">
+              <ion-text color="tertiary" class="lc-amount">
+                <span [countUp]="details.lpsCount" [options]="option"></span>
+              </ion-text>
+              <p>{{'lps' | translate }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+
+    <ion-col>
+      <ion-card class="lc-section">
+        <ion-card-content class="widget_card" (click)="navMenu('enrolled')">
+          <ion-row>
+            <ion-col>
+              <ion-button color="tertiary">
+                <ion-icon name="business-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col class="ion-text-end">
+              <ion-text color="tertiary" class="lc-amount">
+                <span [countUp]="details.enCoursesCnt" [options]="option"></span>
+              </ion-text>
+              <p>{{'courses_enrolled' | translate }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<!--for LPs-->
+
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-card class="lc-section" *ngIf="lps">
+        <ion-card-header>
+          <ion-card-title>{{'my_lps' | translate }}( {{ lps.length }} )</ion-card-title>
+        </ion-card-header>
+        <div class="search" *ngIf="lpsDummy.length > 0">
+          <input type="text" class="searchTerm"
+            style="background: url(./assets/icon/search.png) no-repeat;background-position: 3px 6px;"
+            placeholder="{{'search' | translate }}..." (input)="search($event.target,'lps')">
+        </div>
+        <ion-card-content>
+
+          <ion-label *ngIf="lps.length === 0">{{'no_lps_to_view' | translate }}</ion-label>
+
+          <!--ion-slides style="margin-bottom:20px"  pager="true" [options]="slideOpts" loop="false"-->
+          <ion-slides style="margin-bottom:20px" [options]="slideOpts" loop="false" pager="true">
+            <ion-slide *ngFor="let item of lps;let i= index">
+              <ion-card class="lc-card-item" (click)="getLPDetails(item.id)">
+                <ion-card-header>
+                  <ion-img *ngIf="item.imgUrl !== null" [src]=item.imgUrl class="lc-img"></ion-img>
+                  <ion-item>
+                    <!--    <ion-chip slot="start">
+                                              <ion-label>{{ (categories | catFilter: {catId: item.category}) }}</ion-label>
+                                          </ion-chip> -->
+                  </ion-item>
+                  <ion-card-subtitle class="lc-subtitle">{{item.lpname}}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                  <!-- <ion-chip color="secondary">
+                                          <ion-label>Enrolled Users - {{item.enrolledusercount}}</ion-label>
+                                      </ion-chip> -->
+
+                  <div style="margin-top:2rem;text-align:left;padding-left:10px;">
+                    <ion-label slot="start">{{item.progress | number: '1.2-2'}}%</ion-label>
+                  </div>
+                  <div>
+                    <ion-progress-bar value="{{item.progress / 100}}"></ion-progress-bar>
+                  </div>
+
+                </ion-card-content>
+              </ion-card>
+            </ion-slide>
+
+          </ion-slides>
+
+          <span *ngIf="lps.length > 4" type="submit" class="fabPrevBtn" (click)="prev(0)"></span>
+          <span *ngIf="lps.length > 4" type="submit" class="fabNxtBtn" (click)="next(0)"></span>
+
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
