@@ -83,7 +83,7 @@ export class DashboardComponent implements OnInit {
         this.isBuAdmin = true;
         this.isAdmin = false;
         this.isStudent = false;
-        this.dashtitle = 'welcome_manager';
+        this.dashtitle = 'Welcome to '+ localStorage.getItem('buName') + ' - BU Admin Dashboard';
       }
        else {
         this.isStudent = true;
