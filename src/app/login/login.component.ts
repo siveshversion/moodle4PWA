@@ -78,7 +78,10 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('user_key', res.Data.token);
           localStorage.setItem('user_id', res.Data.userid);
           localStorage.setItem('role', res.Data.role);
-
+          if(res.Data.role ==='manager') {
+            localStorage.setItem('buId',res.Data.buId);
+            localStorage.setItem('buName',res.Data.buName);
+          }
           // alert(res.Data.role);
           this.router.navigateByUrl('home');
         } else {

@@ -9,7 +9,7 @@ import {
   AlertController,
   LoadingController,
 } from '@ionic/angular';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
@@ -43,19 +43,12 @@ export class LPsComponent implements OnInit {
     public loadingController: LoadingController,
     private http: HttpClient,
     private router: Router,
+    private route: ActivatedRoute,
     private navCtrl: NavController
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-
-    this.data = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Trick the Router into believing it's last link wasn't previously loaded
-        this.router.navigated = false;
-        const navigation = this.router.url;
-        if (navigation === '/home/lps') {
-          this.lpList();
-        }
-      }
+    this.route.queryParams.subscribe((params) => {
+      this.lpList();
     });
   }
 

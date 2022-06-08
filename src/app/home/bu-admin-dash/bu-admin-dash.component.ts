@@ -29,12 +29,7 @@ export class BuAdminDashComponent implements OnInit {
     duration: 1,
   };
 
-  isAdmin: boolean;
-  isBuAdmin: boolean;
-  isStudent: boolean;
-  role: string;
   details: any;
-
   lps: any = [];
   lpsDummy: any = [];
   innerWidth: number;
@@ -70,21 +65,7 @@ export class BuAdminDashComponent implements OnInit {
     this.translateService.setDefaultLang('en');
 
     this.router.queryParams.subscribe((params) => {
-      this.role = localStorage.getItem('role');
-      if (this.role === 'admin') {
-        this.isAdmin = true;
-        this.isStudent = false;
-        this.isBuAdmin = false;
-      } else if(this.role === 'manager'){
-        this.isBuAdmin = true;
-        this.isAdmin = false;
-        this.isStudent = false;
-        this.init_for_bu_admin();
-      } else {
-        this.isStudent = true;
-        this.isAdmin = false;
-        this.isBuAdmin = false;
-      }
+      this.init_for_bu_admin();
     });
   }
 
@@ -129,10 +110,14 @@ export class BuAdminDashComponent implements OnInit {
   init_for_bu_admin() {
     const formData = new FormData();
     formData.append('userid', localStorage.getItem('user_id'));
+    const buId =localStorage.getItem('buId');
+    const buName =localStorage.getItem('buName');
+    formData.append('buId', buId);
+
     this.service.bu_admin_dash_content(formData).subscribe(
       (res) => {
         this.details = res.Data;
-        console.log(JSON.stringify('buName: '+this.details.buName));
+        console.log(JSON.stringify('buID: ' + buId + ' buName: '+ buName));
       },
       (err) => {
         console.log(err);
@@ -154,12 +139,6 @@ export class BuAdminDashComponent implements OnInit {
 
   getLPDetails(id) {
     this.route.navigate(['home/lp-summary'], {
-      queryParams: { id },
-    });
-  }
-
-  getBUDetails(id) {
-    this.route.navigate(['home/create-bu'], {
       queryParams: { id },
     });
   }

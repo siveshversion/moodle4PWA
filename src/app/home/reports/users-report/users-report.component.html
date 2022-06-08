@@ -2,7 +2,7 @@
   <ion-grid>
     <ion-row>
       <ion-col col-5 class="ion-no-padding">
-        <ion-header>{{'users_report' | translate }}</ion-header>
+        <ion-header><span *ngIf="role === 'manager'">{{buName}} - </span>{{'users_report' | translate }}</ion-header>
       </ion-col>
       <ion-col col-2 class="ion-no-padding"></ion-col>
       <ion-col col-5 class="ion-no-padding">
@@ -14,7 +14,7 @@
             </span>
           </div>
           <form [formGroup]="filterForm">
-            <span class="filter">
+            <span class="filter" *ngIf="neededBUFilter === true">
               <mat-select class="lc-input" id="BuFilter" placeholder="BU Filter"
                 (selectionChange)="selectFilter($event.value)" [formControlName]="'filter'" name="item">
                 <mat-option *ngFor="let item of bus" [value]="item.value">

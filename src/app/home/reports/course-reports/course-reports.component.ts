@@ -31,6 +31,8 @@ export class CourseReportsComponent implements OnInit {
   ];
   coursesList = [];
   catId: any;
+  role: any;
+  buName: any;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild('searchVal', { static: true }) searchVal: ElementRef;
@@ -48,6 +50,8 @@ export class CourseReportsComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.queryParams.subscribe((params) => {
       this.courseReportList();
+      this.role = localStorage.getItem('role');
+      this.buName = localStorage.getItem('buName');
     });
   }
 
@@ -61,6 +65,7 @@ export class CourseReportsComponent implements OnInit {
 
     const data = new FormData();
     data.append('userId', localStorage.getItem('user_id'));
+    data.append('buId', localStorage.getItem('buId'));
 
     this.service.course_report(data).subscribe(
       (res) => {

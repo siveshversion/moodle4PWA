@@ -37,9 +37,12 @@ export class UsersReportComponent implements OnInit {
   usersList = [];
   bus = [];
   catId: any;
+  role: any;
+  buName: any;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild('searchVal', { static: true }) searchVal: ElementRef;
+  neededBUFilter: any;
 
   constructor(
     private service: GlobalApiService,
@@ -54,8 +57,16 @@ export class UsersReportComponent implements OnInit {
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.queryParams.subscribe((params) => {
-      this.getBUs();
-      this.usersReportList(-1);
+      if(localStorage.getItem('buId')){
+        this.role = localStorage.getItem('role');
+        this.buName = localStorage.getItem('buName');
+        this.usersReportList(localStorage.getItem('buId'));
+        this.neededBUFilter = false;
+      } else {
+        this.neededBUFilter = true;
+        this.getBUs();
+        this.usersReportList(-1);
+      }
     });
   }
 

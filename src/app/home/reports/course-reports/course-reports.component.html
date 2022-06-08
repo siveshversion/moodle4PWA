@@ -2,7 +2,7 @@
   <ion-grid>
     <ion-row>
       <ion-col col-5 class="ion-no-padding">
-        <ion-header>{{'course_report' | translate }}</ion-header>
+        <ion-header><span *ngIf="role === 'manager'">{{buName}} - </span>{{'course_report' | translate }}</ion-header>
       </ion-col>
       <ion-col col-2 class="ion-no-padding"></ion-col>
       <ion-col col-5 class="ion-no-padding">
