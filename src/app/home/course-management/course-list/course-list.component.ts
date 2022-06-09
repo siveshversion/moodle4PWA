@@ -30,6 +30,8 @@ export class CourseListComponent implements OnInit {
   ];
   coursesList = [];
   catId: any;
+  role: any;
+  buName: any;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild('searchVal', { static: true }) searchVal: ElementRef;
@@ -49,6 +51,10 @@ export class CourseListComponent implements OnInit {
       if (params.cat) {
         this.catId = params.cat;
       }
+      if (localStorage.getItem('role') === 'manager') {
+        this.role = localStorage.getItem('role');
+        this.buName = localStorage.getItem('buName');
+      }
       this.courseList();
     });
   }
@@ -64,6 +70,9 @@ export class CourseListComponent implements OnInit {
 
     const data = new FormData();
     data.append('userId', localStorage.getItem('user_id'));
+    if (localStorage.getItem('buId')) {
+      data.append('buId', localStorage.getItem('buId'));
+    }
 
     if (this.catId) {
       data.append('catId', this.catId);

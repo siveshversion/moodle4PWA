@@ -145,6 +145,9 @@ export class CreateLPComponent implements OnInit {
     formData.append('lp_days', this.lpForm.get('lpDays').value);
     formData.append('lp_credit', this.lpForm.get('lpCredit').value);
     formData.append('lp_threshold', this.lpForm.get('lpThreshold').value);
+    if (localStorage.getItem('buId')) {
+      formData.append('buId', localStorage.getItem('buId'));
+    }
 
     if (this.lpId) {
       this.update(formData);

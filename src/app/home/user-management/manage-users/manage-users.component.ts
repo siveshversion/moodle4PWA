@@ -34,6 +34,8 @@ export class ManageUsersComponent implements OnInit {
   users: any = [];
   data: any;
 
+  role: any;
+  buName: any;
   dataSource: any;
   displayedColumns = [
     'UserId',
@@ -66,6 +68,10 @@ export class ManageUsersComponent implements OnInit {
         this.route.navigated = false;
         const navigation = this.route.url;
         if (navigation === '/home/users') {
+          if (localStorage.getItem('role') === 'manager') {
+            this.role = localStorage.getItem('role');
+            this.buName = localStorage.getItem('buName');
+          }
           this.getUserList();
         }
       }
@@ -84,6 +90,7 @@ export class ManageUsersComponent implements OnInit {
     let ToggleTitle: string;
     const data = new FormData();
     data.append('wstoken', environment.MOODLE_TOKEN);
+    data.append('buId', localStorage.getItem('buId'));
 
     this.service.mod_get_user_list(data).subscribe(
       (res) => {

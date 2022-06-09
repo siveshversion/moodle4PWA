@@ -2,7 +2,7 @@
     <ion-grid>
         <ion-row>
             <ion-col col-5 class="ion-no-padding">
-                <ion-header>{{'manage_courses' | translate }}</ion-header>
+                <ion-header><span *ngIf="role === 'manager'">{{buName}} - </span>{{'manage_courses' | translate }}</ion-header>
             </ion-col>
             <ion-col col-2 class="ion-no-padding"></ion-col>
             <ion-col col-5 class="ion-no-padding">
@@ -28,7 +28,7 @@
                                             <mat-header-cell *matHeaderCellDef>{{'course_name' | translate }}
                                             </mat-header-cell>
                                             <mat-cell *matCellDef="let element">
-                                                <span class="anchor" 
+                                                <span class="anchor"
                                                     (click)="navMenu('course-summary',element.course_id,element.category_id)">
                                                     <span class="mobile-label">{{'course_name'| translate }}:</span>
                                                     <span class="cell-align">{{element.course_name || "--"}}</span>

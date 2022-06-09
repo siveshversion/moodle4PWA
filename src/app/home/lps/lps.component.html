@@ -2,7 +2,9 @@
   <ion-grid>
     <ion-row>
       <ion-col col-5 class="ion-no-padding">
-        <ion-header>{{'manage_lps' | translate }}</ion-header>
+        <ion-header><span *ngIf="role === 'manager'">{{buName}} - </span>{{'manage_lps' | translate }}</ion-header>
+        <ion-button id="savebtn" type="button" expand="block" fill="solid" class="lc-button lc-btn-color"
+        (click)="createLP()"><ion-icon slot="icon-only" class="ionicon" name="easel-outline"></ion-icon> {{"create_lp" | translate }}</ion-button>
       </ion-col>
       <ion-col col-2 class="ion-no-padding"></ion-col>
       <ion-col col-5 class="ion-no-padding">
@@ -91,6 +93,8 @@
                           (click)="navMenu('mg-courses',element.lp_id)">school</span>
                         <span class="spacer"></span> <span *ngIf="element.lp_courses_cnt > 0" class="material-icons"
                           title="Manage Users" (click)="navMenu('mg-users',element.lp_id)">manage_accounts</span>
+                          <span class="spacer"></span><span class="material-icons" title="{{'delete' | translate }}"
+                          (click)="delete(element.lp_id)">delete</span>&nbsp;
                       </mat-cell>
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>

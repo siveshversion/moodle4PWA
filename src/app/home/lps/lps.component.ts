@@ -21,6 +21,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LPsComponent implements OnInit {
   data: any;
+  role: any;
+  buName: any;
   displayedColumns = [
     'lpName',
     'bu',
@@ -48,6 +50,11 @@ export class LPsComponent implements OnInit {
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.queryParams.subscribe((params) => {
+      if(localStorage.getItem('buId')){
+        this.role = localStorage.getItem('role');
+        this.buName = localStorage.getItem('buName');
+      }
+
       this.lpList();
     });
   }
@@ -63,6 +70,7 @@ export class LPsComponent implements OnInit {
 
     const data = new FormData();
     data.append('userId', localStorage.getItem('user_id'));
+    data.append('buId', localStorage.getItem('buId'));
 
     this.service.lp_list(data).subscribe(
       (res) => {
@@ -111,6 +119,67 @@ export class LPsComponent implements OnInit {
   }
 
   createLP() {
-    this.navCtrl.navigateForward('home/create-bu)');
+    this.navCtrl.navigateForward('home/create-lp)');
   }
+
+
+  async showCancelAlert(msg: string,lp_id: any) {
+    const alert = await this.alertCtrl.create({
+      header: 'Status',
+      message: msg,
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.loader.showAutoHideLoader('Processing Request');
+            const formData = new FormData();
+            formData.append('lp_id', lp_id);
+            this.service.delete_lp(formData).subscribe(
+              (response) => {
+                if (response.Data) {
+                  msg = 'LP Deleted successfully';
+                  this.showAlert(msg);
+                }
+              },
+              (err) => {
+                console.log(err);
+              }
+            );
+          }
+        },
+        {
+          text: 'cancel',
+          handler: () => {
+            alert.dismiss();
+          }
+        }
+      ],
+    });
+    await alert.present();
+    await alert.onDidDismiss();
+  }
+
+
+  delete(lp_id: any) {
+    const msg = 'Are you sure...?<br>Do you want to delete this LP?';
+    this.showCancelAlert(msg,lp_id);
+  }
+
+  async showAlert(msg: string) {
+    const alert = await this.alertCtrl.create({
+      header: 'Status',
+      message: msg,
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.lpList();
+          },
+        },
+      ],
+    });
+    await alert.present();
+    await alert.onDidDismiss();
+  }
+
 }

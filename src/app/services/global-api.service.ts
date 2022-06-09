@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class GlobalApiService {
   base_url = environment.moodle_url + environment.api_path;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   login_svc(data: any): Observable<any> {
     const form = new FormData();
@@ -292,7 +292,10 @@ export class GlobalApiService {
   }
 
   unassign_BU_manager(data: any): Observable<any> {
-    return this.http.post(this.base_url + '?methodname=UnassignBuManager', data);
+    return this.http.post(
+      this.base_url + '?methodname=UnassignBuManager',
+      data
+    );
   }
 
   delete_BU(data: any): Observable<any> {
@@ -323,39 +326,45 @@ export class GlobalApiService {
     data.append('wstoken', environment.MOODLE_TOKEN);
     data.append('wsfunction', 'core_user_get_users_by_field');
     data.append('user_id', userid);
-    return this.http.post(this.base_url+'?methodname=getUserDetail', data);
+    return this.http.post(this.base_url + '?methodname=getUserDetail', data);
   }
 
   saveReview(data: any): Observable<any> {
-    return this.http.post(this.base_url+'?methodname=saveReview', data);
+    return this.http.post(this.base_url + '?methodname=saveReview', data);
   }
 
   getReviews(data: any): Observable<any> {
-    return this.http.post(this.base_url+'?methodname=getReviewsbyCid', data);
+    return this.http.post(this.base_url + '?methodname=getReviewsbyCid', data);
   }
 
   getMyRating(data: any): Observable<any> {
-    return this.http.post(this.base_url+'?methodname=getMyRating', data);
+    return this.http.post(this.base_url + '?methodname=getMyRating', data);
   }
 
   point_list(data: any): Observable<any> {
-    return this.http.post(this.base_url+'?methodname=getPointsReport', data);
+    return this.http.post(this.base_url + '?methodname=getPointsReport', data);
   }
 
   user_point_filtered_courses(data: any): Observable<any> {
-    return this.http.post(this.base_url+'?methodname=getPointsDetailReport', data);
+    return this.http.post(
+      this.base_url + '?methodname=getPointsDetailReport',
+      data
+    );
   }
 
   get_leaderboard_points(data: any): Observable<any> {
-    return this.http.post(this.base_url+'?methodname=getLeaderboardPoints', data);
+    return this.http.post(
+      this.base_url + '?methodname=getLeaderboardPoints',
+      data
+    );
   }
 
   get_badges(data: any): Observable<any> {
-    return this.http.post(this.base_url+'?methodname=getBadges', data);
+    return this.http.post(this.base_url + '?methodname=getBadges', data);
   }
 
   get_certs(data: any): Observable<any> {
-    return this.http.post(this.base_url+'?methodname=getCerts', data);
+    return this.http.post(this.base_url + '?methodname=getCerts', data);
   }
 
   bu_admin_dash_content(data: any): Observable<any> {
@@ -366,6 +375,8 @@ export class GlobalApiService {
       data
     );
   }
+
+  delete_lp(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=DeleteLP', data);
+  }
 }
-
-

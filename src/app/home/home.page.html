@@ -230,6 +230,27 @@
             <mat-accordion>
               <mat-expansion-panel class="nav-expand">
                 <mat-expansion-panel-header style="height:40px;">
+                  <mat-panel-title><span class="material-icons">article</span>
+                    <ion-label class="lc-menu-align">{{'manage_all_lps' | translate }}</ion-label>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('create-lp')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'create_lp' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('list-lp')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'list_lp' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-item>
+          <ion-item class="pointer">
+            <mat-accordion>
+              <mat-expansion-panel class="nav-expand">
+                <mat-expansion-panel-header style="height:40px;">
                   <mat-panel-title><span class="material-icons">analytics</span>
                     <ion-label class="lc-menu-align">{{'reports' | translate }}</ion-label>
                   </mat-panel-title>
@@ -252,7 +273,6 @@
               </mat-expansion-panel>
             </mat-accordion>
           </ion-item>
-
         </ion-list>
       </mat-nav-list>
     </mat-sidenav>
