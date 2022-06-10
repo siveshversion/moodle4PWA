@@ -66,6 +66,10 @@ export class CourseManageUsersComponent implements OnInit {
     const data = new FormData();
     data.append('course_id', cid);
     data.append('enroll_status', this.selectedFilter);
+    if(localStorage.getItem('buId')) {
+      data.append('buId',localStorage.getItem('buId'));
+      data.append('userId',localStorage.getItem('user_id'));
+    }
 
     this.service.course_members(data).subscribe(
       (res) => {

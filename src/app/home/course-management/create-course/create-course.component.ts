@@ -269,6 +269,10 @@ export class CreateCourseComponent implements OnInit {
     let msg: string;
     msg = 'Creating Course Please Wait....';
     this.loader.showAutoHideLoader(msg);
+    if(localStorage.getItem('buId')) {
+      formData.append('bu_id',localStorage.getItem('buId'));
+      formData.append('userId',localStorage.getItem('user_id'));
+    }
     this.service.create_course(formData).subscribe(
       (response) => {
         if (response.Data.id) {
