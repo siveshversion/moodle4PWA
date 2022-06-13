@@ -12,6 +12,7 @@ import {
   SimpleChanges,
   ViewChildren,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 import { GlobalApiService } from 'src/app/services/global-api.service';
 
@@ -63,7 +64,7 @@ export class CertsComponent implements OnInit,OnChanges {
 
   IonSlides: any;
 
-  constructor(private service: GlobalApiService) {}
+  constructor(private service: GlobalApiService,private route: Router) {}
 
   ngOnInit() {
     this.getCerts();
@@ -109,5 +110,9 @@ export class CertsComponent implements OnInit,OnChanges {
       }
       i++;
     });
+  }
+
+  goToCourse(courseid) {
+    this.route.navigate(['home/course'], { queryParams: { id: courseid } });
   }
 }

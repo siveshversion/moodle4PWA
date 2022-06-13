@@ -7,9 +7,9 @@
   <ion-slides #slides [options]="slideOpts" loop="false" pager="true">
     <ion-slide class="avatar" *ngFor="let cert of certs">
       <ion-avatar class="lc-avatar">
-        <ion-img [src]="cert.certimg |fixUrl" class="lc-profile-img"></ion-img>
+        <ion-img [src]="cert.certimg |fixUrl" (click)="goToCourse(cert.cid)" [ngStyle]="{cursor:'pointer'}" class="lc-profile-img"></ion-img>
       </ion-avatar>
-      <ion-label class="names">{{cert.name | titlecase}}</ion-label>
+      <ion-label class="names" (click)="goToCourse(cert.cid)" [ngStyle]="{cursor:'pointer'}">{{cert.name | titlecase}}</ion-label>
     </ion-slide>
   </ion-slides>
 </ion-item>

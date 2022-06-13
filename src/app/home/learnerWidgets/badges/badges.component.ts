@@ -12,6 +12,7 @@ import {
   SimpleChanges,
   ViewChildren,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 import { GlobalApiService } from 'src/app/services/global-api.service';
 @Component({
@@ -62,7 +63,7 @@ export class BadgesComponent implements OnInit,OnChanges {
 
   IonSlides: any;
 
-  constructor(private service: GlobalApiService) {}
+  constructor(private service: GlobalApiService,private route: Router) {}
 
   ngOnInit() {
     this.getBadges();
@@ -108,5 +109,8 @@ export class BadgesComponent implements OnInit,OnChanges {
       }
       i++;
     });
+  }
+  goToCourse(courseid) {
+    this.route.navigate(['home/course'], { queryParams: { id: courseid } });
   }
 }

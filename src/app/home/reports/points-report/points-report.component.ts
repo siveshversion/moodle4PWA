@@ -42,11 +42,11 @@ export class PointsReportComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
     };
-
-    this.pointsList();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.pointsList();
+  }
 
   pointsList() {
     this.searchVal.nativeElement.value = '';
