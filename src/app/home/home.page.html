@@ -17,7 +17,7 @@
         </ion-buttons>
       </ng-container>
       <ion-item class="lc-profile" *ngIf="innerWidth > 768" style="float: right; --background: transparent;">
-        <div class="RoleTitle">{{role | translate}}</div>
+        <div class="RoleTitle">{{role | translate | titlecase}}</div>
         <!--button mat-button [matMenuTriggerFor]="notifyMenu" style="background-color: transparent; outline: none;"-->
 
         <button mat-button [matMenuTriggerFor]="profileMenu" style="background-color: transparent; outline: none;">
