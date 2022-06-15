@@ -2,9 +2,13 @@
   <ion-grid>
     <ion-row>
       <ion-col col-5 class="ion-no-padding">
-        <ion-header>{{'manage_bus' | translate }}</ion-header>
-        <ion-button id="savebtn" type="button" expand="block" fill="solid" class="lc-button lc-btn-color"
-        (click)="createBU()"><ion-icon slot="icon-only" class="ionicon" name="briefcase"></ion-icon> {{"create_bu" | translate }}</ion-button>
+        <ion-header><span *ngIf="role === 'manager'">{{buName}} - </span>{{'manage_bus' | translate }}</ion-header>
+        <span *ngIf="role === 'admin'">
+          <ion-button id="savebtn" type="button" expand="block" fill="solid" class="lc-button lc-btn-color"
+            (click)="createBU()">
+            <ion-icon slot="icon-only" class="ionicon" name="briefcase"></ion-icon> {{"create_bu" | translate }}
+          </ion-button>
+        </span>
       </ion-col>
       <ion-col col-2 class="ion-no-padding"></ion-col>
       <ion-col col-5 class="ion-no-padding">
@@ -39,7 +43,8 @@
                       </mat-header-cell>
                       <mat-cell *matCellDef="let element" style="justify-content:center;">
                         <span class="mobile-label">{{'courses' | translate }}:</span>
-                        <span class="cell-align-ch">{{element.bu_courses_cnt || "0"}}</span>
+                        <span class="cell-align-ch" [ngStyle]="{cursor:'pointer'}"
+                          (click)="navMenu('course-list','')">{{element.bu_courses_cnt || "0"}}</span>
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="users">
@@ -47,7 +52,8 @@
                       </mat-header-cell>
                       <mat-cell *matCellDef="let element" style="justify-content:center;">
                         <span class="mobile-label">{{'users' | translate }}:</span>
-                        <span class="cell-align-ch">{{element.bu_users_cnt || "0"}}</span>
+                        <span class="cell-align-ch" [ngStyle]="{cursor:'pointer'}"
+                          (click)="navMenu('users','')">{{element.bu_users_cnt || "0"}}</span>
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="Action">
@@ -58,10 +64,12 @@
                         <span class="spacer"></span><span class="material-icons"
                           title="{{'manage_bu_courses' | translate }}"
                           (click)="navMenu('mg-courses',element.bu_id)">school</span>
-                        <span class="spacer"></span> <span class="material-icons" title="Managers"
-                          (click)="navMenu('mg-users',element.bu_id)">manage_accounts</span>
-                        <span class="spacer"></span><span class="material-icons" title="{{'delete' | translate }}"
-                          (click)="delete(element.bu_id)">delete</span>&nbsp;
+                        <span *ngIf="role === 'admin'">
+                          <span class="spacer"></span> <span class="material-icons" title="Managers"
+                            (click)="navMenu('mg-users',element.bu_id)">manage_accounts</span>
+                          <span class="spacer"></span><span class="material-icons" title="{{'delete' | translate }}"
+                            (click)="delete(element.bu_id)">delete</span>&nbsp;
+                        </span>
                       </mat-cell>
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>

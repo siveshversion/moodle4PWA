@@ -12,7 +12,7 @@ import {
   AlertController,
   LoadingController,
 } from '@ionic/angular';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
@@ -26,6 +26,8 @@ export class BUsComponent implements OnInit {
   data: any;
   displayedColumns = ['bu', 'courses', 'users', 'Action'];
   busList = [];
+  role: any;
+  buName: any;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild('searchVal', { static: true }) searchVal: ElementRef;
@@ -36,22 +38,19 @@ export class BUsComponent implements OnInit {
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
+    private route: ActivatedRoute,
     private router: Router,
     private navCtrl: NavController
   ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
-      return false;
-    };
-
-    this.data = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Trick the Router into believing it's last link wasn't previously loaded
-        this.router.navigated = false;
-        const navigation = this.router.url;
-        if (navigation === '/home/bus') {
-          this.buList();
-        }
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.route.queryParams.subscribe((params) => {
+      if (localStorage.getItem('role') === 'manager') {
+        this.role = localStorage.getItem('role');
+        this.buName = localStorage.getItem('buName');
+      } else if (localStorage.getItem('role') === 'admin') {
+        this.role = localStorage.getItem('role');
       }
+        this.buList();
     });
   }
 
@@ -66,6 +65,9 @@ export class BUsComponent implements OnInit {
 
     const data = new FormData();
     data.append('userId', localStorage.getItem('user_id'));
+    if (localStorage.getItem('buId')) {
+      data.append('buId', localStorage.getItem('buId'));
+    }
 
     this.service.bu_list(data).subscribe(
       (res) => {
@@ -141,6 +143,10 @@ export class BUsComponent implements OnInit {
       this.navCtrl.navigateForward('home/bu-summary?id=' + buId);
     } else if (action === 'mg-users') {
       this.navCtrl.navigateForward('home/bu-users?id=' + buId);
+    } else if (action === 'users') {
+      this.navCtrl.navigateForward('/home/users');
+    } else if (action === 'course-list') {
+      this.navCtrl.navigateForward('/home/courses');
     }
   }
 

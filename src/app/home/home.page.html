@@ -230,6 +230,22 @@
             <mat-accordion>
               <mat-expansion-panel class="nav-expand">
                 <mat-expansion-panel-header style="height:40px;">
+                  <mat-panel-title><span class="material-icons">account_box</span>
+                    <ion-label class="lc-menu-align">{{'manage_users' | translate }}</ion-label>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('users')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'user_list' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-item>
+          <ion-item class="pointer">
+            <mat-accordion>
+              <mat-expansion-panel class="nav-expand">
+                <mat-expansion-panel-header style="height:40px;">
                   <mat-panel-title><span class="material-icons">school</span>
                     <ion-label class="lc-menu-align">{{'manage_courses' | translate }}</ion-label>
                   </mat-panel-title>
@@ -263,6 +279,22 @@
                 <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('list-lp')">
                   <mat-list-item>
                     <a class="lc-sub-menu">{{'list_lp' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-item>
+          <ion-item class="pointer">
+            <mat-accordion>
+              <mat-expansion-panel class="nav-expand">
+                <mat-expansion-panel-header style="height:40px;">
+                  <mat-panel-title><span class="material-icons">tab</span>
+                    <ion-label class="lc-menu-align">{{'manage_all_bu' | translate }}</ion-label>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('list-bu')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'manage_bu' | translate }}</a>
                   </mat-list-item>
                 </mat-list>
               </mat-expansion-panel>
