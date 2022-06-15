@@ -94,10 +94,10 @@ export class ManageUsersComponent implements OnInit {
           const suspended = element.suspended;
           if (suspended == '0') {
             ToggleIcon = 'person';
-            ToggleTitle = 'suspend';
+            ToggleTitle = 'Suspend';
           } else if (suspended == '1') {
             ToggleIcon = 'person_off';
-            ToggleTitle = 'activate';
+            ToggleTitle = 'Activate';
           }
           const stud = {
             id: element.userid,
