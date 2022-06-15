@@ -53,13 +53,8 @@ export class AddUsersComponent implements OnInit {
     private loadingController: LoadingController
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-
-    this.data = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Trick the Router into believing it's last link wasn't previously loaded
-        this.router.navigated = false;
-        this.triggerProcess();
-      }
+    this.route.queryParams.subscribe((params) => {
+      this.triggerProcess();
     });
   }
 

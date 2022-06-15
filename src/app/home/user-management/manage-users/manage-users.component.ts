@@ -12,7 +12,7 @@ import {
   NavController,
 } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -55,26 +55,19 @@ export class ManageUsersComponent implements OnInit {
     public alertCtrl: AlertController,
     public loadingController: LoadingController,
     private http: HttpClient,
-    private route: Router,
+    private route: ActivatedRoute,
+    private router: Router,
     private navCtrl: NavController,
     private translateService: TranslateService
   ) {
     this.translateService.setDefaultLang('en');
-    this.route.routeReuseStrategy.shouldReuseRoute = () => false;
-
-    this.data = this.route.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Trick the Router into believing it's last link wasn't previously loaded
-        this.route.navigated = false;
-        const navigation = this.route.url;
-        if (navigation === '/home/users') {
-          if (localStorage.getItem('role') === 'manager') {
-            this.role = localStorage.getItem('role');
-            this.buName = localStorage.getItem('buName');
-          }
-          this.getUserList();
-        }
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.route.queryParams.subscribe((params) => {
+      if (localStorage.getItem('role') === 'manager') {
+        this.role = localStorage.getItem('role');
+        this.buName = localStorage.getItem('buName');
       }
+      this.getUserList();
     });
   }
 
