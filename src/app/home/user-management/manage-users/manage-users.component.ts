@@ -62,10 +62,12 @@ export class ManageUsersComponent implements OnInit {
   ) {
     this.translateService.setDefaultLang('en');
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.role = localStorage.getItem('role');
     this.route.queryParams.subscribe((params) => {
       if (localStorage.getItem('role') === 'manager') {
-        this.role = localStorage.getItem('role');
         this.buName = localStorage.getItem('buName');
+      } else {
+        this.buName = null;
       }
       this.getUserList();
     });

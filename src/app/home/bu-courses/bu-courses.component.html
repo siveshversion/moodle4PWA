@@ -66,8 +66,8 @@
                                           <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
                                           <mat-cell *matCellDef="let element">
                                               <span class="mobile-label">Action:</span>
-                                              <span class="cell-align-action" (click)="assignCourse(element.course_id)" *ngIf="element.assigned == false">Assign</span>
-                                              <span class="cell-align-action" (click)="unassignCourse(element.course_id)" *ngIf="element.assigned == true">Unassign</span>
+                                              <span class="cell-align-action" (click)="assignCourse(element.course_id)" *ngIf="element.assigned === false">Assign</span>
+                                              <span class="cell-align-action" (click)="unassignCourse(element.course_id)" *ngIf="element.assigned === true">Unassign</span>
                                           </mat-cell>
                                       </ng-container>
 

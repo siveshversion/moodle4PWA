@@ -43,14 +43,14 @@ export class BUsComponent implements OnInit {
     private navCtrl: NavController
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.role = localStorage.getItem('role');
     this.route.queryParams.subscribe((params) => {
       if (localStorage.getItem('role') === 'manager') {
-        this.role = localStorage.getItem('role');
         this.buName = localStorage.getItem('buName');
-      } else if (localStorage.getItem('role') === 'admin') {
-        this.role = localStorage.getItem('role');
+      } else {
+        this.buName = null;
       }
-        this.buList();
+      this.buList();
     });
   }
 

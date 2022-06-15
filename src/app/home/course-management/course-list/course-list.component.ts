@@ -2,7 +2,13 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { GlobalApiService } from 'src/app/services/global-api.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   MenuController,
   NavController,
@@ -13,13 +19,14 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss'],
 })
-export class CourseListComponent implements OnInit {
+export class CourseListComponent implements OnInit, OnDestroy {
   data: any;
   displayedColumns = [
     'courseName',
@@ -29,9 +36,9 @@ export class CourseListComponent implements OnInit {
     'Action',
   ];
   coursesList = [];
-  catId: any;
   role: any;
   buName: any;
+  parametersObservable: any;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild('searchVal', { static: true }) searchVal: ElementRef;
@@ -47,21 +54,26 @@ export class CourseListComponent implements OnInit {
     private navCtrl: NavController
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.route.queryParams.subscribe((params) => {
-      if (params.cat) {
-        this.catId = params.cat;
-      }
-      if (localStorage.getItem('role') === 'manager') {
-        this.role = localStorage.getItem('role');
-        this.buName = localStorage.getItem('buName');
-      }
-      this.courseList();
+    this.role = localStorage.getItem('role');
+    if (localStorage.getItem('role') === 'manager') {
+      this.buName = localStorage.getItem('buName');
+    } else {
+      this.buName = null;
+    }
+    this.parametersObservable = this.route.queryParams.subscribe((params) => {
+      this.courseList(params.cat);
     });
   }
 
   ngOnInit() {}
 
-  courseList() {
+  ngOnDestroy() {
+    if (this.parametersObservable != null) {
+      this.parametersObservable.unsubscribe();
+    }
+  }
+
+  courseList(cat: any) {
     this.searchVal.nativeElement.value = '';
     const msg = 'Loading course list...<br> Please wait...';
     this.loader.showAutoHideLoader(msg);
@@ -74,8 +86,10 @@ export class CourseListComponent implements OnInit {
       data.append('buId', localStorage.getItem('buId'));
     }
 
-    if (this.catId) {
-      data.append('catId', this.catId);
+    if (cat) {
+      data.append('catId', cat);
+    } else {
+      data.append('catId', '');
     }
 
     this.service.course_list(data).subscribe(
