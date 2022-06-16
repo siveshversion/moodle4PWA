@@ -2,26 +2,26 @@
   <ion-header [translucent]="true">
 
     <ion-toolbar class="lc-toolbar">
-      
+
 
       <button mat-icon-button slot="start">
         <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
       </button>
 
       <ion-title>
-      <ion-img src="assets/moodle.png" class="lc-logo"></ion-img>  
-    </ion-title>
+        <ion-img src="assets/moodle.png" class="lc-logo"></ion-img>
+      </ion-title>
 
       <!--ion-img src="assets/moodle.png" class="lc-logo"></ion-img-->
 
-        
-          <!--ion-navbar>
+
+      <!--ion-navbar>
             <button ion-button menuToggle>
               <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
             </button>
             <ion-title><ion-img src="assets/moodle.png" class="lc-logo"></ion-img></ion-title>
           </ion-navbar-->
-        
+
 
 
       <ng-container *ngIf="innerWidth <= 768">
@@ -34,10 +34,11 @@
       </ng-container>
       <ion-item class="lc-profile" *ngIf="innerWidth > 768" style="float: right; --background: transparent;">
         <div style="margin-right:20px">
-          <mat-slide-toggle [checked]="darkModeSelected" (click)="toggleDarkTheme()" class="cusTitle">Dark Mode</mat-slide-toggle>
-          </div>
-        
-          <div class="RoleTitle">{{role | translate | titlecase}}</div>
+          <mat-slide-toggle [checked]="darkModeSelected" (click)="toggleDarkTheme()" class="cusTitle">Dark Mode
+          </mat-slide-toggle>
+        </div>
+
+        <div class="RoleTitle">{{role | translate | titlecase}}</div>
         <!--button mat-button [matMenuTriggerFor]="notifyMenu" style="background-color: transparent; outline: none;"-->
 
         <button mat-button [matMenuTriggerFor]="profileMenu" style="background-color: transparent; outline: none;">
@@ -223,7 +224,14 @@
               </mat-expansion-panel>
             </mat-accordion>
           </ion-item>
-
+          <ion-item (click)="sidenav.toggle();navMenu('learner-lps');" class="pointer">
+            <span class="material-icons">article</span>
+            <ion-label class="lc-menu-align">{{'lp_abbr' | translate }}</ion-label>
+          </ion-item>
+          <ion-item (click)="sidenav.toggle();navMenu('learner-report');" class="pointer">
+            <span class="material-icons">analytics</span>
+            <ion-label class="lc-menu-align">{{'report' | translate }}</ion-label>
+          </ion-item>
         </ion-list>
         <ion-list lines="none" *ngIf="isBuAdmin">
           <ion-item (click)="sidenav.toggle();navMenu('dashboard');" class="pointer">

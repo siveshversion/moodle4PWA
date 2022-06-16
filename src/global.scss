@@ -74,8 +74,8 @@
 
 .lc-content {
     --background: #ffffff !important;
-    margin-top: 72.78px;    
-    
+    margin-top: 72.78px;
+
   }
 
 .mat-drawer {
@@ -110,9 +110,9 @@
 
 
 
-.lc-input{    
+.lc-input{
   border: 1px solid #cccccc;
-  border-radius: 5px;    
+  border-radius: 5px;
   color:#666666;
   overflow:none !important;
 }
@@ -139,8 +139,8 @@ item-native{
     padding: 10px;
     font-size: 20px;
   }
-  
-  
+
+
   @media only screen and (max-width: 768px) {
     .lc-card-item {
       font-size: 20px;
@@ -188,9 +188,9 @@ item-native{
     font-family: "Roboto", sans-serif;
     color: #666666;
   }
-  
-  
- 
+
+
+
 
 
   ion-item {
@@ -199,7 +199,7 @@ item-native{
     --color: white;
     --highlight-color-focused: yellow;
 }
-  
+
   .item-native{
     border-radius: 5px;
     --background: #a50000;
@@ -209,7 +209,7 @@ item-native{
     max-width: 99%;
   }
 
-  
+
 
 
 
@@ -257,7 +257,7 @@ item-native{
 
   .mat-header-row {
     background: #ffffff !important;
-    font-weight: bold;    
+    font-weight: bold;
     border-bottom-color: #ffffff !important;
   }
 
@@ -292,9 +292,9 @@ item-native{
     background-color: #ffffff;
   }
 
-  
 
-  
+
+
 
 
 
@@ -314,7 +314,7 @@ item-native{
 
 body.dark-theme {
 
-  
+
 .lc-toggle-btn {
   --background: #2B2B2B;
   text-transform: capitalize;
@@ -372,11 +372,11 @@ body.dark-theme {
 
   .lc-content {
     --background: #000000 !important;
-    margin-top: 72.78px;    
+    margin-top: 72.78px;
   }
-  
 
-  
+
+
 .pwdIcon {
   font-size: 25px;
   color: #ffffff;
@@ -390,7 +390,7 @@ body.dark-theme {
 }
 
 
-  
+
 .inputIcon {
   font-size: 25px;
   color: #ffffff;
@@ -403,13 +403,13 @@ body.dark-theme {
 }
 
 
-  
-.lc-input{    
+
+.lc-input{
   border: 1px solid #666666;
-  border-radius: 5px;    
+  border-radius: 5px;
   color:#cccccc;
   overflow:none !important;
-  background: transparent;  
+  background: transparent;
 }
 
 
@@ -417,7 +417,7 @@ body.dark-theme {
     background-color: #000000;
   }
 
-  
+
 
 ion-item {
   --border-color: #000000;
@@ -488,15 +488,16 @@ ion-item {
     color: #fff;
   }
 
-  
-
-
   .lc-title {
     margin-top: 1em;
     --color: white;
     font-weight: bold;
   }
 
+  .lc-card-title {
+    --color: white;
+    font-weight: bold;
+  }
 
   .lc-toolbar {
     --background: #000000;
@@ -514,7 +515,7 @@ ion-item {
     --color: #ffffff;
   }
 
-  .lc-subtitle {    
+  .lc-subtitle {
     margin-left: 1.5rem;
     color: #ffffff;
   }
@@ -550,7 +551,7 @@ ion-item {
     color: #94a0ad !important;
   }
 
-  
+
 
 
 
@@ -562,7 +563,7 @@ ion-item {
     background-color: transparent;
   }
 
-  
+
 
 
 

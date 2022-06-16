@@ -1,3 +1,5 @@
+import { LearnerLPsComponent } from './learner-lps/learner-lps.component';
+import { LearnerReportComponent } from './reports/learner-report/learner-report.component';
 import { RatingSummaryComponent } from './rating-summary/rating-summary.component';
 import { AuthGuard } from './../services/auth.guard';
 import { UserDetailedReportComponent } from './reports/user-detailed-report/user-detailed-report.component';
@@ -150,9 +152,15 @@ const routes: Routes = [
       },{
         path: 'reports/points-detail-report',
         component: PointsDetailingReportComponent,
+      },{
+        path: 'reports/learner-report',
+        component: LearnerReportComponent,
       }, {
         path: 'rating-summary',
         component: RatingSummaryComponent,
+      } , {
+        path: 'learner-lps',
+        component: LearnerLPsComponent,
       }
     ],
   },

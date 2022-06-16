@@ -457,6 +457,9 @@
   "points_report": "Points Report",
   "bu_name": "Business Unit Name",
   "welcome_manager":"Welcome to BU Admin's Dashboard",
-  "manage_bu": "Manage BU"
+  "manage_bu": "Manage BU",
+  "lp_abbr": "Learning Plans",
+  "report": "Report",
+  "no_lp_txt":"There are no learning plans assigned to you."
 }
 

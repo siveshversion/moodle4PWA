@@ -1,3 +1,5 @@
+import { LearnerLPsComponent } from './learner-lps/learner-lps.component';
+import { LearnerReportComponent } from './reports/learner-report/learner-report.component';
 import { BuAdminDashComponent } from './bu-admin-dash/bu-admin-dash.component';
 import { LoaderService } from './../services/loader.service';
 import { PointsDetailingReportComponent } from './reports/points-detailing-report/points-detailing-report.component';
@@ -145,7 +147,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     PointsComponent,
     PointsReportComponent,
     PointsDetailingReportComponent,
-    BuAdminDashComponent
+    BuAdminDashComponent,
+    LearnerReportComponent,
+    LearnerLPsComponent
   ],
   providers: [GlobalApiService, HttpClient, Storage,LoaderService],
 })

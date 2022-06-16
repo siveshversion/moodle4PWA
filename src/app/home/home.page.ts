@@ -31,7 +31,7 @@ export class HomePage {
   isStudent: boolean;
   profileImg: string;
   userprofile: any;
-  darkModeSelected:boolean;
+  darkModeSelected: boolean;
 
   constructor(
     private routea: ActivatedRoute,
@@ -88,16 +88,13 @@ export class HomePage {
   }
 
   ngOnInit(): void {
-
-    if(localStorage.getItem('darkEnabled') == 'yes'){
+    if (localStorage.getItem('darkEnabled') == 'yes') {
       this.darkModeSelected = true;
       document.body.classList.toggle('dark-theme');
-      
-    }else{      
+    } else {
       this.darkModeSelected = false;
       document.body.classList.toggle('mat-typography');
     }
-    
 
     this.elRef.nativeElement.style.setProperty(
       '--selectedColorCode',
@@ -150,6 +147,10 @@ export class HomePage {
       this.navCtrl.navigateForward('/home/reports/bu-report');
     } else if (routeName == 'points-report') {
       this.navCtrl.navigateForward('/home/reports/points-report');
+    } else if (routeName == 'learner-report') {
+      this.navCtrl.navigateForward('/home/reports/learner-report');
+    } else if (routeName == 'learner-lps') {
+      this.navCtrl.navigateForward('/home/learner-lps');
     }
   }
 
@@ -210,20 +211,13 @@ export class HomePage {
 
   toggleDarkTheme(): void {
     //alert(localStorage.getItem('darkEnabled'));
-    if(localStorage.getItem('darkEnabled') == 'yes'){
-      localStorage.setItem('darkEnabled','no');           
+    if (localStorage.getItem('darkEnabled') == 'yes') {
+      localStorage.setItem('darkEnabled', 'no');
 
       document.body.classList.toggle('dark-theme');
-    }else{
-      
-      localStorage.setItem('darkEnabled','yes');
+    } else {
+      localStorage.setItem('darkEnabled', 'yes');
       document.body.classList.toggle('dark-theme');
-      
-      
-
     }
-    
- }
-
- 
+  }
 }
