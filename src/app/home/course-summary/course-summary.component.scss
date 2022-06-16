@@ -7750,6 +7750,7 @@ a.text-blue:hover, a.text-blue:focus {
 .btn-outline-info {
   color: #4fc6e1;
   border-color: #4fc6e1; }
+
   .btn-outline-info:hover {
     color: #fff;
     background-color: #4fc6e1;
@@ -8377,21 +8378,6 @@ th {
   .action-icon:hover {
     color: #dee2e6; }
 
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 10px 0;
-  font-family: "Roboto", sans-serif;
-  color: #fff; }
 
 .font-11 {
   font-size: 11px !important; }
@@ -8497,10 +8483,6 @@ h6 {
 }
 }
 
-.lc-content {
-  --background: #000000;
-
-}
 
 .lc-header {
   color: #94a0ad !important;

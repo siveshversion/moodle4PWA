@@ -31,6 +31,7 @@ export class HomePage {
   isStudent: boolean;
   profileImg: string;
   userprofile: any;
+  darkModeSelected:boolean;
 
   constructor(
     private routea: ActivatedRoute,
@@ -87,6 +88,17 @@ export class HomePage {
   }
 
   ngOnInit(): void {
+
+    if(localStorage.getItem('darkEnabled') == 'yes'){
+      this.darkModeSelected = true;
+      document.body.classList.toggle('dark-theme');
+      
+    }else{      
+      this.darkModeSelected = false;
+      document.body.classList.toggle('mat-typography');
+    }
+    
+
     this.elRef.nativeElement.style.setProperty(
       '--selectedColorCode',
       '#1B1B1B'
@@ -195,4 +207,23 @@ export class HomePage {
     await alert.present();
     await alert.onDidDismiss();
   }
+
+  toggleDarkTheme(): void {
+    //alert(localStorage.getItem('darkEnabled'));
+    if(localStorage.getItem('darkEnabled') == 'yes'){
+      localStorage.setItem('darkEnabled','no');           
+
+      document.body.classList.toggle('dark-theme');
+    }else{
+      
+      localStorage.setItem('darkEnabled','yes');
+      document.body.classList.toggle('dark-theme');
+      
+      
+
+    }
+    
+ }
+
+ 
 }

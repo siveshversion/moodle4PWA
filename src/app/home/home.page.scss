@@ -5,11 +5,7 @@
   margin: 0.4em;
 }
 
-.lc-toolbar {
-  --background: var(--);
-  --background-color: var(--);
-  box-shadow: 0 0 35px 0 rgba(66, 72, 80, 0.15);
-}
+
 
 .lc-menu {
   --background: var(--selectedColorCode);
@@ -19,10 +15,6 @@
 
 }
 
-lc-toolbar ios in-toolbar hydrated {
-  --background: var(--selectedColorCode);
-  --background-color: var(--selectedColorCode);
-}
 
 
 .lc-menu ion-content {
@@ -48,7 +40,7 @@ lc-toolbar ios in-toolbar hydrated {
 @media screen and (min-width: 769px) {
 
   .content_frame {
-    height: 88vh;
+    height: 80vh;
   }
 
   .lc-logo {
@@ -86,11 +78,7 @@ lc-toolbar ios in-toolbar hydrated {
 
 
 
-.lc-toolbar {
-  --background: var(--selectedColorCode);
-  --background-color: var(--selectedColorCode);
-  box-shadow: 0 0 35px 0 rgba(66, 72, 80, 0.15);
-}
+
 
 .header-translucent-ios ion-toolbar {
   --opacity: none !important;
@@ -159,10 +147,7 @@ lc-toolbar ios in-toolbar hydrated {
   font-size: 45px !important;
 }
 
-.lc-profile-img {
-  height: 70%;
-  width: 70%;
-}
+
 
 .lc-avatar {
   display: inline-flex;
@@ -173,19 +158,13 @@ lc-toolbar ios in-toolbar hydrated {
   border-radius: 0px !important;
 }
 
-::ng-deep .mat-menu-content {
-  background: #141414;
-  padding: 1rem;
-  color: #ffffff;
-}
+
 
 ::ng-deep .mat-menu-content .lc-profile-name {
   font-weight: 500;
 }
 
-::ng-deep .mat-menu-content .mat-menu-item {
-  color: #ffffff;
-}
+
 
 #noNotifyLabel.lc-profile-name {
   font-style: italic;
@@ -249,21 +228,8 @@ lc-toolbar ios in-toolbar hydrated {
 }
 
 
-ion-item {
-  --border-color: #000000;
-  --border-style: none;
-  --background: var(--selectedColorCode);
-  --background-color: var(--selectedColorCode);
 
-}
 
-.mat-drawer {
-  background-color: var(--selectedColorCode);
-}
-
-.list-md {
-  background-color: var(--selectedColorCode);
-}
 
 
 
@@ -277,3 +243,12 @@ ion-item {
 .item .sc-ion-label-ios-h {
   padding-left: 5px;
 }
+
+
+ion-title {
+  position: absolute;
+  line-height: 40px;
+  padding-left: 10px;
+  width:200px;
+}
+

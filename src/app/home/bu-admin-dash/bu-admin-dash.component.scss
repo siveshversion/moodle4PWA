@@ -1,34 +1,5 @@
-.lc-content {
-  --background: #000000;
-}
 
-.lc-section {
-  height: auto;
-  --background: #1B1B1B;
-}
 
-.lc-section ion-card-content {
-  --background: transparent !important;
-}
-
-.lc-section ion-card-content ion-list,
-.lc-section ion-card-content ion-list ion-item {
-  --ion-background-color: transparent !important;
-  color: #94a0ad !important;
-  --border-color: #94a0ad;
-}
-
-.lc-section ion-card-header ion-row ion-card-title {
-  padding-left: 0.5em;
-  --color: #94a0ad;
-  font-weight: 550;
-}
-
-.lc-title {
-  margin-top: 1em;
-  --color: #94a0ad;
-  font-weight: bold;
-}
 
 // .lc-section ion-card-content ion-row ion-col ion-text {
 //     text-align: end;
@@ -44,80 +15,11 @@
 }
 
 
-.lc-content {
-  --background: #000000;
-
-}
 
 .lc-header {
   color: #94a0ad !important;
   font-size: 26px;
   font-weight: 700;
-}
-
-@media only screen and (max-width: 768px) {
-  .lc-card-item {
-    font-size: 20px;
-    --background: #000000;
-    height: auto;
-    margin-right: 10px;
-    cursor: pointer;
-    transition-duration: 0.3s;
-    transition-property: transform;
-    display: inline-block;
-    width: 250px
-  }
-}
-
-@media only screen and (min-width: 769px) {
-  .lc-card-item {
-    font-size: 20px;
-    --background: #000000;
-    height: auto;
-    margin-right: 10px;
-    cursor: pointer;
-    transition-duration: 0.3s;
-    transition-property: transform;
-    display: inline-block;
-    width: 250px;
-
-  }
-}
-
-.lc-card-item ion-card-header ion-item {
-  --background: transparent;
-}
-
-.lc-card-item ion-card-header ion-chip {
-  --background: #cedeef;
-  height: 20px;
-}
-
-.lc-card-item ion-card-header ion-chip ion-label {
-  font-size: 0.75rem;
-}
-
-.lc-card-item ion-card-content ion-card-subtitle {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  font-size: 1rem !important;
-}
-
-.lc-card-item ion-card-content ion-item {
-  --background: transparent;
-  --color: #94a0ad;
-  font-size: 0.75rem;
-}
-
-.lc-card-item ion-card-content ion-button {
-  font-size: 0.7875rem;
-}
-
-.lc-subtitle {
-  text-align: left;
-  margin-left: 1.5rem;
-  color: #ffffff;
 }
 
 .lc-content-item {

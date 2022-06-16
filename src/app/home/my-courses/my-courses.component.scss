@@ -1,7 +1,4 @@
-.lc-content {
-    --background: #000000;
 
-}
 
 .lc-header {
     color: #94a0ad !important;
@@ -12,7 +9,7 @@
 @media only screen and (max-width: 768px) {
     .lc-card-item {
         font-size: 20px;
-        --background: #000000;
+        
         height: auto;
         margin-right: 10px;
         cursor: pointer;
@@ -27,7 +24,7 @@
 @media only screen and (min-width: 769px) {
 .lc-card-item {
     font-size: 20px;
-    --background: #000000;
+    
     height: auto;
     margin-right: 10px;
     cursor: pointer;
@@ -69,11 +66,6 @@
     font-size: 0.7875rem;
 }
 
-.lc-subtitle {
-    text-align: left;
-    margin-left: 1.5rem;
-    color:#ffffff;
-}
 
 .lc-content-item {
     text-align: center;
@@ -173,25 +165,7 @@
   }
 
 
-.lc-title {
-    margin-top: 1em;
-    --color: #94a0ad;
-    font-weight: bold;
-}
 
 ion-item{
     --border-style:none;
-}
-
-
-
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-.mat-select {
-    width: 175px !important;
-}
-
-.filter{
-  float: right;
-  margin: 10px;
-  color: #ffffff;
 }

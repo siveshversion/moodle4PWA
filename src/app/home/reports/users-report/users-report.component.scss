@@ -1,18 +1,5 @@
-ion-header {
-  color: #fff;
-  font-weight: 500;
-  font-size: 20px;
-  padding-left: 10px;
-  padding-top: 28px;
-  padding-bottom: 10px;
-}
-
 ion-item {
   margin-top: 8px;
-}
-
-mat-row:nth-child(even) {
-  background-color: #1B1B1B !important;
 }
 
 @media(max-width: 768px) {

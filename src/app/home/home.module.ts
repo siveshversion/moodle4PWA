@@ -71,6 +71,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LpReportComponent } from './reports/lp-report/lp-report.component';
 import { FixUrlPipe } from '../fix-url.pipe';
 import { NgxMaterialRatingModule } from 'ngx-material-rating';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   imports: [
@@ -99,6 +100,7 @@ import { NgxMaterialRatingModule } from 'ngx-material-rating';
     CountUpModule,
     DragDropModule,
     NgxMaterialRatingModule,
+    MatSlideToggleModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

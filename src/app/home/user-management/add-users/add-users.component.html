@@ -7,9 +7,9 @@
   <ion-card class="card-custom">
     <form [formGroup]="userCreateForm" (ngSubmit)="onSubmit()">
       <ion-list>
-        <ion-item lines="none" color="none">
+        <ion-item lines="none" color="none" class="lc-input">
           <ion-input type="text" placeholder="{{'username' | translate }}" formControlName="username"
-            [disabled]="update_flag" autocomplete="" class="lc-input"
+            [disabled]="update_flag" autocomplete="" 
             (ionChange)="RegistryCheck($event.target,'username')" required>
           </ion-input>
           <ion-icon name="person" class="inputIcon"></ion-icon>
@@ -22,10 +22,10 @@
           <ion-text *ngIf="unameConflict">{{'username_already_taken' | translate }}</ion-text>
         </ion-text>
 
-        <ion-item lines="none" color="none">
+        <ion-item lines="none" color="none" class="lc-input">
           <ion-input type="{{passType}}" placeholder="{{'password' | translate }}" [disabled]="update_flag"
             formControlName="new_pwd" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-            autocomplete="" class="lc-input" required></ion-input>
+            autocomplete=""  required></ion-input>
           <ion-icon name="{{passwordIcon}}" class="pwdIcon" (click)='hideShowPassword(1)'></ion-icon>
         </ion-item>
         <ion-text color="danger" class="lc-error"
@@ -45,8 +45,8 @@
             {{'minimum_of_8_characters' | translate }}</ion-text>
         </ion-text>
 
-        <ion-item lines="none" color="none">
-          <ion-input type="text" placeholder="{{'email_id' | translate }}" formControlName="email" class="lc-input"
+        <ion-item lines="none" color="none" class="lc-input">
+          <ion-input type="text" placeholder="{{'email_id' | translate }}" formControlName="email" 
             [disabled]="update_flag" (ionChange)="RegistryCheck($event.target,'email')" required></ion-input>
           <ion-icon name="mail" class="inputIcon"></ion-icon>
         </ion-item>
@@ -63,9 +63,9 @@
         </ion-text>
 
 
-        <ion-item lines="none" color="none">
+        <ion-item lines="none" color="none" class="lc-input">
           <ion-input type="text" placeholder="{{'firstname' | translate }}" formControlName="first_name" autocomplete=""
-            class="lc-input" required></ion-input>
+             required></ion-input>
           <ion-icon name="person" class="inputIcon"></ion-icon>
         </ion-item>
         <ion-text color="danger" class="lc-error"
@@ -73,9 +73,9 @@
           <ion-text *ngIf="hasError('first_name','required')">{{'this_field_is_required' | translate }}</ion-text>
         </ion-text>
 
-        <ion-item lines="none" color="none">
+        <ion-item lines="none" color="none" class="lc-input">
           <ion-input type="text" placeholder="{{'lastname' | translate }}" formControlName="surname" autocomplete=""
-            class="lc-input" required></ion-input>
+             required></ion-input>
           <ion-icon name="person" class="inputIcon"></ion-icon>
         </ion-item>
         <ion-text color="danger" class="lc-error"
@@ -83,9 +83,9 @@
           <ion-text *ngIf="hasError('surname','required')">{{'this_field_is_required' | translate }}</ion-text>
         </ion-text>
 
-        <ion-item lines="none" color="none">
+        <ion-item lines="none" color="none" class="lc-input">
           <ion-input type="text" placeholder="{{'city' | translate }}" formControlName="location" autocomplete=""
-            class="lc-input" required></ion-input>
+             required></ion-input>
           <ion-icon name="location" class="inputIcon"></ion-icon>
         </ion-item>
         <ion-text color="danger" class="lc-error"
@@ -93,8 +93,8 @@
           <ion-text *ngIf="hasError('location','required')">{{'this_field_is_required' | translate }}</ion-text>
         </ion-text>
 
-        <ion-item>
-          <mat-select class="lc-input" id="nationality" placeholder="{{'select_country' | translate }}"
+        <ion-item class="lc-input">
+          <mat-select  id="nationality" placeholder="{{'select_country' | translate }}"
             formControlName="country" name="item">
             <mat-option *ngFor="let item of countries" [value]="item.value">
               {{item.display}}
@@ -106,8 +106,8 @@
           <ion-text *ngIf="hasError('country','required')">{{'this_field_is_required' | translate }}</ion-text>
         </ion-text>
 
-        <ion-item>
-          <mat-select class="lc-input" id="bu" placeholder="{{'select_bu' | translate }}" formControlName="bu"
+        <ion-item class="lc-input">
+          <mat-select  id="bu" placeholder="{{'select_bu' | translate }}" formControlName="bu"
             name="item">
             <mat-option *ngFor="let item of bus" [value]="item.value">
               {{item.viewValue}}
@@ -123,7 +123,7 @@
 
       </ion-list>
       <ion-item>
-        <ion-button expand="full" class="lc-btn" type="submit" [disabled]="!userCreateForm.valid">{{btnTitle | translate
+        <ion-button class="lc-btn" type="submit" [disabled]="!userCreateForm.valid">{{btnTitle | translate
           }}</ion-button>
       </ion-item>
 
