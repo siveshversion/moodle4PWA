@@ -95,7 +95,7 @@
       <ion-col>
         <ion-card class="lc-section" *ngIf="bus">
           <ion-card-header>
-            <ion-card-title>{{'my_bus' | translate }}( {{ bus.length }} )</ion-card-title>
+            <ion-card-title class="lc-card-title">{{'my_bus' | translate }}( {{ bus.length }} )</ion-card-title>
           </ion-card-header>
           <div class="search" *ngIf="busDummy.length > 0">
             <input type="text" class="searchTerm"
@@ -158,7 +158,7 @@
       <ion-col>
         <ion-card class="lc-section" *ngIf="lps">
           <ion-card-header>
-            <ion-card-title>{{'my_lps' | translate }}( {{ lps.length }} )</ion-card-title>
+            <ion-card-title class="lc-card-title">{{'my_lps' | translate }}( {{ lps.length }} )</ion-card-title>
           </ion-card-header>
           <div class="search" *ngIf="lpsDummy.length > 0">
             <input type="text" class="searchTerm"
