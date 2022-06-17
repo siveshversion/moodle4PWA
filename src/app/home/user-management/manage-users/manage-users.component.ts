@@ -66,16 +66,20 @@ export class ManageUsersComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       if (localStorage.getItem('role') === 'manager') {
         this.buName = localStorage.getItem('buName');
+        this.getUserList('');
+      } else if (params.buId) {
+        this.getUserList(params.buId);
+        this.buName = null;
       } else {
         this.buName = null;
+        this.getUserList('');
       }
-      this.getUserList();
     });
   }
 
   ngOnInit() {}
 
-  getUserList() {
+  getUserList(buId: any) {
     this.searchVal.nativeElement.value = '';
     const msg = 'Loading User list...<br> Please wait...';
     this.loader.showAutoHideLoader(msg);
@@ -85,8 +89,11 @@ export class ManageUsersComponent implements OnInit {
     let ToggleTitle: string;
     const data = new FormData();
     data.append('wstoken', environment.MOODLE_TOKEN);
-    data.append('buId', localStorage.getItem('buId'));
-
+    if (localStorage.getItem('buId')) {
+      data.append('buId', localStorage.getItem('buId'));
+    } else if (buId) {
+      data.append('buId', buId);
+    }
     this.service.mod_get_user_list(data).subscribe(
       (res) => {
         this.users = res.Data;
@@ -185,7 +192,7 @@ export class ManageUsersComponent implements OnInit {
         {
           text: 'OK',
           handler: () => {
-            this.getUserList();
+            this.getUserList('');
           },
         },
       ],

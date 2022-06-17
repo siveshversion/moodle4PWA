@@ -134,7 +134,8 @@ export class BUsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  navMenu(action: any, buId: any) {
+  navMenu(action: any, bu: any) {
+    const buId = Number(bu);
     if (action === 'edit') {
       this.navCtrl.navigateForward('home/create-bu?id=' + buId);
     } else if (action === 'mg-courses') {
@@ -143,10 +144,16 @@ export class BUsComponent implements OnInit {
       this.navCtrl.navigateForward('home/bu-summary?id=' + buId);
     } else if (action === 'mg-users') {
       this.navCtrl.navigateForward('home/bu-users?id=' + buId);
+    } else if (action === 'users' && buId > 0) {
+      this.navCtrl.navigateForward('/home/users?buId=' + buId);
     } else if (action === 'users') {
       this.navCtrl.navigateForward('/home/users');
+    } else if (action === 'course-list' && buId > 0) {
+      this.navCtrl.navigateForward('/home/courses?buId=' + buId);
     } else if (action === 'course-list') {
       this.navCtrl.navigateForward('/home/courses');
+
+
     }
   }
 

@@ -43,8 +43,10 @@
                       </mat-header-cell>
                       <mat-cell *matCellDef="let element" style="justify-content:center;">
                         <span class="mobile-label">{{'courses' | translate }}:</span>
-                        <span class="cell-align-ch" [ngStyle]="{cursor:'pointer'}"
+                        <span class="cell-align-ch" *ngIf="role === 'manager'" [ngStyle]="{cursor:'pointer'}"
                           (click)="navMenu('course-list','')">{{element.bu_courses_cnt || "0"}}</span>
+                          <span class="cell-align-ch" *ngIf="role !== 'manager'" [ngStyle]="{cursor:'pointer'}"
+                          (click)="navMenu('course-list',element.bu_id)">{{element.bu_courses_cnt || "0"}}</span>
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="users">
@@ -52,8 +54,10 @@
                       </mat-header-cell>
                       <mat-cell *matCellDef="let element" style="justify-content:center;">
                         <span class="mobile-label">{{'users' | translate }}:</span>
-                        <span class="cell-align-ch" [ngStyle]="{cursor:'pointer'}"
+                        <span class="cell-align-ch" *ngIf="role === 'manager'" [ngStyle]="{cursor:'pointer'}"
                           (click)="navMenu('users','')">{{element.bu_users_cnt || "0"}}</span>
+                        <span class="cell-align-ch" *ngIf="role !== 'manager'" [ngStyle]="{cursor:'pointer'}"
+                          (click)="navMenu('users',element.bu_id)">{{element.bu_users_cnt || "0"}}</span>
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="Action">

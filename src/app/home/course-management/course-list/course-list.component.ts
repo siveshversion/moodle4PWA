@@ -61,7 +61,7 @@ export class CourseListComponent implements OnInit, OnDestroy {
       this.buName = null;
     }
     this.parametersObservable = this.route.queryParams.subscribe((params) => {
-      this.courseList(params.cat);
+      this.courseList(params.cat, params.buId);
     });
   }
 
@@ -73,17 +73,17 @@ export class CourseListComponent implements OnInit, OnDestroy {
     }
   }
 
-  courseList(cat: any) {
+  courseList(cat: any, buId: any) {
     this.searchVal.nativeElement.value = '';
     const msg = 'Loading course list...<br> Please wait...';
     this.loader.showAutoHideLoader(msg);
-
     this.coursesList = [];
-
     const data = new FormData();
     data.append('userId', localStorage.getItem('user_id'));
     if (localStorage.getItem('buId')) {
       data.append('buId', localStorage.getItem('buId'));
+    } else if (buId) {
+      data.append('buId', buId);
     }
 
     if (cat) {
