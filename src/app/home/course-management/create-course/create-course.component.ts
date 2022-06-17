@@ -28,6 +28,7 @@ export class CreateCourseComponent implements OnInit {
   shortnameConflict: boolean;
   old_enroll_id: any;
   cat_id: any;
+  role: any;
   enrollType = [
     { value: 'self', viewValue: 'Free' },
     { value: 'manual', viewValue: 'Admin' },
@@ -60,6 +61,7 @@ export class CreateCourseComponent implements OnInit {
     public alertCtrl: AlertController,
     public loadingController: LoadingController
   ) {
+    this.role = localStorage.getItem('role');
     this.setformValidators();
     this.route.queryParams.subscribe((params) => {
       if (params.cid && params.cat) {
@@ -171,6 +173,7 @@ export class CreateCourseComponent implements OnInit {
       durationHrs: new FormControl('', null),
       durationMins: new FormControl('', null),
       points: new FormControl('', null),
+      enrollBuUsersChk: new FormControl('', null),
     });
   }
 
@@ -269,9 +272,10 @@ export class CreateCourseComponent implements OnInit {
     let msg: string;
     msg = 'Creating Course Please Wait....';
     this.loader.showAutoHideLoader(msg);
-    if(localStorage.getItem('buId')) {
-      formData.append('bu_id',localStorage.getItem('buId'));
-      formData.append('userId',localStorage.getItem('user_id'));
+    formData.append('enrollBuUsersChk', this.courseForm.get('enrollBuUsersChk').value);
+    if (localStorage.getItem('buId')) {
+      formData.append('bu_id', localStorage.getItem('buId'));
+      formData.append('userId', localStorage.getItem('user_id'));
     }
     this.service.create_course(formData).subscribe(
       (response) => {
@@ -329,7 +333,6 @@ export class CreateCourseComponent implements OnInit {
 
   setCategoryField(catid: any) {
     const index = this.categories.findIndex((p) => p.value == catid);
-
     this.courseForm.controls.courseCategory.setValue(
       this.categories[index].value
     );

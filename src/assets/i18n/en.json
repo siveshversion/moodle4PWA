@@ -460,6 +460,7 @@
   "manage_bu": "Manage BU",
   "lp_abbr": "Learning Plans",
   "report": "Report",
-  "no_lp_txt":"There are no learning plans assigned to you."
+  "no_lp_txt":"There are no learning plans assigned to you.",
+  "enroll_course_to_bu_users": "Enroll this course to the BU users"
 }
 
