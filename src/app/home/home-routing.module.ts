@@ -1,3 +1,4 @@
+import { BulkUserRegistrationComponent } from './bulk-user-registration/bulk-user-registration.component';
 import { LearnerLPsComponent } from './learner-lps/learner-lps.component';
 import { LearnerReportComponent } from './reports/learner-report/learner-report.component';
 import { RatingSummaryComponent } from './rating-summary/rating-summary.component';
@@ -161,6 +162,9 @@ const routes: Routes = [
       } , {
         path: 'learner-lps',
         component: LearnerLPsComponent,
+      }, {
+        path: 'bulk-reg-user',
+        component: BulkUserRegistrationComponent,
       }
     ],
   },

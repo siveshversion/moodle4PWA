@@ -1,3 +1,4 @@
+import { BulkUserRegistrationComponent } from './bulk-user-registration/bulk-user-registration.component';
 import { LearnerLPsComponent } from './learner-lps/learner-lps.component';
 import { LearnerReportComponent } from './reports/learner-report/learner-report.component';
 import { BuAdminDashComponent } from './bu-admin-dash/bu-admin-dash.component';
@@ -149,7 +150,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     PointsDetailingReportComponent,
     BuAdminDashComponent,
     LearnerReportComponent,
-    LearnerLPsComponent
+    LearnerLPsComponent,
+    BulkUserRegistrationComponent
   ],
   providers: [GlobalApiService, HttpClient, Storage,LoaderService],
 })

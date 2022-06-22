@@ -1,0 +1,55 @@
+<ion-content [fullscreen]="true" class="ion-padding" scroll-y="true" class="lc-content">
+  <!--ion-header>Bulk User Registration</ion-header-->
+  <form [formGroup]="bulkUserForm">
+
+    <ion-grid>
+      <ion-card class="lc-section">
+        <ion-card-header>
+          <ion-row>
+            <ion-col size="12" size-xs="11" size-md="11" size-lg="11" class="ion-no-padding">
+              <ion-header>{{'add_bulk_user' | translate }}</ion-header>
+            </ion-col>
+          </ion-row>
+          <hr>
+          <ion-row class="ion-padding-top">
+            <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+              <!--ion-label class="lc-label-align">Bulk User list Upload</ion-label-->
+              <ion-item lines="none" color="none">
+                <div class="input-group mat-form-field-wrapper">
+                  <div class="custom-file">
+                    <input input type="file" class="custom-file-input" [ngStyle]="{cursor:'pointer'}"
+                      (change)="chooseFile($event.target)" formControlName="file" accept=".xlsx,.xls,.csv">
+                    <label class="custom-file-label">{{fileName}}</label>
+                  </div>
+                  <ion-button id="savebtn" [disabled]="!bulkUserForm.valid" type="button" expand="block" fill="solid"
+                    id="custombtn" class="lc-button lc-btn-color" (click)="submit()">{{'upload' | translate }}
+                  </ion-button>
+
+                </div>
+              </ion-item>
+              <ion-text color="danger" class="lc-error"
+                *ngIf="bulkUserForm.get('file').errors && (bulkUserForm.get('file').invalid && bulkUserForm.get('file').dirty || bulkUserForm.get('file').touched)">
+                <ion-text *ngIf="hasError('file','required')">{{'this_field_is_required' | translate }}</ion-text>
+              </ion-text>
+              <ion-item lines="none" color="none">
+                <p [className]="class_str"> {{uploadResponse}}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-padding-top">
+            <ion-col class="ion-no-padding">
+              <div style="float:right">
+                <ion-item lines="none" color="none">
+
+                  <ion-button type="button" expand="block" fill="solid" id="custombtn" class="lc-button lc-btn-color"
+                    (click)="getSampleCSV()" title="Download Tempate">{{'template' | translate }}</ion-button>
+                </ion-item>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-card-header>
+      </ion-card>
+    </ion-grid>
+  </form>
+</ion-content>

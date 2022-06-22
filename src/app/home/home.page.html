@@ -90,6 +90,11 @@
                     <a class="lc-sub-menu">{{'add_new_user' | translate }}</a>
                   </mat-list-item>
                 </mat-list>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('bulk-user-registration')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'add_bulk_user' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
               </mat-expansion-panel>
             </mat-accordion>
           </ion-item>

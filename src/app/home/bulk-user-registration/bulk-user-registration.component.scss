@@ -1,0 +1,45 @@
+ion-item {
+  margin-top: 8px;
+}
+
+hr {
+  border-width: 1px;
+  border-color: #2b2b2b;
+}
+
+@media screen and (max-width: 768px) {
+  .lc-btn-padding {
+    padding-top: 1em !important;
+  }
+}
+
+#savebtn {
+  margin-left: 17px;
+  margin-bottom: 20px;
+}
+
+ion-text.md.hydrated {
+  display: block;
+}
+
+.upload-response {
+  color: #fff;
+}
+
+.contains-error {
+  color: #AB0A0A;
+  font-size: .78em;
+  margin-left: 20px;
+}
+
+.material-icons {
+  margin-top: 12px;
+  cursor: pointer !important;
+  color: white;
+  font-size: 24px;
+}
+
+#custombtn {
+  height: 35px;
+  width: 150px;
+}
