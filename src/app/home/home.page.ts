@@ -153,6 +153,8 @@ export class HomePage {
       this.navCtrl.navigateForward('/home/learner-lps');
     } else if (routeName == 'bulk-user-registration') {
       this.navCtrl.navigateForward('/home/bulk-reg-user');
+    } else if (routeName == 'availcourses') {
+      this.navCtrl.navigateForward('/home/availcourses');
     }
   }
 

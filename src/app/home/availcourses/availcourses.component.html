@@ -1,0 +1,17 @@
+<ion-content [fullscreen]="true" class="ion-padding" class="lc-content">
+  <ion-header>
+    <ion-title class="lc-title">{{'avail_courses' | translate}}</ion-title>
+  </ion-header>
+
+  <ion-card class="lc-section" *ngFor="let item of avCourses">
+    <ion-card-header>
+      <ion-card-title class="lc-card-title" [ngStyle]="{cursor:'pointer'}" (click)="goToCourse(item.id)">
+        {{item.fullname}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{item.desc}}
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

@@ -226,6 +226,11 @@
                     <a class="lc-sub-menu">{{'my_courses' | translate }}</a>
                   </mat-list-item>
                 </mat-list>
+                <mat-list class="nav-list-container" (click)="sidenav.toggle();navMenu('availcourses')">
+                  <mat-list-item>
+                    <a class="lc-sub-menu">{{'avail_courses' | translate }}</a>
+                  </mat-list-item>
+                </mat-list>
               </mat-expansion-panel>
             </mat-accordion>
           </ion-item>

@@ -383,11 +383,10 @@ export class GlobalApiService {
   add_bulk_users(data: any): Observable<any> {
     data.append('wstoken', environment.MOODLE_TOKEN);
     data.append('wsfunction', 'core_user_create_users');
-    return this.http.post(
-      this.base_url + '?methodname=addBulkUsers',
-      data
-    );
-   }
+    return this.http.post(this.base_url + '?methodname=addBulkUsers', data);
+  }
+
+  get_avail_courses(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=getAvailCourses', data);
+  }
 }
-
-
