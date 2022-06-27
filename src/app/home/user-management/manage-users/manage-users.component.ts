@@ -36,7 +36,7 @@ export class ManageUsersComponent implements OnInit {
 
   role: any;
   buName: any;
-  dataSource: any;
+  dataSource: MatTableDataSource<any> = new MatTableDataSource();
   displayedColumns = [
     'UserId',
     'FirstName',
@@ -133,6 +133,10 @@ export class ManageUsersComponent implements OnInit {
 
   applyFilter(filterValue: any) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  ionViewDidEnter() {
+    this.dataSource.paginator = this.paginator;
   }
 
   navMenu(routeName: string, user_id: number) {
