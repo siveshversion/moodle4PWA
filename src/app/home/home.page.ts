@@ -155,6 +155,8 @@ export class HomePage {
       this.navCtrl.navigateForward('/home/bulk-reg-user');
     } else if (routeName == 'availcourses') {
       this.navCtrl.navigateForward('/home/availcourses');
+    } else if (routeName == 'catalog') {
+      this.navCtrl.navigateForward('/home/catalog');
     }
   }
 

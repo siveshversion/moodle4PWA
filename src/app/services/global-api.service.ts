@@ -389,4 +389,8 @@ export class GlobalApiService {
   get_avail_courses(data: any): Observable<any> {
     return this.http.post(this.base_url + '?methodname=getAvailCourses', data);
   }
+
+  get_catalog(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=getCatalog', data);
+  }
 }

@@ -462,6 +462,8 @@
   "report": "Report",
   "no_lp_txt":"There are no learning plans assigned to you.",
   "enroll_course_to_bu_users": "Enroll this course to the BU users",
-  "avail_courses": "Available Courses"
+  "avail_courses": "Available Courses",
+  "catalog": "Catalog",
+  "no_catalog_txt": "No catalog available"
 }
 

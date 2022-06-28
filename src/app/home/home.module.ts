@@ -1,3 +1,4 @@
+import { CatalogComponent } from './catalog/catalog.component';
 import { AvailcoursesComponent } from './availcourses/availcourses.component';
 import { BulkUserRegistrationComponent } from './bulk-user-registration/bulk-user-registration.component';
 import { LearnerLPsComponent } from './learner-lps/learner-lps.component';
@@ -153,7 +154,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     LearnerReportComponent,
     LearnerLPsComponent,
     BulkUserRegistrationComponent,
-    AvailcoursesComponent
+    AvailcoursesComponent,
+    CatalogComponent
   ],
   providers: [GlobalApiService, HttpClient, Storage,LoaderService],
 })

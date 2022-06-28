@@ -1,3 +1,4 @@
+import { CatalogComponent } from './catalog/catalog.component';
 import { AvailcoursesComponent } from './availcourses/availcourses.component';
 import { BulkUserRegistrationComponent } from './bulk-user-registration/bulk-user-registration.component';
 import { LearnerLPsComponent } from './learner-lps/learner-lps.component';
@@ -169,6 +170,9 @@ const routes: Routes = [
       }, {
         path: 'availcourses',
         component: AvailcoursesComponent,
+      } , {
+        path: 'catalog',
+        component: CatalogComponent,
       }
     ],
   },
