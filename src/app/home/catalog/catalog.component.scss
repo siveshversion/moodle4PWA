@@ -1,0 +1,171 @@
+
+
+.lc-header {
+  color: #94a0ad !important;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+@media only screen and (max-width: 768px) {
+  .lc-card-item {
+      font-size: 20px;
+
+      height: auto;
+      margin-right: 10px;
+      cursor: pointer;
+      transition-duration: 0.3s;
+      transition-property: transform;
+      display: inline-block;
+      width:250px
+
+  }
+}
+
+@media only screen and (min-width: 769px) {
+.lc-card-item {
+  font-size: 20px;
+
+  height: auto;
+  margin-right: 10px;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  transition-property: transform;
+  display: inline-block;
+  width:250px;
+
+}
+}
+
+.lc-card-item ion-card-header ion-item {
+  --background: transparent;
+}
+
+.lc-card-item ion-card-header ion-chip {
+  --background: #cedeef;
+  height: 20px;
+}
+
+.lc-card-item ion-card-header ion-chip ion-label {
+  font-size: 0.75rem;
+}
+
+.lc-card-item ion-card-content ion-card-subtitle {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 1rem !important;
+}
+
+.lc-card-item ion-card-content ion-item {
+  --background: transparent;
+  --color: #94a0ad;
+  font-size: 0.75rem;
+}
+
+.lc-card-item ion-card-content ion-button {
+  font-size: 0.7875rem;
+}
+
+
+.lc-content-item {
+  text-align: center;
+  margin:0px auto !important;
+}
+.lc-content-item_left {
+  margin-top: 3rem;
+  margin-bottom: 0px !important;
+  text-align: left;
+
+}
+
+.lc-enroll-item>ion-label {
+  text-align: right;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .lc-card-item:hover,
+  .lc-card-item:focus,
+  .lc-card-item:active {
+      transform: scale(1.1);
+  }
+}
+
+.lc-img {
+  height: 134px;
+  object-fit: cover;
+  object-position: center;
+
+border:none;
+}
+
+@media (min-width: 768px) {
+  .lc-slide {
+      width: 240px !important;
+      height: 270px !important;
+  }
+}
+
+.swiper-container {
+  overflow: initial !important;
+}
+
+.searchTerm {
+margin-left: 0.5em;
+border: 1px solid #aaa;
+height: 30px;
+border-radius: 5px;
+background-repeat: no-repeat;
+background-position: 3px 6px;
+padding-left: 25px;
+margin-right: 25px;
+}
+
+.fabPrevBtn {
+  position: absolute;
+  z-index: 999;
+  top: 40%;
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+}
+
+.fabNxtBtn {
+  position: absolute;
+  z-index: 999;
+  top: 40%;
+  float:right;
+  right:0px;
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+}
+
+@media only screen and (min-width: 992px) {
+  .fabNxtBtn {
+      position: absolute;
+      z-index: 999;
+      top: 40%;
+      left: 95%;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      vertical-align: middle;
+  }
+}
+
+
+.slider-nav{
+  ion-icon{
+      height: 100%;
+  }
+}
+
+
+
+ion-item{
+  --border-style:none;
+}

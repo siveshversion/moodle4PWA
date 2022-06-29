@@ -24,7 +24,7 @@ export class CatalogComponent implements OnInit {
   };
 
   slideOpts = {
-    slidesPerView: 0,
+    slidesPerView: 4,
     Navigator: true,
     coverflowEffect: {
       rotate: 50,
@@ -66,40 +66,9 @@ export class CatalogComponent implements OnInit {
     );
   }
 
-  getLPDetails(id) {
-    this.route.navigate(['home/lp-summary'], {
+  getCatalogDetails(id) {
+    this.route.navigate(['home/course'], {
       queryParams: { id },
-    });
-  }
-
-  search(target: any, type: any): void {
-    if (type === 'catalogs') {
-      this.catalogs = this.catalogsDummy.filter(
-        (item) => item.lpname.search(new RegExp(target.value, 'i')) > -1
-      );
-    }
-    //console.log(JSON.stringify(this.catalogs));
-  }
-
-  next(count) {
-    let i = 0;
-    this.slides.forEach((element) => {
-      // eslint-disable-next-line eqeqeq
-      if (i == count) {
-        element.slideNext();
-      }
-      i++;
-    });
-  }
-
-  prev(count) {
-    let i = 0;
-    this.slides.forEach((element) => {
-      // eslint-disable-next-line eqeqeq
-      if (i == count) {
-        element.slidePrev();
-      }
-      i++;
     });
   }
 
