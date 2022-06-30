@@ -7,34 +7,35 @@
 
   <div *ngIf="catalogs;else show">
 
-  <ion-grid *ngFor="let catalog of catalogs">
-    <ion-row>
-      <ion-col>
-        <ion-card class="lc-section">
-          <ion-card-header>
-            <ion-card-title class="lc-card-title">{{catalog.category_name}}</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-slides style="margin-bottom:20px" [options]="slideOpts" loop="false" pager="true">
-              <ion-slide *ngFor="let course of catalog.courses;let i= index">
-                <ion-card class="lc-card-item" (click)="getCatalogDetails(course.id)">
-                  <ion-card-header>
-                    <ion-img src="./assets/icon/crs-img.jpg" class="lc-img"></ion-img>
-                    <ion-item>
-                    </ion-item>
-                    <ion-card-subtitle class="lc-subtitle">{{course.course_name}}</ion-card-subtitle>
-                  </ion-card-header>
-                  <ion-card-content>
-                    <ion-label [ngStyle]="{display:'none'}">no_txt</ion-label>
-                  </ion-card-content>
-                </ion-card>
-              </ion-slide>
-            </ion-slides>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid *ngFor="let catalog of catalogs">
+      <ion-row>
+        <ion-col>
+          <ion-card class="lc-section">
+            <ion-card-header>
+              <ion-card-title class="lc-card-title">{{catalog.category_name}} ( {{ catalog.courses.length }} )
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-slides style="margin-bottom:20px" [options]="slideOpts" loop="false" pager="true">
+                <ion-slide *ngFor="let course of catalog.courses;let i= index">
+                  <ion-card class="lc-card-item" (click)="getCatalogDetails(course.course_id)">
+                    <ion-card-header>
+                      <ion-img src="./assets/icon/crs-img.jpg" class="lc-img"></ion-img>
+                      <ion-item>
+                      </ion-item>
+                      <ion-card-subtitle class="lc-subtitle"></ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-content>
+                      {{course.course_name}}
+                    </ion-card-content>
+                  </ion-card>
+                </ion-slide>
+              </ion-slides>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
   </div>
 

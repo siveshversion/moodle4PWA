@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/adjacent-overload-signatures */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoadingController, NavController } from '@ionic/angular';
+import { IonSlides, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { GlobalApiService } from 'src/app/services/global-api.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -13,8 +19,24 @@ import { LoaderService } from 'src/app/services/loader.service';
   styleUrls: ['./availcourses.component.scss'],
 })
 export class AvailcoursesComponent implements OnInit {
+  @ViewChildren(IonSlides) slides: QueryList<IonSlides>;
   role: string;
   avCourses: any;
+  selectedFilter: any;
+  coursesDummy: any = [];
+  innerWidth: number;
+
+  slideOpts = {
+    slidesPerView: 0,
+    Navigator: true,
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 0,
+      slideShadows: true,
+    },
+  };
 
   constructor(
     private service: GlobalApiService,
@@ -34,7 +56,20 @@ export class AvailcoursesComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.onResize();
+  }
+
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.innerWidth = window.innerWidth;
+    if (this.innerWidth <= 768) {
+      this.slideOpts.slidesPerView = 1;
+    } else {
+      this.slideOpts.slidesPerView = 4;
+    }
+  }
 
   load_availCourses() {
     const data = new FormData();
@@ -52,5 +87,34 @@ export class AvailcoursesComponent implements OnInit {
 
   goToCourse(courseid) {
     this.route.navigate(['home/course'], { queryParams: { id: courseid } });
+  }
+
+  search(target: any): void {
+    this.avCourses = this.coursesDummy.filter(
+      (item) => item.fullname.search(new RegExp(target.value, 'i')) > -1
+    );
+    //console.log(JSON.stringify(this.courses));
+  }
+
+  next(count) {
+    let i = 0;
+    this.slides.forEach((element) => {
+      // eslint-disable-next-line eqeqeq
+      if (i == count) {
+        element.slideNext();
+      }
+      i++;
+    });
+  }
+
+  prev(count) {
+    let i = 0;
+    this.slides.forEach((element) => {
+      // eslint-disable-next-line eqeqeq
+      if (i == count) {
+        element.slidePrev();
+      }
+      i++;
+    });
   }
 }

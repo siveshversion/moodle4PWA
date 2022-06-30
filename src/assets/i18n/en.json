@@ -464,6 +464,7 @@
   "enroll_course_to_bu_users": "Enroll this course to the BU users",
   "avail_courses": "Available Courses",
   "catalog": "Catalog",
-  "no_catalog_txt": "No catalog available"
+  "no_catalog_txt": "No catalog available",
+  "self_enrollable": "Self Enrollable Courses"
 }
 

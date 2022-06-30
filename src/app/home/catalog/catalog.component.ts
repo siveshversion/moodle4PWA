@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
 import { GlobalApiService } from 'src/app/services/global-api.service';
@@ -12,9 +18,9 @@ import { LoaderService } from 'src/app/services/loader.service';
   styleUrls: ['./catalog.component.scss'],
 })
 export class CatalogComponent implements OnInit {
-
   catalogs: any = [];
   catalogsDummy: any = [];
+  innerWidth: number;
 
   @ViewChildren(IonSlides) slides: QueryList<IonSlides>;
   option = {
@@ -24,7 +30,7 @@ export class CatalogComponent implements OnInit {
   };
 
   slideOpts = {
-    slidesPerView: 4,
+    slidesPerView: 0,
     Navigator: true,
     coverflowEffect: {
       rotate: 50,
@@ -37,15 +43,29 @@ export class CatalogComponent implements OnInit {
 
   IonSlides: any;
 
-  constructor(    private service: GlobalApiService,
+  constructor(
+    private service: GlobalApiService,
     private loader: LoaderService,
     private route: Router,
-    private router: ActivatedRoute) {}
+    private router: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.router.queryParams.subscribe((params) => {
       this.loadCatalog();
-  });
+      this.onResize();
+    });
+  }
+
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.innerWidth = window.innerWidth;
+    if (this.innerWidth <= 768) {
+      this.slideOpts.slidesPerView = 1;
+    } else {
+      this.slideOpts.slidesPerView = 4;
+    }
   }
 
   loadCatalog() {
@@ -71,6 +91,4 @@ export class CatalogComponent implements OnInit {
       queryParams: { id },
     });
   }
-
-
 }

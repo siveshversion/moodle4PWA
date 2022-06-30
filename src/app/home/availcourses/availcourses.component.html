@@ -3,14 +3,36 @@
     <ion-title class="lc-title">{{'avail_courses' | translate}}</ion-title>
   </ion-header>
 
-  <ion-card class="lc-section" *ngFor="let item of avCourses">
+  <ion-card class="lc-section" *ngIf="avCourses">
     <ion-card-header>
-      <ion-card-title class="lc-card-title" [ngStyle]="{cursor:'pointer'}" (click)="goToCourse(item.id)">
-        {{item.fullname}}
+      <ion-card-title class="lc-card-title">{{'self_enrollable' | translate }} ( {{ avCourses.length }} )
       </ion-card-title>
     </ion-card-header>
+    <div class="search" *ngIf="coursesDummy.length > 0">
+      <input type="text" class="searchTerm"
+        style="background: url(./assets/icon/search.png) no-repeat;background-position: 3px 6px;"
+        placeholder="{{'search' | translate }}..." (input)="search($event.target)">
+    </div>
     <ion-card-content>
-      {{item.desc}}
+
+      <ion-label *ngIf="avCourses.length === 0">{{'no_courses_to_view' | translate }}</ion-label>
+      <ion-slides style="margin-bottom:20px" [options]="slideOpts" loop="false" pager="true">
+        <ion-slide *ngFor="let item of avCourses;let i= index">
+          <ion-card class="lc-card-item" (click)="goToCourse(item.id)">
+            <ion-card-header>
+              <ion-img src="./assets/icon/crs-img.jpg" class="lc-img"></ion-img>
+              <ion-item></ion-item>
+              <ion-card-subtitle class="lc-subtitle"></ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>{{item.fullname}}</ion-card-content>
+          </ion-card>
+        </ion-slide>
+
+      </ion-slides>
+
+      <span *ngIf="avCourses.length > 4" type="submit" class="fabPrevBtn" (click)="prev(0)"></span>
+      <span *ngIf="avCourses.length > 4" type="submit" class="fabNxtBtn" (click)="next(0)"></span>
+
     </ion-card-content>
   </ion-card>
 
