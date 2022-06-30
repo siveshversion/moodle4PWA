@@ -31,9 +31,6 @@
                 *ngIf="bulkUserForm.get('file').errors && (bulkUserForm.get('file').invalid && bulkUserForm.get('file').dirty || bulkUserForm.get('file').touched)">
                 <ion-text *ngIf="hasError('file','required')">{{'this_field_is_required' | translate }}</ion-text>
               </ion-text>
-              <ion-item lines="none" color="none">
-                <p [className]="class_str"> {{uploadResponse}}</p>
-              </ion-item>
             </ion-col>
           </ion-row>
 

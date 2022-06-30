@@ -10,7 +10,7 @@ import {
 import { LoaderService } from 'src/app/services/loader.service';
 import { AlertController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-bulk-user-registration',
@@ -20,8 +20,6 @@ import { ActivatedRoute } from '@angular/router';
 export class BulkUserRegistrationComponent implements OnInit {
   bulkUserForm: FormGroup;
   selectedFile: any;
-  uploadResponse: any;
-  class_str: any;
   redirectUrl: any;
   encodedFile: any;
   allowedExtensions = ['csv', 'xls', 'xlsx'];
@@ -33,6 +31,7 @@ export class BulkUserRegistrationComponent implements OnInit {
     private formBuilder: FormBuilder,
     public alertCtrl: AlertController,
     private loader: LoaderService,
+    private route: Router,
     private router: ActivatedRoute,
   ) {
     this.router.queryParams.subscribe((params) => {
@@ -43,15 +42,28 @@ export class BulkUserRegistrationComponent implements OnInit {
 
   ngOnInit() {}
 
-  async showAlert(title, msg) {
+  async showAlert(title: string, msg: string){
     const alert = await this.alertCtrl.create({
       header: title,
       message: msg,
-      buttons: ['OK'],
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            console.log('ok accepted...reload triggered');
+            this.reloadCurrentRoute();
+            alert.dismiss();
+          }
+        } ]
     });
     await alert.present();
-    await alert.onDidDismiss();
   }
+
+  reloadCurrentRoute() {
+    this.route.navigateByUrl('home', {skipLocationChange: true}).then(() => {
+      this.route.navigateByUrl('home/bulk-reg-user');
+    });
+}
 
   chooseFile(target: any) {
     const filename = target.files[0].name;
@@ -121,8 +133,7 @@ export class BulkUserRegistrationComponent implements OnInit {
         console.log('user response'+ JSON.stringify(res.Data));
         res.Data.forEach((element: any) => {
           if (element.error) {
-            this.class_str = 'contains-error';
-            this.uploadResponse = element.error;
+            this.showAlert('Invalid Error',element.error);
           } else if (element.status === 'ok') {
             status = 'ok';
           }
@@ -131,6 +142,7 @@ export class BulkUserRegistrationComponent implements OnInit {
         if (status === 'ok') {
           const title = 'Status';
           const msg = 'Users uploaded successfully';
+          this.fileName = 'Choose File';
           this.showAlert(title, msg);
         }
       },
