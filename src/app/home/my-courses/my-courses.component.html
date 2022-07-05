@@ -3,22 +3,9 @@
   <ion-card class="lc-section" *ngIf="!courses">
     <ion-card-header>
       <form [formGroup]="filterForm">
-        <span class="filter">
-          <mat-select class="lc-input" id="enrollStatFilter" placeholder="Select Filter"
-            (selectionChange)="selectFilter($event.value)" [formControlName]="'filter'" name="item">
-            <mat-option *ngFor="let item of enrollStatFilter" [value]="item.value">
-              {{ item.viewValue }}
-            </mat-option>
-          </mat-select>
-        </span>
       </form>
       <ion-card-title class="lc-card-title">{{'my_courses' | translate }}( 0 )</ion-card-title>
     </ion-card-header>
-    <div class="search">
-      <input type="text" class="searchTerm"
-        style="background: url(./assets/icon/search.png) no-repeat;background-position: 3px 6px;"
-        placeholder="{{'search' | translate }}..." (input)="search($event.target)">
-    </div>
     <ion-card-content>
       <ion-label>{{'no_courses_to_view' | translate }}</ion-label>
     </ion-card-content>
@@ -45,9 +32,6 @@
     </div>
     <ion-card-content>
 
-      <ion-label *ngIf="courses.length === 0">{{'no_courses_to_view' | translate }}</ion-label>
-
-      <!--ion-slides style="margin-bottom:20px"  pager="true" [options]="slideOpts" loop="false"-->
       <ion-slides style="margin-bottom:20px" [options]="slideOpts" loop="false" pager="true">
         <ion-slide *ngFor="let item of courses;let i= index">
           <ion-card class="lc-card-item" (click)="getCourseDetails(item.id,item.status)">
