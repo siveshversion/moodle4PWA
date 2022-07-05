@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/naming-convention */
 import {
@@ -90,5 +91,17 @@ export class CatalogComponent implements OnInit {
     this.route.navigate(['home/course'], {
       queryParams: { id },
     });
+  }
+
+  next(nth_slide: number) {
+    const nSlides = this.slides.toArray();
+    const nthSlide = nSlides[nth_slide];
+    nthSlide.slideNext();
+  }
+
+  prev(nth_slide: number) {
+    const nSlides = this.slides.toArray();
+    const nthSlide = nSlides[nth_slide];
+    nthSlide.slidePrev();
   }
 }

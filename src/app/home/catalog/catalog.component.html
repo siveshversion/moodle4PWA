@@ -7,7 +7,7 @@
 
   <div *ngIf="catalogs;else show">
 
-    <ion-grid *ngFor="let catalog of catalogs">
+    <ion-grid *ngFor="let catalog of catalogs; let i = index">
       <ion-row>
         <ion-col>
           <ion-card class="lc-section">
@@ -17,7 +17,7 @@
             </ion-card-header>
             <ion-card-content>
               <ion-slides style="margin-bottom:20px" [options]="slideOpts" loop="false" pager="true">
-                <ion-slide *ngFor="let course of catalog.courses;let i= index">
+                <ion-slide *ngFor="let course of catalog.courses">
                   <ion-card class="lc-card-item" (click)="getCatalogDetails(course.course_id)">
                     <ion-card-header>
                       <ion-img src="./assets/icon/crs-img.jpg" class="lc-img"></ion-img>
@@ -31,6 +31,8 @@
                   </ion-card>
                 </ion-slide>
               </ion-slides>
+              <span *ngIf="catalog.courses.length > 4" type="submit" class="fabPrevBtn" (click)="prev(i)"></span>
+              <span *ngIf="catalog.courses.length > 4" type="submit" class="fabNxtBtn" (click)="next(i)"></span>
             </ion-card-content>
           </ion-card>
         </ion-col>
