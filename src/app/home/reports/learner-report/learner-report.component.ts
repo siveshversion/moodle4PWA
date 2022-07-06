@@ -26,6 +26,10 @@ import {
   styleUrls: ['./learner-report.component.scss'],
 })
 export class LearnerReportComponent implements OnInit {
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl(),
+  });
   data: any;
   displayedColumns = [
     'slNo',
@@ -127,5 +131,10 @@ export class LearnerReportComponent implements OnInit {
     });
     await alert.present();
     await alert.onDidDismiss();
+  }
+
+  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
+    console.log(dateRangeStart.value);
+    console.log(dateRangeEnd.value);
   }
 }
