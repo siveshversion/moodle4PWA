@@ -13,6 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { GlobalApiService } from 'src/app/services/global-api.service';
 import { LoaderService } from 'src/app/services/loader.service';
+import { DateAdapter } from '@angular/material/core';
 import {
   FormBuilder,
   FormControl,
@@ -56,10 +57,11 @@ export class LearnerReportComponent implements OnInit {
     private router: ActivatedRoute,
     private modalController: ModalController,
     private formBuilder: FormBuilder,
-
+    private dateAdapter: DateAdapter<Date>,
     private navCtrl: NavController
   ) {
     this.router.queryParams.subscribe((params) => {
+      this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
       this.ViewUserCourses(localStorage.getItem('user_id'), -1);
     });
   }
@@ -78,6 +80,13 @@ export class LearnerReportComponent implements OnInit {
     data.append('bu_id', filterVal);
     data.append('userId', uid);
     data.append('user_id', localStorage.getItem('user_id'));
+
+    if(localStorage.getItem('edate')){
+      data.append('sdate', localStorage.getItem('sdate'));
+      data.append('edate', localStorage.getItem('edate'));
+      localStorage.removeItem('sdate');
+      localStorage.removeItem('edate');
+    }
 
     this.service.user_filtered_courses(data).subscribe(
       (res) => {
@@ -136,5 +145,10 @@ export class LearnerReportComponent implements OnInit {
   dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
     console.log(dateRangeStart.value);
     console.log(dateRangeEnd.value);
+    if(dateRangeEnd.value){
+      localStorage.setItem('sdate', dateRangeStart.value);
+      localStorage.setItem('edate', dateRangeEnd.value);
+      this.ViewUserCourses(localStorage.getItem('user_id'), -1);
+    }
   }
 }
