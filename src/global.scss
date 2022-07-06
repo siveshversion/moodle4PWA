@@ -329,14 +329,32 @@ input#mat-date-range-input-0,
   color: rgba(0, 0, 0, .6);
 }
 
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: rgba(0, 0, 0, .04);
+}
+
 body.dark-theme {
 
   #mat-datepicker-0 {
-    background-color: grey;
+    background-color: rgb(74 74 74 / 90%);
+  }
+
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: rgb(50 50 50 / 75%);
   }
 
   input#mat-date-range-input-0 {
     color: white;
+  }
+
+  .mat-label.ng-tns-c181-4,
+  .mat-calendar-table-header,
+  .mat-calendar-body-label {
+    color: white;
+  }
+
+  .mat-form-field-label {
+    color: rgb(143 143 143 / 60%);
   }
 
   .mat-date-range-input-end-wrapper,
