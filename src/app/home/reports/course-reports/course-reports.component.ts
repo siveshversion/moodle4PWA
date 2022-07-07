@@ -13,6 +13,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { GlobalApiService } from 'src/app/services/global-api.service';
 import { LoaderService } from 'src/app/services/loader.service';
+import { DateAdapter } from '@angular/material/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-course-reports',
@@ -20,6 +22,11 @@ import { LoaderService } from 'src/app/services/loader.service';
   styleUrls: ['./course-reports.component.scss'],
 })
 export class CourseReportsComponent implements OnInit {
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl(),
+  });
+
   data: any;
   displayedColumns = [
     'SN',
@@ -45,13 +52,16 @@ export class CourseReportsComponent implements OnInit {
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private dateAdapter: DateAdapter<Date>
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.queryParams.subscribe((params) => {
+      this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
       this.courseReportList();
       this.role = localStorage.getItem('role');
       this.buName = localStorage.getItem('buName');
+      this.range.patchValue({ start: '', end: '' });
     });
   }
 
@@ -66,6 +76,12 @@ export class CourseReportsComponent implements OnInit {
     const data = new FormData();
     data.append('userId', localStorage.getItem('user_id'));
     data.append('buId', localStorage.getItem('buId'));
+    if (localStorage.getItem('edate')) {
+      data.append('sdate', localStorage.getItem('sdate'));
+      data.append('edate', localStorage.getItem('edate'));
+      localStorage.removeItem('sdate');
+      localStorage.removeItem('edate');
+    }
 
     this.service.course_report(data).subscribe(
       (res) => {
@@ -110,6 +126,19 @@ export class CourseReportsComponent implements OnInit {
       );
     } else if (action === 'course-summary') {
       this.navCtrl.navigateForward('home/coursesummary?cid=' + courseId);
+    }
+  }
+
+  dateRangeChange(
+    dateRangeStart: HTMLInputElement,
+    dateRangeEnd: HTMLInputElement
+  ) {
+    console.log(dateRangeStart.value);
+    console.log(dateRangeEnd.value);
+    if (dateRangeEnd.value) {
+      localStorage.setItem('sdate', dateRangeStart.value);
+      localStorage.setItem('edate', dateRangeEnd.value);
+      this.courseReportList();
     }
   }
 }

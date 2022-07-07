@@ -22,6 +22,10 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./users-report.component.scss'],
 })
 export class UsersReportComponent implements OnInit {
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl(),
+  });
   data: any;
   filterForm: FormGroup;
   displayedColumns = [
@@ -57,7 +61,7 @@ export class UsersReportComponent implements OnInit {
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.queryParams.subscribe((params) => {
-      if(localStorage.getItem('buId')){
+      if (localStorage.getItem('buId')) {
         this.role = localStorage.getItem('role');
         this.buName = localStorage.getItem('buName');
         this.usersReportList(localStorage.getItem('buId'));
@@ -67,6 +71,7 @@ export class UsersReportComponent implements OnInit {
         this.getBUs();
         this.usersReportList(-1);
       }
+      this.range.patchValue({ start: '', end: '' });
     });
   }
 
@@ -86,6 +91,12 @@ export class UsersReportComponent implements OnInit {
     const data = new FormData();
     data.append('userId', localStorage.getItem('user_id'));
     data.append('bu_id', buid);
+    if (localStorage.getItem('edate')) {
+      data.append('sdate', localStorage.getItem('sdate'));
+      data.append('edate', localStorage.getItem('edate'));
+      localStorage.removeItem('sdate');
+      localStorage.removeItem('edate');
+    }
 
     this.service.user_course_report(data).subscribe(
       (res) => {
@@ -166,6 +177,23 @@ export class UsersReportComponent implements OnInit {
     if (this.bus.length > 0 && buid > 0) {
       const index = this.bus.findIndex((p) => p.value === buid);
       this.filterForm.controls.bu.setValue(this.bus[index].value);
+    }
+  }
+
+  dateRangeChange(
+    dateRangeStart: HTMLInputElement,
+    dateRangeEnd: HTMLInputElement
+  ) {
+    console.log(dateRangeStart.value);
+    console.log(dateRangeEnd.value);
+    if (dateRangeEnd.value) {
+      localStorage.setItem('sdate', dateRangeStart.value);
+      localStorage.setItem('edate', dateRangeEnd.value);
+      const tmp_buid =
+        typeof localStorage.getItem('buId') === 'object'
+          ? -1
+          : localStorage.getItem('buId');
+      this.usersReportList(tmp_buid);
     }
   }
 }
