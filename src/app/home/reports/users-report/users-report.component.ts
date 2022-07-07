@@ -15,6 +15,7 @@ import { HttpClient } from '@angular/common/http';
 import { GlobalApiService } from 'src/app/services/global-api.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { FormGroup } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-users-report',
@@ -57,10 +58,12 @@ export class UsersReportComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private navCtrl: NavController,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dateAdapter: DateAdapter<Date>
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.queryParams.subscribe((params) => {
+      this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
       if (localStorage.getItem('buId')) {
         this.role = localStorage.getItem('role');
         this.buName = localStorage.getItem('buName');
