@@ -40,6 +40,7 @@ export class CourseReportsComponent implements OnInit {
   catId: any;
   role: any;
   buName: any;
+  dateRange: { from: string; to: string } = { from: '', to: '' };
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild('searchVal', { static: true }) searchVal: ElementRef;
@@ -77,8 +78,16 @@ export class CourseReportsComponent implements OnInit {
     data.append('userId', localStorage.getItem('user_id'));
     data.append('buId', localStorage.getItem('buId'));
     if (localStorage.getItem('edate')) {
-      data.append('sdate', localStorage.getItem('sdate'));
-      data.append('edate', localStorage.getItem('edate'));
+      let sdate = localStorage.getItem('sdate');
+      let edate = localStorage.getItem('edate');
+      data.append('sdate', sdate);
+      data.append('edate', edate);
+      sdate = sdate.split('/').join('-');
+      edate = edate.split('/').join('-');
+      this.dateRange = {
+        from: sdate,
+        to: edate,
+      };
       localStorage.removeItem('sdate');
       localStorage.removeItem('edate');
     }
@@ -117,12 +126,17 @@ export class CourseReportsComponent implements OnInit {
   }
 
   navMenu(action: any, courseId: any, optionalparam: string) {
+    let dateParm = '';
+    if (optionalparam === 'completed' && this.dateRange.from !== '') {
+      dateParm = '&from=' + this.dateRange.from + '&to=' + this.dateRange.to;
+    }
     if (action === 'course-detailing') {
       this.navCtrl.navigateForward(
         'home/reports/course-detailed-report?cid=' +
           courseId +
           '&type=' +
-          optionalparam
+          optionalparam +
+          dateParm
       );
     } else if (action === 'course-summary') {
       this.navCtrl.navigateForward('home/coursesummary?cid=' + courseId);

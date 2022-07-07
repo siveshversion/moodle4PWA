@@ -39,6 +39,7 @@ export class CourseDetailedReportComponent implements OnInit {
   filterForm: FormGroup;
   course: any;
   bus = [];
+  dateRange: { from: string; to: string } = { from: '', to: '' };
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -61,6 +62,10 @@ export class CourseDetailedReportComponent implements OnInit {
         this.courseid = params.cid;
         this.type = params.type;
         this.getBUs();
+        if (params.from && params.to) {
+          this.dateRange.from = params.from;
+          this.dateRange.to = params.to;
+        }
         this.viewCourseMembers(params.cid, -1);
       }
     });
@@ -84,6 +89,12 @@ export class CourseDetailedReportComponent implements OnInit {
     data.append('type', this.type);
     data.append('bu_id', filterVal);
     data.append('userId', localStorage.getItem('user_id'));
+    if (this.dateRange.to.length > 1) {
+      const sdate = localStorage.getItem('sdate');
+      const edate = localStorage.getItem('edate');
+      data.append('sdate', sdate);
+      data.append('edate', edate);
+    }
 
     this.service.course_filtered_members(data).subscribe(
       (res) => {
