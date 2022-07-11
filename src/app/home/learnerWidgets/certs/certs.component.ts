@@ -113,6 +113,6 @@ export class CertsComponent implements OnInit,OnChanges {
   }
 
   goToCourse(courseid) {
-    this.route.navigate(['home/course'], { queryParams: { id: courseid } });
+    this.route.navigate(['home/course-content'], { queryParams: { id: courseid , type: 'cert' } });
   }
 }

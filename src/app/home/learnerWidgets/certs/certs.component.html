@@ -11,19 +11,19 @@
       </ion-avatar>
       <ion-label class="names" (click)="goToCourse(cert.cid)" [ngStyle]="{cursor:'pointer'}">{{cert.name | titlecase}}</ion-label-->
 
-        <ion-card class="lc-card-item" (click)="goToCourse(cert.cid)">
+        <ion-card class="lc-card-item" (click)="goToCourse(cert.cmodid)">
           <ion-card-header>
               <ion-img [src]="cert.certimg |fixUrl" class="lc-img"></ion-img>
-            
-            
+
+
           </ion-card-header>
-          <ion-card-content>           
-              
+          <ion-card-content>
+
                   <div style="margin-top:1rem;text-align:left;padding-left:10px;">
                   <ion-label slot="start">{{cert.name | titlecase}}</ion-label>
-                  </div>                
-           
-              
+                  </div>
+
+
           </ion-card-content>
       </ion-card>
 

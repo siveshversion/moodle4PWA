@@ -1,0 +1,68 @@
+.lc-content {
+  --background: #000000;
+}
+
+.lc-header {
+  color: #94a0ad !important;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.lc-section {
+  height: auto;
+  --background: #1B1B1B;
+}
+
+.lc-section ion-card-header ion-card-title {
+  --color: #94a0ad;
+  font-weight: 700;
+}
+
+.lc-content-item {
+  --background: #000000;
+  padding: 0.5em;
+  color: #94a0ad;
+  font-weight: 600;
+}
+mat-expansion-panel {
+  background: #000000;
+  font-weight: 600;
+}
+
+.mat-expansion-panel-header-title {
+  color: #94a0ad;
+  font-weight: 500;
+}
+
+.lc-mod-item {
+  --background: #000000;
+  --color: #94a0ad;
+  cursor: pointer;
+}
+
+.mat-expansion-panel-header-description,
+.mat-expansion-indicator::after {
+  color: #fff !important;
+}
+
+.lc-ion-title {
+  padding-left: 8px;
+  padding-right: 0px;
+  word-break: break-all;
+}
+.expiredWaring{
+  z-index: 10;
+  position: fixed;
+  top:0;
+  left:40%;
+  width:250px;
+  height:30px;
+  margin:0px auto;
+  padding: 5px;
+  color:#ffffff;
+  text-align:center;
+  background-color: red;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  cursor: pointer;
+}

@@ -9,11 +9,11 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-course-details',
-  templateUrl: './course-details.component.html',
-  styleUrls: ['./course-details.component.scss'],
+  selector: 'app-moodle-view',
+  templateUrl: './moodle-view.component.html',
+  styleUrls: ['./moodle-view.component.scss'],
 })
-export class CourseDetailsComponent implements OnInit {
+export class MoodleViewComponent implements OnInit {
   courseId: any;
   contents: any = [];
   details: any = [];
@@ -24,6 +24,7 @@ export class CourseDetailsComponent implements OnInit {
   content = '';
   expire_status: any;
   courseName: any;
+  content_type: any;
 
   constructor(
     private service: GlobalApiService,
@@ -47,9 +48,12 @@ export class CourseDetailsComponent implements OnInit {
 
     this.router.queryParams.subscribe((params) => {
       this.courseId = params.id;
-      this.openLink(
-        environment.moodle_url + '/course/view.php?id=' + params.id
-      );
+      this.content_type = params.type;
+      let lms_path = '';
+      if (this.content_type === 'cert') {
+        lms_path = '/mod/customcert/view.php?id=';
+      }
+      this.openLink(environment.moodle_url + lms_path + params.id);
     });
   }
 

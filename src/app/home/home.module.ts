@@ -1,3 +1,4 @@
+import { MoodleViewComponent } from './moodle-view/moodle-view.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { AvailcoursesComponent } from './availcourses/availcourses.component';
 import { BulkUserRegistrationComponent } from './bulk-user-registration/bulk-user-registration.component';
@@ -76,7 +77,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LpReportComponent } from './reports/lp-report/lp-report.component';
 import { FixUrlPipe } from '../fix-url.pipe';
 import { NgxMaterialRatingModule } from 'ngx-material-rating';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   imports: [
@@ -155,9 +156,10 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     LearnerLPsComponent,
     BulkUserRegistrationComponent,
     AvailcoursesComponent,
-    CatalogComponent
+    CatalogComponent,
+    MoodleViewComponent,
   ],
-  providers: [GlobalApiService, HttpClient, Storage,LoaderService],
+  providers: [GlobalApiService, HttpClient, Storage, LoaderService],
 })
 export class HomePageModule {}
 

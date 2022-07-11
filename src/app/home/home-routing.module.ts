@@ -37,6 +37,7 @@ import { LpReportComponent } from './reports/lp-report/lp-report.component';
 import { BuReportComponent } from './reports/bu-report/bu-report.component';
 import { PointsReportComponent } from './reports/points-report/points-report.component';
 import { PointsDetailingReportComponent } from './reports/points-detailing-report/points-detailing-report.component';
+import { MoodleViewComponent } from './moodle-view/moodle-view.component';
 
 const routes: Routes = [
   {
@@ -143,37 +144,51 @@ const routes: Routes = [
       {
         path: 'reports/user-detailed-report',
         component: UserDetailedReportComponent,
-      },{
+      },
+      {
         path: 'reports/lp-report',
         component: LpReportComponent,
-      } ,{
+      },
+      {
         path: 'reports/bu-report',
         component: BuReportComponent,
-      },{
+      },
+      {
         path: 'reports/points-report',
         component: PointsReportComponent,
-      },{
+      },
+      {
         path: 'reports/points-detail-report',
         component: PointsDetailingReportComponent,
-      },{
+      },
+      {
         path: 'reports/learner-report',
         component: LearnerReportComponent,
-      }, {
+      },
+      {
         path: 'rating-summary',
         component: RatingSummaryComponent,
-      } , {
+      },
+      {
         path: 'learner-lps',
         component: LearnerLPsComponent,
-      }, {
+      },
+      {
         path: 'bulk-reg-user',
         component: BulkUserRegistrationComponent,
-      }, {
+      },
+      {
         path: 'availcourses',
         component: AvailcoursesComponent,
-      } , {
+      },
+      {
         path: 'catalog',
         component: CatalogComponent,
-      }
+      },
+      {
+        path: 'course-content',
+        component: MoodleViewComponent,
+      },
     ],
   },
 ];
