@@ -20,7 +20,7 @@ import { GlobalApiService } from 'src/app/services/global-api.service';
   templateUrl: './badges.component.html',
   styleUrls: ['./badges.component.scss'],
 })
-export class BadgesComponent implements OnInit,OnChanges {
+export class BadgesComponent implements OnInit, OnChanges {
   @Input() screenWidth: number;
 
   @ViewChildren(IonSlides) slides: QueryList<IonSlides>;
@@ -56,14 +56,14 @@ export class BadgesComponent implements OnInit,OnChanges {
         slidesPerView: 6,
       },
       950: {
-        slidesPerView: 12
-      }
+        slidesPerView: 12,
+      },
     },
   };
 
   IonSlides: any;
 
-  constructor(private service: GlobalApiService,private route: Router) {}
+  constructor(private service: GlobalApiService, private route: Router) {}
 
   ngOnInit() {
     this.getBadges();
@@ -103,7 +103,6 @@ export class BadgesComponent implements OnInit,OnChanges {
   prev(count) {
     let i = 0;
     this.slides.forEach((element) => {
-
       if (i == count) {
         element.slidePrev();
       }
@@ -111,6 +110,8 @@ export class BadgesComponent implements OnInit,OnChanges {
     });
   }
   goToCourse(courseid) {
-    this.route.navigate(['home/course'], { queryParams: { id: courseid } });
+    this.route.navigate(['home/course'], {
+      queryParams: { id: courseid, type: 'course' },
+    });
   }
 }

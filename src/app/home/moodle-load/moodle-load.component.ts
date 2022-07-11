@@ -9,12 +9,11 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-course-details',
-  templateUrl: './course-details.component.html',
-  styleUrls: ['./course-details.component.scss'],
+  selector: 'app-moodle-load',
+  templateUrl: './moodle-load.component.html',
+  styleUrls: ['./moodle-load.component.scss'],
 })
-export class CourseDetailsComponent implements OnInit {
-  courseId: any;
+export class MoodleLoadComponent implements OnInit {
   contents: any = [];
   details: any = [];
   panelOpenState = false;
@@ -32,25 +31,23 @@ export class CourseDetailsComponent implements OnInit {
     private sanitizer: DomSanitizer,
     public loadingController: LoadingController,
     private route: Router
-  ) {}
-
-  ngOnInit() {
-    this.token = localStorage.getItem('user_key');
-
-    const data = new FormData();
-    data.append('username', localStorage.getItem('username'));
-    data.append('password', localStorage.getItem('password'));
-
-    this.service.lp_generate_get_user_token(data).subscribe((res) => {
-      this.token = res.Data.user_token;
-    });
-
+  ) {
     this.router.queryParams.subscribe((params) => {
-      this.courseId = params.id;
-      this.openLink(
-        environment.moodle_url + '/course/view.php?id=' + params.id
-      );
+      this.token = localStorage.getItem('user_key');
+      this.processLink(params.id, params.type);
     });
+  }
+
+  ngOnInit() {}
+
+  processLink(id: number, content_type: string) {
+    let lms_path = '';
+    if (content_type === 'cert') {
+      lms_path = '/mod/customcert/view.php?id=';
+    } else if (content_type === 'course') {
+      lms_path = '/course/view.php?id=';
+    }
+    this.openLink(environment.moodle_url + lms_path + id);
   }
 
   openLink(url: any) {

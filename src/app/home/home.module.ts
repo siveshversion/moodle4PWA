@@ -1,3 +1,4 @@
+import { MoodleLoadComponent } from './moodle-load/moodle-load.component';
 import { MoodleViewComponent } from './moodle-view/moodle-view.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { AvailcoursesComponent } from './availcourses/availcourses.component';
@@ -27,7 +28,6 @@ import { LpUsersComponent } from './lp-users/lp-users.component';
 import { LpCoursesComponent } from './lp-courses/lp-courses.component';
 import { LPsComponent } from './lps/lps.component';
 import { CreateLPComponent } from './create-lp/create-lp.component';
-import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseSummaryComponent } from './course-summary/course-summary.component';
 import { MyCourseStatsComponent } from './widget/my-course-stats/my-course-stats.component';
 import { MyCoursesComponent } from './my-courses/my-courses.component';
@@ -128,7 +128,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MyCoursesComponent,
     MyCourseStatsComponent,
     CourseSummaryComponent,
-    CourseDetailsComponent,
     CreateLPComponent,
     LPsComponent,
     LpCoursesComponent,
@@ -158,6 +157,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     AvailcoursesComponent,
     CatalogComponent,
     MoodleViewComponent,
+    MoodleLoadComponent
   ],
   providers: [GlobalApiService, HttpClient, Storage, LoaderService],
 })

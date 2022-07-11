@@ -86,7 +86,9 @@ export class AvailcoursesComponent implements OnInit {
   }
 
   goToCourse(courseid) {
-    this.route.navigate(['home/course'], { queryParams: { id: courseid } });
+    this.route.navigate(['home/course'], {
+      queryParams: { id: courseid, type: 'course' },
+    });
   }
 
   search(target: any): void {

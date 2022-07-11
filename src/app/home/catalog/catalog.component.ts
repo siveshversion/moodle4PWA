@@ -89,7 +89,7 @@ export class CatalogComponent implements OnInit {
 
   getCatalogDetails(id) {
     this.route.navigate(['home/course'], {
-      queryParams: { id },
+      queryParams: { id, type: 'course' },
     });
   }
 

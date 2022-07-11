@@ -1,3 +1,4 @@
+import { MoodleLoadComponent } from './moodle-load/moodle-load.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { AvailcoursesComponent } from './availcourses/availcourses.component';
 import { BulkUserRegistrationComponent } from './bulk-user-registration/bulk-user-registration.component';
@@ -18,7 +19,6 @@ import { LpUsersComponent } from './lp-users/lp-users.component';
 import { LpCoursesComponent } from './lp-courses/lp-courses.component';
 import { LPsComponent } from './lps/lps.component';
 import { CreateLPComponent } from './create-lp/create-lp.component';
-import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseSummaryComponent } from './course-summary/course-summary.component';
 import { MyCourseStatsComponent } from './widget/my-course-stats/my-course-stats.component';
 import { MyCoursesComponent } from './my-courses/my-courses.component';
@@ -91,7 +91,7 @@ const routes: Routes = [
       },
       {
         path: 'course',
-        component: CourseDetailsComponent,
+        component: MoodleViewComponent,
       },
       {
         path: 'create-lp',
@@ -188,6 +188,10 @@ const routes: Routes = [
       {
         path: 'course-content',
         component: MoodleViewComponent,
+      },
+      {
+        path: 'course-view',
+        component: MoodleLoadComponent,
       },
     ],
   },
