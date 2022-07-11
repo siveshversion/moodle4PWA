@@ -28,7 +28,10 @@ export class UsersReportComponent implements OnInit {
     end: new FormControl(),
   });
   data: any;
-  filterForm: FormGroup;
+  filterForm = new FormGroup({
+    filter: new FormControl(),
+  });
+  buId: any = '';
   displayedColumns = [
     'SN',
     'UserName',
@@ -76,14 +79,11 @@ export class UsersReportComponent implements OnInit {
         this.usersReportList(-1);
       }
       this.range.patchValue({ start: '', end: '' });
+      this.filterForm.patchValue({ filter: '' });
     });
   }
 
-  ngOnInit() {
-    this.filterForm = this.formBuilder.group({
-      filter: new FormControl(),
-    });
-  }
+  ngOnInit() {}
 
   usersReportList(buid: any) {
     this.searchVal.nativeElement.value = '';
@@ -165,6 +165,7 @@ export class UsersReportComponent implements OnInit {
   }
 
   selectFilter(value: any) {
+    this.buId = value;
     this.usersReportList(value);
   }
 
@@ -209,10 +210,11 @@ export class UsersReportComponent implements OnInit {
     if (dateRangeEnd.value) {
       localStorage.setItem('sdate', dateRangeStart.value);
       localStorage.setItem('edate', dateRangeEnd.value);
-      const tmp_buid =
+      let tmp_buid =
         typeof localStorage.getItem('buId') === 'object'
           ? -1
           : localStorage.getItem('buId');
+      tmp_buid = this.buId === '' && tmp_buid === -1 ? -1 : this.buId;
       this.usersReportList(tmp_buid);
     }
   }
