@@ -31,7 +31,7 @@ export class MoodleViewComponent implements OnInit {
       this.token = res.Data.token;
       localStorage.setItem('user_key', this.token);
       this.route.navigate(['home/course-view'], {
-        queryParams: { id: params.id, type: 'course' },
+        queryParams: { id: params.id, type: params.type},
       });
     });
   }
