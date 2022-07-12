@@ -66,9 +66,9 @@ export class CourseManageUsersComponent implements OnInit {
     const data = new FormData();
     data.append('course_id', cid);
     data.append('enroll_status', this.selectedFilter);
-    if(localStorage.getItem('buId')) {
-      data.append('buId',localStorage.getItem('buId'));
-      data.append('userId',localStorage.getItem('user_id'));
+    if (localStorage.getItem('buId')) {
+      data.append('buId', localStorage.getItem('buId'));
+      data.append('userId', localStorage.getItem('user_id'));
     }
 
     this.service.course_members(data).subscribe(
@@ -113,8 +113,13 @@ export class CourseManageUsersComponent implements OnInit {
 
     this.service.unenroll_user_to_course(data).subscribe(
       (res) => {
-        msg = 'User Unenrolled Successfully';
+        if (res.Data.self === 1 && res.Data.enrolled === true) {
+          msg = 'Self enrolled courses by students cannot be unenrolled';
+        } else {
+          msg = 'User Unenrolled Successfully';
+        }
         this.showAlert(msg, cid);
+        console.log('uneneroll_res: ' + JSON.stringify(res));
       },
       (err) => {
         console.log(err);
