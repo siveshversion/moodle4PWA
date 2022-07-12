@@ -333,7 +333,15 @@ input#mat-date-range-input-0,
   background-color: rgba(0, 0, 0, .04);
 }
 
+.searchTerm {
+  color: black;
+}
+
 body.dark-theme {
+
+  .searchTerm{
+    color: white;
+  }
 
   #mat-datepicker-0,
   #mat-datepicker-1,

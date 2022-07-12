@@ -104,4 +104,12 @@ export class CatalogComponent implements OnInit {
     const nthSlide = nSlides[nth_slide];
     nthSlide.slidePrev();
   }
+
+  search(target: any): void {
+    this.catalogs = this.catalogsDummy.filter(
+      (item) => item.category_name.search(new RegExp(target.value, 'i')) > -1
+    );
+    //console.log(JSON.stringify(this.courses));
+  }
+
 }

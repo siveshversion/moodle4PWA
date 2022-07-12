@@ -4,6 +4,11 @@
     <ion-title class="lc-title">{{'catalog' | translate }}</ion-title>
   </ion-header>
 
+  <div class="search" *ngIf="catalogsDummy.length > 0">
+    <input type="text" class="searchTerm" id="catalogSearch"
+      style="background: url(./assets/icon/search.png) no-repeat;background-position: 3px 6px;"
+      placeholder="{{'search' | translate }}..." (input)="search($event.target)">
+  </div>
 
   <div *ngIf="catalogs;else show">
 
