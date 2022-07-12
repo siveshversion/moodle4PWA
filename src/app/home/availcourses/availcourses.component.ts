@@ -77,6 +77,7 @@ export class AvailcoursesComponent implements OnInit {
     this.service.get_avail_courses(data).subscribe(
       (res) => {
         this.avCourses = res.Data;
+        this.coursesDummy = this.avCourses;
         console.log('availCourses: ' + JSON.stringify(this.avCourses));
       },
       (err) => {
