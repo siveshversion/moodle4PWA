@@ -2,18 +2,18 @@
 
   <ion-card class="lc-section" *ngIf="!courses">
     <ion-card-header>
-      <form [formGroup]="filterForm">
-        <span class="filter">
-          <mat-select class="lc-input" id="enrollStatFilter" placeholder="Select Filter"
-            (selectionChange)="selectFilter($event.value)" [formControlName]="'filter'" name="item">
-            <mat-option *ngFor="let item of enrollStatFilter" [value]="item.value">
-              {{ item.viewValue }}
-            </mat-option>
-          </mat-select>
-        </span>
-      </form>
       <ion-card-title class="lc-card-title">{{'my_courses' | translate }}( 0 )</ion-card-title>
     </ion-card-header>
+    <form [formGroup]="filterForm">
+      <span class="filter">
+        <mat-select class="lc-input" id="enrollStatFilter" placeholder="Select Filter"
+          (selectionChange)="selectFilter($event.value)" [formControlName]="'filter'" name="item">
+          <mat-option *ngFor="let item of enrollStatFilter" [value]="item.value">
+            {{ item.viewValue }}
+          </mat-option>
+        </mat-select>
+      </span>
+    </form>
     <ion-card-content>
       <ion-label>{{'no_courses_to_view' | translate }}</ion-label>
     </ion-card-content>
