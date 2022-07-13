@@ -82,7 +82,7 @@ private loader: LoaderService,
             course_short_name: element.course_shortname,
             category_name: element.category_name,
             category_id: element.category_id,
-            assigned: element.assigned,
+            assigned: element.assigned
           };
           this.coursesList.push(course);
         });

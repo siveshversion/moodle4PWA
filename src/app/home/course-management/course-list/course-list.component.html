@@ -62,7 +62,7 @@
                                             </mat-header-cell>
                                             <mat-cell *matCellDef="let element">
                                                 <span class="mobile-label">Action:</span>
-                                                <span class="material-icons" title="Edit course"
+                                                <span class="material-icons" title="Edit course" *ngIf="element.can_edit"
                                                     (click)="navMenu('edit',element.course_id,element.category_id)">edit</span>
                                                 <span class="material-icons" title="Manage Users"
                                                     (click)="navMenu('view_users',element.course_id,element.category_id)">manage_accounts</span>

@@ -105,6 +105,7 @@ export class CourseListComponent implements OnInit, OnDestroy {
             category_name: element.category_name,
             category_id: element.category_id,
             enrolled_cnt: element.enrolled_cnt,
+            can_edit: element.can_edit
           };
           this.coursesList.push(course);
         });
