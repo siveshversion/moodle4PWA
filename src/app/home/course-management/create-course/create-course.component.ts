@@ -1,3 +1,4 @@
+import { PopupLoadCourseImagesPage } from './../../modals/popup-load-course-images/popup-load-course-images.page';
 /* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { GlobalApiService } from 'src/app/services/global-api.service';
@@ -11,7 +12,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-create-course',
@@ -29,6 +31,14 @@ export class CreateCourseComponent implements OnInit {
   old_enroll_id: any;
   cat_id: any;
   role: any;
+  allowedExtensions = ['JPEG', 'PNG', 'JPG', 'jpeg', 'png', 'jpg'];
+  fileName = 'Choose Image';
+  selectedFile: any;
+  encodedFile: any;
+  okFlag: boolean;
+  update_flag: boolean;
+  logoexists: boolean;
+  Logo_path: string;
   enrollType = [
     { value: 'self', viewValue: 'Free' },
     { value: 'manual', viewValue: 'Admin' },
@@ -59,7 +69,8 @@ export class CreateCourseComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     public alertCtrl: AlertController,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private modalController: ModalController
   ) {
     this.role = localStorage.getItem('role');
     this.setformValidators();
@@ -167,9 +178,10 @@ export class CreateCourseComponent implements OnInit {
       courseFullName: new FormControl('', Validators.required),
       courseShortName: new FormControl('', Validators.required),
       courseDescription: new FormControl('', Validators.required),
+      courseType: new FormControl('', Validators.required),
       topicCnt: new FormControl('', Validators.required),
       enrollmentType: new FormControl('', Validators.required),
-      courseType: new FormControl('', Validators.required),
+      courseImage: new FormControl('', null),
       durationHrs: new FormControl('', null),
       durationMins: new FormControl('', null),
       points: new FormControl('', null),
@@ -336,5 +348,74 @@ export class CreateCourseComponent implements OnInit {
     this.courseForm.controls.courseCategory.setValue(
       this.categories[index].value
     );
+  }
+
+  chooseFile(target: any) {
+    const filename = target.files[0].name;
+    const event = target.files[0];
+    this.okFlag = this.isValid_extension(event);
+    if (this.okFlag) {
+      this.fileName = filename;
+      this.selectedFile = event;
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.encodedFile = e.target.result;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    } else {
+      this.fileName = 'Choose Logo *';
+    }
+  }
+
+  isValid_extension(file: File) {
+    const allowedExtensions = this.allowedExtensions;
+
+    if (file instanceof File) {
+      const ext = this.getExtension(file.name);
+      if (allowedExtensions.indexOf(ext) === -1) {
+        const title = 'File type not allowed';
+        const msg = 'Upload valid image type';
+        this.showCustomAlert(title, msg);
+        this.okFlag = null;
+      } else {
+        this.okFlag = true;
+      }
+    }
+    return this.okFlag;
+  }
+
+  getExtension(filename: string): null | string {
+    if (filename.indexOf('.') === -1) {
+      return null;
+    }
+    return filename.split('.').pop();
+  }
+
+  getUploadedLogo() {
+    const file_src = environment.moodle_url + this.Logo_path;
+    const redirectUrl =
+      environment.moodle_url +
+      '/cm/api/download.php?src=' +
+      file_src +
+      '&filename=' +
+      this.fileName;
+    window.open(redirectUrl, '_self');
+  }
+
+  async showCustomAlert(title, msg) {
+    const alert = await this.alertCtrl.create({
+      header: title,
+      message: msg,
+      buttons: ['OK'],
+    });
+    await alert.present();
+    await alert.onDidDismiss();
+  }
+
+  async openImagePopupModal(){
+    const modal = await this.modalController.create({
+      component: PopupLoadCourseImagesPage, backdropDismiss: false, cssClass: 'my-custom-class'
+    });
+    return await modal.present();
   }
 }

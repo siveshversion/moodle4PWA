@@ -465,6 +465,7 @@
   "avail_courses": "Available Courses",
   "catalog": "Catalog",
   "no_catalog_txt": "No catalog available",
-  "self_enrollable": "Self Enrollable Courses"
+  "self_enrollable": "Self Enrollable Courses",
+  "upload_defaults": "Choose from defaults"
 }
 

@@ -1,0 +1,28 @@
+<ion-header class="popupHeader">
+  <ion-toolbar>
+      <ion-title></ion-title>
+      <ion-buttons slot="end">
+          <ion-button title="close" (click)="closeModal()">
+              <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+      <ion-title class="lc-subtitle">Choose Image</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <p class="label" *ngIf="loading">
+    <ion-spinner name="circles" class="spinners"></ion-spinner> Loading
+  </p>
+  <p class="label" *ngIf="isEmpty">No Images found</p>
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        sizeXs="12" sizeSm="6" size="4" sizeMd="4" sizeLg="3" sizeXl="2"
+        *ngFor="let image of cimages">
+        <ion-img [src]="image.src |fixUrl" class="lc-img"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { MoodleLoadComponent } from './moodle-load/moodle-load.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { AvailcoursesComponent } from './availcourses/availcourses.component';
@@ -195,6 +196,11 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'popup-load-course-images',
+    loadChildren: () => import('./modals/popup-load-course-images/popup-load-course-images.module').then( m => m.PopupLoadCourseImagesPageModule)
+  },
+
 ];
 
 @NgModule({

@@ -337,9 +337,17 @@ input#mat-date-range-input-0,
   color: black;
 }
 
+.sc-ion-modal-md-h.my-custom-class {
+  background: white;
+}
+
 body.dark-theme {
 
-  .searchTerm{
+  .sc-ion-modal-md-h.my-custom-class {
+    background:  rgb(74 74 74 / 90%);
+  }
+
+  .searchTerm {
     color: white;
   }
 

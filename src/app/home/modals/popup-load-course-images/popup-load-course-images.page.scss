@@ -1,0 +1,117 @@
+ion-card-title {
+  font-weight: 700;
+  color: #94a0ad;
+}
+
+ion-card-subtitle {
+  font-weight: 500;
+  color: #94a0ad;
+}
+
+.label {
+  color: #94a0ad;
+  margin-left: 10px;
+}
+
+.spinners {
+  color: #94a0ad;
+  margin-left: 10px;
+}
+
+
+ion-content {
+  --ion-background-color: #000000;
+}
+
+ion-label {
+  font-size: .92em;
+  font-weight: 200;
+}
+
+ion-header {
+  --ion-background-color: #000000 !important;
+}
+
+ion-item {
+  --color: #FFFFFF80;
+  --ion-background-color: transparent;
+}
+
+ion-list {
+  --ion-background-color: transparent;
+}
+
+ion-title {
+  --color: #FFFFFF80;
+  --ion-background-color: transparent;
+  font-size: 1.2em;
+}
+
+ion-toolbar {
+  margin-top: 20px;
+}
+
+.lc-label {
+  color: #94a0ad;
+  min-width: 100%;
+  font-size: 1em !important;
+  font-weight: 200;
+}
+
+.lc-note {
+  text-align: center;
+  color: #FFFFFF80;
+}
+
+.lc-input {
+  border-radius: 5px;
+  background-color: #2b2b2b;
+  --padding-start: 1em;
+  font-size: 0.9em;
+  min-width: 100%;
+}
+
+input.native-input.sc-ion-input-md {
+  background-color: #898F96;
+}
+
+ion-card-title {
+  font-weight: 700;
+  color: #94a0ad;
+}
+
+ion-card-subtitle {
+  font-weight: 500;
+  color: #94a0ad;
+}
+
+ion-content {
+  --ion-background-color: #000000;
+}
+
+ion-item {
+  --color: #FFFFFF80;
+  --ion-background-color: transparent;
+}
+
+ion-list {
+  --ion-background-color: transparent;
+}
+
+ion-header.md.header-md.header-collapse-none.hydrated {
+  background-color: #000000 !important;
+}
+
+.submitDiv {
+  margin: 0px auto;
+}
+
+.lc-btn {
+  cursor: pointer;
+  background-color: #3880ff;
+  color: #fff;
+  min-width: 120px;
+  min-height: 30px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}

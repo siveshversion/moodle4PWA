@@ -144,6 +144,24 @@
 
           <ion-row class="ion-padding-top">
             <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
+              <ion-label class="lc-label-align ">Course Image</ion-label>
+              <div class="input-group mat-form-field-wrapper" id="filePicker">
+                <div class="custom-file">
+                  <input input type="file" class="custom-file-input" [ngStyle]="{cursor:'pointer'}"
+                    (change)="chooseFile($event.target)" formControlName="courseImage" accept=".png,.jpeg,.jpg">
+                  <label class="custom-file-label">{{fileName}}</label>
+                </div>
+                <ion-button id="savebtn" type="button" expand="block" fill="solid"
+                class="lc-button lc-btn-color" (click)="openImagePopupModal()">{{'upload_defaults' | translate}}
+              </ion-button>
+                <span id="download_icon" title="uploaded logo" (click)="getUploadedLogo()"
+                  *ngIf="update_flag === true && logoexists ===true" class="material-icons ">cloud_download</span>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-padding-top">
+            <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
               <ion-label class="lc-label-align">{{'no_of_topics' | translate }}*</ion-label>
               <ion-item lines="none" color="none">
                 <ion-input class="lc-input" formControlName="topicCnt" type="number">

@@ -393,4 +393,8 @@ export class GlobalApiService {
   get_catalog(data: any): Observable<any> {
     return this.http.post(this.base_url + '?methodname=getCatalog', data);
   }
+
+  get_course_Image_defaults(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=getCourseDefaultImages', data);
+  }
 }
