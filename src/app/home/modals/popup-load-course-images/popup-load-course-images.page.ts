@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+/* eslint-disable @typescript-eslint/member-ordering */
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { GlobalApiService } from 'src/app/services/global-api.service';
 
@@ -8,18 +9,21 @@ import { GlobalApiService } from 'src/app/services/global-api.service';
   styleUrls: ['./popup-load-course-images.page.scss'],
 })
 export class PopupLoadCourseImagesPage implements OnInit {
-
+  filename: string;
   cimages: any = [];
   loading = true;
   isEmpty = false;
 
-  constructor(private modalController: ModalController, private service: GlobalApiService) { }
+  constructor(
+    private modalController: ModalController,
+    private service: GlobalApiService
+  ) {}
 
   ngOnInit() {
-    this.getCerts();
+    this.getCImages();
   }
 
-  getCerts() {
+  getCImages() {
     const data = new FormData();
     data.append('userid', localStorage.getItem('user_id'));
     this.service.get_course_Image_defaults(data).subscribe(
@@ -27,7 +31,7 @@ export class PopupLoadCourseImagesPage implements OnInit {
         this.cimages = res.Data.cimages;
         this.isEmpty = res.Data.empty;
         this.loading = false;
-        res.Data.certs.forEach((element: any) => {
+        res.Data.cimages.forEach((element: any) => {
           console.log(JSON.stringify(element));
         });
       },
@@ -40,7 +44,14 @@ export class PopupLoadCourseImagesPage implements OnInit {
 
   async closeModal() {
     await this.modalController.dismiss();
-    // this.router.navigateByUrl('login');
   }
 
+  selectImage(filename: string) {
+    this.filename = filename;
+    this.closeModalWithData(filename);
+  }
+
+  async closeModalWithData(filename) {
+    await this.modalController.dismiss(filename);
+  }
 }

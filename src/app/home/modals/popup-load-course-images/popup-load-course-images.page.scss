@@ -18,6 +18,24 @@ ion-card-subtitle {
   margin-left: 10px;
 }
 
+.imgClass {
+  height: 100px;
+}
+
+.img-wrapper {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  object-fit: cover;
+
+}
+
+.img-wrapper:hover,
+.col-img :hover {
+  border: 1px solid #021a40;
+}
+
 
 ion-content {
   --ion-background-color: #000000;

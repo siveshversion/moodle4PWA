@@ -12,7 +12,11 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import {
+  AlertController,
+  LoadingController,
+  ModalController,
+} from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -21,6 +25,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./create-course.component.scss'],
 })
 export class CreateCourseComponent implements OnInit {
+  CImagefromDefaults = '';
   courseId: any;
   title: any;
   subtitle: any;
@@ -284,10 +289,16 @@ export class CreateCourseComponent implements OnInit {
     let msg: string;
     msg = 'Creating Course Please Wait....';
     this.loader.showAutoHideLoader(msg);
-    formData.append('enrollBuUsersChk', this.courseForm.get('enrollBuUsersChk').value);
+    formData.append(
+      'enrollBuUsersChk',
+      this.courseForm.get('enrollBuUsersChk').value
+    );
     if (localStorage.getItem('buId')) {
       formData.append('bu_id', localStorage.getItem('buId'));
       formData.append('userId', localStorage.getItem('user_id'));
+    }
+    if (this.CImagefromDefaults.length > 0) {
+      formData.append('cImgName', this.CImagefromDefaults);
     }
     this.service.create_course(formData).subscribe(
       (response) => {
@@ -412,10 +423,21 @@ export class CreateCourseComponent implements OnInit {
     await alert.onDidDismiss();
   }
 
-  async openImagePopupModal(){
+  async openImagePopupModal() {
     const modal = await this.modalController.create({
-      component: PopupLoadCourseImagesPage, backdropDismiss: false, cssClass: 'my-custom-class'
+      component: PopupLoadCourseImagesPage,
+      componentProps: { filename: '' },
+      backdropDismiss: false,
+      cssClass: 'my-custom-class',
     });
+
+    modal.onDidDismiss().then((res) => {
+      if (typeof res.data !== 'undefined') {
+        this.CImagefromDefaults = res.data;
+        alert(this.CImagefromDefaults);
+      }
+    });
+
     return await modal.present();
   }
 }

@@ -1,12 +1,12 @@
 <ion-header class="popupHeader">
   <ion-toolbar>
-      <ion-title></ion-title>
-      <ion-buttons slot="end">
-          <ion-button title="close" (click)="closeModal()">
-              <ion-icon slot="icon-only" name="close"></ion-icon>
-          </ion-button>
-      </ion-buttons>
-      <ion-title class="lc-subtitle">Choose Image</ion-title>
+    <ion-title></ion-title>
+    <ion-buttons slot="end">
+      <ion-button title="close" (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="lc-subtitle">Choose Image</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -17,10 +17,9 @@
   <p class="label" *ngIf="isEmpty">No Images found</p>
   <ion-grid>
     <ion-row>
-      <ion-col
-        sizeXs="12" sizeSm="6" size="4" sizeMd="4" sizeLg="3" sizeXl="2"
-        *ngFor="let image of cimages">
-        <ion-img [src]="image.src |fixUrl" class="lc-img"></ion-img>
+      <ion-col class="imgClass" class="col-img" size-lg="4" size-md="4" size-sm="6" size="12" *ngFor="let image of cimages">
+        <ion-img [src]="image.src |fixUrl" class="img-wrapper" [ngStyle]="{cursor:'pointer'}"
+          (click)="selectImage(image.filename)"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>
