@@ -277,6 +277,12 @@ export class CreateCourseComponent implements OnInit {
     formData.append('durationMins', this.courseForm.get('durationMins').value);
     formData.append('points', this.courseForm.get('points').value);
     formData.append('courseType', this.courseForm.get('courseType').value);
+    if (typeof this.encodedFile !== 'undefined' || this.encodedFile !== '') {
+      formData.append('logoFile', this.encodedFile);
+      formData.append('logoFileName', this.fileName);
+    } else if (this.CImagefromDefaults !== '') {
+      formData.append('logoFileName', this.CImagefromDefaults);
+    }
 
     if (this.courseId) {
       this.update(formData);
@@ -286,8 +292,7 @@ export class CreateCourseComponent implements OnInit {
   }
 
   save(formData) {
-    let msg: string;
-    msg = 'Creating Course Please Wait....';
+    let msg = 'Creating Course Please Wait....';
     this.loader.showAutoHideLoader(msg);
     formData.append(
       'enrollBuUsersChk',
@@ -296,9 +301,6 @@ export class CreateCourseComponent implements OnInit {
     if (localStorage.getItem('buId')) {
       formData.append('bu_id', localStorage.getItem('buId'));
       formData.append('userId', localStorage.getItem('user_id'));
-    }
-    if (this.CImagefromDefaults.length > 0) {
-      formData.append('cImgName', this.CImagefromDefaults);
     }
     this.service.create_course(formData).subscribe(
       (response) => {
@@ -374,7 +376,7 @@ export class CreateCourseComponent implements OnInit {
       };
       reader.readAsDataURL(this.selectedFile);
     } else {
-      this.fileName = 'Choose Logo *';
+      this.fileName = 'Choose Image';
     }
   }
 
@@ -434,7 +436,12 @@ export class CreateCourseComponent implements OnInit {
     modal.onDidDismiss().then((res) => {
       if (typeof res.data !== 'undefined') {
         this.CImagefromDefaults = res.data;
-        alert(this.CImagefromDefaults);
+        this.fileName = this.CImagefromDefaults;
+        this.encodedFile = '';
+      }
+      else{
+        this.CImagefromDefaults = '';
+        this.fileName = 'Chooose Image';
       }
     });
 
