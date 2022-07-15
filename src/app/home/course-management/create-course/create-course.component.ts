@@ -149,7 +149,9 @@ export class CreateCourseComponent implements OnInit {
           durationHrs: response.Data.duration_hrs,
           durationMins: response.Data.duration_mins,
         });
-        this.fileName = response.Data.course_img;
+        if (response.Data.course_img.length > 0) {
+          this.fileName = response.Data.course_img;
+        }
       }
     });
   }
