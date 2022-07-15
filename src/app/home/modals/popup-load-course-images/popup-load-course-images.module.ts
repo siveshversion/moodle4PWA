@@ -1,3 +1,4 @@
+import { HomePageModule } from './../../home.module';
 import { FixUrlPipe } from './../../../fix-url.pipe';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,8 +15,9 @@ import { PopupLoadCourseImagesPage } from './popup-load-course-images.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    PopupLoadCourseImagesPageRoutingModule
+    PopupLoadCourseImagesPageRoutingModule,
+    HomePageModule
   ],
-  declarations: [PopupLoadCourseImagesPage,FixUrlPipe]
+  declarations: [PopupLoadCourseImagesPage]
 })
 export class PopupLoadCourseImagesPageModule {}

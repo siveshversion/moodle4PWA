@@ -159,7 +159,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MoodleViewComponent,
     MoodleLoadComponent
   ],
-  providers: [GlobalApiService, HttpClient, Storage, LoaderService]
+  providers: [GlobalApiService, HttpClient, Storage, LoaderService],
+  exports: [FixUrlPipe]
+
 })
 export class HomePageModule {}
 
