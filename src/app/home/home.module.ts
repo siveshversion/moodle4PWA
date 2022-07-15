@@ -75,13 +75,14 @@ import { BuCoursesComponent } from './bu-courses/bu-courses.component';
 import { BuUsersComponent } from './bu-users/bu-users.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LpReportComponent } from './reports/lp-report/lp-report.component';
-import { FixUrlPipe } from '../fix-url.pipe';
 import { NgxMaterialRatingModule } from 'ngx-material-rating';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { FixUrlPipeModule } from '../pipes/fix-url-pipe/fix-url-pipe.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    FixUrlPipeModule,
     FormsModule,
     IonicModule,
     IonicStorageModule.forRoot(),
@@ -142,7 +143,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     UsersReportComponent,
     UserDetailedReportComponent,
     LpReportComponent,
-    FixUrlPipe,
     BuReportComponent,
     RatingSummaryComponent,
     CertsComponent,
@@ -157,9 +157,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     AvailcoursesComponent,
     CatalogComponent,
     MoodleViewComponent,
-    MoodleLoadComponent
+    MoodleLoadComponent,
   ],
-  providers: [GlobalApiService, HttpClient, Storage, LoaderService]
+  providers: [GlobalApiService, HttpClient, Storage, LoaderService],
 })
 export class HomePageModule {}
 
