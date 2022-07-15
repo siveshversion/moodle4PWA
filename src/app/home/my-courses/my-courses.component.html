@@ -45,11 +45,6 @@
           <ion-card class="lc-card-item" (click)="getCourseDetails(item.id,item.status)">
             <ion-card-header>
               <ion-img *ngIf="item.imgUrl !== null" [src]=item.imgUrl class="lc-img"></ion-img>
-              <ion-item>
-                <!--    <ion-chip slot="start">
-                                              <ion-label>{{ (categories | catFilter: {catId: item.category}) }}</ion-label>
-                                          </ion-chip> -->
-              </ion-item>
               <ion-card-subtitle class="lc-subtitle">{{item.fullname}}</ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
