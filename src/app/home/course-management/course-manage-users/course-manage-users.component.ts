@@ -21,7 +21,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 })
 export class CourseManageUsersComponent implements OnInit {
   data: any;
-  displayedColumns = ['slNo', 'UserName', 'FullName', 'Action'];
+  displayedColumns = ['slNo', 'UserName', 'FullName','BUName', 'Action'];
   coursesList = [];
   userFilter = [
     { value: 'all', viewValue: 'All' },
@@ -79,6 +79,7 @@ export class CourseManageUsersComponent implements OnInit {
             user_name: element.user_name,
             user_fullname: element.user_fullname,
             user_id: element.user_id,
+            bu_name: element.bu_name,
             course_id: cid,
             enrolled: element.enrolled,
           };
