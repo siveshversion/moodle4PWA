@@ -149,6 +149,7 @@ export class CreateCourseComponent implements OnInit {
           durationHrs: response.Data.duration_hrs,
           durationMins: response.Data.duration_mins,
         });
+
         if (response.Data.course_img.length > 0) {
           this.fileName = response.Data.course_img;
         }
@@ -281,10 +282,16 @@ export class CreateCourseComponent implements OnInit {
     formData.append('durationMins', this.courseForm.get('durationMins').value);
     formData.append('points', this.courseForm.get('points').value);
     formData.append('courseType', this.courseForm.get('courseType').value);
-    if (typeof this.encodedFile !== 'undefined' || this.encodedFile !== '') {
+    if (
+      typeof this.encodedFile !== 'undefined' ||
+      (this.encodedFile !== '' && this.fileName !== 'Choose Image')
+    ) {
       formData.append('logoFile', this.encodedFile);
       formData.append('logoFileName', this.fileName);
-    } else if (this.CImagefromDefaults !== '') {
+    } else if (
+      this.CImagefromDefaults !== '' &&
+      this.fileName !== 'Choose Image'
+    ) {
       formData.append('logoFileName', this.CImagefromDefaults);
     }
 
