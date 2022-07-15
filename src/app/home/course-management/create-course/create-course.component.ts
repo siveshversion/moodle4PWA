@@ -127,6 +127,7 @@ export class CreateCourseComponent implements OnInit {
   }
 
   setEditFields() {
+    this.loader.showAutoHideLoader('Loading Course Data...');
     const formData = new FormData();
     formData.append('course_id', this.courseId);
 
@@ -148,6 +149,7 @@ export class CreateCourseComponent implements OnInit {
           durationHrs: response.Data.duration_hrs,
           durationMins: response.Data.duration_mins,
         });
+        this.fileName = response.Data.course_img;
       }
     });
   }
@@ -438,8 +440,7 @@ export class CreateCourseComponent implements OnInit {
         this.CImagefromDefaults = res.data;
         this.fileName = this.CImagefromDefaults;
         this.encodedFile = '';
-      }
-      else{
+      } else {
         this.CImagefromDefaults = '';
         this.fileName = 'Chooose Image';
       }
