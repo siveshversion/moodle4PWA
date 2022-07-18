@@ -48,11 +48,33 @@
               <ion-card-subtitle class="lc-subtitle">{{item.fullname}}</ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
-              <!-- <ion-chip color="secondary">
-                                          <ion-label>Enrolled Users - {{item.enrolledusercount}}</ion-label>
-                                      </ion-chip> -->
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <p class="course-inner">Enrollment: {{item.enrolltype}}</p>
+                  </ion-col>
+                  <ion-col>
+                    <p class="course-inner">Points: {{item.credits}}</p>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col *ngIf="handleRatings(item.ratings);else notrated">
+                    <p class="course-inner">Rating: {{item.ratings}}</p>
+                    <ngx-material-rating [value]="item.ratings" [max]="5" class="ratingstuff" [readonly]="true">
+                    </ngx-material-rating>
+                  </ion-col>
+                  <ng-template #notrated>
+                    <ion-col>
+                      <p class="course-inner">Rating: Not rated yet</p>
+                      <ngx-material-rating [value]="item.ratings" [max]="5" class="ratingstuff" [readonly]="true">
+                      </ngx-material-rating>
+                    </ion-col>
+                  </ng-template>
+                </ion-row>
+              </ion-grid>
 
-              <div style="margin-top:2rem;text-align:left;padding-left:10px;">
+
+              <div style="text-align:left;padding-left:10px;">
                 <ion-label slot="start">{{item.progress | number: '1.2-2'}}%</ion-label>
               </div>
               <div>

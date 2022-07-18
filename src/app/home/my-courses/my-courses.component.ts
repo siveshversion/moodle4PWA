@@ -255,4 +255,13 @@ export class MyCoursesComponent implements OnInit {
       );
     }
   }
+
+  handleRatings(ratingValue: any) {
+    const rated = parseInt(ratingValue, 10);
+    if (rated >= 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
