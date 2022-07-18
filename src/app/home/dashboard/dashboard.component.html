@@ -112,11 +112,6 @@
                 <ion-card class="lc-card-item" (click)="getBUDetails(item.id)">
                   <ion-card-header>
                     <ion-img *ngIf="item.imgUrl !== null" [src]=item.imgUrl class="lc-img"></ion-img>
-                    <ion-item>
-                      <!--    <ion-chip slot="start">
-                                              <ion-label>{{ (categories | catFilter: {catId: item.category}) }}</ion-label>
-                                          </ion-chip> -->
-                    </ion-item>
                     <ion-card-subtitle class="lc-subtitle">{{item.buName}}</ion-card-subtitle>
                   </ion-card-header>
                   <ion-card-content>

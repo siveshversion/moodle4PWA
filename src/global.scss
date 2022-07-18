@@ -341,10 +341,14 @@ input#mat-date-range-input-0,
   background: white;
 }
 
+.lc-subtitle {
+  margin-left: 1.5rem;
+}
+
 body.dark-theme {
 
   .sc-ion-modal-md-h.my-custom-class {
-    background:  rgb(74 74 74 / 90%);
+    background: rgb(74 74 74 / 90%);
   }
 
   .searchTerm {
@@ -627,10 +631,6 @@ body.dark-theme {
     color: #94a0ad !important;
   }
 
-
-
-
-
   ion-content {
     --ion-background-color: #000000;
   }
@@ -638,12 +638,6 @@ body.dark-theme {
   ion-header.md.header-md.header-collapse-none.hydrated {
     background-color: transparent;
   }
-
-
-
-
-
-
 
 }
 
@@ -870,8 +864,8 @@ body.dark-theme {
   color: #94a0ad !important;
 }
 
-.mat-icon-button.mat-button-base.readonly.ng-star-inserted{
-width: 25px;
+.mat-icon-button.mat-button-base.readonly.ng-star-inserted {
+  width: 25px;
 }
 
 .mat-icon {
