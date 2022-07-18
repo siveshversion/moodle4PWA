@@ -7,6 +7,8 @@
 .lc-subtitle {
   float: left;
   text-align: left;
+  word-wrap: break-word;
+  width: 210px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -184,4 +186,5 @@ ion-item {
 .course-inner {
   font-size: 11.2px;
   margin-left: 2px;
+
 }

@@ -47,7 +47,7 @@
                           </ion-col>
                           <ng-template #notrated>
                             <ion-col>
-                              <p class="course-inner">Rating: Not rated yet</p>
+                              <p class="course-inner" [ngStyle]="{'visibility':'hidden'}">{{"rating_not_rated_yet" | translate}}</p>
                               <ngx-material-rating [value]="course.ratings" [max]="5" class="ratingstuff"
                                 [readonly]="true">
                               </ngx-material-rating>

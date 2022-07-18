@@ -466,6 +466,7 @@
   "catalog": "Catalog",
   "no_catalog_txt": "No catalog available",
   "self_enrollable": "Self Enrollable Courses",
-  "upload_defaults": "Choose from defaults"
+  "upload_defaults": "Choose from defaults",
+  "rating_not_rated_yet": "Rating: Not rated yet"
 }
 

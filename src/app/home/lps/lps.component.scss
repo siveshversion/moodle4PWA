@@ -11,10 +11,6 @@ ion-item {
   margin-top: 8px;
 }
 
-mat-row:nth-child(even) {
-  background-color: #1B1B1B !important;
-}
-
 @media(max-width: 768px) {
   .lc-table-no-padding {
     padding: 0 !important;
