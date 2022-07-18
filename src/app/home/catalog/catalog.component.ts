@@ -87,6 +87,15 @@ export class CatalogComponent implements OnInit {
     );
   }
 
+  handleRatings(ratingValue: any) {
+    const rated = parseInt(ratingValue, 10);
+    if (rated >= 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   getCatalogDetails(id) {
     this.route.navigate(['home/course'], {
       queryParams: { id, type: 'course' },

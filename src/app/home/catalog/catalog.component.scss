@@ -4,6 +4,16 @@
   font-weight: 700;
 }
 
+.lc-subtitle {
+  float: left;
+  text-align: left;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @media only screen and (max-width: 768px) {
   .lc-card-item {
     font-size: 20px;
@@ -167,8 +177,11 @@
   }
 }
 
-
-
 ion-item {
   --border-style: none;
+}
+
+.course-inner {
+  font-size: 11.2px;
+  margin-left: 2px;
 }
