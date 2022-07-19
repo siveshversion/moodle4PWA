@@ -194,8 +194,8 @@ export class CreateCourseComponent implements OnInit {
       courseImage: new FormControl('', null),
       durationHrs: new FormControl('', null),
       durationMins: new FormControl('', null),
-      points: new FormControl('', null),
-      enrollBuUsersChk: new FormControl('', null),
+      points: new FormControl('', null)
+      // enrollBuUsersChk: new FormControl('', null),
     });
   }
 
@@ -305,10 +305,10 @@ export class CreateCourseComponent implements OnInit {
   save(formData) {
     let msg = 'Creating Course Please Wait....';
     this.loader.showAutoHideLoader(msg);
-    formData.append(
-      'enrollBuUsersChk',
-      this.courseForm.get('enrollBuUsersChk').value
-    );
+    // formData.append(
+    //   'enrollBuUsersChk',
+    //   this.courseForm.get('enrollBuUsersChk').value
+    // );
     if (localStorage.getItem('buId')) {
       formData.append('bu_id', localStorage.getItem('buId'));
       formData.append('userId', localStorage.getItem('user_id'));
