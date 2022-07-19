@@ -30,7 +30,7 @@
                     </ion-card-header>
                     <ion-card-content>
                       <ion-grid>
-                        <ion-row>
+                        <ion-row class="customRow">
                           <ion-col>
                             <p class="course-inner">Enrollment: {{course.enrolltype}}</p>
                           </ion-col>
@@ -38,21 +38,12 @@
                             <p class="course-inner">Points: {{course.points}}</p>
                           </ion-col>
                         </ion-row>
-                        <ion-row>
-                          <ion-col *ngIf="handleRatings(course.ratings);else notrated">
-                            <p class="course-inner">Rating: {{course.ratings}}</p>
+                        <ion-row class="customRow">
+                          <ion-col class="customCol">
                             <ngx-material-rating [value]="course.ratings" [max]="5" class="ratingstuff"
                               [readonly]="true">
                             </ngx-material-rating>
                           </ion-col>
-                          <ng-template #notrated>
-                            <ion-col>
-                              <p class="course-inner" [ngStyle]="{'visibility':'hidden'}">{{"rating_not_rated_yet" | translate}}</p>
-                              <ngx-material-rating [value]="course.ratings" [max]="5" class="ratingstuff"
-                                [readonly]="true">
-                              </ngx-material-rating>
-                            </ion-col>
-                          </ng-template>
                         </ion-row>
                       </ion-grid>
                     </ion-card-content>

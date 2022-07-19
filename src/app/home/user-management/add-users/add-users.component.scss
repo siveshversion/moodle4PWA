@@ -1,77 +1,86 @@
-
 .lc-note {
-    text-align: center;
-    color: #FFFFFF80;
+  text-align: center;
+  color: #FFFFFF80;
 }
 
 
 
 ion-card-title {
-    font-weight: 700;
-    color: #94a0ad;
+  font-weight: 700;
+  color: #94a0ad;
 }
 
 ion-card-subtitle {
-    font-weight: 500;
-    color: #94a0ad;
+  font-weight: 500;
+  color: #94a0ad;
 }
 
 
 
 ion-item {
-    --color: #FFFFFF;
-    --background: #ffffff;
-    --border-color:#cccccc;
-    --border-width: 1px;
+  --color: #FFFFFF;
+  --background: #ffffff;
+  --border-color: #cccccc;
+  --border-width: 1px;
 }
-
-
 
 
 
 #lc_pass {
-    background: #969CA5;
+  background: #969CA5;
 }
 
 .lc-btn {
-    cursor: pointer;
-    background-color: #16ACF0;
-    color: #fff;  
-    min-width:100px;
-    min-height:50px;
-    border-radius: 10px;
-    text-transform: uppercase;
-    margin:0px auto;
+  cursor: pointer;
+  background-color: #16ACF0;
+  color: #fff;
+  min-width: 100px;
+  min-height: 50px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  margin: 0px auto;
 }
 
 #nationality {
-    height: 44px;
-    width: 99%;
+  height: 44px;
+  width: 99%;
 }
 
 .card-custom {
-    width: 100%;
-    margin-left: 2%;
-    padding:10px;
+  width: 100%;
+  margin-left: 2%;
+  padding: 10px;
 }
 
 @media only screen and (min-device-width: 668px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
-    .card-custom {
-        width: 50%;
-        margin-left: 2%;
-        box-shadow: none;
-        padding:10px;
-    }
+  .card-custom {
+    width: 50%;
+    margin-left: 2%;
+    box-shadow: none;
+    padding: 10px;
+  }
 }
 
 ion-text.md.hydrated {
-    display: block;
+  display: block;
 }
 
 ion-item {
-    margin-top: 8px;
+  margin-top: 8px;
 }
 
-.item-native{
---background: #cccccc;
+.item-native {
+  --background: #cccccc;
+}
+
+:host {
+
+  input.native-input.sc-ion-input-md {
+    margin-left: 0px !important;
+  }
+
+  .native-input.sc-ion-input-md:invalid {
+    margin-left: 0px;
+  }
+
 }

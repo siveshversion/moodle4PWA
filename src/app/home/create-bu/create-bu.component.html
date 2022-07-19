@@ -9,12 +9,12 @@
             <ion-col size="12" size-xs="11" size-md="11" size-lg="11" class="ion-no-padding">
               <ion-header>{{subtitle | translate }}</ion-header>
             </ion-col>
-          </ion-row>          
+          </ion-row>
           <ion-row class="ion-padding-top">
             <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
-              <ion-label class="lc-label-align">{{'bu_name' | translate }}</ion-label>
+              <ion-label class="lc-label-align">{{'bu_name' | translate }}*</ion-label>
               <ion-item lines="none" color="none">
-                <ion-input class="lc-input" (ionChange)="buNameRegistryCheck($event.target)" formControlName="buName"
+                <ion-input class="lc-input" placeholder="{{'bu_name' | translate }}" (ionChange)="buNameRegistryCheck($event.target)" formControlName="buName"
                   type="text">
                 </ion-input>
               </ion-item>

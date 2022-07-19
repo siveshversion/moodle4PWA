@@ -26,6 +26,10 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 
+input.native-input.sc-ion-input-md {
+  margin-left: 10px;
+}
+
 
 .lc-toggle-btn {
   --background: #cccccc;

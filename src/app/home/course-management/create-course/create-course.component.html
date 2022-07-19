@@ -33,7 +33,7 @@
             <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
               <ion-label class="lc-label-align">{{'course_full_name' | translate }}*</ion-label>
               <ion-item lines="none" color="none">
-                <ion-input class="lc-input" formControlName="courseFullName" type="text">
+                <ion-input class="lc-input" placeholder="{{'course_full_name' | translate }}" formControlName="courseFullName" type="text">
                 </ion-input>
               </ion-item>
               <ion-text color="danger" class="lc-error"
@@ -47,7 +47,7 @@
             <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
               <ion-label class="lc-label-align">{{'course_short_name' | translate }}*</ion-label>
               <ion-item lines="none" color="none">
-                <ion-input class="lc-input" (ionChange)="RegistryCheck($event.target)" formControlName="courseShortName"
+                <ion-input class="lc-input" placeholder="{{'course_short_name' | translate }}" (ionChange)="RegistryCheck($event.target)" formControlName="courseShortName"
                   type="text">
                 </ion-input>
               </ion-item>
@@ -66,7 +66,7 @@
             <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
               <ion-label class="lc-label-align">{{'course_type' | translate }}*</ion-label>
               <ion-item lines="none" color="none">
-                <mat-select class="lc-input" id="courseType" placeholder="{{'course_type' | translate }}"
+                <mat-select class="lc-input" placeholder="{{'course_type' | translate }}" id="courseType" placeholder="{{'course_type' | translate }}"
                   formControlName="courseType" name="item">
                   <mat-option *ngFor="let item of courseType" [value]="item.value">
                     {{ item.viewValue }}
@@ -100,7 +100,7 @@
             <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
               <ion-label class="lc-label-align">{{'points' | translate }}</ion-label>
               <ion-item lines="none" color="none">
-                <ion-input class="lc-input" formControlName="points" type="number">
+                <ion-input class="lc-input" placeholder="{{'points' | translate }}" formControlName="points" type="number">
                 </ion-input>
               </ion-item>
             </ion-col>
@@ -164,7 +164,7 @@
             <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
               <ion-label class="lc-label-align">{{'no_of_topics' | translate }}*</ion-label>
               <ion-item lines="none" color="none">
-                <ion-input class="lc-input" formControlName="topicCnt" type="number">
+                <ion-input class="lc-input" placeholder="{{'no_of_topics' | translate }}" formControlName="topicCnt" type="number">
                 </ion-input>
               </ion-item>
               <ion-text color="danger" class="lc-error"
