@@ -1,3 +1,4 @@
+import { LpCoursesReportComponent } from './reports/lp-courses-report/lp-courses-report.component';
 import { MoodleLoadComponent } from './moodle-load/moodle-load.component';
 import { MoodleViewComponent } from './moodle-view/moodle-view.component';
 import { CatalogComponent } from './catalog/catalog.component';
@@ -158,6 +159,7 @@ import { FixUrlPipeModule } from '../pipes/fix-url-pipe/fix-url-pipe.module';
     CatalogComponent,
     MoodleViewComponent,
     MoodleLoadComponent,
+    LpCoursesReportComponent
   ],
   providers: [GlobalApiService, HttpClient, Storage, LoaderService],
 })

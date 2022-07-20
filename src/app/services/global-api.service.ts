@@ -397,4 +397,8 @@ export class GlobalApiService {
   get_course_Image_defaults(data: any): Observable<any> {
     return this.http.post(this.base_url + '?methodname=getCourseDefaultImages', data);
   }
+
+  LPCoursesReport(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=getLPCoursesReport', data);
+  }
 }

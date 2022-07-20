@@ -15,11 +15,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-lp-report',
-  templateUrl: './lp-report.component.html',
-  styleUrls: ['./lp-report.component.scss'],
+  selector: 'app-lp-courses-report',
+  templateUrl: './lp-courses-report.component.html',
+  styleUrls: ['./lp-courses-report.component.scss'],
 })
-export class LpReportComponent implements OnInit {
+export class LpCoursesReportComponent implements OnInit {
   data: any;
   displayedColumns = [
     'lpName',
@@ -49,7 +49,7 @@ export class LpReportComponent implements OnInit {
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.queryParams.subscribe((params) => {
-      this.lpList();
+      this.lpCourseList(params.id);
       this.role = localStorage.getItem('role');
       this.buName = localStorage.getItem('buName');
     });
@@ -57,7 +57,7 @@ export class LpReportComponent implements OnInit {
 
   ngOnInit() {}
 
-  lpList() {
+  lpCourseList(lpid: any) {
     this.searchVal.nativeElement.value = '';
     const msg = 'Loading LP list...<br> Please wait...';
     this.loader.showAutoHideLoader(msg);
@@ -65,10 +65,11 @@ export class LpReportComponent implements OnInit {
     this.lpsList = [];
 
     const data = new FormData();
+    data.append('lpId', lpid);
     data.append('userId', localStorage.getItem('user_id'));
     data.append('buId', localStorage.getItem('buId'));
 
-    this.service.lp_list(data).subscribe(
+    this.service.LPCoursesReport(data).subscribe(
       (res) => {
         res.Data.forEach((element: any) => {
           const lp = {
@@ -103,10 +104,14 @@ export class LpReportComponent implements OnInit {
   }
 
   navMenu(action: any, lpId: any) {
-    // if (action === 'lp-course-report') {
-    //   this.navCtrl.navigateForward('home/reports/lp-courses-report?id=' + lpId);
-    // } else if (action === 'lp-user-report') {
-    //   this.navCtrl.navigateForward('home/lp-users-report?id=' + lpId);
-    // }
+    if (action === 'edit') {
+      this.navCtrl.navigateForward('home/create-lp?id=' + lpId);
+    } else if (action === 'mg-courses') {
+      this.navCtrl.navigateForward('home/lp-courses?id=' + lpId);
+    } else if (action === 'lpsummary') {
+      this.navCtrl.navigateForward('home/lp-summary?id=' + lpId);
+    } else if (action === 'mg-users') {
+      this.navCtrl.navigateForward('home/lp-users?id=' + lpId);
+    }
   }
 }

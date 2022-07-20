@@ -1,3 +1,4 @@
+import { LpCoursesReportComponent } from './reports/lp-courses-report/lp-courses-report.component';
 /* eslint-disable max-len */
 import { MoodleLoadComponent } from './moodle-load/moodle-load.component';
 import { CatalogComponent } from './catalog/catalog.component';
@@ -149,6 +150,10 @@ const routes: Routes = [
       {
         path: 'reports/lp-report',
         component: LpReportComponent,
+      },
+      {
+        path: 'reports/lp-courses-report',
+        component: LpCoursesReportComponent,
       },
       {
         path: 'reports/bu-report',
