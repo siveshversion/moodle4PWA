@@ -194,7 +194,7 @@ export class CreateCourseComponent implements OnInit {
       courseImage: new FormControl('', null),
       durationHrs: new FormControl('', null),
       durationMins: new FormControl('', null),
-      points: new FormControl('', null)
+      points: new FormControl('', null),
       // enrollBuUsersChk: new FormControl('', null),
     });
   }
@@ -353,14 +353,20 @@ export class CreateCourseComponent implements OnInit {
     formData.append('table_name', 'mdl_course');
     formData.append('edit_id', courseId);
 
-    this.service.check_already_taken(formData).subscribe((response) => {
-      this.shortnameConflict = null;
-      this.cmValidateToggler('courseShortName', null);
-      if (response.Data.exists) {
-        this.shortnameConflict = true;
-        this.cmValidateToggler('courseShortName', { incorrect: true });
-      }
-    });
+    if (target.value.length > 0) {
+      this.service.check_already_taken(formData).subscribe((response) => {
+        this.shortnameConflict = null;
+        this.cmValidateToggler('courseShortName', null);
+        if (response.Data.exists) {
+          this.shortnameConflict = true;
+          this.cmValidateToggler('courseShortName', { incorrect: true });
+        }
+        else{
+          this.shortnameConflict = null;
+          this.cmValidateToggler('courseShortName', null);
+        }
+      });
+    }
   }
 
   cmValidateToggler(formcontrolname: string, state: any) {

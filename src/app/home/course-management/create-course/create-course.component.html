@@ -24,7 +24,7 @@
               </ion-item>
               <ion-text color="danger" class="lc-error"
                 *ngIf="courseForm.get('courseCategory').errors && (courseForm.get('courseCategory').invalid && courseForm.get('courseCategory').dirty || courseForm.get('courseCategory').touched)">
-                <ion-text *ngIf="hasError('courseCategory','required')">{{'reqiuired' | translate }}
+                <ion-text *ngIf="hasError('courseCategory','required')">{{'this_field_is_required' | translate }}
                 </ion-text>
               </ion-text>
             </ion-col>
@@ -33,12 +33,13 @@
             <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
               <ion-label class="lc-label-align">{{'course_full_name' | translate }}*</ion-label>
               <ion-item lines="none" color="none">
-                <ion-input class="lc-input" placeholder="{{'course_full_name' | translate }}" formControlName="courseFullName" type="text">
+                <ion-input class="lc-input" placeholder="{{'course_full_name' | translate }}"
+                  formControlName="courseFullName" type="text">
                 </ion-input>
               </ion-item>
               <ion-text color="danger" class="lc-error"
                 *ngIf="courseForm.get('courseFullName').errors && (courseForm.get('courseFullName').invalid && courseForm.get('courseFullName').dirty || courseForm.get('courseFullName').touched)">
-                <ion-text *ngIf="hasError('courseFullName','required')">{{'reqiuired' | translate }}
+                <ion-text *ngIf="hasError('courseFullName','required')">{{'this_field_is_required' | translate }}
                 </ion-text>
               </ion-text>
             </ion-col>
@@ -47,13 +48,13 @@
             <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
               <ion-label class="lc-label-align">{{'course_short_name' | translate }}*</ion-label>
               <ion-item lines="none" color="none">
-                <ion-input class="lc-input" placeholder="{{'course_short_name' | translate }}" (ionChange)="RegistryCheck($event.target)" formControlName="courseShortName"
-                  type="text">
+                <ion-input class="lc-input" placeholder="{{'course_short_name' | translate }}"
+                  (ionChange)="RegistryCheck($event.target)" formControlName="courseShortName" type="text">
                 </ion-input>
               </ion-item>
               <ion-text color="danger" class="lc-error"
                 *ngIf="courseForm.get('courseShortName').errors && (courseForm.get('courseShortName').invalid && courseForm.get('courseShortName').dirty || courseForm.get('courseShortName').touched)">
-                <ion-text *ngIf="hasError('courseShortName','required')">{{'reqiuired' | translate }}
+                <ion-text *ngIf="hasError('courseShortName','required')">{{'this_field_is_required' | translate }}
                 </ion-text>
               </ion-text>
               <ion-text color="danger" class="lc-error" *ngIf="shortnameConflict">
@@ -66,8 +67,8 @@
             <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
               <ion-label class="lc-label-align">{{'course_type' | translate }}*</ion-label>
               <ion-item lines="none" color="none">
-                <mat-select class="lc-input" placeholder="{{'course_type' | translate }}" id="courseType" placeholder="{{'course_type' | translate }}"
-                  formControlName="courseType" name="item">
+                <mat-select class="lc-input" placeholder="{{'course_type' | translate }}" id="courseType"
+                  placeholder="{{'course_type' | translate }}" formControlName="courseType" name="item">
                   <mat-option *ngFor="let item of courseType" [value]="item.value">
                     {{ item.viewValue }}
                   </mat-option>
@@ -75,7 +76,7 @@
               </ion-item>
               <ion-text color="danger" class="lc-error"
                 *ngIf="courseForm.get('courseType').errors && (courseForm.get('courseType').invalid && courseForm.get('courseType').dirty || courseForm.get('courseType').touched)">
-                <ion-text *ngIf="hasError('courseType','required')">{{'reqiuired' | translate }}
+                <ion-text *ngIf="hasError('courseType','required')">{{'this_field_is_required' | translate }}
                 </ion-text>
               </ion-text>
             </ion-col>
@@ -100,7 +101,8 @@
             <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
               <ion-label class="lc-label-align">{{'points' | translate }}</ion-label>
               <ion-item lines="none" color="none">
-                <ion-input class="lc-input" placeholder="{{'points' | translate }}" formControlName="points" type="number">
+                <ion-input class="lc-input" placeholder="{{'points' | translate }}" formControlName="points"
+                  type="number">
                 </ion-input>
               </ion-item>
             </ion-col>
@@ -120,7 +122,7 @@
               </ion-item>
               <ion-text color="danger" class="lc-error"
                 *ngIf="courseForm.get('enrollmentType').errors && (courseForm.get('enrollmentType').invalid && courseForm.get('enrollmentType').dirty || courseForm.get('enrollmentType').touched)">
-                <ion-text *ngIf="hasError('enrollmentType','required')">{{'reqiuired' | translate }}
+                <ion-text *ngIf="hasError('enrollmentType','required')">{{'this_field_is_required' | translate }}
                 </ion-text>
               </ion-text>
             </ion-col>
@@ -136,7 +138,7 @@
               </ion-item>
               <ion-text color="danger" class="lc-error" *ngIf="courseForm.get('courseDescription').errors && (courseForm.get('courseDescription').invalid && courseForm.get('courseDescription').dirty || courseForm.get(
                      'courseDescription').touched)">
-                <ion-text *ngIf="hasError('courseDescription','required')">{{'required' | translate }}
+                <ion-text *ngIf="hasError('courseDescription','required')">{{'this_field_is_required' | translate }}
                 </ion-text>
               </ion-text>
             </ion-col>
@@ -151,9 +153,9 @@
                     (change)="chooseFile($event.target)" formControlName="courseImage" accept=".png,.jpeg,.jpg">
                   <label class="custom-file-label">{{fileName}}</label>
                 </div>
-                <ion-button id="savebtn" type="button" expand="block" fill="solid"
-                class="lc-button lc-btn-color" (click)="openImagePopupModal()">{{'upload_defaults' | translate}}
-              </ion-button>
+                <ion-button id="savebtn" type="button" expand="block" fill="solid" class="lc-button lc-btn-color"
+                  (click)="openImagePopupModal()">{{'upload_defaults' | translate}}
+                </ion-button>
                 <span id="download_icon" title="uploaded logo" (click)="getUploadedLogo()"
                   *ngIf="update_flag === true && logoexists ===true" class="material-icons ">cloud_download</span>
               </div>
@@ -164,12 +166,13 @@
             <ion-col size="12" size-xs="12" size-md="6" size-lg="6" class="ion-no-padding">
               <ion-label class="lc-label-align">{{'no_of_topics' | translate }}*</ion-label>
               <ion-item lines="none" color="none">
-                <ion-input class="lc-input" placeholder="{{'no_of_topics' | translate }}" formControlName="topicCnt" type="number">
+                <ion-input class="lc-input" placeholder="{{'no_of_topics' | translate }}" formControlName="topicCnt"
+                  type="number">
                 </ion-input>
               </ion-item>
               <ion-text color="danger" class="lc-error"
                 *ngIf="courseForm.get('topicCnt').errors && (courseForm.get('topicCnt').invalid && courseForm.get('topicCnt').dirty || courseForm.get('topicCnt').touched)">
-                <ion-text *ngIf="hasError('topicCnt','required')">{{'reqiuired' | translate }}
+                <ion-text *ngIf="hasError('topicCnt','required')">{{'this_field_is_required' | translate }}
                 </ion-text>
               </ion-text>
             </ion-col>

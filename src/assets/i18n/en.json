@@ -26,7 +26,7 @@
     "confirm_password": "Confirm Password",
     "confirm_pwd_placeholder": "Retype Same Password",
     "save": "SAVE",
-    "reqiuired": "This field is required"
+    "required": "This field is required"
   },
   "checking": "Checking",
   "dashboard": "Dashboard",

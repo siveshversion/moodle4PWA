@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
@@ -15,6 +16,7 @@ import { GlobalApiService } from 'src/app/services/global-api.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { DateAdapter } from '@angular/material/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-course-reports',
@@ -27,6 +29,7 @@ export class CourseReportsComponent implements OnInit {
     end: new FormControl(),
   });
 
+  url: string;
   data: any;
   displayedColumns = [
     'SN',
@@ -66,7 +69,7 @@ export class CourseReportsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   courseReportList() {
     this.searchVal.nativeElement.value = '';
@@ -133,10 +136,10 @@ export class CourseReportsComponent implements OnInit {
     if (action === 'course-detailing') {
       this.navCtrl.navigateForward(
         'home/reports/course-detailed-report?cid=' +
-          courseId +
-          '&type=' +
-          optionalparam +
-          dateParm
+        courseId +
+        '&type=' +
+        optionalparam +
+        dateParm
       );
     } else if (action === 'course-summary') {
       this.navCtrl.navigateForward('home/coursesummary?cid=' + courseId);
@@ -155,4 +158,18 @@ export class CourseReportsComponent implements OnInit {
       this.courseReportList();
     }
   }
+
+  downloadCreditReprot() {
+
+
+
+    this.url = environment.moodle_url + '/cm/phpexcel/Examples/coursereport.php?userId=' + localStorage.getItem('user_id') + '&buId=' + localStorage.getItem('buId') + '&fromdate=' + (this.range.value).start + '&todate=' + (this.range.value).end + '&token=' + environment.MOODLE_TOKEN;
+
+
+    //this.url = environment.moodle_url + '/cm/phpexcel/Examples/coursereport.php';
+
+    window.open(this.url, 'self');
+  }
+
+
 }

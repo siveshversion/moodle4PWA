@@ -24,6 +24,10 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-date-range-picker #picker></mat-date-range-picker>
           </mat-form-field>
+          <ion-button (click)="downloadCreditReprot()" type="button" expand="block" fill="solid"
+        class="lc-button lc-btn-align">
+        <ion-icon name="download-outline"></ion-icon>&nbsp;&nbsp;{{'excel' | translate }}
+      </ion-button>
         </ion-item>
       </ion-col>
     </ion-row>

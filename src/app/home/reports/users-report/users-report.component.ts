@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { FormBuilder, FormControl } from '@angular/forms';
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/member-ordering */
@@ -16,6 +17,7 @@ import { GlobalApiService } from 'src/app/services/global-api.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-users-report',
@@ -47,6 +49,7 @@ export class UsersReportComponent implements OnInit {
   catId: any;
   role: any;
   buName: any;
+  url: string;
   dateRange: { from: string; to: string } = { from: '', to: '' };
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -218,4 +221,19 @@ export class UsersReportComponent implements OnInit {
       this.usersReportList(tmp_buid);
     }
   }
+
+
+  downloadCreditReprot() {
+
+
+
+    this.url = environment.moodle_url + '/cm/phpexcel/Examples/userreport.php?userId=' + localStorage.getItem('user_id') + '&buId=' + localStorage.getItem('buId') + '&fromdate=' + (this.range.value).start + '&todate=' + (this.range.value).end + '&token=' + environment.MOODLE_TOKEN;
+
+
+    //this.url = environment.moodle_url + '/cm/phpexcel/Examples/coursereport.php';
+
+    window.open(this.url, 'self');
+  }
+
+
 }
