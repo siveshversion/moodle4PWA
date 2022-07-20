@@ -258,47 +258,58 @@ export class CreateCourseComponent implements OnInit {
   }
 
   submit() {
-    const formData = new FormData();
-    formData.append(
-      'course_category',
-      this.courseForm.get('courseCategory').value
-    );
-    formData.append(
-      'course_full_name',
-      this.courseForm.get('courseFullName').value
-    );
-    formData.append(
-      'course_short_name',
-      this.courseForm.get('courseShortName').value
-    );
-    formData.append(
-      'course_description',
-      this.courseForm.get('courseDescription').value
-    );
-    formData.append('enroll_type', this.courseForm.get('enrollmentType').value);
-    formData.append('topicCnt', this.courseForm.get('topicCnt').value);
-    formData.append('creator_id', localStorage.getItem('user_id'));
-    formData.append('durationHrs', this.courseForm.get('durationHrs').value);
-    formData.append('durationMins', this.courseForm.get('durationMins').value);
-    formData.append('points', this.courseForm.get('points').value);
-    formData.append('courseType', this.courseForm.get('courseType').value);
-    if (
-      typeof this.encodedFile !== 'undefined' ||
-      (this.encodedFile !== '' && this.fileName !== 'Choose Image')
-    ) {
-      formData.append('logoFile', this.encodedFile);
-      formData.append('logoFileName', this.fileName);
-    } else if (
-      this.CImagefromDefaults !== '' &&
-      this.fileName !== 'Choose Image'
-    ) {
-      formData.append('logoFileName', this.CImagefromDefaults);
-    }
+    if (this.courseForm.get('courseShortName').value.length > 0) {
+      const formData = new FormData();
+      formData.append(
+        'course_category',
+        this.courseForm.get('courseCategory').value
+      );
+      formData.append(
+        'course_full_name',
+        this.courseForm.get('courseFullName').value
+      );
+      formData.append(
+        'course_short_name',
+        this.courseForm.get('courseShortName').value
+      );
+      formData.append(
+        'course_description',
+        this.courseForm.get('courseDescription').value
+      );
+      formData.append(
+        'enroll_type',
+        this.courseForm.get('enrollmentType').value
+      );
+      formData.append('topicCnt', this.courseForm.get('topicCnt').value);
+      formData.append('creator_id', localStorage.getItem('user_id'));
+      formData.append('durationHrs', this.courseForm.get('durationHrs').value);
+      formData.append(
+        'durationMins',
+        this.courseForm.get('durationMins').value
+      );
+      formData.append('points', this.courseForm.get('points').value);
+      formData.append('courseType', this.courseForm.get('courseType').value);
+      if (
+        typeof this.encodedFile !== 'undefined' ||
+        (this.encodedFile !== '' && this.fileName !== 'Choose Image')
+      ) {
+        formData.append('logoFile', this.encodedFile);
+        formData.append('logoFileName', this.fileName);
+      } else if (
+        this.CImagefromDefaults !== '' &&
+        this.fileName !== 'Choose Image'
+      ) {
+        formData.append('logoFileName', this.CImagefromDefaults);
+      }
 
-    if (this.courseId) {
-      this.update(formData);
+      if (this.courseId) {
+        this.update(formData);
+      } else {
+        this.save(formData);
+      }
     } else {
-      this.save(formData);
+      alert('Course Short Name - should not be empty');
+      this.cmValidateToggler('courseShortName', { incorrect: true });
     }
   }
 
@@ -360,8 +371,7 @@ export class CreateCourseComponent implements OnInit {
         if (response.Data.exists) {
           this.shortnameConflict = true;
           this.cmValidateToggler('courseShortName', { incorrect: true });
-        }
-        else{
+        } else {
           this.shortnameConflict = null;
           this.cmValidateToggler('courseShortName', null);
         }
