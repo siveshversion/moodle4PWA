@@ -103,10 +103,10 @@ export class LpReportComponent implements OnInit {
   }
 
   navMenu(action: any, lpId: any) {
-    // if (action === 'lp-course-report') {
-    //   this.navCtrl.navigateForward('home/reports/lp-courses-report?id=' + lpId);
-    // } else if (action === 'lp-user-report') {
-    //   this.navCtrl.navigateForward('home/lp-users-report?id=' + lpId);
-    // }
+    if (action === 'lp-course-report') {
+      this.navCtrl.navigateForward('home/reports/lp-courses-report?id=' + lpId);
+    } else if (action === 'lp-users-report') {
+      this.navCtrl.navigateForward('home/reports/lp-users-report?id=' + lpId);
+    }
   }
 }

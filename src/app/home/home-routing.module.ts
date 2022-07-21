@@ -40,6 +40,7 @@ import { BuReportComponent } from './reports/bu-report/bu-report.component';
 import { PointsReportComponent } from './reports/points-report/points-report.component';
 import { PointsDetailingReportComponent } from './reports/points-detailing-report/points-detailing-report.component';
 import { MoodleViewComponent } from './moodle-view/moodle-view.component';
+import { LpUsersReportComponent } from './reports/lp-users-report/lp-users-report.component';
 
 const routes: Routes = [
   {
@@ -156,6 +157,10 @@ const routes: Routes = [
         component: LpCoursesReportComponent,
       },
       {
+        path: 'reports/lp-users-report',
+        component: LpUsersReportComponent,
+      },
+      {
         path: 'reports/bu-report',
         component: BuReportComponent,
       },
@@ -203,9 +208,11 @@ const routes: Routes = [
   },
   {
     path: 'popup-load-course-images',
-    loadChildren: () => import('./modals/popup-load-course-images/popup-load-course-images.module').then( m => m.PopupLoadCourseImagesPageModule)
+    loadChildren: () =>
+      import(
+        './modals/popup-load-course-images/popup-load-course-images.module'
+      ).then((m) => m.PopupLoadCourseImagesPageModule),
   },
-
 ];
 
 @NgModule({

@@ -2,7 +2,7 @@
   <ion-grid>
     <ion-row>
       <ion-col col-5 class="ion-no-padding">
-        <ion-header *ngIf="lp_name">{{lp_name}} - {{'lp_courses_report' | translate }}
+        <ion-header *ngIf="lp_name">{{lp_name}} - {{'lp_users_report' | translate }}
         </ion-header>
       </ion-col>
       <ion-col col-2 class="ion-no-padding"></ion-col>
@@ -32,12 +32,12 @@
                         <span class="cell-align">{{element.sno || "--"}}</span>
                       </mat-cell>
                     </ng-container>
-                    <ng-container matColumnDef="courseName">
-                      <mat-header-cell *matHeaderCellDef>{{'courseName' | translate }}</mat-header-cell>
+                    <ng-container matColumnDef="userName">
+                      <mat-header-cell *matHeaderCellDef>{{'userName' | translate }}</mat-header-cell>
                       <mat-cell *matCellDef="let element">
                         <span class="anchor" (click)="navMenu('lpsummary',element.lp_id)">
-                          <span class="mobile-label">{{'courseName' | translate }}:</span>
-                          <span class="cell-align">{{element.course_fullname || "--"}}</span>
+                          <span class="mobile-label">{{'userName' | translate }}:</span>
+                          <span class="cell-align">{{element.user_fullname || "--"}}</span>
                         </span>
                       </mat-cell>
                     </ng-container>

@@ -56,7 +56,9 @@
                       </mat-header-cell>
                       <mat-cell *matCellDef="let element" style="justify-content:center;">
                         <span class="mobile-label">{{'users' | translate }}:</span>
-                        <span class="cell-align-ch">{{element.lp_users_cnt || "0"}}</span>
+                        <span class="cell-align" [ngStyle]="{'cursor':'pointer'}" *ngIf="element.lp_courses_cnt > 0"
+                          (click)="navMenu('lp-users-report',element.lp_id)">{{element.lp_users_cnt}}</span>
+                        <span class="cell-align" *ngIf="element.lp_users_cnt <= 0">{{"--"}}</span>
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="cmp_days">

@@ -447,7 +447,7 @@
   "review_headline": "Add a headline",
   "rate": "Rate",
   "review_description": "Write your review",
-  "course_type":"Course Type",
+  "course_type": "Course Type",
   "points": "Points (Number)",
   "duration_hm": "Duration (HH:MM)",
   "certs": "My Certificates",
@@ -455,17 +455,20 @@
   "points_lead": "Leaderboard",
   "points_report": "Points Report",
   "bu_name": "Business Unit Name",
-  "welcome_manager":"Welcome to BU Admin's Dashboard",
+  "welcome_manager": "Welcome to BU Admin's Dashboard",
   "manage_bu": "Manage BU",
   "lp_abbr": "Learning Plans",
   "report": "Report",
-  "no_lp_txt":"There are no learning plans assigned to you.",
+  "no_lp_txt": "There are no learning plans assigned to you.",
   "enroll_course_to_bu_users": "Enroll this course to the BU users",
   "avail_courses": "Available Courses",
   "catalog": "Catalog",
   "no_catalog_txt": "No catalog available",
   "self_enrollable": "Self Enrollable Courses",
   "upload_defaults": "Choose from defaults",
-  "rating_not_rated_yet": "Rating: Not rated yet"
+  "rating_not_rated_yet": "Rating: Not rated yet",
+  "courseName": "Course Name",
+  "userName": "User Full Name",
+  "lp_courses_report": "LP Courses Report",
+  "lp_users_report": "LP Users Report"
 }
-

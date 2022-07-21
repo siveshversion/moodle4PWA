@@ -138,21 +138,26 @@ export class CreateLPComponent implements OnInit {
   }
 
   submit() {
-    const formData = new FormData();
-    formData.append('lp_name', this.lpForm.get('lpName').value);
-    formData.append('lp_description', this.lpForm.get('lpDescription').value);
-    formData.append('lp_creator_id', localStorage.getItem('user_id'));
-    formData.append('lp_days', this.lpForm.get('lpDays').value);
-    formData.append('lp_credit', this.lpForm.get('lpCredit').value);
-    formData.append('lp_threshold', this.lpForm.get('lpThreshold').value);
-    if (localStorage.getItem('buId')) {
-      formData.append('buId', localStorage.getItem('buId'));
-    }
+    if (this.lpForm.get('lpName').value.length > 0) {
+      const formData = new FormData();
+      formData.append('lp_name', this.lpForm.get('lpName').value);
+      formData.append('lp_description', this.lpForm.get('lpDescription').value);
+      formData.append('lp_creator_id', localStorage.getItem('user_id'));
+      formData.append('lp_days', this.lpForm.get('lpDays').value);
+      formData.append('lp_credit', this.lpForm.get('lpCredit').value);
+      formData.append('lp_threshold', this.lpForm.get('lpThreshold').value);
+      if (localStorage.getItem('buId')) {
+        formData.append('buId', localStorage.getItem('buId'));
+      }
 
-    if (this.lpId) {
-      this.update(formData);
+      if (this.lpId) {
+        this.update(formData);
+      } else {
+        this.save(formData);
+      }
     } else {
-      this.save(formData);
+      alert('LP Name - should not be empty');
+      this.cmValidateToggler('lpName', { incorrect: true });
     }
   }
 

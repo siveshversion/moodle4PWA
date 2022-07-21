@@ -401,4 +401,12 @@ export class GlobalApiService {
   LPCoursesReport(data: any): Observable<any> {
     return this.http.post(this.base_url + '?methodname=getLPCoursesReport', data);
   }
+
+  getLPdetailsByid(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=getLPdetailsByid', data);
+  }
+
+  LPUsersReport(data: any): Observable<any> {
+    return this.http.post(this.base_url + '?methodname=getLPusersReport', data);
+  }
 }

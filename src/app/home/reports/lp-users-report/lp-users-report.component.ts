@@ -15,15 +15,16 @@ import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-lp-courses-report',
-  templateUrl: './lp-courses-report.component.html',
-  styleUrls: ['./lp-courses-report.component.scss'],
+  selector: 'app-lp-users-report',
+  templateUrl: './lp-users-report.component.html',
+  styleUrls: ['./lp-users-report.component.scss'],
 })
-export class LpCoursesReportComponent implements OnInit {
+export class LpUsersReportComponent implements OnInit {
+
   data: any;
   displayedColumns = [
     'sno',
-    'courseName'
+    'userName'
   ];
   lpsList = [];
   role: any;
@@ -47,7 +48,7 @@ export class LpCoursesReportComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.queryParams.subscribe((params) => {
       this.LPdetails(params.id);
-      this.lpCourseList(params.id);
+      this.lpUserList(params.id);
       this.role = localStorage.getItem('role');
       this.buName = localStorage.getItem('buName');
     });
@@ -69,9 +70,9 @@ export class LpCoursesReportComponent implements OnInit {
 
   }
 
-  lpCourseList(lpid: any) {
+  lpUserList(lpid: any) {
     this.searchVal.nativeElement.value = '';
-    const msg = 'Loading LP list...<br> Please wait...';
+    const msg = 'Loading LP User list...<br> Please wait...';
     this.loader.showAutoHideLoader(msg);
 
     this.lpsList = [];
@@ -81,13 +82,13 @@ export class LpCoursesReportComponent implements OnInit {
     data.append('userId', localStorage.getItem('user_id'));
     data.append('buId', localStorage.getItem('buId'));
 
-    this.service.LPCoursesReport(data).subscribe(
+    this.service.LPUsersReport(data).subscribe(
       (res) => {
         res.Data.forEach((element: any) => {
           const lp = {
             sno : element.sno,
             course_id: element.course_id,
-            course_fullname: element.course_fullname
+            user_fullname: element.user_fullname
           };
           this.lpsList.push(lp);
         });
