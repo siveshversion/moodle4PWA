@@ -77,12 +77,12 @@
                         <span class="cell-align-ch">{{element.lp_threshold || "--"}}</span>
                       </mat-cell>
                     </ng-container>
-                    <ng-container matColumnDef="status">
-                      <mat-header-cell *matHeaderCellDef style="justify-content:center;">{{'status' | translate }}
+                    <ng-container matColumnDef="completed">
+                      <mat-header-cell *matHeaderCellDef style="justify-content:center;">{{'completed' | translate }}
                       </mat-header-cell>
                       <mat-cell *matCellDef="let element" style="justify-content:center;">
-                        <span class="mobile-label">{{'status' | translate }}:</span>
-                        <span class="cell-align-ch">{{element.lp_status || "--"}}</span>
+                        <span class="mobile-label">{{'completed' | translate }}:</span>
+                        <span class="cell-align-ch">{{element.lp_completed || "--"}}</span>
                       </mat-cell>
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>

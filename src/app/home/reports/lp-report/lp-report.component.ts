@@ -28,7 +28,7 @@ export class LpReportComponent implements OnInit {
     'users',
     'cmp_days',
     'lp_threshold',
-    'status',
+    'completed',
   ];
   lpsList = [];
   role: any;
@@ -79,7 +79,7 @@ export class LpReportComponent implements OnInit {
             lp_users_cnt: element.lp_users_cnt,
             lp_days: element.lp_days,
             lp_threshold: element.lp_threshold,
-            lp_status: element.lp_status,
+            lp_completed: element.lp_completed,
           };
           this.lpsList.push(lp);
         });
