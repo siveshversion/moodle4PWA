@@ -54,6 +54,13 @@
                         <span class="cell-align">{{element.last_access || "--"}}</span>
                       </mat-cell>
                     </ng-container>
+                    <ng-container matColumnDef="CompletedOn">
+                      <mat-header-cell *matHeaderCellDef>Completed On</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Completed On:</span>
+                        <span class="cell-align">{{element.completed_on || "--"}}</span>
+                      </mat-cell>
+                    </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns; "></mat-row>
                   </mat-table>

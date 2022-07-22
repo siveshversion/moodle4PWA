@@ -27,7 +27,7 @@ import {
 })
 export class CourseDetailedReportComponent implements OnInit {
   data: any;
-  displayedColumns = ['slNo', 'UserName', 'FullName', 'BusinessUnit'];
+  displayedColumns = ['slNo', 'UserName', 'FullName', 'BusinessUnit', 'CourseCompletedOn'];
   coursesList = [];
   userFilter = [
     { value: 'all', viewValue: 'All' },
@@ -90,8 +90,8 @@ export class CourseDetailedReportComponent implements OnInit {
     data.append('bu_id', filterVal);
     data.append('userId', localStorage.getItem('user_id'));
     if (this.dateRange.to.length > 1) {
-      const sdate = localStorage.getItem('sdate');
-      const edate = localStorage.getItem('edate');
+      const sdate = this.dateRange.from;
+      const edate = this.dateRange.to;
       data.append('sdate', sdate);
       data.append('edate', edate);
     }
@@ -108,6 +108,7 @@ export class CourseDetailedReportComponent implements OnInit {
             course_id: cid,
             enrolled: element.enrolled,
             bu_name: element.bu_name,
+            completed_on: element.completed_on
           };
           this.coursesList.push(course);
         });

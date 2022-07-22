@@ -71,7 +71,7 @@ export class LpCoursesReportComponent implements OnInit {
 
   lpCourseList(lpid: any) {
     this.searchVal.nativeElement.value = '';
-    const msg = 'Loading LP list...<br> Please wait...';
+    const msg = 'Loading LP Courses list...<br> Please wait...';
     this.loader.showAutoHideLoader(msg);
 
     this.lpsList = [];
@@ -86,6 +86,7 @@ export class LpCoursesReportComponent implements OnInit {
         res.Data.forEach((element: any) => {
           const lp = {
             sno : element.sno,
+            lp_id : element.lp_id,
             course_id: element.course_id,
             course_fullname: element.course_fullname
           };

@@ -27,7 +27,13 @@ import {
 })
 export class UserDetailedReportComponent implements OnInit {
   data: any;
-  displayedColumns = ['slNo', 'CourseName', 'EnrolledOn', 'LastAccess'];
+  displayedColumns = [
+    'slNo',
+    'CourseName',
+    'EnrolledOn',
+    'LastAccess',
+    'CompletedOn',
+  ];
   coursesList = [];
   userFilter = [
     { value: 'all', viewValue: 'All' },
@@ -38,6 +44,7 @@ export class UserDetailedReportComponent implements OnInit {
   type: string;
   user: any;
   bus = [];
+  dateRange: { from: string; to: string } = { from: '', to: '' };
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -59,6 +66,10 @@ export class UserDetailedReportComponent implements OnInit {
       if (params.uid) {
         this.userId = params.uid;
         this.type = params.type;
+        if (params.from && params.to) {
+          this.dateRange.from = params.from;
+          this.dateRange.to = params.to;
+        }
         this.ViewUserCourses(params.uid, -1);
       }
     });
@@ -79,6 +90,13 @@ export class UserDetailedReportComponent implements OnInit {
     data.append('userId', uid);
     data.append('user_id', localStorage.getItem('user_id'));
 
+    if (this.dateRange.to.length > 1) {
+      const sdate = this.dateRange.from;
+      const edate = this.dateRange.to;
+      data.append('sdate', sdate);
+      data.append('edate', edate);
+    }
+
     this.service.user_filtered_courses(data).subscribe(
       (res) => {
         this.user = res.Data.User;
@@ -89,6 +107,7 @@ export class UserDetailedReportComponent implements OnInit {
             course_id: element.course_id,
             enrolled_on: element.enrolled_on,
             last_access: element.last_access,
+            completed_on: element.completed_on,
           };
           this.coursesList.push(user);
         });
@@ -110,7 +129,6 @@ export class UserDetailedReportComponent implements OnInit {
   ionViewDidEnter() {
     this.dataSource.paginator = this.paginator;
   }
-
 
   async closeModal() {
     await this.modalController.dismiss();

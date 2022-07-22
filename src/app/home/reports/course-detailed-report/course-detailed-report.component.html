@@ -64,6 +64,13 @@
                         <span class="cell-align">{{element.bu_name || "--"}}</span>
                       </mat-cell>
                     </ng-container>
+                    <ng-container matColumnDef="CourseCompletedOn">
+                      <mat-header-cell *matHeaderCellDef>Course Completed On</mat-header-cell>
+                      <mat-cell *matCellDef="let element">
+                        <span class="mobile-label">Course Completed On:</span>
+                        <span class="cell-align">{{element.completed_on || "--"}}</span>
+                      </mat-cell>
+                    </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns "></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns; "></mat-row>
                   </mat-table>
